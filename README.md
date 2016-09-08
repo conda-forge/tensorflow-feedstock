@@ -38,7 +38,7 @@ About conda-forge
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
-conda-forge GitHub organization. The conda-forge organization contains one repository 
+conda-forge GitHub organization. The conda-forge organization contains one repository
 for each of the installable packages. Such a repository is known as a *feedstock*.
 
 A feedstock is made up of a conda recipe (the instructions on what and how to build
@@ -70,9 +70,9 @@ Terminology
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/tensorflow-feedstock.svg?style=svg)](https://circleci.com/gh/conda-forge/tensorflow-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/tensorflow-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/tensorflow-feedstock) 
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/tensorflow-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/tensorflow-feedstock/branch/master)
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/tensorflow-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/tensorflow-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/tensorflow-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/tensorflow-feedstock)
+Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
 
 Current release info
 ====================
@@ -83,16 +83,21 @@ Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/tensorflow
 Updating tensorflow-feedstock
 =============================
 
-If you would like to improve the tensorflow recipe, please take the normal
-route of forking this repository and submitting a PR. Upon submission, your changes will
-be run on the appropriate platforms to give the reviewer an opportunity to confirm that the
-changes result in a successful build. Once merged, the recipe will be re-built and uploaded
-automatically to the conda-forge channel, whereupon they will be available for everybody to
-install and use.
+If you would like to improve the tensorflow recipe or build a new
+package version, please fork this repository and submit a PR. Upon submission,
+your changes will be run on the appropriate platforms to give the reviewer an
+opportunity to confirm that the changes result in a successful build. Once
+merged, the recipe will be re-built and uploaded automatically to the
+`conda-forge` channel, whereupon the built conda packages will be available for
+everybody to install and use from the `conda-forge` channel.
+Note that all branches in the conda-forge/tensorflow-feedstock are
+immediately built and any created packages are uploaded, so PRs should be based
+on branches in forks and branches in the main repository should only be used to
+build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](http://conda.pydata.org/docs/building/meta-yaml.html#build-number-and-string). 
+   the [``build/number``](http://conda.pydata.org/docs/building/meta-yaml.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
    the [``build/number``](http://conda.pydata.org/docs/building/meta-yaml.html#build-number-and-string)
    back to 0.
