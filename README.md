@@ -11,6 +11,18 @@ Summary: TensorFlow helps the tensors flow
 
 
 
+Current build status
+====================
+
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/tensorflow-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/tensorflow-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/tensorflow-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/tensorflow-feedstock)
+Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/tensorflow-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/tensorflow-feedstock/branch/master)
+
+Current release info
+====================
+Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/tensorflow/badges/version.svg)](https://anaconda.org/conda-forge/tensorflow)
+Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/tensorflow/badges/downloads.svg)](https://anaconda.org/conda-forge/tensorflow)
+
 Installing tensorflow
 =====================
 
@@ -31,7 +43,6 @@ It is possible to list all of the versions of `tensorflow` available on your pla
 ```
 conda search tensorflow --channel conda-forge
 ```
-
 
 
 About conda-forge
@@ -67,18 +78,6 @@ Terminology
 
 **conda-forge** - the place where the feedstock and smithy live and work to
                   produce the finished article (built conda distributions)
-
-Current build status
-====================
-
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/tensorflow-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/tensorflow-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/tensorflow-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/tensorflow-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
-
-Current release info
-====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/tensorflow/badges/version.svg)](https://anaconda.org/conda-forge/tensorflow)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/tensorflow/badges/downloads.svg)](https://anaconda.org/conda-forge/tensorflow)
 
 
 Updating tensorflow-feedstock

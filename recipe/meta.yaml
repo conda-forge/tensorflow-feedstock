@@ -1,13 +1,15 @@
 package:
   name: tensorflow
-  version: "0.11.0"
+  version: "0.12.0rc0"
 
 build:
   number: 0
   #  Google supplies whl files for:
   # - Linux: Python 2.7, 3.4 and 3.5
   # - OS X: Python 2.7, 3.4 and 3.5
-  skip: True  # [win]
+  # - Win-64: Python 3.5
+  skip: True  # [win32]
+  skip: True  # [win64 and not py35]
   skip: True  # [py26]
   skip: True  # [py33]
   entry_points:
@@ -17,14 +19,12 @@ requirements:
   build:
     - python
     - pip
-    - mock >=2.0.0
     - numpy >=1.11.0
     - protobuf ==3.0.0
     - six >=1.10.0
     - wheel >=0.26
   run:
     - python
-    - mock >=2.0.0
     - numpy >=1.11.0
     - protobuf ==3.0.0
     - six >=1.10.0
