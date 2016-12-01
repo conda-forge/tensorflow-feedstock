@@ -1,15 +1,27 @@
 package:
   name: tensorflow
-  version: "0.11.0"
+  version: "0.12.0rc0"
+
+source:
+  fn: tensorflow-0.12.0rc0.tar.gz
+  url: https://github.com/tensorflow/tensorflow/archive/0.12.0-rc0.tar.gz
+  sha256: 13a2cb2ed7a3d5ddde5f07d8b8c095442c06e24fee6f044cd3b7df2eed23f5a2
 
 build:
   number: 0
   #  Google supplies whl files for:
   # - Linux: Python 2.7, 3.4 and 3.5
   # - OS X: Python 2.7, 3.4 and 3.5
-  skip: True  # [win]
+  # - Win-64: Python 3.5
+  skip: True  # [win32]
+  skip: True  # [win64 and not py35]
   skip: True  # [py26]
   skip: True  # [py33]
+  # To limit CI time only the Linux Python 3.5 build of tensorflow is done
+  # all other build are skipped using the follow lines
+  skip: True  # [win]
+  skip: True  # [osx]
+  skip: True  # [linux and not py35]
   entry_points:
     - tensorboard = tensorflow.tensorboard.tensorboard:main
 
@@ -17,23 +29,27 @@ requirements:
   build:
     - python
     - pip
-    - mock >=2.0.0
     - numpy >=1.11.0
+    # protobuf is not need if built from source but included here
+    # in case this recipe is used to install from whl files
     - protobuf ==3.0.0
     - six >=1.10.0
     - wheel >=0.26
+    # specify the 3.6.3 version of cmake to avoid using the broken
+    # version on the conda-forge channel.
+    # see: https://github.com/conda-forge/cmake-feedstock/issues/23
+    - cmake ==3.6.3  # [linux]
+    - swig           # [linux]
+    - zlib           # [linux]
   run:
     - python
-    - mock >=2.0.0
     - numpy >=1.11.0
     - protobuf ==3.0.0
     - six >=1.10.0
 
 test:
   imports:
-    # Skip the import test on Linux as wheel file require a more recent
-    # version of GLIBC++ than the VM used to build and test package.
-    - tensorflow  # [not linux]
+    - tensorflow
 
 about:
   home: http://tensorflow.org/
