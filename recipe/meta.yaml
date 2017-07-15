@@ -1,47 +1,75 @@
+{% set version = "1.2.1" %}
+
 package:
   name: tensorflow
-  version: "1.2.0"
+  version: {{ version }}
+
+source:
+  fn: tensorflow-{{ version }}.tar.gz
+  url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz
+  sha256: f2baf09b1a9a0500907b4d5cb5473070b3ecede06ed6e8d1096873c91922fb9e
+  patches:
+    # Add -lrt to the link options list
+    # https://github.com/tensorflow/tensorflow/issues/121
+    - rt_link_arg.patch  # [linux]
 
 build:
   number: 0
-  #  Google supplies whl files on PyPI for:
-  # - Linux: Python 2.7, 3.3, 3.4, 3.5 and 3.6
-  # - OS X: Python 2.7, 3.5 and 3.6
-  # - Win-64: Python 3.5 and 3.6
-  skip: True  # [win32]
-  skip: True  # [win64 and py<35]
-  skip: True  # [osx and py34]
-  skip: True  # [py26]
-  skip: True  # [py33]
+  #  Building from source on Linux, disable all but a single build
+  skip: True  # [not linux or not py36]
   entry_points:
     - tensorboard = tensorflow.tensorboard.tensorboard:main
 
 requirements:
   build:
+    # conda build requirements
+    - bazel >=0.4.5
+    - pip
+    - python
+    - swig
+    - unzip
+    - zip
+    - zlib
+    # requirements specified by the package itself
+    - wheel >=0.26
+    - werkzeug >=0.11.10
+    - six >=1.10.0
+    - protobuf >=3.2.0
+    - numpy 1.11.*
+    - mock >=2.0.0      # [py2k]
+    - markdown >=2.6.8
+    - html5lib ==0.9999999
+    - bleach ==1.5.0
+    - backports.weakref ==1.0rc1
     - python
     - pip
   run:
     - python
-    - mock >=2.0.0
-    - numpy >=1.11.0
-    - protobuf >=3.2.0
-    - six >=1.10.0
     - werkzeug >=0.11.10
+    - six >=1.10.0
+    - protobuf >=3.2.0
+    - numpy >=1.11.0
+    - mock >=2.0.0  # [py2k]
     - markdown >=2.6.8
+    - html5lib ==0.9999999
     - bleach ==1.5.0
     - backports.weakref ==1.0rc1
-    - html5lib ==0.9999999
 
 test:
   imports:
-    # Skip the import test on Linux as wheel file require a more recent
-    # version of GLIBC++ than the VM used to build and test package.
-    - tensorflow  # [not linux]
+    - tensorflow
 
 about:
   home: http://tensorflow.org/
   license: Apache 2.0
-  summary: TensorFlow helps the tensors flow
+  license_family: Apache
+  summary: TensorFlow is a machine learning library
+  description: |
+    TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
+    provides you with complete programming control.
+  dev_url: https://github.com/tensorflow/tensorflow
+  doc_url: https://www.tensorflow.org/get_started/get_started
+  doc_source_url: https://github.com/tensorflow/tensorflow/tree/master/tensorflow/docs_src
 
 extra:
   recipe-maintainers:

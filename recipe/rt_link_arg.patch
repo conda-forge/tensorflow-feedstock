@@ -1,0 +1,25 @@
+From 9620ffc906934fe1dd88b6a9b2cdd3bb332d1351 Mon Sep 17 00:00:00 2001
+From: Jonathan Helmus <jjhelmus@gmail.com>
+Date: Tue, 20 Jun 2017 10:53:24 -0500
+Subject: [PATCH 1/3] include lrt as link argument
+
+---
+ tensorflow/tensorflow.bzl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/tensorflow.bzl b/tensorflow/tensorflow.bzl
+index 348745f8d..6b9b487fd 100644
+--- a/tensorflow/tensorflow.bzl
++++ b/tensorflow/tensorflow.bzl
+@@ -931,7 +931,7 @@ def tf_custom_op_py_library(name,
+ 
+ 
+ def tf_extension_linkopts():
+-  return []  # No extension link opts
++  return ['-lrt']  # No extension link opts
+ 
+ 
+ def tf_extension_copts():
+-- 
+2.11.1
+

@@ -7,16 +7,18 @@ Package license: Apache 2.0
 
 Feedstock license: BSD 3-Clause
 
-Summary: TensorFlow helps the tensors flow
+Summary: TensorFlow is a machine learning library
 
+TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
+provides you with complete programming control.
 
 
 Current build status
 ====================
 
 Linux: [![Circle CI](https://circleci.com/gh/conda-forge/tensorflow-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/tensorflow-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/tensorflow-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/tensorflow-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/tensorflow-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/tensorflow-feedstock/branch/master)
+OSX: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
 
 Current release info
 ====================
