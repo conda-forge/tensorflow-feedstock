@@ -22,16 +22,11 @@ requirements:
     - pip
   run:
     - python
-    - enum34 >=1.1.6 # [py<34]
-    - mock >=2.0.0
+    - enum34 >=1.1.6  # [py<34]
+    - mock >=2.0.0    # [py27]
     - numpy >=1.12.1
     - protobuf >=3.3.0
     - six >=1.10.0
-    - werkzeug >=0.11.10
-    - markdown >=2.6.8
-    - bleach ==1.5.0
-    - backports.weakref ==1.0rc1
-    - html5lib ==0.9999999
     - tensorboard >=0.4.0rc1,<0.5.0
 
 test:
@@ -51,3 +46,5 @@ extra:
     - danielfrg
     - waitingkuo
     - ghego
+    - hajapy
+    - dhirschfeld
