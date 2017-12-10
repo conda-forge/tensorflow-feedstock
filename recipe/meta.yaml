@@ -13,8 +13,6 @@ build:
   skip: True  # [osx and py34]
   skip: True  # [py26]
   skip: True  # [py33]
-  entry_points:
-    - tensorboard = tensorflow.tensorboard.tensorboard:main
 
 requirements:
   build:
