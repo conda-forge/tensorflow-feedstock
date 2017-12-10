@@ -28,6 +28,10 @@ requirements:
     - tensorboard >=0.4.0rc1,<0.5.0
 
 test:
+  commands:
+    # We need to test tensorboard here to avoid a circular dependency
+    # with the tensorboard package
+    - tensorboard --help  # [not linux]
   imports:
     # Skip the import test on Linux as wheel file require a more recent
     # version of GLIBC++ than the VM used to build and test package.
