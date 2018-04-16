@@ -40,6 +40,7 @@ cat << EOF | docker run -i \
                         -v "${RECIPE_ROOT}":/recipe_root \
                         -v "${FEEDSTOCK_ROOT}":/feedstock_root \
                         -e HOST_USER_ID="${HOST_USER_ID}" \
+                        -e CONDA_PY="${CONDA_PY}" \
                         -a stdin -a stdout -a stderr \
                         condaforge/linux-anvil \
                         bash || exit 1
@@ -57,24 +58,9 @@ conda clean --lock
 conda install --yes --quiet conda-forge-build-setup
 source run_conda_forge_build_setup
 
-# Embarking on 3 case(s).
-    set -x
-    export CONDA_PY=27
-    set +x
-    conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
+conda build /recipe_root --quiet || exit 1
+upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
 
-    set -x
-    export CONDA_PY=35
-    set +x
-    conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
-
-    set -x
-    export CONDA_PY=36
-    set +x
-    conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
 touch /feedstock_root/build_artefacts/conda-forge-build-done
 EOF
 
