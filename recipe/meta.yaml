@@ -13,8 +13,6 @@ build:
   skip: True  # [osx and py34]
   skip: True  # [py26]
   skip: True  # [py33]
-  entry_points:
-    - tensorboard = tensorflow.tensorboard.tensorboard:main
 
 requirements:
   build:
@@ -32,6 +30,10 @@ requirements:
     - backports.weakref >=1.0rc1
 
 test:
+  commands:
+    # We need to test tensorboard here to avoid a circular dependency
+    # with the tensorboard package
+    - tensorboard --help  # [not linux]
   imports:
     # Skip the import test on Linux as wheel file require a more recent
     # version of GLIBC++ than the VM used to build and test package.
@@ -50,3 +52,4 @@ extra:
     - ghego
     - hajapy
     - dhirschfeld
+    - sdvillal
