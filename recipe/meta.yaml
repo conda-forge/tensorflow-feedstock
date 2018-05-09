@@ -1,6 +1,6 @@
 package:
   name: tensorflow
-  version: "1.6.0"
+  version: "1.8.0"
 
 build:
   number: 0
@@ -14,7 +14,7 @@ build:
   skip: True  # [py26]
   skip: True  # [py33]
   entry_points:
-    - tensorboard = tensorflow.tensorboard.tensorboard:main
+    - tensorboard = tensorboard.main:run_main
 
 requirements:
   build:
@@ -31,7 +31,7 @@ requirements:
     - numpy >=1.13.3
     - protobuf >=3.4.0
     - six >=1.10.0
-    - tensorboard >=1.6.0,<1.7.0
+    - tensorboard >=1.8.0,<1.9.0
     - termcolor >=1.1.0
     - backports.weakref >=1.0rc1  # [py2k]
 
@@ -54,3 +54,5 @@ extra:
     - ghego
     - hajapy
     - dhirschfeld
+    - gilbertfrancois
+    - dougalsutherland
