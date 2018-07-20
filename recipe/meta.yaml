@@ -1,18 +1,40 @@
+{% set version = "1.9.0" %}
+{% set wheel_fn =
+  "tensorflow-" + version
+  + "cp27-cp27mu"  # [linux and py27]
+  + "cp27-cp27m"   # [osx and py27]
+  + "cp35-cp35m"   # [py35]
+  + "cp36-cp36m"   # [py36]
+  + "-manylinux1_x86_64"    # [linux]
+  + "-macosx_10_11_x86_64"  # [osx]
+  + "-win_amd64"            # [win]
+  + ".whl"
+%}
+
 package:
   name: tensorflow
-  version: "1.9.0"
+  version: {{ version }}
 
-build:
-  number: 0
+source:
   #  Google supplies whl files on PyPI for:
   # - Linux: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - OS X: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - Win-64: Python 3.5 and 3.6
-  skip: True  # [win32]
-  skip: True  # [win64 and py<35]
-  skip: True  # [osx and py34]
-  skip: True  # [py26]
-  skip: True  # [py33]
+  url: https://pypi.io/packages/cp{{ py }}/t/tensorflow/{{ wheel_fn }}
+  sha256: 01fca4d85855131c874cff811e0786f240e7270d5dfa699883bde60f550752b6  # [osx and py27]
+  sha256: 9215db0fa590a2da6a08d6c7ca41d940727c40332c80c968f1459470d6bf8873  # [linux and py27]
+  sha256: d351f7db08b8de322536c5886fada3e37feae809bfd37368050f9eeea544b87e  # [osx and py35]
+  sha256: 3e8b783966a02d83027a92c3c55083ad8d8a0ddf4ad920f40ffaae107be79c78  # [linux and py35]
+  sha256: 22d71e13947b85ca8fb625db4d7094c68ebc014fee911db9d658205965268980  # [win and py35]
+  sha256: 42cc87627c3b0f2d60776412eaaea3aa0856650a77f94bec841535908f77ee45  # [osx and py36]
+  sha256: cd83f4a50c0eaf18526e4e56e519c3593d998d1d213df161bbc78fffdd097cb8  # [linux and py36]
+  sha256: 51aa006ce0c7cbca3381e05bc7658f59cfec90a11480f2d35afd342cef8294d8  # [win and py36]
+
+build:
+  number: 0
+  skip: True  # [win and py<35]
+  script:
+    - python -m pip install --no-deps --ignore-installed ./{{ wheel_fn }}
   entry_points:
     - freeze_graph = tensorflow.python.tools.freeze_graph:run_main
     - toco_from_protos = tensorflow.contrib.lite.toco.python.toco_from_protos:main  # [not win]
