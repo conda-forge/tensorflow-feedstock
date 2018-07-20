@@ -54,7 +54,7 @@ requirements:
     - numpy >=1.13.3
     - six >=1.10.0
     - protobuf >=3.4.0
-    - tensorboard 1.9
+    - tensorboard 1.9.*
     - termcolor >=1.1.0
     - grpcio >=1.8.6
     - enum34 >=1.1.6              # [py<34]
