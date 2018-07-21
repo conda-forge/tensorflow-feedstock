@@ -21,7 +21,7 @@ source:
   # - OS X: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - Win-64: Python 3.5 and 3.6
   url: https://pypi.io/packages/cp{{ py }}/t/tensorflow/{{ wheel_fn }}
-  sha256: >
+  sha256:
     01fca4d85855131c874cff811e0786f240e7270d5dfa699883bde60f550752b6  # [osx and py27]
     9215db0fa590a2da6a08d6c7ca41d940727c40332c80c968f1459470d6bf8873  # [linux and py27]
     d351f7db08b8de322536c5886fada3e37feae809bfd37368050f9eeea544b87e  # [osx and py35]
