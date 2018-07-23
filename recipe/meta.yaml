@@ -3,7 +3,7 @@ package:
   version: "1.9.0"
 
 build:
-  number: 0
+  number: 1
   #  Google supplies whl files on PyPI for:
   # - Linux: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - OS X: Python 2.7, 3.3, 3.4, 3.5 and 3.6
@@ -39,6 +39,7 @@ requirements:
     - enum34 >=1.1.6              # [py<34]
     - backports.weakref >=1.0rc1  # [py<34]
     - mock >=2.0.0                # [py2k]
+    - libstdcxx-ng                # Needed to get newer glibc for older versions of CentOS
 
 test:
   imports:
