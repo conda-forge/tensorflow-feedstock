@@ -1,6 +1,6 @@
 package:
-  name: tensorflow
-  version: "2.0_preview_2.0.0.dev20190422"
+  name: tf-nightly-2.0-preview
+  version: "2.0.0.dev20190423"
 
 build:
   number: 0
@@ -14,6 +14,7 @@ build:
   skip: True  # [osx and py34]
   skip: True  # [py26]
   skip: True  # [py33]
+  skip: True  # [py37]  # Skip python 3.7 for now due to missing pip wheel.  FIX ME LATER!
   entry_points:
     - freeze_graph = tensorflow.python.tools.freeze_graph:run_main
     - toco_from_protos = tensorflow.contrib.lite.toco.python.toco_from_protos:main  # [not win]
