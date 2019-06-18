@@ -1,5 +1,3 @@
-build_number_decrement:
-- '0'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
