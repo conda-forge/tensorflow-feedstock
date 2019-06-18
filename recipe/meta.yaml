@@ -51,8 +51,6 @@ test:
     # https://github.com/conda-forge/tensorflow-feedstock/pull/62
      - tensorflow  # [win]
   commands:
-    # - tensorboard --help | grep USAGE       # [osx]
-    - tensorboard --help                      # [win]
     - freeze_graph --help                     # [win]
     #- toco_from_protos --help                # [osx]
     #- toco --help                            # [osx]
