@@ -3,7 +3,7 @@ package:
   version: "1.13.1"
 
 build:
-  number: 0
+  number: 1
   #  Google supplies whl files on PyPI for:
   # - Linux: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - OS X: Python 2.7, 3.3, 3.4, 3.5 and 3.6
@@ -20,7 +20,6 @@ build:
     - tflite_convert = tensorflow.contrib.lite.python.tflite_convert:main  # [not win]
     - toco = tensorflow.contrib.lite.python.tflite_convert:main  # [not win]
     - saved_model_cli = tensorflow.python.tools.saved_model_cli:main
-    - tensorboard = tensorboard.main:run_main  # seems necessary on:  # [win]
 
 requirements:
   build:
