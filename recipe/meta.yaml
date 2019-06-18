@@ -8,7 +8,6 @@ build:
   # - Linux: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - OS X: Python 2.7, 3.3, 3.4, 3.5 and 3.6
   # - Win-64: Python 3.5 and 3.6
-  skip: true  # [win]  # Skip all windows for now due to numpy/scipy version pinning issues
   skip: True  # [win32]
   skip: True  # [win64 and py<35]
   skip: True  # [osx and py34]
