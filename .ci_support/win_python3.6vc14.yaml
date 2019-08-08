@@ -1,5 +1,3 @@
-CONDA_BUILD_SYSROOT:
-- /opt/MacOSX10.10.sdk
 channel_sources:
 - conda-forge,defaults
 channel_targets:
