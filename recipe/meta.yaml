@@ -1,4 +1,4 @@
-{% set version = "1.13.1" %}
+{% set version = "1.14.0" %}
 
 {% set pyver = "cp{}{}".format(PY_VER[0], PY_VER[2]) %}
 {% set platform = "macosx_10_11_x86_64" %}  # [osx]
@@ -13,7 +13,7 @@ package:
 source:
   fn: {{ fn }}
   url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz  # [linux]
-  sha256: 7cd19978e6bc7edc2c847bce19f95515a742b34ea5e28e4389dade35348f58ed  # [linux]
+  sha256: aa2a6a1daafa3af66807cfe0bc77bfe1144a9a53df9a96bab52e3e575b3047ed  # [linux]
 
   url: https://pypi.io/packages/{{ pyver }}/t/tensorflow/{{ fn }}  # [not linux]
   sha256: 0f305f3c461ed2ce5e0b65fccc7b7452f483c7935dd8a52a466d622e642fdea8  # [osx and py27]
@@ -32,7 +32,7 @@ source:
     - patches/0006-relax-precision-in-matrix_log_op_test.patch  # [linux]
 
 build:
-  number: 1
+  number: 0
   skip: True  # [not x86_64]
   skip: True  # [win and vc<14]
   script:
