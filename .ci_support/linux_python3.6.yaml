@@ -1,5 +1,3 @@
-CONDA_BUILD_SYSROOT:
-- /opt/MacOSX10.10.sdk
 c_compiler:
 - gcc
 c_compiler_version:
