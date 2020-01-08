@@ -1,4 +1,4 @@
-{% set version = "1.13.2" %}
+{% set version = "2.1.0" %}
 
 {% set pyver = "cp{}{}".format(PY_VER[0], PY_VER[2]) %}
 {% set platform = "macosx_10_11_x86_64" %}  # [osx] 
@@ -13,7 +13,7 @@ package:
 source:
   fn: {{ fn }}
   url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz  # [linux]
-  sha256: abe3bf0c47845a628b7df4c57646f41a10ee70f914f1b018a5c761be75e1f1a9  # [linux]
+  sha256: 638e541a4981f52c69da4a311815f1e7989bf1d67a41d204511966e1daed14f7  # [linux]
   url: https://pypi.io/packages/{{ pyver }}/t/tensorflow/{{ fn }}  # [not linux]
   sha256: ffff3545f0ade3c1d2919dfb8c9399a923d929d221e349fcd4ae5f69774996e1  # [osx and py==27]
   sha256: 8e02c7fab31a02396cd926412762f8fd9cae3cb653be3c57797b85a95834be79  # [osx and py==36]
