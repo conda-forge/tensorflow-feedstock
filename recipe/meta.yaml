@@ -22,15 +22,15 @@ source:
   sha256: 0beda4bf6a5af64905b93988e3b878e91b13e44b42d16df439fbd3112062754d  # [win and py==37]
 
   patches:
-    - patches/0001-add-rt-to-linkopts.patch                                     # [linux]
-    - patches/0002-stable-image-rotate-test.patch                               # [linux]
-    - patches/0003-relax-tolerence-in-special_math_test.patch                   # [linux]
-    - patches/0004-skip-read-only-debugger_cli_common-test.patch                # [linux]
-    - patches/0005-fix-lookup_ops-test.patch                                    # [linux]
-    - patches/0006-relax-precision-in-matrix_log_op_test.patch                  # [linux]
+    #- patches/0001-add-rt-to-linkopts.patch                                     # [linux]
+    #- patches/0002-stable-image-rotate-test.patch                               # [linux]
+    #- patches/0003-relax-tolerence-in-special_math_test.patch                   # [linux]
+    #- patches/0004-skip-read-only-debugger_cli_common-test.patch                # [linux]
+    #- patches/0005-fix-lookup_ops-test.patch                                    # [linux]
+    #- patches/0006-relax-precision-in-matrix_log_op_test.patch                  # [linux]
     #- patches/0007-Add-init-symbol-names-prefixed-with-an-underscore.patch      # [osx]
     #- patches/0008-Add-alternate-clock_gettime-implementation-for-macOS.patch   # [osx]
-    - patches/unbundle_llvm.patch                                               # [linux]
+    #- patches/unbundle_llvm.patch                                               # [linux]
 
 build:
   number: 0
