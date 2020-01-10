@@ -41,7 +41,7 @@ requirements:
   build:
     - {{ compiler('c') }}       # [linux]
     - {{ compiler('cxx') }}     # [linux]
-    - bazel >=0.27.1,<=0.29.1   # [linux]
+    #- bazel >=0.27.1,<=0.29.1   # [linux]
     - nasm                      # [linux]
   host:
     # conda build requirements
@@ -59,6 +59,8 @@ requirements:
     - zlib                      # [linux]
     - libpng                    # [linux]
     - libcurl                   # [linux]
+    - unzip  # [linux]
+    - openjdk  # [linux]
     - nsync  # [linux]
     - numpy 1.16.1
     - six >=1.10.0
