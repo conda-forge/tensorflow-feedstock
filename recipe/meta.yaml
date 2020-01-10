@@ -41,7 +41,7 @@ requirements:
   build:
     - {{ compiler('c') }}       # [linux]
     - {{ compiler('cxx') }}     # [linux]
-    - bazel >=0.19.0,<=0.21.0   # [linux]
+    - bazel >=0.27.1,<=0.29.1   # [linux]
     - nasm                      # [linux]
   host:
     # conda build requirements
