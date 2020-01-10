@@ -62,6 +62,7 @@ requirements:
     - unzip  # [linux]
     - openjdk  # [linux]
     - nsync  # [linux]
+    - wrapt >=1.11.1
     - numpy 1.16.1
     - six >=1.10.0
     - protobuf >=3.6.1
