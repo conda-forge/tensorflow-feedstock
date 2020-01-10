@@ -18,8 +18,8 @@ source:
   sha256: e631f55cf30054fee3230c89a7f998fd08748aa3045651a5a760cec2c5b9f9d6  # [osx and py==27]
   sha256: 8c0fae0f9f772ed7e3370f1b286f88c27debbcf09468e5036670ea2c67e239ec  # [osx and py==36]
   sha256: 2e8fc9764b7ea87687a4c80c2fbde69aeeb459a536eb5a591938d7931ab004c2  # [osx and py==37]
-  sha256: 1e6ab2b4e2ece7747b787a5e85d01aeb8b47677fa15453417a485cde904635f7  # [win and py==36]
-  sha256: 0beda4bf6a5af64905b93988e3b878e91b13e44b42d16df439fbd3112062754d  # [win and py==37]
+  sha256: c420e70d4127c2ac00054aece54cf04a1a43d5d4f25de90267f247873f1bd5a8  # [win and py==36]
+  sha256: 7bad8ea686a1f33d9dac13eb578c4597346789d4f826980c8bbcfbd08e7dc921  # [win and py==37]
 
   patches:
     #- patches/0001-add-rt-to-linkopts.patch                                     # [linux]
