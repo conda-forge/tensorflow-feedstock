@@ -1,0 +1,46 @@
+migrator_ts: 1580746218   # The timestamp of when the migration was made
+__migrator:
+  kind:
+    version
+  exclude:
+    - c_compiler
+    - vc
+    - cxx_compiler
+    - cuda_compiler_version
+    - docker_image
+  migration_number:  # Only use this if the bot messes up, putting this in will cause a complete rerun of the migration
+    1
+  bump_number: 1   # Hashes changed for cpython, so it's better to bump build numbers.
+  # do not use mamba to check if the issued PRs are solvable
+  check_solvable: false
+
+python:
+  - 3.6.* *_cpython
+  - 3.7.* *_cpython
+  - 3.8.* *_cpython
+  - 3.6.* *_73_pypy   # [not win64]
+
+numpy:
+  - 1.14       # [not (aarch64 or ppc64le)]
+  - 1.14       # [not (aarch64 or ppc64le)]
+  - 1.14       # [not (aarch64 or ppc64le)]
+  - 1.16       # [aarch64 or ppc64le]
+  - 1.16       # [aarch64 or ppc64le]
+  - 1.16       # [aarch64 or ppc64le]
+  - 1.18       # [not win64]
+
+python_impl:
+  - cpython
+  - cpython
+  - cpython
+  - pypy       # [not win64]
+
+
+zip_keys:
+  -
+    - python
+    - numpy
+    - python_impl
+  -                             # [linux64]
+    - cuda_compiler_version     # [linux64]
+    - docker_image              # [linux64]
