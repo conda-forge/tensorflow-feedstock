@@ -1,0 +1,32 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '5.4'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '5.4'
+docker_image:
+- condaforge/linux-anvil-comp7
+libcurl:
+- '7'
+libpng:
+- '1.6'
+pin_run_as_build:
+  libcurl:
+    max_pin: x
+  libpng:
+    max_pin: x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+  zlib:
+    max_pin: x.x
+python:
+- 3.6.* *_73_pypy
+zlib:
+- '1.2'

@@ -14,6 +14,9 @@ jobs:
       win_python3.7.____cpython:
         CONFIG: win_python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
+      win_python3.8.____cpython:
+        CONFIG: win_python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
     maxParallel: 4
   timeoutInMinutes: 360
   variables:
