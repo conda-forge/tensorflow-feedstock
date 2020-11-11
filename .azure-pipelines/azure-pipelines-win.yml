@@ -8,13 +8,18 @@ jobs:
     vmImage: vs2017-win2016
   strategy:
     matrix:
-      win_python3.6.____cpython:
-        CONFIG: win_python3.6.____cpython
+      win_64_python3.6.____cpython:
+        CONFIG: win_64_python3.6.____cpython
         UPLOAD_PACKAGES: 'True'
-      win_python3.7.____cpython:
-        CONFIG: win_python3.7.____cpython
+      win_64_python3.7.____cpython:
+        CONFIG: win_64_python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
-    maxParallel: 4
+      win_64_python3.8.____cpython:
+        CONFIG: win_64_python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_python3.9.____cpython:
+        CONFIG: win_64_python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
@@ -56,7 +61,7 @@ jobs:
 
     - task: CondaEnvironment@1
       inputs:
-        packageSpecs: 'python=3.6 conda-build conda conda-forge::conda-forge-ci-setup=3 pip' # Optional
+        packageSpecs: 'python=3.6 conda-build conda "conda-forge-ci-setup=3" pip' # Optional
         installOptions: "-c conda-forge"
         updateConda: true
       displayName: Install conda-build and activate environment
