@@ -1,0 +1,27 @@
+migrator_ts: 1602104489
+__migrator:
+    migration_number: 2
+    operation: key_add
+    primary_key: python
+    ordering:
+        python:
+            - 3.6.* *_cpython
+            - 3.7.* *_cpython
+            - 3.8.* *_cpython
+            - 3.9.* *_cpython   # new entry
+            - 3.6.* *_73_pypy
+    paused: false
+    longterm: True
+    pr_limit: 50
+    exclude:
+      # this shouldn't attempt to modify the python feedstocks
+      - python
+      - pypy3.6
+      - pypy-meta
+python:
+  - 3.9.* *_cpython
+# additional entries to add for zip_keys
+numpy:
+  - 1.19
+python_impl:
+  - cpython

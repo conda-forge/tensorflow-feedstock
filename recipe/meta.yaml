@@ -32,7 +32,7 @@ source:
     - patches/unbundle_llvm.patch                                               # [linux]
 
 build:
-  number: 0
+  number: 1
   skip: True  # [not x86_64]
   skip: True  # [win and vc<14]
 
