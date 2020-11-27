@@ -1,7 +1,7 @@
 {% set version = "1.14.0" %}
 
 {% set pyver = "cp{}{}".format(PY_VER[0], PY_VER[2]) %}
-{% set platform = "macosx_10_11_x86_64" %}  # [osx] 
+{% set platform = "macosx_10_11_x86_64" %}  # [osx]
 {% set platform = "win_amd64" %}  # [win]
 {% set fn = "{}-{}-{}-{}m-{}.whl".format("tensorflow", version, pyver, pyver, platform) %}  # [not linux]
 {% set fn = "tensorflow-{{ version }}.tar.gz" %}  # [linux]
@@ -15,8 +15,8 @@ source:
   url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz  # [linux]
   sha256: aa2a6a1daafa3af66807cfe0bc77bfe1144a9a53df9a96bab52e3e575b3047ed  # [linux]
   url: https://pypi.io/packages/{{ pyver }}/t/tensorflow/{{ fn }}  # [not linux]
-  sha256: 46fc216db780b1a7b7a28cf6536d6ec0a171ef2fa546a24934ffe077c734c891  # [osx and py==27]    
-  sha256: a3851118d2cc5e9e697503753c2d247dca0e98d5a85b5ea091103f27d9e57a38  # [osx and py==36]  
+  sha256: 46fc216db780b1a7b7a28cf6536d6ec0a171ef2fa546a24934ffe077c734c891  # [osx and py==27]
+  sha256: a3851118d2cc5e9e697503753c2d247dca0e98d5a85b5ea091103f27d9e57a38  # [osx and py==36]
   sha256: 2fc989a5d3be9f3dc96c20deaa3d5cc66d2bf76fe069c202c2914a7f4b5a9a35  # [osx and py==37]
   sha256: e84f2c8c7f23ad546076b1e73cec85706da19910b9a89c29cba3b64e297b2eb0  # [win and py==36]
   sha256: a4f154fa98cde5974117e05af444e0bed84cf431b8129c78a2de03a1ff7201c9  # [win and py==37]
@@ -223,3 +223,4 @@ extra:
     - gilbertfrancois
     - farhantejani
     - njzjz
+    - FernandezMathieu
