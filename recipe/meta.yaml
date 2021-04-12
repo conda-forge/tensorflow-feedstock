@@ -18,7 +18,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: true  # [not win]
 
 requirements:
   build:
@@ -32,7 +32,7 @@ requirements:
     # For osx-arm64 cross-compilation to work, we need bazel>=4.1
     - bazel        # [osx]
     - nasm
-    - sed
+    - sed    # [unix]
   host:
     # conda build requirements
     - python
