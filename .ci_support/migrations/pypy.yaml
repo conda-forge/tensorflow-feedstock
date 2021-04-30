@@ -1,0 +1,34 @@
+migrator_ts: 1580746218   # The timestamp of when the migration was made
+__migrator:
+  kind:
+    version
+  exclude:
+    - c_compiler
+    - vc
+    - cxx_compiler
+  migration_number:  # Only use this if the bot messes up, putting this in will cause a complete rerun of the migration
+    1
+  bump_number: 1   # Hashes changed for cpython, so it's better to bump build numbers.
+  # do not use mamba to check if the issued PRs are solvable
+  check_solvable: false
+  longterm: True
+  paused: False
+  pr_limit: 1
+
+python:
+  - 3.6.* *_cpython   # [not (osx and arm64)]
+  - 3.7.* *_cpython   # [not (osx and arm64)]
+  - 3.8.* *_cpython
+  - 3.6.* *_73_pypy   # [not (win64 or (osx and arm64))]
+
+numpy:
+  - 1.17       # [not (osx and arm64)]
+  - 1.17       # [not (osx and arm64)]
+  - 1.17
+  - 1.18       # [not (win64 or (osx and arm64))]
+
+python_impl:
+  - cpython    # [not (osx and arm64)]
+  - cpython    # [not (osx and arm64)]
+  - cpython
+  - pypy       # [not (win64 or (osx and arm64))]
