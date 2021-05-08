@@ -1,0 +1,7 @@
+__migrator:
+  build_number: 1
+  kind: version
+  migration_number: 1
+libprotobuf:
+- '3.16'
+migrator_ts: 1620379043.9019938
