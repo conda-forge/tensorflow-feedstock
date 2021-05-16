@@ -74,6 +74,7 @@ requirements:
     - python-flatbuffers 1.12.*
     - google-pasta >=0.2,<1
     - h5py >=3.1.0,<3.2
+    - keras 2.5.*
     - keras-preprocessing >=1.1.2,<1.2
     - numpy 1.19.*
     - opt_einsum 3.3.*
@@ -140,6 +141,7 @@ outputs:
         - python-flatbuffers 1.12.*
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
+        - keras 2.5.*
         - keras-preprocessing >=1.1.2,<1.2
         - numpy 1.19.*
         - opt_einsum 3.3.*
@@ -161,6 +163,7 @@ outputs:
         - python-flatbuffers 1.12.*
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
+        - keras 2.5.*
         - keras-preprocessing >=1.1.2,<1.2
         - numpy >=1.19.*
         - opt_einsum 3.3.*
