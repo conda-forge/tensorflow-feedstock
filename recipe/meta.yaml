@@ -17,7 +17,7 @@ source:
     - patches/0005-osx-arm64.patch  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -130,7 +130,7 @@ outputs:
         - astunparse >=1.6.3
         - python-flatbuffers 1.12.*
         - google-pasta >=0.2
-        - h5py 2.10.*
+        - h5py >=2.10
         - keras-preprocessing >=1.1.2
         - numpy 1.19.*
         - opt_einsum 3.3.0.*
@@ -151,7 +151,7 @@ outputs:
         - astunparse >=1.6.3
         - python-flatbuffers 1.12.*
         - google-pasta >=0.2
-        - h5py 2.10.*
+        - h5py >=2.10
         - keras-preprocessing >=1.1.2
         - numpy >=1.19
         - opt_einsum 3.3.0.*
