@@ -17,7 +17,7 @@ docker_image:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.37'
+- '1.38'
 icu:
 - '68'
 jpeg:
@@ -27,7 +27,7 @@ libcurl:
 libpng:
 - '1.6'
 libprotobuf:
-- '3.15'
+- '3.16'
 openssl:
 - 1.1.1
 pin_run_as_build:
