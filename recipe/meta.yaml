@@ -1,4 +1,4 @@
-{% set version = "2.4.3" %}
+{% set version = "2.6.0" %}
 
 package:
   name: tensorflow-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz
-  sha256: cafd520c753f8755a9eb1262932f685dc722d8658f08373f8ec88d8acd58d7d4
+  sha256: 41b32eeaddcbc02b0583660bcf508469550e4cd0f86b22d2abe72dfebeacde0f
 
   patches:
     - patches/0001-relax-tolerence-in-special_math_test.patch
