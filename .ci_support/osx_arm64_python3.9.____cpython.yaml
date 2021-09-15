@@ -5,7 +5,7 @@ c_compiler:
 c_compiler_version:
 - '11'
 channel_sources:
-- conda-forge/label/rust_dev,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -15,7 +15,7 @@ cxx_compiler_version:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.37'
+- '1.40'
 icu:
 - '68'
 jpeg:
