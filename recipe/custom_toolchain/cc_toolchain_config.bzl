@@ -307,6 +307,7 @@ def _impl(ctx):
 	    "${BUILD_PREFIX}/lib/gcc/${HOST}/${COMPILER_VERSION}",
 	    "${BUILD_PREFIX}/${HOST}/include/c++/${COMPILER_VERSION}",
             "${PREFIX}/include",
+            "${CUDA_HOME}/include"
         ]
 
     return cc_common.create_cc_toolchain_config_info(
