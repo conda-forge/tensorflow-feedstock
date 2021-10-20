@@ -114,7 +114,7 @@ sed -i -e "/PREFIX/c\ " .bazelrc
 if [[ ${cuda_compiler_version} != "None" ]]; then
     # 2021/10/10 hmaarrfk: I'm not sure what CUDA_HOME
     # Should be, but on the pytorch feedstock, it seems to fallback to this
-    # export CUDA_HOME="/usr/lib/cuda"
+    export CUDA_HOME="/usr/local/cuda-11.2/"
     echo CUDA_HOME=${CUDA_HOME}
     export GCC_HOST_COMPILER_PATH="${GCC}"
     export GCC_HOST_COMPILER_PREFIX="$(dirname ${GCC})"
