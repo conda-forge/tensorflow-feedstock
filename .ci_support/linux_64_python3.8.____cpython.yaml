@@ -5,7 +5,7 @@ c_compiler_version:
 cdt_name:
 - cos6
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -27,7 +27,7 @@ libcurl:
 libpng:
 - '1.6'
 libprotobuf:
-- '3.15'
+- '3.18'
 openssl:
 - 1.1.1
 pin_run_as_build:
@@ -37,8 +37,6 @@ pin_run_as_build:
     max_pin: x
   libpng:
     max_pin: x.x
-  openssl:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
