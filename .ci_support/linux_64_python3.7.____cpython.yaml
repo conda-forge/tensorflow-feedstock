@@ -5,7 +5,7 @@ c_compiler_version:
 cdt_name:
 - cos6
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -17,7 +17,7 @@ docker_image:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.37'
+- '1.40'
 icu:
 - '68'
 jpeg:
@@ -37,8 +37,6 @@ pin_run_as_build:
     max_pin: x
   libpng:
     max_pin: x.x
-  openssl:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
