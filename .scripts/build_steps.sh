@@ -25,7 +25,8 @@ conda-build:
  root-dir: ${FEEDSTOCK_ROOT}/build_artifacts
 
 CONDARC
-BUILD_CMD=build
+GET_BOA=boa
+BUILD_CMD=mambabuild
 
 conda install --yes --quiet "conda-forge-ci-setup=3" conda-build pip ${GET_BOA:-} -c conda-forge
 
@@ -62,7 +63,7 @@ else
 
     ( startgroup "Uploading packages" ) 2> /dev/null
 
-    if [[ "${UPLOAD_PACKAGES}" != "False" ]]; then
+    if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
         upload_package --validate --feedstock-name="${FEEDSTOCK_NAME}"  "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
     fi
 
