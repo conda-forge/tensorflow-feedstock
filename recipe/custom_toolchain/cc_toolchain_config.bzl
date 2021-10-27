@@ -18,7 +18,7 @@ def _impl(ctx):
     tool_paths = [
         tool_path(
             name = "gcc",
-            path = "${GCC}",
+            path = "crosstool_wrapper_driver_is_not_gcc",
         ),
         tool_path(
             name = "ld",
