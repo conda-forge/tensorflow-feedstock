@@ -17,6 +17,7 @@ TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
 provides you with complete programming control.
 Base package contains only tensorflow, not tensorflow-tensorboard.
 
+
 Current build status
 ====================
 
@@ -200,6 +201,7 @@ Feedstock Maintainers
 * [@gilbertfrancois](https://github.com/gilbertfrancois/)
 * [@h-vetinari](https://github.com/h-vetinari/)
 * [@hajapy](https://github.com/hajapy/)
+* [@hmaarrfk](https://github.com/hmaarrfk/)
 * [@jschueller](https://github.com/jschueller/)
 * [@njzjz](https://github.com/njzjz/)
 * [@waitingkuo](https://github.com/waitingkuo/)

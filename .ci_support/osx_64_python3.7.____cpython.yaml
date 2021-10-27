@@ -27,7 +27,7 @@ libcurl:
 libpng:
 - '1.6'
 libprotobuf:
-- '3.16'
+- '3.18'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 openssl:
