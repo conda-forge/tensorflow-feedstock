@@ -20,19 +20,18 @@ set BAZEL_OPTS=
 ::    --jobs=20
 :: Set compiler and linker flags as bazel does not account for CFLAGS,
 :: CXXFLAGS and LDFLAGS.
-BUILD_OPTS="
---copt=-march=nocona
---copt=-mtune=haswell
---copt=-ftree-vectorize
---copt=-fPIC
---copt=-fstack-protector-strong
---copt=-O2
---cxxopt=-fvisibility-inlines-hidden
---cxxopt=-fmessage-length=0
---linkopt=-zrelro
---linkopt=-znow
---verbose_failures
-%BAZEL_MKL_OPT%
+set BUILD_OPTS="--copt=-march=nocona ^
+--copt=-mtune=haswell ^
+--copt=-ftree-vectorize ^
+--copt=-fPIC ^
+--copt=-fstack-protector-strong ^
+--copt=-O2 ^
+--cxxopt=-fvisibility-inlines-hidden ^
+--cxxopt=-fmessage-length=0 ^
+--linkopt=-zrelro ^
+--linkopt=-znow ^
+--verbose_failures ^
+%BAZEL_MKL_OPT% ^
 --config=opt"
 set TF_ENABLE_XLA=0
 set BUILD_TARGET="//tensorflow/tools/pip_package:build_pip_package //tensorflow:libtensorflow.so //tensorflow:libtensorflow_cc.so"
@@ -54,7 +53,8 @@ set TF_NEED_ROCM=0
 set TF_NEED_MPI=0
 set TF_DOWNLOAD_CLANG=0
 set TF_SET_ANDROID_WORKSPACE=0
-./configure
+.\configure
+if %ERRORLEVEL% neq 0 exit 1
 
 :: build using bazel
 bazel %BAZEL_OPTS% build %BUILD_OPTS% %BUILD_TARGET%
