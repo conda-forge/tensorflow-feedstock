@@ -58,8 +58,9 @@ set TF_SET_ANDROID_WORKSPACE=0
 
 :: build using bazel
 bazel %BAZEL_OPTS% build %BUILD_OPTS% %BUILD_TARGET%
+if %ERRORLEVEL% neq 0 exit 1
 
 :: build a whl file
 mkdir -p %SRC_DIR%\\tensorflow_pkg
 bazel-bin\\tensorflow\\tools\\pip_package\\build_pip_package %SRC_DIR%\\tensorflow_pkg
-
+if %ERRORLEVEL% neq 0 exit 1
