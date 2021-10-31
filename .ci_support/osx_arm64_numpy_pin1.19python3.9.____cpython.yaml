@@ -28,6 +28,10 @@ libprotobuf:
 - '3.16'
 macos_machine:
 - arm64-apple-darwin20.0.0
+numpy:
+- '1.19'
+numpy_pin:
+- '1.19'
 openssl:
 - 1.1.1
 pin_run_as_build:
@@ -45,7 +49,7 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.9.* *_cpython
 snappy:
 - '1'
 sqlite:
@@ -55,5 +59,7 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - python
+  - numpy
 zlib:
 - '1.2'

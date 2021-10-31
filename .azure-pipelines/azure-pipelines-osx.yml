@@ -8,20 +8,23 @@ jobs:
     vmImage: macOS-10.15
   strategy:
     matrix:
-      osx_64_python3.7.____cpython:
-        CONFIG: osx_64_python3.7.____cpython
+      osx_64_numpy1.19numpy_pin1.19python3.9.____cpython:
+        CONFIG: osx_64_numpy1.19numpy_pin1.19python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_python3.8.____cpython:
-        CONFIG: osx_64_python3.8.____cpython
+      osx_64_numpy1.19numpy_pin1.20python3.9.____cpython:
+        CONFIG: osx_64_numpy1.19numpy_pin1.20python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_python3.9.____cpython:
-        CONFIG: osx_64_python3.9.____cpython
+      osx_64_numpy1.19numpy_pin1.21python3.9.____cpython:
+        CONFIG: osx_64_numpy1.19numpy_pin1.21python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_python3.8.____cpython:
-        CONFIG: osx_arm64_python3.8.____cpython
+      osx_arm64_numpy_pin1.19python3.9.____cpython:
+        CONFIG: osx_arm64_numpy_pin1.19python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_python3.9.____cpython:
-        CONFIG: osx_arm64_python3.9.____cpython
+      osx_arm64_numpy_pin1.20python3.9.____cpython:
+        CONFIG: osx_arm64_numpy_pin1.20python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_numpy_pin1.21python3.9.____cpython:
+        CONFIG: osx_arm64_numpy_pin1.21python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
@@ -32,6 +35,11 @@ jobs:
       export OSX_FORCE_SDK_DOWNLOAD="1"
       export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+      if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+        export IS_PR_BUILD="True"
+      else
+        export IS_PR_BUILD="False"
+      fi
       ./.scripts/run_osx_build.sh
     displayName: Run OSX build
     env:
