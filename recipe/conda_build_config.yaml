@@ -1,6 +1,6 @@
 MACOSX_SDK_VERSION:        # [osx and x86_64]
   - "10.12"                # [osx and x86_64]
-numpy:
+numpy_pin:
   - 1.19
   - 1.20
   - 1.21

@@ -28,7 +28,7 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy  {{ numpy }}
+    - numpy  {{ numpy_pin }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - bazel
@@ -76,7 +76,7 @@ requirements:
     - google-pasta >=0.2,<1
     - h5py >=3.1.0,<3.2
     - keras-preprocessing >=1.1.2,<1.2
-    - numpy  {{ numpy }}
+    - numpy  {{ numpy_pin }}
     - opt_einsum >=3.3,<3.4
     - protobuf >=3.9.2
     - six >=1.15
@@ -137,7 +137,7 @@ outputs:
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
         - keras-preprocessing >=1.1.2,<1.2
-        - numpy  {{ numpy }}
+        - numpy  {{ numpy_pin }}
         - opt_einsum >=3.3,<3.4
         - protobuf >=3.9.2
         - six >=1.15
@@ -158,7 +158,7 @@ outputs:
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
         - keras-preprocessing >=1.1.2,<1.2
-        - numpy  {{ numpy }}
+        - numpy  {{ numpy_pin }}
         - opt_einsum >=3.3,<3.4
         - protobuf >=3.9.2
         - six >=1.15
