@@ -16,3 +16,11 @@ model = tf.keras.models.Sequential([
   tf.keras.layers.Dense(10, activation='softmax')
 ])
 
+
+# https://github.com/tensorflow/tensorflow/issues/47691#issuecomment-889506604
+from tensorflow import keras
+
+model = keras.models.Sequential([
+    keras.layers.LSTM(20, return_sequences=True, input_shape=[None, 2]),
+    keras.layers.TimeDistributed(keras.layers.Dense(20))
+])
