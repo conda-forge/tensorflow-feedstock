@@ -22,12 +22,13 @@ source:
 build:
   number: 1
   skip: true  # [win]
+  skip: true  # [py!=39]
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy 1.19.*                           # [build_platform != target_platform]
+    - numpy  {{ numpy }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - bazel
@@ -75,10 +76,10 @@ requirements:
     - google-pasta >=0.2,<1
     - h5py >=3.1.0,<3.2
     - keras-preprocessing >=1.1.2,<1.2
-    - numpy 1.19.*
+    - numpy  {{ numpy }}
     - opt_einsum >=3.3,<3.4
     - protobuf >=3.9.2
-    - six >=1.15,<1.16
+    - six >=1.15
     - termcolor >=1.1,<1.2
     - typing_extensions >=3.7.4,<3.8
     - wheel >=0.35,<1
@@ -136,10 +137,10 @@ outputs:
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
         - keras-preprocessing >=1.1.2,<1.2
-        - numpy >=1.19.2,<1.20
+        - numpy  {{ numpy }}
         - opt_einsum >=3.3,<3.4
         - protobuf >=3.9.2
-        - six >=1.15,<1.16
+        - six >=1.15
         - termcolor >=1.1,<1.2
         - typing_extensions >=3.7.4,<3.8
         - wheel >=0.35,<1
@@ -157,10 +158,10 @@ outputs:
         - google-pasta >=0.2,<1
         - h5py >=3.1.0,<3.2
         - keras-preprocessing >=1.1.2,<1.2
-        - numpy >=1.19.2,<1.20
+        - numpy  {{ numpy }}
         - opt_einsum >=3.3,<3.4
         - protobuf >=3.9.2
-        - six >=1.15,<1.16
+        - six >=1.15
         - termcolor >=1.1,<1.2
         - typing_extensions >=3.7.4,<3.8
         - wheel >=0.35,<1
