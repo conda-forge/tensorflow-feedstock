@@ -204,10 +204,10 @@ outputs:
         - __cuda  # [cuda_compiler_version != "None"]
     test:
       files:
-        - test_tensorflow_base.py
+        - test_tensorflow.py
       commands:
-        - cat test_tensorflow_base.py   # [unix]
-        - python test_tensorflow_base.py
+        - cat test_tensorflow.py    # [unix]
+        - python test_tensorflow.py
         - tf_upgrade_v2 --help
         - saved_model_cli --help
         - tflite_convert --help     # [not win]
