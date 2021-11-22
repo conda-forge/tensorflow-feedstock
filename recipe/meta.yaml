@@ -104,12 +104,18 @@ requirements:
     - keras >=2.7,<2.8
 
 outputs:
-  - name: tensorflow-base
+  # as of tensorflow 2.7.0, we don't need tensorflow-base anymore;
+  # we still build it as a compatibility output (see below), but the
+  # main package is being built in the "tensorflow" output directly.
+  - name: tensorflow
     script: build_pkg.sh  # [not win]
     script: build_pkg.bat  # [win]
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      # weigh down cpu implementation and give cuda preference
+      track_features:
+        - tensorflow-cpu          # [cuda_compiler_version == "None"]
       entry_points:
         - toco_from_protos = tensorflow.lite.toco.python.toco_from_protos:main
         - tflite_convert = tensorflow.lite.python.tflite_convert:main
@@ -233,52 +239,13 @@ outputs:
         # all packages.
         # https://github.com/conda-forge/conda-forge.github.io/issues/1528
         - openssl
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+        - {{ pin_subpackage('tensorflow', exact=True) }}
       run:
         - python
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+        - {{ pin_subpackage('tensorflow', exact=True) }}
     test:
       requires:
         - pip
-      commands:
-        - pip check
-
-
-  - name: tensorflow
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-
-      # weigh down cpu implementation and give cuda preference
-      track_features:
-        - tensorflow-cpu          # [cuda_compiler_version == "None"]
-
-    requirements:
-      build:
-        # Keep the other compilers here so as to help solve for the
-        # required version of libc
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        # Keep the cuda compiler here since it helps package solvers
-        # decide on the cuda variant
-        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
-      host:
-        - python
-        # This ensures that a consistent version of openssl is chosen between
-        # all packages.
-        # https://github.com/conda-forge/conda-forge.github.io/issues/1528
-        - openssl
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
-      run:
-        - python
-        - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
-    test:
-      requires:
-        - pip
-      imports:
-        - tensorflow
       commands:
         - pip check
 
