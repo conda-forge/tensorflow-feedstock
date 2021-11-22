@@ -69,9 +69,9 @@ requirements:
     # but so far there have been no problems with leaving these
     # unpinned; though some restrictions come in for packages
     # that are also listed as a requirement for the pip_package.
-    - astor >=0.7.1
-    - cython >=0.28.4
-    - dill >=0.3.1.1
+    - astor
+    - cython
+    - dill
     - giflib
     - grpc-cpp
     - flatbuffers
@@ -86,30 +86,27 @@ requirements:
     - zlib
     # requirements specified by the package itself, see
     # github.com/tensorflow/tensorflow/blob/v{{ version }}/tensorflow/tools/pip_package/setup.py
-    - absl-py >=0.10,<1
-    - astunparse >=1.6.3,<1.7
-    - python-flatbuffers >=1.12,<2
-    - google-pasta >=0.2,<1
-    - h5py >=3.1.0,<3.2
-    - keras-preprocessing >=1.1.2,<1.2
+    - absl-py >=0.4.0
+    - astunparse >=1.6.0
+    - gast >=0.2.1,<0.5.0
+    - google-pasta >=0.1.1
+    - h5py >=2.9.0
+    - keras-preprocessing >=1.1.1
     - numpy
-    - opt_einsum >=3.3,<3.4
+    - opt_einsum >=2.3.2
     - protobuf >=3.9.2
-    # 2021/12/05: hmaarrfk
-    # While tensorflow has an upper bound on six
-    # six has been highly backward compatible
-    # We remove the upper bound so that we can be more compatible with
-    # The rest of the conda-forge ecosystem
-    - six >=1.15
-    - termcolor >=1.1,<1.2
-    - typing_extensions >=3.7.4,<3.8
-    - wheel >=0.35,<1
-    - wrapt >=1.12.1,<1.13
-    # upstream wants exact pin for gast
-    - gast ==0.4.0
+    - python-flatbuffers >=1.12,<3
+    - six >=1.12
+    # TODO: raise issue upstream about circular dependency
+    # - tensorflow-io-gcs-filesystem >=0.21.0
+    - termcolor >=1.1.0
+    - typing_extensions >=3.6.6
+    - wheel >=0.32,<1
+    - wrapt >=1.11.0
     # TF-API needs to move in sync
+    # XXX: actually, TF 2.7.0 still demands tb 2.6
     - tensorboard >=2.6,<2.7
-    - keras >=2.6,<2.7
+    - keras >=2.7,<2.8
 
 outputs:
   - name: tensorflow-base
@@ -141,9 +138,9 @@ outputs:
         - python
         - pip
         # TF_SYSTEM_LIBS
-        - astor >=0.7.1
-        - cython >=0.28.4
-        - dill >=0.3.1.1
+        - astor
+        - cython
+        - dill
         - giflib
         - grpc-cpp
         - flatbuffers
@@ -158,47 +155,50 @@ outputs:
         - sqlite
         - zlib
         # requirements specified by the package itself
-        - absl-py >=0.10,<1
-        - astunparse >=1.6.3,<1.7
-        - python-flatbuffers >=1.12,<2
-        - google-pasta >=0.2,<1
-        - h5py >=3.1.0,<3.2
-        - keras-preprocessing >=1.1.2,<1.2
+        - absl-py >=0.4.0
+        - astunparse >=1.6.0
+        - gast >=0.2.1,<0.5.0
+        - google-pasta >=0.1.1
+        - h5py >=2.9.0
+        - keras-preprocessing >=1.1.1
         - numpy
-        - opt_einsum >=3.3,<3.4
+        - opt_einsum >=2.3.2
         - protobuf >=3.9.2
-        - six >=1.15,<1.16
-        - termcolor >=1.1,<1.2
-        - typing_extensions >=3.7.4,<3.8
-        - wheel >=0.35,<1
-        - wrapt >=1.12.1,<1.13
-        # upstream wants exact pin for gast
-        - gast ==0.4.0
+        - python-flatbuffers >=1.12,<3
+        - six >=1.12
+        # TODO: raise issue upstream about circular dependency
+        # - tensorflow-io-gcs-filesystem >=0.21.0
+        - termcolor >=1.1.0
+        - typing_extensions >=3.6.6
+        - wheel >=0.32,<1
+        - wrapt >=1.11.0
         # TF-API needs to move in sync
+        # XXX: actually, TF 2.7.0 still demands tb 2.6
         - tensorboard >=2.6,<2.7
-        - keras >=2.6,<2.7
+        - keras >=2.7,<2.8
       run:
         - python
-        - absl-py >=0.10,<1
-        - astunparse >=1.6.3,<1.7
-        - python-flatbuffers >=1.12,<2
-        - google-pasta >=0.2,<1
+        - absl-py >=0.4.0
+        - astunparse >=1.6.0
+        - gast >=0.2.1,<0.5.0
+        - google-pasta >=0.1.1
         - grpcio {{ grpc_cpp }}.*
-        - h5py >=3.1.0,<3.2
-        - keras-preprocessing >=1.1.2,<1.2
+        - h5py >=2.9.0
+        - keras-preprocessing >=1.1.1
         - {{ pin_compatible('numpy') }}
-        - opt_einsum >=3.3,<3.4
+        - opt_einsum >=2.3.2
         - protobuf >=3.9.2
-        - six >=1.15,<1.16
-        - termcolor >=1.1,<1.2
-        - typing_extensions >=3.7.4,<3.8
-        - wheel >=0.35,<1
-        - wrapt >=1.12.1,<1.13
-        # upstream wants exact pin for gast
-        - gast ==0.4.0
+        - python-flatbuffers >=1.12,<3
+        - six >=1.12
+        - tensorflow-io-gcs-filesystem >=0.21.0
+        - termcolor >=1.1.0
+        - typing_extensions >=3.6.6
+        - wheel >=0.32,<1
+        - wrapt >=1.11.0
         # TF-API needs to move in sync
+        # XXX: actually, TF 2.7.0 still demands tb 2.6
         - tensorboard >=2.6,<2.7
-        - keras >=2.6,<2.7
+        - keras >=2.7,<2.8
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda  # [cuda_compiler_version != "None"]
     test:
