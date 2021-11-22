@@ -214,6 +214,25 @@ outputs:
         - toco_from_protos --help   # [not win]
         - toco --help               # [not win]
 
+  # compatibility output wrapping core package, since tensorflow-base
+  # was used as an output before 2.7 (should we add a deprecation warning?)
+  - name: tensorflow-base
+    requirements:
+      host:
+        - python
+        - openssl
+        - {{ pin_subpackage('tensorflow', exact=True) }}
+      run:
+        - python
+        - {{ pin_subpackage('tensorflow', exact=True) }}
+    test:
+      requires:
+        - pip
+      imports:
+        - tensorflow
+      commands:
+        - pip check
+
   - name: tensorflow-estimator
     script: build_estimator.sh   # [not win]
     script: build_estimator.bat  # [win]
