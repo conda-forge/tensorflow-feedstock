@@ -1,4 +1,4 @@
-From 2e72112b3dd2e6e8c234546935bcad5dbd05280d Mon Sep 17 00:00:00 2001
+From 5b9c6d80a8ce64bc8f7ed279920728019f579cc1 Mon Sep 17 00:00:00 2001
 From: Jonathan Helmus <jjhelmus@gmail.com>
 Date: Mon, 20 Aug 2018 12:19:04 -0500
 Subject: [PATCH 3/5] relax precision in matrix_log_op_test
@@ -21,5 +21,5 @@ index 5004a9c5588..62c2bfe1abe 100644
    def _verifyLogarithmComplex(self, x):
      for np_type in [np.complex64, np.complex128]:
 -- 
-2.29.2.windows.3
+2.32.0.windows.2
 

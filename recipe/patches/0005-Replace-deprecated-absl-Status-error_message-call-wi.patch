@@ -1,0 +1,28 @@
+From 6b6e31e057a070942f9eb3acba7578be517bb173 Mon Sep 17 00:00:00 2001
+From: Zachary Garrett <zachgarrett@google.com>
+Date: Mon, 27 Sep 2021 08:40:23 -0700
+Subject: [PATCH 5/5] Replace deprecated `absl::Status::error_message` call
+ with `absl::Status::message`.
+
+PiperOrigin-RevId: 399198325
+Change-Id: Ib4a5e1d3a5e1447fefe9de428946341522a021a4
+---
+ tensorflow/core/kernels/example_parsing_ops.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/core/kernels/example_parsing_ops.cc b/tensorflow/core/kernels/example_parsing_ops.cc
+index a1265cfb5c6..ada919bbd7b 100644
+--- a/tensorflow/core/kernels/example_parsing_ops.cc
++++ b/tensorflow/core/kernels/example_parsing_ops.cc
+@@ -1218,7 +1218,7 @@ class DecodeJSONExampleOp : public OpKernel {
+           resolver_.get(), "type.googleapis.com/tensorflow.Example", &in, &out);
+       OP_REQUIRES(ctx, status.ok(),
+                   errors::InvalidArgument("Error while parsing JSON: ",
+-                                          string(status.error_message())));
++                                          string(status.message())));
+     }
+   }
+ 
+-- 
+2.32.0.windows.2
+

@@ -1,4 +1,4 @@
-From 5d04da7f2b31df87f38bebc5ed806589880e7eed Mon Sep 17 00:00:00 2001
+From a047e1572d7bc5f1658b2fb771fca724c8b91764 Mon Sep 17 00:00:00 2001
 From: Jonathan Helmus <jjhelmus@gmail.com>
 Date: Thu, 4 Jan 2018 17:17:23 -0600
 Subject: [PATCH 2/5] skip read only debugger_cli_common test
@@ -27,5 +27,5 @@ index 93df845c4c5..814ddf13a16 100644
      self._restoreFileReadWritePermissions(self._history_file_path)
  
 -- 
-2.29.2.windows.3
+2.32.0.windows.2
 
