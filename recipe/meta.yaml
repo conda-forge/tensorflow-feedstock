@@ -378,11 +378,10 @@ about:
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache
-  summary: TensorFlow is an open source machine learning framework for everyone.
+  summary: An Open Source Machine Learning Framework for Everyone.
   description: |
-    TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
+    TensorFlow provides multiple APIs. The lowest level API, TensorFlow Core
     provides you with complete programming control.
-    Base package contains only tensorflow, not tensorflow-tensorboard.
   dev_url: https://github.com/tensorflow/tensorflow
   doc_url: https://www.tensorflow.org/get_started/get_started
   doc_source_url: https://github.com/tensorflow/tensorflow/tree/master/tensorflow/docs_src

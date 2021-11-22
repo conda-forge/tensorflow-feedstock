@@ -7,15 +7,14 @@ Package license: Apache-2.0
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock/blob/master/LICENSE.txt)
 
-Summary: TensorFlow is an open source machine learning framework for everyone.
+Summary: An Open Source Machine Learning Framework for Everyone.
 
 Development: https://github.com/tensorflow/tensorflow
 
 Documentation: https://www.tensorflow.org/get_started/get_started
 
-TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
+TensorFlow provides multiple APIs. The lowest level API, TensorFlow Core
 provides you with complete programming control.
-Base package contains only tensorflow, not tensorflow-tensorboard.
 
 
 Current build status
