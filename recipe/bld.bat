@@ -55,6 +55,19 @@ set TF_DOWNLOAD_CLANG=0
 set TF_SET_ANDROID_WORKSPACE=0
 :: can be removed for TF>=2.7
 set TF_IGNORE_MAX_BAZEL_VERSION=1
+:: try to avoid hangs in configure.py by setting environment
+:: variables whose value might get prompted if missing, see
+:: https://github.com/tensorflow/tensorflow/blob/master/configure.py
+:: (searching for 'get_from_env_or_user_or_default')
+:: PYTHON_BIN_PATH / CC_OPT_FLAGS set above already
+set "HOST_C_COMPILER=%CC%"
+set "HOST_CXX_COMPILER=%CXX%"
+set "CLANG_CUDA_COMPILER_PATH=some\path\I\want\to\debug"
+set "TF_CUDA_VERSION=0.0.1"
+set "TF_CUDNN_VERSION=0.0.1"
+set "TF_NCCL_VERSION=0.0.1"
+set "TF_TENSORRT_VERSION=0.0.1"
+set "TF_CUDA_COMPUTE_CAPABILITIES=...,sm_86,compute_86"
 .\configure
 if %ERRORLEVEL% neq 0 exit 1
 
