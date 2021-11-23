@@ -57,10 +57,12 @@ set TF_IGNORE_MAX_BAZEL_VERSION=1
 :: try to avoid hangs in configure.py by setting environment
 :: variables whose value might get prompted if missing, see
 :: https://github.com/tensorflow/tensorflow/blob/master/configure.py
-:: (searching for 'get_from_env_or_user_or_default')
-:: PYTHON_BIN_PATH / CC_OPT_FLAGS set above already
+:: (searching for 'get_var' & 'get_from_env_or_user_or_default')
+:: PYTHON_BIN_PATH / CC_OPT_FLAGS / TF_CUDA_CLANG / TF_DOWNLOAD_CLANG
+:: / TF_NEED_ROCM / TF_NEED_TENSORRT set above already
 set "HOST_C_COMPILER=%CC%"
 set "HOST_CXX_COMPILER=%CXX%"
+set "TF_OVERRIDE_EIGEN_STRONG_INLINE=0"
 
 :: CUDA-enabled setup
 if "%cuda_compiler_version%"=="None" (
