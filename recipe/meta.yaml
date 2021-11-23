@@ -25,6 +25,9 @@ source:
 build:
   number: 0
   skip: true  # [win]
+  # need to use variable lib_or_pkg somewhere in meta.yaml
+  # so that the rerender picks it up.
+  skip: false  # [lib_or_pkg == "lib"]
 
 requirements:
   build:
@@ -100,6 +103,8 @@ requirements:
     - keras >=2.6,<2.7
 
 outputs:
+  # split build into different jobs to try to fit into 6h CI timelimit
+  {% if lib_or_pkg == "pkg" %}
   - name: tensorflow-base
     script: build_pkg.sh  # [not win]
     script: build_pkg.bat  # [win]
@@ -234,7 +239,6 @@ outputs:
       commands:
         - pip check
 
-
   - name: tensorflow
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
@@ -289,10 +293,13 @@ outputs:
     test:
       imports:
         - tensorflow
-
+  # lib_or_pkg == "pkg"
+  {% else %}
+  # lib_or_pkg == "lib"
   - name: libtensorflow
     script: cp_libtensorflow.sh
     build:
+      skip: true  # [win]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       run_exports:
@@ -334,6 +341,7 @@ outputs:
   - name: libtensorflow_cc
     script: cp_libtensorflow_cc.sh
     build:
+      skip: true  # [win]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       run_exports:
@@ -370,6 +378,7 @@ outputs:
       commands:
         - test -f $PREFIX/lib/libtensorflow_cc.so  # [not win and cuda_compiler_version == "None"]
         - ./test_libtensorflow_cc.sh               # [not win and cuda_compiler_version == "None"]
+  {% endif %}  # lib_or_pkg == "lib"
 
 about:
   home: http://tensorflow.org/
