@@ -293,7 +293,6 @@ outputs:
   - name: libtensorflow
     script: cp_libtensorflow.sh
     build:
-      skip: true  # [not linux]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       run_exports:
@@ -335,7 +334,6 @@ outputs:
   - name: libtensorflow_cc
     script: cp_libtensorflow_cc.sh
     build:
-      skip: true  # [not linux]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       run_exports:
