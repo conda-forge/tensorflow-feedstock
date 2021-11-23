@@ -53,6 +53,8 @@ set TF_NEED_ROCM=0
 set TF_NEED_MPI=0
 set TF_DOWNLOAD_CLANG=0
 set TF_SET_ANDROID_WORKSPACE=0
+:: can be removed for TF>=2.7
+set TF_IGNORE_MAX_BAZEL_VERSION=1
 .\configure
 if %ERRORLEVEL% neq 0 exit 1
 
