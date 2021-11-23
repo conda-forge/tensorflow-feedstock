@@ -46,7 +46,6 @@ set CC_OPT_FLAGS="-march=nocona -mtune=haswell"
 set TF_NEED_OPENCL=0
 set TF_NEED_OPENCL_SYCL=0
 set TF_NEED_COMPUTECPP=0
-set TF_NEED_CUDA=0
 set TF_CUDA_CLANG=0
 set TF_NEED_TENSORRT=0
 set TF_NEED_ROCM=0
@@ -62,12 +61,35 @@ set TF_IGNORE_MAX_BAZEL_VERSION=1
 :: PYTHON_BIN_PATH / CC_OPT_FLAGS set above already
 set "HOST_C_COMPILER=%CC%"
 set "HOST_CXX_COMPILER=%CXX%"
-set "CLANG_CUDA_COMPILER_PATH=some\path\I\want\to\debug"
-set "TF_CUDA_VERSION=0.0.1"
-set "TF_CUDNN_VERSION=0.0.1"
-set "TF_NCCL_VERSION=0.0.1"
-set "TF_TENSORRT_VERSION=0.0.1"
-set "TF_CUDA_COMPUTE_CAPABILITIES=...,sm_86,compute_86"
+
+:: CUDA-enabled setup
+if "%cuda_compiler_version%"=="None" (
+    set "TF_NEED_CUDA=0"
+) else (
+    set "TF_NEED_CUDA=1"
+    set "TF_CUDA_VERSION=%cuda_compiler_version%"
+    set "TF_CUDNN_VERSION=%cudnn%"
+    :: TODO
+    set "TF_NCCL_VERSION=0.0.1"
+    set "CLANG_CUDA_COMPILER_PATH=some\path\I\want\to\debug"
+
+    REM %MY_VAR:~0,2% selects first two characters
+    if "%cuda_compiler_version:~0,2%"=="11" (
+        if "%cuda_compiler_version:~0,4%"=="11.0" (
+            REM cuda 11.0 deprecates arches 35, 50
+            set "TF_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_62,sm_70,sm_72,sm_75,sm_80,compute_80"
+        ) else (
+            set "TF_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,compute_86"
+        )
+    )
+
+    REM WIN+CUDA workarounds (copied from faiss-feedstock)
+    del %BUILD_PREFIX%\bin\nvcc.bat
+    set "CudaToolkitDir=%CUDA_PATH%"
+    set "CUDAToolkit_ROOT=%CUDA_PATH%"
+)
+
+:: configure step
 .\configure
 if %ERRORLEVEL% neq 0 exit 1
 
