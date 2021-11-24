@@ -159,15 +159,17 @@ if [[ "${lib_or_pkg}" == "pkg" ]]; then
 else
   cp $SRC_DIR/bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz $SRC_DIR
   mkdir -p $SRC_DIR/libtensorflow_cc_output/lib
-  # preserve symbolic links while copying; linux & unix use different letters for this option
+  # preserve symbolic links while copying; linux & macos use different
+  # letters for this option, as well as different library extensions
   if [[ "${target_platform}" == linux-* ]]; then
-    export CP_SYM="cp -d"
+    cp -d bazel-bin/tensorflow/libtensorflow_cc.so* $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -d bazel-bin/tensorflow/libtensorflow_framework.so* $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -d $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so.2 $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so
   else
-    export CP_SYM="cp -a"
+    cp -a bazel-bin/tensorflow/libtensorflow_cc.*.dylib $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -a bazel-bin/tensorflow/libtensorflow_framework.*.dylib $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -a $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.2.dylib $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.dylib
   fi
-  $CP_SYM bazel-bin/tensorflow/libtensorflow_cc.so* $SRC_DIR/libtensorflow_cc_output/lib/
-  $CP_SYM bazel-bin/tensorflow/libtensorflow_framework.so* $SRC_DIR/libtensorflow_cc_output/lib/
-  $CP_SYM $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so.2 $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so
   # Make writable so patchelf can do its magic
   chmod u+w $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow*
 
