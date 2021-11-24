@@ -1,2 +1,11 @@
+c_compiler_version:        # [linux]
+  - 9                      # [linux]
+cxx_compiler_version:      # [linux]
+  - 9                      # [linux]
+
 MACOSX_SDK_VERSION:        # [osx and x86_64]
   - "10.12"                # [osx and x86_64]
+
+lib_or_pkg:
+  - "lib"
+  - "pkg"

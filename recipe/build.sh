@@ -86,7 +86,13 @@ if [[ "${target_platform}" == "osx-arm64" ]]; then
   BUILD_OPTS="${BUILD_OPTS} --config=macos_arm64"
 fi
 export TF_ENABLE_XLA=0
-export BUILD_TARGET="//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow //tensorflow:libtensorflow_cc.so"
+
+# split build into different jobs to try to fit into 6h CI timelimit
+if [[ "${lib_or_pkg}" == "lib" ]]; then
+  export BUILD_TARGET="//tensorflow/tools/lib_package:libtensorflow //tensorflow:libtensorflow_cc.so"
+else
+  export BUILD_TARGET="//tensorflow/tools/pip_package:build_pip_package"
+fi
 
 # Python settings
 export PYTHON_BIN_PATH=${PYTHON}
@@ -146,16 +152,26 @@ bazel shutdown
 # build using bazel
 bazel ${BAZEL_OPTS} build ${BUILD_OPTS} ${BUILD_TARGET}
 
-# build a whl file
-mkdir -p $SRC_DIR/tensorflow_pkg
-bash -x bazel-bin/tensorflow/tools/pip_package/build_pip_package $SRC_DIR/tensorflow_pkg
-
-if [[ "${target_platform}" == linux-* ]]; then
+if [[ "${lib_or_pkg}" == "pkg" ]]; then
+  # build a whl file
+  mkdir -p $SRC_DIR/tensorflow_pkg
+  bash -x bazel-bin/tensorflow/tools/pip_package/build_pip_package $SRC_DIR/tensorflow_pkg
+else
   cp $SRC_DIR/bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz $SRC_DIR
   mkdir -p $SRC_DIR/libtensorflow_cc_output/lib
-  cp -d bazel-bin/tensorflow/libtensorflow_cc.so* $SRC_DIR/libtensorflow_cc_output/lib/
-  cp -d bazel-bin/tensorflow/libtensorflow_framework.so* $SRC_DIR/libtensorflow_cc_output/lib/
-  cp -d $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so.2 $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so
+  # preserve symbolic links while copying; linux & macos use different
+  # letters for this option, as well as different library extensions
+  if [[ "${target_platform}" == linux-* ]]; then
+    cp -d bazel-bin/tensorflow/libtensorflow_cc.so* $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -d bazel-bin/tensorflow/libtensorflow_framework.so* $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -d $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so.2 $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.so
+  else
+    # debug: show files
+    ls bazel-bin/tensorflow/
+    cp -a bazel-bin/tensorflow/libtensorflow_cc.so.* $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -a bazel-bin/tensorflow/libtensorflow_framework.*.dylib $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -a $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.2.dylib $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.dylib
+  fi
   # Make writable so patchelf can do its magic
   chmod u+w $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow*
 

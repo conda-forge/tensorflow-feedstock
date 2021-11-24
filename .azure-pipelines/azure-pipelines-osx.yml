@@ -8,20 +8,35 @@ jobs:
     vmImage: macOS-10.15
   strategy:
     matrix:
-      osx_64_python3.7.____cpython:
-        CONFIG: osx_64_python3.7.____cpython
+      osx_64_lib_or_pkglibpython3.7.____cpython:
+        CONFIG: osx_64_lib_or_pkglibpython3.7.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_python3.8.____cpython:
-        CONFIG: osx_64_python3.8.____cpython
+      osx_64_lib_or_pkglibpython3.8.____cpython:
+        CONFIG: osx_64_lib_or_pkglibpython3.8.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_python3.9.____cpython:
-        CONFIG: osx_64_python3.9.____cpython
+      osx_64_lib_or_pkglibpython3.9.____cpython:
+        CONFIG: osx_64_lib_or_pkglibpython3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_python3.8.____cpython:
-        CONFIG: osx_arm64_python3.8.____cpython
+      osx_64_lib_or_pkgpkgpython3.7.____cpython:
+        CONFIG: osx_64_lib_or_pkgpkgpython3.7.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_python3.9.____cpython:
-        CONFIG: osx_arm64_python3.9.____cpython
+      osx_64_lib_or_pkgpkgpython3.8.____cpython:
+        CONFIG: osx_64_lib_or_pkgpkgpython3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_64_lib_or_pkgpkgpython3.9.____cpython:
+        CONFIG: osx_64_lib_or_pkgpkgpython3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_lib_or_pkglibpython3.8.____cpython:
+        CONFIG: osx_arm64_lib_or_pkglibpython3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_lib_or_pkglibpython3.9.____cpython:
+        CONFIG: osx_arm64_lib_or_pkglibpython3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_lib_or_pkgpkgpython3.8.____cpython:
+        CONFIG: osx_arm64_lib_or_pkgpkgpython3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_lib_or_pkgpkgpython3.9.____cpython:
+        CONFIG: osx_arm64_lib_or_pkgpkgpython3.9.____cpython
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
