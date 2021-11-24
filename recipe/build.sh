@@ -168,7 +168,7 @@ else
   else
     # debug: show files
     ls bazel-bin/tensorflow/
-    cp -a bazel-bin/tensorflow/libtensorflow_cc.*.dylib $SRC_DIR/libtensorflow_cc_output/lib/
+    cp -a bazel-bin/tensorflow/libtensorflow_cc.so.* $SRC_DIR/libtensorflow_cc_output/lib/
     cp -a bazel-bin/tensorflow/libtensorflow_framework.*.dylib $SRC_DIR/libtensorflow_cc_output/lib/
     cp -a $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.2.dylib $SRC_DIR/libtensorflow_cc_output/lib/libtensorflow_framework.dylib
   fi
