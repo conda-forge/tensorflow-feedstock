@@ -33,7 +33,7 @@ libcurl:
 libpng:
 - '1.6'
 libprotobuf:
-- '3.18'
+- '3.19'
 nccl:
 - '2'
 openssl:
