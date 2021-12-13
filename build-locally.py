@@ -13,6 +13,7 @@ import platform
 def setup_environment(ns):
     os.environ["CONFIG"] = ns.config
     os.environ["UPLOAD_PACKAGES"] = "False"
+    os.environ["IS_PR_BUILD"] = "True"
     if ns.debug:
         os.environ["BUILD_WITH_CONDA_DEBUG"] = "1"
         if ns.output_id:
@@ -20,6 +21,10 @@ def setup_environment(ns):
     if "MINIFORGE_HOME" not in os.environ:
         os.environ["MINIFORGE_HOME"] = os.path.join(
             os.path.dirname(__file__), "miniforge3"
+        )
+    if "OSX_SDK_DIR" not in os.environ:
+        os.environ["OSX_SDK_DIR"] = os.path.join(
+            os.path.dirname(__file__), "SDKs"
         )
 
 
