@@ -114,7 +114,11 @@ export TF_NEED_MPI=0
 export TF_DOWNLOAD_CLANG=0
 export TF_SET_ANDROID_WORKSPACE=0
 export TF_CONFIGURE_IOS=0
-
+# Ignore maximum bazel version. Setting this environment varible
+# to anything will cause it to be ignored.
+# See 
+# https://github.com/tensorflow/tensorflow/blob/master/configure.py#L507
+export TF_IGNORE_MAX_BAZEL_VERSION=1
 # Get rid of unwanted defaults
 sed -i -e "/PROTOBUF_INCLUDE_PATH/c\ " .bazelrc
 sed -i -e "/PREFIX/c\ " .bazelrc
