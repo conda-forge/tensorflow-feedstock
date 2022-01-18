@@ -26,7 +26,7 @@ conda activate base
 echo -e "\n\nInstalling conda-forge-ci-setup=3 and conda-build."
 mamba install -n base --update-specs --quiet --yes "conda-forge-ci-setup=3" conda-build pip boa
 mamba update -n base --update-specs --quiet --yes "conda-forge-ci-setup=3" conda-build pip boa
-
+mamba update --yes -c conda-forge/label/lief_dev -c conda-forge py-lief
 
 
 echo -e "\n\nSetting up the condarc and mangling the compiler."
