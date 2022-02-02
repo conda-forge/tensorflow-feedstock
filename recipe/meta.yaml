@@ -1,4 +1,6 @@
-{% set version = "2.6.2" %}
+{% set tensorflow_cpu_gpu = "tensorflow-gpu" %}  # [cuda_compiler_version != "None"]
+{% set tensorflow_cpu_gpu = "tensorflow-cpu" %}  # [cuda_compiler_version == "None" or cuda_compiler_version is undefined]
+{% set version = "2.8.0" %}
 {% set estimator_version = "2.6.0" %}
 
 package:
@@ -7,7 +9,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz
-    sha256: e68c1d346fc3d529653530ca346b2c62f5b31bd4fcca7ffc9c65bb39ab2f6ed3
+    sha256: 66b953ae7fba61fd78969a2e24e350b26ec116cf2e6a7eb93d02c63939c6f9f7
     patches:
       - patches/0001-relax-tolerence-in-special_math_test.patch
       - patches/0002-skip-read-only-debugger_cli_common-test.patch
@@ -25,7 +27,7 @@ source:
     folder: tensorflow-estimator
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -215,7 +217,7 @@ outputs:
         - toco --help               # [not win]
 
   - name: tensorflow-estimator
-    script: build_estimator.sh   # [not win]
+    script: build_estimator.sh  # [not win]
     script: build_estimator.bat  # [win]
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
@@ -384,8 +386,8 @@ outputs:
   - name: {{ tensorflow_cpu_gpu }}
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                      # [cuda_compiler_version == "None"]
-      detect_binary_files_with_prefix: False
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      detect_binary_files_with_prefix: false
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
