@@ -1,5 +1,5 @@
-{% set version = "2.6.2" %}
-{% set estimator_version = "2.6.0" %}
+{% set version = "2.7.0" %}
+{% set estimator_version = "2.7.0" %}
 
 package:
   name: tensorflow-split
@@ -7,32 +7,33 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz
-    sha256: e68c1d346fc3d529653530ca346b2c62f5b31bd4fcca7ffc9c65bb39ab2f6ed3
+    sha256: bb124905c7fdacd81e7c842b287c169bbf377d29c74c9dacc04f96c9793747bb
     patches:
       - patches/0001-relax-tolerence-in-special_math_test.patch
       - patches/0002-skip-read-only-debugger_cli_common-test.patch
       - patches/0003-relax-precision-in-matrix_log_op_test.patch
       # requires setting GRPCIO_VERSION in build script
-      - patches/0004-loosen-requirements.patch
+      #- patches/0004-loosen-requirements.patch
       - patches/0005-remove_deprecated_use_of_error_message.patch
-      - patches/0006-protobuf_3_18_comaptibility.patch
+      #- patches/0006-protobuf_3_18_comaptibility.patch
       # can be dropped for v>=2.7
-      - patches/51450-Fix_protobuf_errors_when_using_system_protobuf.patch
+      #- patches/51450-Fix_protobuf_errors_when_using_system_protobuf.patch
       # can be dropped for v>=2.7
-      - patches/0007-relax_six_requirement.patch
+      #- patches/0007-relax_six_requirement.patch
+      - patches/0008-remove-tensorflow-io-gcs-filesystem-dependency.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version }}.tar.gz
-    sha256: 947705c60c50da0b4a8ceec1bc058aaf6bf567a7efdcd50d5173ebf6bafcf30f
+    sha256: e5164e802638d3cf110ecc17912be9d514a9d3354ec48e77200b9403dcc15965
     folder: tensorflow-estimator
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy 1.19.*                           # [build_platform != target_platform]
+    - numpy                           # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
@@ -87,14 +88,14 @@ requirements:
     - zlib
     # requirements specified by the package itself, see
     # github.com/tensorflow/tensorflow/blob/v{{ version }}/tensorflow/tools/pip_package/setup.py
-    - absl-py >=0.10,<1
-    - astunparse >=1.6.3,<1.7
-    - python-flatbuffers >=1.12,<2
-    - google-pasta >=0.2,<1
-    - h5py >=3.1.0,<3.2
-    - keras-preprocessing >=1.1.2,<1.2
-    - numpy 1.19.*
-    - opt_einsum >=3.3,<3.4
+    - absl-py >=0.4.0
+    - astunparse >=1.6.0
+    - python-flatbuffers >=1.12,<3
+    - google-pasta >=0.1.1
+    - h5py >=2.9.0
+    - keras-preprocessing >=1.1.1
+    - numpy >=1.14.5
+    - opt_einsum >=2.3.2
     - protobuf >=3.9.2
     # 2021/12/05: hmaarrfk
     # While tensorflow has an upper bound on six
@@ -102,15 +103,15 @@ requirements:
     # We remove the upper bound so that we can be more compatible with
     # The rest of the conda-forge ecosystem
     - six >=1.15
-    - termcolor >=1.1,<1.2
-    - typing_extensions >=3.7.4,<3.8
-    - wheel >=0.35,<1
-    - wrapt >=1.12.1,<1.13
+    - termcolor >=1.1.0
+    - typing_extensions >=3.6.6
+    - wheel >=0.32.0,<1
+    - wrapt >=1.11.0
     # upstream wants exact pin for gast
     - gast ==0.4.0
     # TF-API needs to move in sync
-    - tensorboard >=2.6,<2.7
-    - keras >=2.6,<2.7
+    - tensorboard >=2.7,<2.8
+    - keras >=2.7,<2.8
 
 outputs:
   - name: tensorflow-base
@@ -159,47 +160,47 @@ outputs:
         - sqlite
         - zlib
         # requirements specified by the package itself
-        - absl-py >=0.10,<1
-        - astunparse >=1.6.3,<1.7
-        - python-flatbuffers >=1.12,<2
-        - google-pasta >=0.2,<1
-        - h5py >=3.1.0,<3.2
-        - keras-preprocessing >=1.1.2,<1.2
-        - numpy >=1.19.2,<1.20
-        - opt_einsum >=3.3,<3.4
+        - absl-py >=0.4.0
+        - astunparse >=1.6.0
+        - python-flatbuffers >=1.12,<3
+        - google-pasta >=0.1.1
+        - h5py >=2.9.0
+        - keras-preprocessing >=1.1.1
+        - numpy >=1.14.5
+        - opt_einsum >=2.3.2
         - protobuf >=3.9.2
         - six >=1.15,<1.16
-        - termcolor >=1.1,<1.2
-        - typing_extensions >=3.7.4,<3.8
-        - wheel >=0.35,<1
-        - wrapt >=1.12.1,<1.13
+        - termcolor >=1.1.0
+        - typing_extensions >=3.6.6
+        - wheel >=0.32.0,<1
+        - wrapt >=1.11.0
         # upstream wants exact pin for gast
         - gast ==0.4.0
         # TF-API needs to move in sync
-        - tensorboard >=2.6,<2.7
-        - keras >=2.6,<2.7
+        - tensorboard >=2.7,<2.8
+        - keras >=2.7,<2.8
       run:
         - python
-        - absl-py >=0.10,<1
-        - astunparse >=1.6.3,<1.7
-        - python-flatbuffers >=1.12,<2
-        - google-pasta >=0.2,<1
+        - absl-py >=0.4.0
+        - astunparse >=1.6.0
+        - python-flatbuffers >=1.12,<3
+        - google-pasta >=0.1.1
         - grpcio {{ grpc_cpp }}.*
-        - h5py >=3.1.0,<3.2
-        - keras-preprocessing >=1.1.2,<1.2
-        - numpy >=1.19.2,<1.20
-        - opt_einsum >=3.3,<3.4
+        - h5py >=2.9.0
+        - keras-preprocessing >=1.1.1
+        - numpy >=1.14.5
+        - opt_einsum >=2.3.2
         - protobuf >=3.9.2
         - six >=1.15,<1.16
-        - termcolor >=1.1,<1.2
-        - typing_extensions >=3.7.4,<3.8
-        - wheel >=0.35,<1
-        - wrapt >=1.12.1,<1.13
+        - termcolor >=1.1.0
+        - typing_extensions >=3.6.6
+        - wheel >=0.32.0,<1
+        - wrapt >=1.11.0
         # upstream wants exact pin for gast
         - gast ==0.4.0
         # TF-API needs to move in sync
-        - tensorboard >=2.6,<2.7
-        - keras >=2.6,<2.7
+        - tensorboard >=2.7,<2.8
+        - keras >=2.7,<2.8
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda  # [cuda_compiler_version != "None"]
     test:
