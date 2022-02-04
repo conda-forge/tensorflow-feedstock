@@ -8,7 +8,7 @@ source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 66b953ae7fba61fd78969a2e24e350b26ec116cf2e6a7eb93d02c63939c6f9f7
     patches:
-      - 0001-customize-setpy.patch
+      - patches/0001-customize-setpy.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 58a2c3562ca6491c257e9a4d9bd8825667883257edcdb452181efa691c586b17
     folder: tensorflow-estimator
