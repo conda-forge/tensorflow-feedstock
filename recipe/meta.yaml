@@ -99,9 +99,33 @@ requirements:
     # TF-API needs to move in sync
     # XXX: actually, TF 2.7.0 still demands tb 2.6
     - tensorboard >=2.8,<2.9
-    - keras >=2.8,<2.9
+    # adding keras as output below.
+    # - keras >=2.8,<2.9
 
 outputs:
+  # avoid the cyclical deps.
+  - name: keras-tf
+    source:
+    - url: https://pypi.io/packages/py2.py3/k/keras/keras-{{ version }}-py2.py3-none-any.whl
+      sha256: 744d39dc6577dcd80ff4a4d41549e92b77d6a17e0edd58a431d30656e29bc94e
+    - url: https://raw.githubusercontent.com/keras-team/keras/v{{ version }}/LICENSE
+      sha256: ebc07b279109d4bd5e58fe06f54e8f8aee8ba1024b77b222bc04214ae6f56348
+    build:
+      script: {{ PYTHON }} -m pip install -vv keras-{{ version }}-py2.py3-none-any.whl
+      noarch: python
+      number: 0
+    requirements:
+      host:
+        - python >=3.6
+        - pip
+      run:
+        - python >=3.6
+    test:
+      requires:
+        - pip
+      commands:
+        - pip check
+
   # 2021/12/29: hmaarrfk
   # as of tensorflow 2.7.0 we need the tensorflow-base package to break
   # circular dependency when buliding tensorflow extra packages This annoying
