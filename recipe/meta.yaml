@@ -17,6 +17,8 @@ source:
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 58a2c3562ca6491c257e9a4d9bd8825667883257edcdb452181efa691c586b17
     folder: tensorflow-estimator
+  - url: https://pypi.io/packages/py2.py3/k/keras/keras-{{ version }}-py2.py3-none-any.whl
+    sha256: 744d39dc6577dcd80ff4a4d41549e92b77d6a17e0edd58a431d30656e29bc94e
 
 build:
   number: 0
@@ -105,11 +107,6 @@ requirements:
 outputs:
   # avoid the cyclical deps.
   - name: keras-tf
-    source:
-    - url: https://pypi.io/packages/py2.py3/k/keras/keras-{{ version }}-py2.py3-none-any.whl
-      sha256: 744d39dc6577dcd80ff4a4d41549e92b77d6a17e0edd58a431d30656e29bc94e
-    - url: https://raw.githubusercontent.com/keras-team/keras/v{{ version }}/LICENSE
-      sha256: ebc07b279109d4bd5e58fe06f54e8f8aee8ba1024b77b222bc04214ae6f56348
     build:
       script: {{ PYTHON }} -m pip install -vv keras-{{ version }}-py2.py3-none-any.whl
       noarch: python
