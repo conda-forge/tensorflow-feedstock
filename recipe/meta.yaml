@@ -17,6 +17,7 @@ build:
   number: 0
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
+  skip: true  # [cuda_compiler_version in ("10.2", "11.0", "11.1")]
 
 requirements:
   build:
@@ -93,8 +94,8 @@ requirements:
     - wrapt >=1.11.0
     # TF-API needs to move in sync
     # XXX: actually, TF 2.7.0 still demands tb 2.6
-    - tensorboard >=2.6,<2.7
-    - keras >=2.7,<2.8
+    - tensorboard >=2.8,<2.9
+    - keras >=2.8,<2.9
 
 outputs:
   # 2021/12/29: hmaarrfk
@@ -189,8 +190,8 @@ outputs:
         - wrapt >=1.11.0
         # TF-API needs to move in sync
         # XXX: actually, TF 2.7.0 still demands tb 2.6
-        - tensorboard >=2.6,<2.7
-        - keras >=2.7,<2.8
+        - tensorboard >=2.8,<2.9
+        - keras >=2.8,<2.9
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda  # [cuda_compiler_version != "None"]
     # TODO: decide on the name of the package
