@@ -1,0 +1,46 @@
+From 3be2fa4f6b4b85fcd94ba01dd6ac0b5b29f432b8 Mon Sep 17 00:00:00 2001
+From: ngam <67342040+ngam@users.noreply.github.com>
+Date: Fri, 4 Feb 2022 16:16:54 -0500
+Subject: [PATCH] customize setpy
+
+---
+ tensorflow/tools/pip_package/setup.py | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
+index 58de3ad9c40..96043f9719c 100644
+--- a/tensorflow/tools/pip_package/setup.py
++++ b/tensorflow/tools/pip_package/setup.py
+@@ -78,11 +78,11 @@ REQUIRED_PACKAGES = [
+     'google_pasta >= 0.1.1',
+     'h5py >= 2.9.0',
+     'keras_preprocessing >= 1.1.1', # 1.1.0 needs tensorflow==1.7
+-    'libclang >= 9.0.1',
+-    'numpy >= 1.20',
++    # 'libclang >= 9.0.1', # edit ...
++    # 'numpy >= 1.20',  # edit ...
+     'opt_einsum >= 2.3.2',
+     'protobuf >= 3.9.2',
+-    'setuptools',
++    # 'setuptools', # ??? edit ... ??? 
+     'six >= 1.12.0',
+     'termcolor >= 1.1.0',
+     'typing_extensions >= 3.6.6',
+@@ -91,10 +91,10 @@ REQUIRED_PACKAGES = [
+     # These need to be in sync with the existing TF version
+     # They are updated during the release process
+     # When updating these, please also update the nightly versions below
+-    'tensorboard >= 2.8, < 2.9',
+-    'tf-estimator-nightly == 2.8.0.dev2021122109',
+-    'keras >= 2.8.0rc0, < 2.9',
+-    'tensorflow-io-gcs-filesystem >= 0.23.1',
++    'tensorboard >= 2.8.0, < 2.9.0', # edit ...
++    'tensorflow_estimator == 2.8.0', # edit ...
++    'keras >= 2.8.0rc0, < 2.9', # edit ... 
++    # 'tensorflow-io-gcs-filesystem >= 0.23.1', # edit ... 
+ ]
+ 
+ 
+-- 
+2.35.0
+
