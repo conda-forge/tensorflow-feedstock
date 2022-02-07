@@ -1,4 +1,5 @@
 {% set version = "2.8.0" %}
+{% set io_gcs_version = "0.24.0" %}
 
 package:
   name: tensorflow-split
@@ -13,9 +14,14 @@ source:
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 58a2c3562ca6491c257e9a4d9bd8825667883257edcdb452181efa691c586b17
     folder: tensorflow-estimator
+  - url: https://github.com/tensorflow/io/archive/refs/tags/v{{ io_gcs_version }}.tar.gz
+    sha256: 7a4b57f6f438402bab4919c360e931c32f4d8d8afa23116d32a48461dddd91dc
+    folder: tensorflow-io
+    patches:
+       - patches/0002-update-tensorflow-io-workspace-for-rules_python-0.5.0.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
 
@@ -215,6 +221,7 @@ outputs:
         - python
         - {{ pin_subpackage('tensorflow-base', exact=True) }}
         - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
+        - {{ pin_subpackage('tensorflow-io-gcs-filesystem', exact=True) }}
         # avoid that people without GPUs needlessly download ~0.5-1GB
         # This also helps mamba give preference to the CPU build
         - __cuda  # [cuda_compiler_version != "None"]
@@ -264,6 +271,37 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('tensorflow-base', exact=True) }}
+    test:
+      requires:
+        - pip
+      commands:
+        - pip check
+
+  - name: tensorflow-io-gcs-filesystem
+    version: {{ io_gcs_version }}
+    script: build_io_gcs_fs.sh   # [not win]
+    build:
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - bazel
+        - bazel >=4.2.1  # [osx and arm64]
+      host:
+        - python
+        - pip
+        - setuptools
+        - wheel
+        - openssl
+        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+        - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
+      run:
+        - python
+        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+        - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
     test:
       requires:
         - pip
