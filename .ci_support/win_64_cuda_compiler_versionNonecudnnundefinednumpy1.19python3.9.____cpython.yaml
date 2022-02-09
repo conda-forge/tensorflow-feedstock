@@ -1,9 +1,5 @@
 c_compiler:
-- gcc
-c_compiler_version:
-- '9'
-cdt_name:
-- cos6
+- vs2019
 channel_sources:
 - conda-forge
 channel_targets:
@@ -14,16 +10,14 @@ cuda_compiler_version:
 - None
 cudnn:
 - undefined
+curl:
+- '7'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '9'
-docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- vs2019
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.42'
+- '1.43'
 icu:
 - '69'
 jpeg:
@@ -37,10 +31,12 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.18'
+- '1.19'
 openssl:
 - 1.1.1
 pin_run_as_build:
+  curl:
+    max_pin: x
   jpeg:
     max_pin: x
   libcurl:
@@ -55,24 +51,17 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- 3.8.* *_cpython
-python_impl:
-- cpython
+- 3.9.* *_cpython
 snappy:
 - '1'
 sqlite:
 - '3'
 target_platform:
-- linux-64
+- win-64
 zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
-  - cudnn
+- - cudnn
   - cuda_compiler_version
-  - cdt_name
-  - docker_image
 - - python
   - numpy
-  - python_impl
 zlib:
 - '1.2'
