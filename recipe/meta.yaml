@@ -20,8 +20,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [win]
-  skip: true  # [python_impl == 'pypy']
+  skip: true  # [not win]
 
 requirements:
   build:
@@ -36,7 +35,7 @@ requirements:
     - grpc-cpp
     - libprotobuf
     - nasm
-    - sed
+    - sed    # [unix]
     - rsync  # [linux]
     # realpath is not available from the docker image for cuda <= 10.2
     # so we install coreutils here
