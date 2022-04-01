@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '10'
 cdt_name:
 - cos7
 channel_sources:
@@ -17,15 +17,15 @@ cudnn:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '9'
+- '10'
 docker_image:
 - quay.io/condaforge/linux-anvil-cuda:11.1
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.42'
+- '1.43'
 icu:
-- '69'
+- '70'
 jpeg:
 - '9'
 libcurl:
