@@ -70,7 +70,10 @@ requirements:
     - dill
     - giflib
     - grpc-cpp
-    - flatbuffers
+    # 2022/04/25 hmaarrfk
+    # the latest flatbuffers 2.0.6 seems to have removed a sybmol in a patch release...
+    # https://github.com/Qengineering/TensorFlow_Lite_Pose_RPi_64-bits/issues/3#issuecomment-1034799822
+    - flatbuffers 2.0.0
     - icu
     - jpeg
     - libpng
@@ -145,7 +148,7 @@ outputs:
         - dill
         - giflib
         - grpc-cpp
-        - flatbuffers
+        - flatbuffers 2.0.0
         - icu
         - jpeg
         - libcurl
