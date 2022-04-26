@@ -80,6 +80,8 @@ requirements:
     - dill
     - giflib
     - grpc-cpp
+    # the latest flatbuffers 2.0.6 seems to have removed a sybmol in a patch release...
+    # https://github.com/google/flatbuffers/issues/7217
     - flatbuffers <2.0.6
     - icu
     - jpeg
@@ -270,8 +272,7 @@ outputs:
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
         - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
-        - bazel <5
-        - bazel >=4.2.1  # [osx and arm64]
+        - bazel 4.2.1
       host:
         - python
         - pip

@@ -120,6 +120,7 @@ pushd custom_toolchain
   sed -ie "s:TARGET_CPU:${TARGET_CPU}:" BUILD
   sed -ie "s:BUILD_CPU:${BUILD_CPU}:" BUILD
 
+  # save HOST_PREFIX before setting PREFIX to be BUILD_PREFIX (in cross-compilation).
   HOST_PREFIX=${PREFIX}
 
   cp cc_toolchain_config.bzl cc_toolchain_build_config.bzl
