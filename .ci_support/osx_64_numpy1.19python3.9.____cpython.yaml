@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '11'
+- '13'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,13 +15,13 @@ cuda_compiler_version:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '11'
+- '13'
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.42'
+- '1.45'
 icu:
-- '69'
+- '70'
 jpeg:
 - '9'
 libcurl:
