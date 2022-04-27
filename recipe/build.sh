@@ -180,7 +180,7 @@ bazel shutdown
 ./configure
 
 # build using bazel
-bazel ${BAZEL_OPTS} build ${BUILD_OPTS} ${BUILD_TARGET}
+bazel ${BAZEL_OPTS} build ${BUILD_OPTS} '//tensorflow/core/kernels:libtfkernel_all_kernels.so'
 
 # build a whl file
 mkdir -p $SRC_DIR/tensorflow_pkg
