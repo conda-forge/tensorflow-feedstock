@@ -30,7 +30,7 @@ requirements:
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+    - {{ compiler('cuda') }}=*16             # [cuda_compiler_version != "None"]
     - bazel 4.2.2
     - grpc-cpp
     - libprotobuf
@@ -129,7 +129,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}=*16             # [cuda_compiler_version != "None"]
       host:
         # GPU reuqirements
         - cudnn                   # [cuda_compiler_version != "None"]
@@ -251,7 +251,7 @@ outputs:
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}=*16             # [cuda_compiler_version != "None"]
         - bazel 4.2.2
       host:
         - python
@@ -289,7 +289,7 @@ outputs:
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}=*16             # [cuda_compiler_version != "None"]
       # host requirements to pick up run_exports
       host:
         - giflib
@@ -333,7 +333,7 @@ outputs:
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
+        - {{ compiler('cuda') }}=*16             # [cuda_compiler_version != "None"]
       # host requirements to pick up run_exports
       host:
         - giflib
