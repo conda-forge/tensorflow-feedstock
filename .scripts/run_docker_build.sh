@@ -21,7 +21,7 @@ if [ -z ${FEEDSTOCK_NAME} ]; then
     export FEEDSTOCK_NAME=$(basename ${FEEDSTOCK_ROOT})
 fi
 
-docker info
+# docker info
 
 # In order for the conda-build process in the container to write to the mounted
 # volumes, we need to run with the same id as the host machine, which is
@@ -67,7 +67,7 @@ rm -f "$DONE_CANARY"
 # Allow people to specify extra default arguments to `docker run` (e.g. `--rm`)
 DOCKER_RUN_ARGS="${CONDA_FORGE_DOCKER_RUN_ARGS}"
 if [ -z "${CI}" ]; then
-    DOCKER_RUN_ARGS="-it ${DOCKER_RUN_ARGS}"
+    DOCKER_RUN_ARGS="${DOCKER_RUN_ARGS}"
 fi
 
 ( endgroup "Configure Docker" ) 2> /dev/null
@@ -76,25 +76,26 @@ fi
 
 export UPLOAD_PACKAGES="${UPLOAD_PACKAGES:-True}"
 export IS_PR_BUILD="${IS_PR_BUILD:-False}"
-docker pull "${DOCKER_IMAGE}"
-docker run ${DOCKER_RUN_ARGS} \
-           -v "${RECIPE_ROOT}":/home/conda/recipe_root:rw,z,delegated \
-           -v "${FEEDSTOCK_ROOT}":/home/conda/feedstock_root:rw,z,delegated \
-           -e CONFIG \
-           -e HOST_USER_ID \
-           -e UPLOAD_PACKAGES \
-           -e IS_PR_BUILD \
-           -e GIT_BRANCH \
-           -e UPLOAD_ON_BRANCH \
-           -e CI \
-           -e FEEDSTOCK_NAME \
-           -e CPU_COUNT \
-           -e BUILD_WITH_CONDA_DEBUG \
-           -e BUILD_OUTPUT_ID \
-           -e BINSTAR_TOKEN \
-           -e FEEDSTOCK_TOKEN \
-           -e STAGING_BINSTAR_TOKEN \
-           "${DOCKER_IMAGE}" \
+singularity pull -F sin_img.sif docker://"${DOCKER_IMAGE}"
+singularity exec ${DOCKER_RUN_ARGS} \
+           --writable-tmpfs \
+           --bind "${RECIPE_ROOT}":/home/conda/recipe_root \
+           --bind "${FEEDSTOCK_ROOT}":/home/conda/feedstock_root \
+           --env CONFIG="${CONFIG}" \
+           --env HOST_USER_ID="${HOST_USER_ID}" \
+           --env UPLOAD_PACKAGES="${UPLOAD_PACKAGES}"  \
+           --env IS_PR_BUILD="${IS_PR_BUILD}"  \
+           --env GIT_BRANCH="${GIT_BRANCH}"  \
+           --env UPLOAD_ON_BRANCH="${UPLOAD_ON_BRANCH}"  \
+           --env CI="${CI}"  \
+           --env FEEDSTOCK_NAME="${FEEDSTOCK_NAME}"  \
+           --env CPU_COUNT="${CPU_COUNT}"  \
+           --env BUILD_WITH_CONDA_DEBUG="${BUILD_WITH_CONDA_DEBUG}"  \
+           --env BUILD_OUTPUT_ID="${BUILD_OUTPUT_ID}"  \
+           --env BINSTAR_TOKEN="${BINSTAR_TOKEN}"  \
+           --env FEEDSTOCK_TOKEN="${FEEDSTOCK_TOKEN}"  \
+           --env STAGING_BINSTAR_TOKEN="${STAGING_BINSTAR_TOKEN}"  \
+            ./sin_img.sif \
            bash \
            "/home/conda/feedstock_root/${PROVIDER_DIR}/build_steps.sh"
 
