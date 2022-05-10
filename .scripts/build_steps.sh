@@ -31,9 +31,7 @@ conda-build:
 
 CONDARC
 
-mamba create -n building --yes --quiet
 conda clean --packages --yes --quiet
-source activate building
 
 mamba install --update-specs --yes --quiet --channel conda-forge \
     conda-build pip boa conda-forge-ci-setup=3 conda-forge/label/lief_dev::py-lief conda-forge/label/lief_dev::liblief
