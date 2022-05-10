@@ -23,7 +23,7 @@ docker_image:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.43'
+- '1.44'
 icu:
 - '70'
 jpeg:
