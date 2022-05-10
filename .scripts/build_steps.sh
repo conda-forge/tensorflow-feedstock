@@ -11,6 +11,9 @@ set -xeuo pipefail
 export FEEDSTOCK_ROOT="${FEEDSTOCK_ROOT:-/home/conda/feedstock_root}"
 source ${FEEDSTOCK_ROOT}/.scripts/logging_utils.sh
 
+PATH="/opt/conda/condabin:${PATH}"
+PATH="/opt/conda/bin:${PATH}"
+
 
 ( endgroup "Start Docker" ) 2> /dev/null
 
@@ -28,6 +31,9 @@ conda-build:
 
 CONDARC
 
+mamba create -n building --yes --quiet
+conda clean --packages --yes --quiet
+source activate building
 
 mamba install --update-specs --yes --quiet --channel conda-forge \
     conda-build pip boa conda-forge-ci-setup=3 conda-forge/label/lief_dev::py-lief conda-forge/label/lief_dev::liblief
