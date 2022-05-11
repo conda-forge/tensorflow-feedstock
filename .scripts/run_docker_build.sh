@@ -76,12 +76,12 @@ fi
 
 export UPLOAD_PACKAGES="${UPLOAD_PACKAGES:-True}"
 export IS_PR_BUILD="${IS_PR_BUILD:-False}"
-singularity pull -F sin_img.sif docker://"${DOCKER_IMAGE}"
 singularity exec ${DOCKER_RUN_ARGS} \
            --writable-tmpfs -C \
            --bind "${RECIPE_ROOT}":/home/conda/recipe_root \
            --bind "${FEEDSTOCK_ROOT}":/home/conda/feedstock_root \
 	   --bind /tmp:/tmp \
+	   --bind /tmp:/home/$USER \
            --env CONFIG="${CONFIG}" \
            --env HOST_USER_ID="${HOST_USER_ID}" \
            --env UPLOAD_PACKAGES="${UPLOAD_PACKAGES}"  \

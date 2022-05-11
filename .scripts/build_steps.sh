@@ -21,7 +21,7 @@ export RECIPE_ROOT="${RECIPE_ROOT:-/home/conda/recipe_root}"
 export CI_SUPPORT="${FEEDSTOCK_ROOT}/.ci_support"
 export CONFIG_FILE="${CI_SUPPORT}/${CONFIG}.yaml"
 
-cat >~/.condarc <<CONDARC
+cat > ~/.condarc <<CONDARC
 auto_activate_base: false
 conda-build:
  root-dir: ${FEEDSTOCK_ROOT}/build_artifacts
@@ -29,9 +29,19 @@ conda-build:
 CONDARC
 
 export PATH="$PATH":/opt/conda/condabin
-# mamba create -n building --yes --quiet
+
+env > envvar 
+
+mamba init
+source ~/.bashrc
+
+mamba create --prefix=/tmp/building --yes --quiet
+mamba activate /tmp/building
 # conda clean --packages --yes --quiet
-# source activate building
+
+sed 's/^/"/;s/$/"/' envvar > envvarmod
+sed 's/^/export /' envvarmod > envvarmodmod
+cat envvarmodmod
 
 mamba install --update-specs --yes --quiet --channel conda-forge \
     conda-build pip boa conda-forge-ci-setup=3 conda-forge/label/lief_dev::py-lief conda-forge/label/lief_dev::liblief
