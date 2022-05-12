@@ -1,0 +1,41 @@
+From 2b14b3c38210f8454894cec887915820a28b3ef8 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Thu, 30 Dec 2021 06:57:09 +0200
+Subject: [PATCH] loosen requirements
+
+* Remove unused libclang requirement
+* Remove unecessary tensorflow-io-gcs-filesystem
+* Updated for 2.8.0 by ngam
+
+Co-authored-by: Mark Harfouche <mark.harfouche@gmail.com>
+---
+ tensorflow/tools/pip_package/setup.py | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
+index 58de3ad9c40..b1194d6948e 100644
+--- a/tensorflow/tools/pip_package/setup.py
++++ b/tensorflow/tools/pip_package/setup.py
+@@ -78,7 +78,6 @@ REQUIRED_PACKAGES = [
+     'google_pasta >= 0.1.1',
+     'h5py >= 2.9.0',
+     'keras_preprocessing >= 1.1.1', # 1.1.0 needs tensorflow==1.7
+-    'libclang >= 9.0.1',
+     'numpy >= 1.20',
+     'opt_einsum >= 2.3.2',
+     'protobuf >= 3.9.2',
+@@ -92,9 +91,8 @@ REQUIRED_PACKAGES = [
+     # They are updated during the release process
+     # When updating these, please also update the nightly versions below
+     'tensorboard >= 2.8, < 2.9',
+-    'tf-estimator-nightly == 2.8.0.dev2021122109',
+-    'keras >= 2.8.0rc0, < 2.9',
+-    'tensorflow-io-gcs-filesystem >= 0.23.1',
++    'tensorflow_estimator == 2.8.0',
++    'keras >= 2.8, < 2.9',
+ ]
+ 
+ 
+-- 
+2.35.0
+
