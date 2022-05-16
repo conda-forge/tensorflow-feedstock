@@ -1,0 +1,57 @@
+From 67c24e0ef18066aa9b68d4cebc3b06dc5185fac2 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Mon, 21 Mar 2022 20:32:04 +0100
+Subject: [PATCH] Use oneDNN systemlib
+
+---
+ tensorflow/workspace2.bzl                    |  1 +
+ third_party/systemlibs/mkldnn_v1.BUILD       | 12 ++++++++++++
+ third_party/systemlibs/syslibs_configure.bzl |  1 +
+ 3 files changed, 14 insertions(+)
+ create mode 100644 third_party/systemlibs/mkldnn_v1.BUILD
+
+diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
+index 7fdf536f..74a141eb 100644
+--- a/tensorflow/workspace2.bzl
++++ b/tensorflow/workspace2.bzl
+@@ -176,6 +176,7 @@ def _tf_repositories():
+         build_file = "//third_party/mkl_dnn:mkldnn_v1.BUILD",
+         sha256 = "f1c5a35c2c091e02417d7aa6ede83f863d35cf0ad91a132185952f5cca7b4887",
+         strip_prefix = "oneDNN-2.5.1",
++        system_build_file = "//third_party/systemlibs:mkldnn_v1.BUILD",
+         urls = tf_mirror_urls("https://github.com/oneapi-src/oneDNN/archive/refs/tags/v2.5.1.tar.gz"),
+     )
+ 
+diff --git a/third_party/systemlibs/mkldnn_v1.BUILD b/third_party/systemlibs/mkldnn_v1.BUILD
+new file mode 100644
+index 00000000..5947f58f
+--- /dev/null
++++ b/third_party/systemlibs/mkldnn_v1.BUILD
+@@ -0,0 +1,12 @@
++licenses(["notice"])  # Apache 2.0
++
++filegroup(
++    name = "COPYING",
++    visibility = ["//visibility:public"],
++)
++
++cc_library(
++    name = "mkl_dnn",
++    linkopts = ["-ldnnl"],
++    visibility = ["//visibility:public"],
++)
+diff --git a/third_party/systemlibs/syslibs_configure.bzl b/third_party/systemlibs/syslibs_configure.bzl
+index f80db160..a8df780c 100644
+--- a/third_party/systemlibs/syslibs_configure.bzl
++++ b/third_party/systemlibs/syslibs_configure.bzl
+@@ -30,6 +30,7 @@ VALID_LIBS = [
+     "jsoncpp_git",
+     "libjpeg_turbo",
+     "lmdb",
++    "mkl_dnn_v1",
+     "nasm",
+     "nsync",
+     "opt_einsum_archive",
+-- 
+2.32.0 (Apple Git-132)
+

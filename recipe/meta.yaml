@@ -9,7 +9,7 @@ source:
   sha256: 66b953ae7fba61fd78969a2e24e350b26ec116cf2e6a7eb93d02c63939c6f9f7
   patches:
     - patches/0001-loosen-requirements.patch
-    - 0002-Use-oneDNN-systemlib.patch
+    - patches/0002-Use-oneDNN-systemlib.patch
 
 build:
   number: 0
@@ -87,6 +87,8 @@ requirements:
     - jpeg
     - libpng
     - libprotobuf
+    - onednn
+    - onednn-cpu-threadpool  # [not (osx and arm64)]
     - openssl
     - pybind11
     - sqlite
@@ -95,6 +97,7 @@ requirements:
   run:
     # avoid that people without GPUs needlessly download ~200-300MB
     - __cuda  # [cuda_compiler_version != "None"]
+    - onednn-cpu-threadpool  # [not (osx and arm64)]
 
 test:
   commands:
