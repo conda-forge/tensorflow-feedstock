@@ -5,10 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 66b953ae7fba61fd78969a2e24e350b26ec116cf2e6a7eb93d02c63939c6f9f7
-    patches:
-      - patches/0001-loosen-requirements.patch
+  url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 66b953ae7fba61fd78969a2e24e350b26ec116cf2e6a7eb93d02c63939c6f9f7
+  patches:
+    - patches/0001-loosen-requirements.patch
+    - 0002-Use-oneDNN-systemlib.patch
 
 build:
   number: 0
@@ -91,26 +92,6 @@ requirements:
     - sqlite
     - snappy
     - zlib
-    # requirements specified by the package itself, see
-    # github.com/tensorflow/tensorflow/blob/v{{ version }}/tensorflow/tools/pip_package/setup.py
-    #- absl-py >=0.4.0
-    #- astunparse >=1.6.0
-    #- gast >=0.2.1
-    #- google-pasta >=0.1.1
-    #- h5py >=2.9.0
-    #- keras-preprocessing >=1.1.1
-    #- numpy 1.20.*  # [py<310]
-    #- numpy 1.21.*  # [py>=310]
-    #- opt_einsum >=2.3.2
-    #- protobuf >=3.9.2
-    #- python-flatbuffers >=1.12
-    #- six >=1.12
-    #- termcolor >=1.1.0
-    #- typing_extensions >=3.6.6
-    #- wrapt >=1.11.0
-    ## TF-API needs to move in sync
-    #- tensorboard >=2.8,<2.9
-    #- keras >=2.8,<2.9
   run:
     # avoid that people without GPUs needlessly download ~200-300MB
     - __cuda  # [cuda_compiler_version != "None"]
