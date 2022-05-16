@@ -27,7 +27,7 @@ build:
 requirements:
   build:
     - python *
-    - numpy 1.21
+    - numpy >=1.21
     - nsync                                  # [build_platform != target_platform]
     - snappy                                 # [build_platform != target_platform]
     - giflib                                 # [build_platform != target_platform]
@@ -38,8 +38,6 @@ requirements:
     - onednn                                 # [build_platform != target_platform]
     - onednn-cpu-threadpool                  # [build_platform != target_platform]
     - pybind11                               # [build_platform != target_platform]
-    - numpy 1.20.*  # [py<310 and (build_platform != target_platform)]
-    - numpy 1.21.*  # [py>=310 and (build_platform != target_platform)]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
