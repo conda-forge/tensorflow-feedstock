@@ -1,7 +1,7 @@
 {% set version = "2.8.0" %}
 
 package:
-  name: tensorflow-split
+  name: libtfkernel_all_kernels
   version: {{ version }}
 
 source:
@@ -10,19 +10,24 @@ source:
     patches:
       - patches/0001-loosen-requirements.patch
 
-  - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 58a2c3562ca6491c257e9a4d9bd8825667883257edcdb452181efa691c586b17
-    folder: tensorflow-estimator
-
 build:
   number: 0
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
+  string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+  # These are needed as build/configure dependencies but aren't used in the final product
+  ignore_run_exports_from:
+    - abseil-cpp
+    - grpc-cpp
+  run_exports:
+    # tensorflow makes no ABI guarantees, need to pin to what we built with
+    - libtfkernel_all_kernels {{ version }}
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python *
+    - numpy 1.21
     - nsync                                  # [build_platform != target_platform]
     - snappy                                 # [build_platform != target_platform]
     - giflib                                 # [build_platform != target_platform]
@@ -52,8 +57,6 @@ requirements:
     - cudnn      # [cuda_compiler_version != "None"]
     - nccl       # [cuda_compiler_version != "None"]
     # conda build requirements
-    - python
-    - pip
     - zlib
     - libpng
     - libcurl
@@ -92,303 +95,32 @@ requirements:
     - zlib
     # requirements specified by the package itself, see
     # github.com/tensorflow/tensorflow/blob/v{{ version }}/tensorflow/tools/pip_package/setup.py
-    - absl-py >=0.4.0
-    - astunparse >=1.6.0
-    - gast >=0.2.1
-    - google-pasta >=0.1.1
-    - h5py >=2.9.0
-    - keras-preprocessing >=1.1.1
-    - numpy 1.20.*  # [py<310]
-    - numpy 1.21.*  # [py>=310]
-    - opt_einsum >=2.3.2
-    - protobuf >=3.9.2
-    - python-flatbuffers >=1.12
-    - six >=1.12
-    - termcolor >=1.1.0
-    - typing_extensions >=3.6.6
-    - wrapt >=1.11.0
-    # TF-API needs to move in sync
-    - tensorboard >=2.8,<2.9
-    - keras >=2.8,<2.9
+    #- absl-py >=0.4.0
+    #- astunparse >=1.6.0
+    #- gast >=0.2.1
+    #- google-pasta >=0.1.1
+    #- h5py >=2.9.0
+    #- keras-preprocessing >=1.1.1
+    #- numpy 1.20.*  # [py<310]
+    #- numpy 1.21.*  # [py>=310]
+    #- opt_einsum >=2.3.2
+    #- protobuf >=3.9.2
+    #- python-flatbuffers >=1.12
+    #- six >=1.12
+    #- termcolor >=1.1.0
+    #- typing_extensions >=3.6.6
+    #- wrapt >=1.11.0
+    ## TF-API needs to move in sync
+    #- tensorboard >=2.8,<2.9
+    #- keras >=2.8,<2.9
+  run:
+    # avoid that people without GPUs needlessly download ~200-300MB
+    - __cuda  # [cuda_compiler_version != "None"]
 
-outputs:
-  # 2021/12/29: hmaarrfk
-  # as of tensorflow 2.7.0 we need the tensorflow-base package to break
-  # circular dependency when buliding tensorflow extra packages This annoying
-  # circularity is broken upstream by the fact that they have to bootstrap
-  # their builds
-  - name: tensorflow-base
-    script: build_pkg.sh  # [not win]
-    script: build_pkg.bat  # [win]
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-      # weigh down cpu implementation and give cuda preference
-      track_features:
-        - tensorflow-cpu          # [cuda_compiler_version == "None"]
-      entry_points:
-        - toco_from_protos = tensorflow.lite.toco.python.toco_from_protos:main
-        - tflite_convert = tensorflow.lite.python.tflite_convert:main
-        - toco = tensorflow.lite.python.tflite_convert:main
-        - saved_model_cli = tensorflow.python.tools.saved_model_cli:main
-        # The tensorboard package adds this entry point.
-        # - tensorboard = tensorboard.main:run_main
-        - tf_upgrade_v2 = tensorflow.tools.compatibility.tf_upgrade_v2_main:main
-        - estimator_ckpt_converter = tensorflow_estimator.python.estimator.tools.checkpoint_converter:main
-    requirements:
-      # build requirements needs to pick up the compiler run_exports
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
-      host:
-        # GPU reuqirements
-        - cudnn                   # [cuda_compiler_version != "None"]
-        - nccl                    # [cuda_compiler_version != "None"]
-        # conda build requirements
-        - python
-        - pip
-        - wheel
-        # TF_SYSTEM_LIBS
-        - abseil-cpp 20210324.2
-        - astor
-        - cython
-        - dill
-        - giflib
-        - grpc-cpp
-        - flatbuffers <2.0.6
-        - icu
-        - jpeg
-        - libcurl
-        - libpng
-        - libprotobuf
-        - openssl
-        - pybind11
-        - snappy
-        - sqlite
-        - zlib
-        # requirements specified by the package itself
-        - absl-py >=0.4.0
-        - astunparse >=1.6.0
-        - gast >=0.2.1,<0.5.0
-        - google-pasta >=0.1.1
-        - h5py >=2.9.0
-        - keras-preprocessing >=1.1.1
-        - numpy 1.20.*  # [py<310]
-        - numpy 1.21.*  # [py>=310]
-        - opt_einsum >=2.3.2
-        - protobuf >=3.9.2
-        - python-flatbuffers >=1.12
-        - six >=1.12
-        - termcolor >=1.1.0
-        - typing_extensions >=3.6.6
-        - wrapt >=1.11.0
-        # TF-API needs to move in sync
-        - tensorboard >=2.8,<2.9
-        - keras >=2.8,<2.9
-      run:
-        - python
-        - absl-py >=0.4.0
-        - astunparse >=1.6.0
-        - gast >=0.2.1
-        - google-pasta >=0.1.1
-        - grpcio {{ grpc_cpp }}.*
-        - h5py >=2.9.0
-        - keras-preprocessing >=1.1.1
-        - {{ pin_compatible('numpy') }}
-        - opt_einsum >=2.3.2
-        - protobuf >=3.9.2
-        - python-flatbuffers >=1.12
-        - six >=1.12
-        - termcolor >=1.1.0
-        - typing_extensions >=3.6.6
-        - wrapt >=1.11.0
-        # TF-API needs to move in sync
-        - tensorboard >=2.8,<2.9
-        - keras >=2.8,<2.9
-        # avoid that people without GPUs needlessly download ~0.5-1GB
-        - __cuda  # [cuda_compiler_version != "None"]
-    # TODO: decide on the name of the package
-    # run_constrained:
-    #   What is the difference between these two packages?
-    #   - tensorflow-io-gcs-filesystem >=0.21.0
-    #   - tensorflow-io >=0.21.0
-
-  - name: tensorflow
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-      # weigh down cpu implementation and give cuda preference
-      track_features:
-        - tensorflow-cpu          # [cuda_compiler_version == "None"]
-    requirements:
-      host:
-        # Require python so that the CONDA_PY gets populated
-        - python
-      run:
-        - python
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
-        - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
-        # avoid that people without GPUs needlessly download ~0.5-1GB
-        # This also helps mamba give preference to the CPU build
-        - __cuda  # [cuda_compiler_version != "None"]
-    test:
-      files:
-        - test_tensorflow.py
-      requires:
-        - pip
-      imports:
-        - tensorflow
-      commands:
-        - pip check
-        - cat test_tensorflow.py    # [unix]
-        - python test_tensorflow.py
-        - tf_upgrade_v2 --help
-        - saved_model_cli --help
-        - tflite_convert --help     # [not win]
-        - toco_from_protos --help   # [not win]
-        - toco --help               # [not win]
-
-  - name: tensorflow-estimator
-    script: build_estimator.sh   # [not win]
-    script: build_estimator.bat  # [win]
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        # Keep the cuda compiler here since it helps package solvers
-        # decide on the cuda variant
-        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
-        - bazel 4.2.2
-      host:
-        - python
-        - pip
-        - setuptools
-        - wheel
-        # This ensures that a consistent version of openssl is chosen between
-        # all packages.
-        # https://github.com/conda-forge/conda-forge.github.io/issues/1528
-        - openssl
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
-      run:
-        - python
-        - {{ pin_subpackage('tensorflow-base', exact=True) }}
-    test:
-      requires:
-        - pip
-      commands:
-        - pip check
-
-  - name: libtensorflow
-    script: cp_libtensorflow.sh
-    build:
-      skip: true  # [win]
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-      run_exports:
-        # tensorflow makes no ABI guarantees, need to pin to what we built with
-        - libtensorflow {{ version }}
-    requirements:
-      # build requirements needs to pick up the compiler run_exports
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        # Keep the cuda compiler here since it helps package solvers
-        # decide on the cuda variant
-        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
-      # host requirements to pick up run_exports
-      host:
-        - abseil-cpp 20210324.2
-        - giflib
-        - grpc-cpp
-        - icu
-        - jpeg
-        - libcurl
-        - libpng
-        - libprotobuf
-        - openssl
-        - snappy
-        - sqlite
-        - zlib
-      run:
-        # avoid that people without GPUs needlessly download ~200-300MB
-        - __cuda  # [cuda_compiler_version != "None"]
-    test:
-      files:
-        - test_libtensorflow.sh
-        - test_c.c
-      requires:
-        - {{ compiler('c') }}
-      commands:
-        - test -f $PREFIX/lib/libtensorflow${SHLIB_EXT}  # [not win and cuda_compiler_version == "None"]
-        - ./test_libtensorflow.sh                        # [not win and cuda_compiler_version == "None"]
-
-  - name: libtensorflow_cc
-    script: cp_libtensorflow_cc.sh
-    build:
-      skip: true  # [win]
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-      run_exports:
-        # tensorflow makes no ABI guarantees, need to pin to what we built with
-        - libtensorflow_cc {{ version }}
-    requirements:
-      # build requirements needs to pick up the compiler run_exports
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        # Keep the cuda compiler here since it helps package solvers
-        # decide on the cuda variant
-        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
-        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
-      # host requirements to pick up run_exports
-      host:
-        - abseil-cpp 20210324.2
-        - giflib
-        - grpc-cpp
-        - icu
-        - jpeg
-        - libcurl
-        - libpng
-        - libprotobuf
-        - openssl
-        - snappy
-        - sqlite
-        - zlib
-      run:
-        # avoid that people without GPUs needlessly download ~200-300MB
-        - __cuda  # [cuda_compiler_version != "None"]
-    test:
-      files:
-        - test_libtensorflow_cc.sh
-        - test_cc.cc
-      requires:
-        - {{ compiler('cxx') }}
-      commands:
-        - test -f $PREFIX/lib/libtensorflow_cc${SHLIB_EXT}  # [not win and cuda_compiler_version == "None"]
-        - ./test_libtensorflow_cc.sh                        # [not win and cuda_compiler_version == "None"]
-
-  # 2021/08/01, hmaarrfk
-  # While this seems like a roundabout way of defining the package name
-  # It helps the linter avoid errors on a package not having tests.
-  {% set tensorflow_cpu_gpu = "tensorflow-cpu" %}   # [cuda_compiler_version == "None" or cuda_compiler_version is undefined]
-  {% set tensorflow_cpu_gpu = "tensorflow-gpu" %}   # [cuda_compiler_version != "None"]
-  - name: {{ tensorflow_cpu_gpu }}
-    build:
-      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                      # [cuda_compiler_version == "None"]
-      detect_binary_files_with_prefix: False
-    requirements:
-      run:
-        - {{ pin_subpackage("tensorflow", exact=True) }}
-    test:
-      imports:
-        - tensorflow
+test:
+  commands:
+    - test -f "${PREFIX}/lib/libtfkernel_all_kernels${SHLIB_EXT}"
+    - test -f "${PREFIX}/lib/libtensorflow_framework${SHLIB_EXT}"
 
 about:
   home: http://tensorflow.org/
@@ -406,15 +138,5 @@ about:
   doc_source_url: https://github.com/tensorflow/tensorflow/tree/master/tensorflow/docs_src
 
 extra:
-  feedstock-name: tensorflow
   recipe-maintainers:
-    - farhantejani
-    - ghego
-    - h-vetinari
-    - hajapy
-    - jschueller
-    - njzjz
-    - waitingkuo
-    - xhochy
-    - hmaarrfk
-    - wolfv
+    - conda-forge/tensorflow
