@@ -1,12 +1,13 @@
 build_platform:
   osx_arm64: osx_64
 conda_forge_output_validation: true
-provider:
-  win: azure
 github:
   branch_name: main
   tooling_branch_name: main
+provider:
+  win: azure
 remote_ci_setup:
-  - conda-forge-ci-setup=3
-  - conda-forge/label/lief_dev::py-lief
-  - conda-forge/label/lief_dev::liblief
+- conda-forge-ci-setup=3
+- conda-forge/label/lief_dev::py-lief
+- conda-forge/label/lief_dev::liblief
+test_on_native_only: true
