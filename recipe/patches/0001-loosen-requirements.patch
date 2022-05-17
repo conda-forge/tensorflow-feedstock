@@ -28,10 +28,10 @@ index 58de3ad9c40..b1194d6948e 100644
      # They are updated during the release process
      # When updating these, please also update the nightly versions below
      'tensorboard >= 2.8, < 2.9',
--    'tf-estimator-nightly == 2.8.0.dev2021122109',
+-    'tensorflow-estimator >= 2.8, < 2.9',
 -    'keras >= 2.8.0rc0, < 2.9',
 -    'tensorflow-io-gcs-filesystem >= 0.23.1',
-+    'tensorflow_estimator == 2.8.0',
++    'tensorflow_estimator == 2.8.1',
 +    'keras >= 2.8, < 2.9',
  ]
  
