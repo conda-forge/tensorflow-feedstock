@@ -7,7 +7,7 @@ c_compiler:
 c_compiler_version:
 - '13'
 channel_sources:
-- conda-forge
+- uwe.korn-tf-experimental,conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler_version:
@@ -58,6 +58,8 @@ sqlite:
 - '3'
 target_platform:
 - osx-arm64
+tf_llvm_version:
+- 14.0.0.tf280_55c71c9eac9b
 zip_keys:
 - - abseil_cpp
   - grpc_cpp

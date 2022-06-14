@@ -3,21 +3,7 @@
 # available on 10.13
 MACOSX_SDK_VERSION:        # [osx and x86_64]
   - "10.13"                # [osx and x86_64]
-# c_compiler_version:        # [linux]
-#   - 9                      # [linux]
-#   - 7                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-# cxx_compiler_version:      # [linux]
-#   - 9                      # [linux]
-#   - 7                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-#   - 9                      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux64]
-# cuda_compiler_version:
-#   - None
-#   - 10.2                       # [(linux64 or win) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-#   - 11.0                       # [(linux64 or win) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-#   - 11.1                       # [(linux64 or win) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-#   - 11.2                       # [(linux64 or win) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+tf_llvm_version:
+  - "14.0.0.tf280_55c71c9eac9b"
+channel_sources:
+  - uwe.korn-tf-experimental,conda-forge

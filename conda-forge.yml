@@ -10,7 +10,5 @@ remote_ci_setup:
 github:
   branch_name: main
   tooling_branch_name: main
-remote_ci_setup:
-  - conda-forge-ci-setup=3
-  - conda-forge/label/lief_dev::py-lief
-  - conda-forge/label/lief_dev::liblief
+azure:
+  store_build_artifacts: true

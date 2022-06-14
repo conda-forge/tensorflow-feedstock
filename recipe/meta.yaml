@@ -14,6 +14,8 @@ source:
       # https://github.com/tensorflow/tensorflow/commit/613bcf9f92750bebf88b5f119da8bce83acb4b47
       - patches/0002-Remove_dependency_on_implementation_ofRepeatedField_iterator.patch
       - patches/0003-Remove_dependency_on_implementation_ofRepeatedField_iterator.patch
+      - patches/0002-Use-oneDNN-systemlib.patch
+      - patches/0002-Use-pre-built-LLVM.patch
 
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version }}.tar.gz
     sha256: 58a2c3562ca6491c257e9a4d9bd8825667883257edcdb452181efa691c586b17
@@ -42,6 +44,7 @@ requirements:
     - onednn                                 # [build_platform != target_platform]
     - onednn-cpu-threadpool                  # [build_platform != target_platform]
     - pybind11                               # [build_platform != target_platform]
+    - llvm-for-tensorflow {{ tf_llvm_version }}  # [build_platform != target_platform]
     - numpy 1.20.*  # [py<310 and (build_platform != target_platform)]
     - numpy 1.21.*  # [py>=310 and (build_platform != target_platform)]
     - {{ compiler('c') }}
@@ -73,6 +76,8 @@ requirements:
     - m2-zip       # [win]
     - openjdk >=8
     - nsync
+    - tensorflow-build-cache {{ version }}
+    - llvm-for-tensorflow {{ tf_llvm_version }}
     # TF_SYSTEM_LIBS, see usage in
     # https://github.com/tensorflow/tensorflow/blob/v{{ version }}/third_party/systemlibs/syslibs_configure.bzl
     # their versions are specified in

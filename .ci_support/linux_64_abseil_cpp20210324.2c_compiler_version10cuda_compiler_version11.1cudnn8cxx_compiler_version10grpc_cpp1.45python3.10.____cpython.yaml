@@ -5,23 +5,23 @@ c_compiler:
 c_compiler_version:
 - '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
-- conda-forge
+- uwe.korn-tf-experimental,conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- None
+- '11.1'
 cudnn:
-- undefined
+- '8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
 - '10'
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- quay.io/condaforge/linux-anvil-cuda:11.1
 giflib:
 - '5.2'
 grpc_cpp:
@@ -55,7 +55,7 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- 3.9.* *_cpython
+- 3.10.* *_cpython
 python_impl:
 - cpython
 snappy:
@@ -64,6 +64,8 @@ sqlite:
 - '3'
 target_platform:
 - linux-64
+tf_llvm_version:
+- 14.0.0.tf280_55c71c9eac9b
 zip_keys:
 - - abseil_cpp
   - grpc_cpp

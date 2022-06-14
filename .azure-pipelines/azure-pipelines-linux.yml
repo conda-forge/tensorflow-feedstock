@@ -8,86 +8,106 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hc3ff134d6d
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h19576b6a74
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h976e954449
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.1cudnn8cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hb9ea169004
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h5163095f0f
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h90fd3b6a6c
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hc480f2fefb
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10grpc_cpp1.45python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.10.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hcad28451fd
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.10.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.7.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h427778cd54
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.7.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.8.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h3ecd9d23ff
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.8.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.9.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_ha1a8b5403c
+      ? linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.9.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version10cuda_compiler_versionNonecudnnundefinedcxx_compiler_version10grpc_cpp1.45python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.10.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.10.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hf219df2654
+      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.10.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.7.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.7.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h0185cf7f80
+      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.7.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.8.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.8.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h10dc533b32
+      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.8.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.9.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cxx_compiler_version7grpc_cpp1.45python3.9.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h7e33da4cbd
+      ? linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.9.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version7cuda_compiler_version10.2cudnn7cxx_compiler_version7grpc_cpp1.45python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.10.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.10.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h4c49ba746e
+      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.10.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.7.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.7.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hba52cb55f9
+      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.7.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.8.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.8.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h3755683224
+      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.8.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.9.____cpython
-      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cxx_compiler_version9grpc_cpp1.45python3.9.____cpython
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_hc1b0123cba
+      ? linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.9.____cpython
+      : CONFIG: linux_64_abseil_cpp20210324.2c_compiler_version9cuda_compiler_version11.0cudnn8cxx_compiler_version9grpc_cpp1.45python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
+        SHORT_CONFIG: linux_64_abseil_cpp20210324.2c_comp_h8c49a01b3d
   timeoutInMinutes: 360
 
   steps:
@@ -119,3 +139,32 @@ jobs:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
       FEEDSTOCK_TOKEN: $(FEEDSTOCK_TOKEN)
       STAGING_BINSTAR_TOKEN: $(STAGING_BINSTAR_TOKEN)
+  - script: |
+        export CI=azure
+        export CI_RUN_ID=$(build.BuildNumber).$(system.JobAttempt)
+        export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+        export CONDA_BLD_DIR=build_artifacts
+        export ARTIFACT_STAGING_DIR="$(Build.ArtifactStagingDirectory)"
+        # Archive everything in CONDA_BLD_DIR except environments
+        export BLD_ARTIFACT_PREFIX=conda_artifacts
+        if [[ "$AGENT_JOBSTATUS" == "Failed" ]]; then
+          # Archive the CONDA_BLD_DIR environments only when the job fails
+          export ENV_ARTIFACT_PREFIX=conda_envs
+        fi
+        ./.scripts/create_conda_build_artifacts.sh
+    displayName: Prepare conda build artifacts
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@1
+    displayName: Store conda build artifacts
+    condition: not(eq(variables.BLD_ARTIFACT_PATH, ''))
+    inputs:
+      targetPath: $(BLD_ARTIFACT_PATH)
+      artifactName: $(BLD_ARTIFACT_NAME)
+
+  - task: PublishPipelineArtifact@1
+    displayName: Store conda build environment artifacts
+    condition: not(eq(variables.ENV_ARTIFACT_PATH, ''))
+    inputs:
+      targetPath: $(ENV_ARTIFACT_PATH)
+      artifactName: $(ENV_ARTIFACT_NAME)
