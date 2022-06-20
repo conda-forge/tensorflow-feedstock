@@ -1,0 +1,40 @@
+From f0186ec2cb41ff7c27cb640ed847e29abd913fa3 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Tue, 24 May 2022 21:36:08 +0200
+Subject: [PATCH] Define libtensorflow_core_cpu
+
+---
+ tensorflow/core/common_runtime/BUILD | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/tensorflow/core/common_runtime/BUILD b/tensorflow/core/common_runtime/BUILD
+index 7a057a79..e3eae31b 100644
+--- a/tensorflow/core/common_runtime/BUILD
++++ b/tensorflow/core/common_runtime/BUILD
+@@ -9,6 +9,7 @@ load(
+     "tf_cuda_library",
+     "tf_openmp_copts",
+     "tf_openmp_lopts",
++    "tf_cc_shared_object",
+ )
+ 
+ # buildifier: disable=same-origin-load
+@@ -85,6 +86,15 @@ tf_cuda_library(
+     ],
+ )
+ 
++tf_cc_shared_object(
++    name = "tensorflow_core_cpu",
++    visibility = ["//visibility:public"],
++    per_os_targets = True,
++    deps = [
++        ":core_cpu"
++    ],
++)
++
+ cc_header_only_library(
+     name = "core_cpu_headers_lib",
+     visibility = ["//visibility:public"],
+-- 
+2.32.1 (Apple Git-133)
+

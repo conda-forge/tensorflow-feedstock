@@ -1,3 +1,5 @@
+azure:
+  store_build_artifacts: true
 build_platform:
   osx_arm64: osx_64
 conda_forge_output_validation: true
@@ -10,7 +12,3 @@ remote_ci_setup:
 github:
   branch_name: main
   tooling_branch_name: main
-remote_ci_setup:
-  - conda-forge-ci-setup=3
-  - conda-forge/label/lief_dev::py-lief
-  - conda-forge/label/lief_dev::liblief
