@@ -68,10 +68,10 @@ zip_keys:
 - - abseil_cpp
   - grpc_cpp
 - - c_compiler_version
-  - cdt_name
-  - cuda_compiler_version
-  - cudnn
   - cxx_compiler_version
+  - cudnn
+  - cuda_compiler_version
+  - cdt_name
   - docker_image
 - - python
   - python_impl
