@@ -39,25 +39,15 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.21'
+- '1.20'
 openssl:
 - 1.1.1
 pin_run_as_build:
-  jpeg:
-    max_pin: x
-  libcurl:
-    max_pin: x
-  libpng:
-    max_pin: x.x
   python:
     min_pin: x.x
     max_pin: x.x
-  sqlite:
-    max_pin: x
-  zlib:
-    max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.7.* *_cpython
 python_impl:
 - cpython
 snappy:
