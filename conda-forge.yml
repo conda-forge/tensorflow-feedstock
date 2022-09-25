@@ -1,8 +1,9 @@
 build_platform:
   osx_arm64: osx_64
 conda_forge_output_validation: true
-provider:
-  win: azure
 github:
   branch_name: main
   tooling_branch_name: main
+provider:
+  win: azure
+test: native_and_emulated
