@@ -1,0 +1,13 @@
+__migrator:
+  build_number: 1
+  kind: version
+  migration_number: 1
+
+# TODO: once the migration finishes and all feedstocks
+# have changed to the new output, remove grpc_cpp
+libgrpc:
+- '1.49'
+grpc_cpp:
+- '1.49'
+
+migrator_ts: 1666974156.3232300
