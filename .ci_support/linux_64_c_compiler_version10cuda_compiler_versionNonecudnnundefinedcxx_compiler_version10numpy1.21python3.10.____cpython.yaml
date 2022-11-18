@@ -23,7 +23,7 @@ docker_image:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.47'
+- '1.49'
 icu:
 - '70'
 jpeg:
@@ -43,18 +43,8 @@ numpy:
 openssl:
 - 1.1.1
 pin_run_as_build:
-  jpeg:
-    max_pin: x
-  libcurl:
-    max_pin: x
-  libpng:
-    max_pin: x.x
   python:
     min_pin: x.x
-    max_pin: x.x
-  sqlite:
-    max_pin: x
-  zlib:
     max_pin: x.x
 python:
 - 3.10.* *_cpython
