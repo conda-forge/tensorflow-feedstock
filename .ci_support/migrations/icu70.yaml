@@ -1,7 +1,0 @@
-__migrator:
-  build_number: 1
-  kind: version
-  migration_number: 1
-icu:
-- '70'
-migrator_ts: 1648069834.8412466
