@@ -17,8 +17,12 @@ source:
     sha256: 60df309377cf4e584ca20198f9639beb685d50616395f50770fc0999092d6d85
     folder: tensorflow-estimator
 
+  - url: https://github.com/tensorflow/text/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
+    sha256: c9fa358a8805d7d334928710b4fb4e08a3d9a14a32186ba7f583391bef390c41
+    folder: tensorflow-text
+
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
   skip: true  # [libabseil != '20220623.0']
@@ -236,6 +240,7 @@ outputs:
         - python
         - {{ pin_subpackage('tensorflow-base', exact=True) }}
         - {{ pin_subpackage('tensorflow-estimator', exact=True) }}
+        - {{ pin_subpackage('tensorflow-text', exact=True) }}
         # avoid that people without GPUs needlessly download ~0.5-1GB
         # This also helps mamba give preference to the CPU build
         - __cuda  # [cuda_compiler_version != "None"]
@@ -277,6 +282,42 @@ outputs:
         - packaging
         - setuptools
         - wheel
+        # This ensures that a consistent version of openssl is chosen between
+        # all packages.
+        # https://github.com/conda-forge/conda-forge.github.io/issues/1528
+        - openssl
+        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+      run:
+        - python
+        - {{ pin_subpackage('tensorflow-base', exact=True) }}
+    test:
+      requires:
+        - pip
+      commands:
+        - pip check
+
+  - name: tensorflow-text
+    script: build_text.sh   # [not win]
+    script: build_text.bat  # [win]
+    build:
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        # Keep the cuda compiler here since it helps package solvers
+        # decide on the cuda variant
+        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
+        - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
+        - bazel >=5.2.0
+      host:
+        - python
+        - pip
+        - packaging
+        - setuptools
+        - wheel
+        - tensorflow-hub
         # This ensures that a consistent version of openssl is chosen between
         # all packages.
         # https://github.com/conda-forge/conda-forge.github.io/issues/1528
