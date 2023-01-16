@@ -7,7 +7,7 @@
 {% set fn = "tensorflow-{{ version }}.tar.gz" %}  # [linux]
 
 package:
-  name: tensorflow
+  name: tensorflow-split
   version: {{ version }}
 
 source:
@@ -223,3 +223,4 @@ extra:
     - gilbertfrancois
     - farhantejani
     - njzjz
+  feedstock-name: tensorflow
