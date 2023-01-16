@@ -5,16 +5,18 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-10.14
+    vmImage: macOS-11
   strategy:
     matrix:
-      osx_python3.6.____cpython:
-        CONFIG: osx_python3.6.____cpython
+      osx_64_python3.10.____cpython:
+        CONFIG: osx_64_python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_python3.7.____cpython:
-        CONFIG: osx_python3.7.____cpython
+      osx_64_python3.8.____cpython:
+        CONFIG: osx_64_python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
-    maxParallel: 8
+      osx_64_python3.9.____cpython:
+        CONFIG: osx_64_python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:
@@ -24,6 +26,11 @@ jobs:
       export OSX_FORCE_SDK_DOWNLOAD="1"
       export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+      if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+        export IS_PR_BUILD="True"
+      else
+        export IS_PR_BUILD="False"
+      fi
       ./.scripts/run_osx_build.sh
     displayName: Run OSX build
     env:

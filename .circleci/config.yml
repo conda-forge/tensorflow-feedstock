@@ -1,13 +1,14 @@
 # This file was generated automatically from conda-smithy. To update this configuration,
 # update the conda-forge.yml and/or the recipe/meta.yaml.
-# -*- mode: yaml -*-
+# -*- mode: jinja-yaml -*-
 
 version: 2
 
 jobs:
   build:
     working_directory: ~/test
-    machine: true
+    machine:
+      image: ubuntu-2004:current
     steps:
       - run:
           # The Circle-CI build should not be active, but if this is not true for some reason, do a fast finish.

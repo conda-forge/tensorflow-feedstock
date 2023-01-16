@@ -7,15 +7,30 @@ import os
 import glob
 import subprocess
 from argparse import ArgumentParser
+import platform
 
 
 def setup_environment(ns):
     os.environ["CONFIG"] = ns.config
     os.environ["UPLOAD_PACKAGES"] = "False"
+    os.environ["IS_PR_BUILD"] = "True"
+    if ns.debug:
+        os.environ["BUILD_WITH_CONDA_DEBUG"] = "1"
+        if ns.output_id:
+            os.environ["BUILD_OUTPUT_ID"] = ns.output_id
+    if "MINIFORGE_HOME" not in os.environ:
+        os.environ["MINIFORGE_HOME"] = os.path.join(
+            os.path.dirname(__file__), "miniforge3"
+        )
 
 
 def run_docker_build(ns):
     script = ".scripts/run_docker_build.sh"
+    subprocess.check_call([script])
+
+
+def run_osx_build(ns):
+    script = ".scripts/run_osx_build.sh"
     subprocess.check_call([script])
 
 
@@ -42,21 +57,48 @@ def verify_config(ns):
     else:
         raise ValueError("config " + ns.config + " is not valid")
     # Remove the following, as implemented
-    if not ns.config.startswith("linux"):
+    if ns.config.startswith("win"):
         raise ValueError(
-            f"only Linux configs currently supported, got {ns.config}"
+            f"only Linux/macOS configs currently supported, got {ns.config}"
         )
+    elif ns.config.startswith("osx"):
+        if "OSX_SDK_DIR" not in os.environ:
+            raise RuntimeError(
+                "Need OSX_SDK_DIR env variable set. Run 'export OSX_SDK_DIR=SDKs' "
+                "to download the SDK automatically to 'SDKs/MacOSX<ver>.sdk'. "
+                "Setting this variable implies agreement to the licensing terms of the SDK by Apple."
+            )
 
 
 def main(args=None):
     p = ArgumentParser("build-locally")
     p.add_argument("config", default=None, nargs="?")
+    p.add_argument(
+        "--debug",
+        action="store_true",
+        help="Setup debug environment using `conda debug`",
+    )
+    p.add_argument(
+        "--output-id", help="If running debug, specify the output to setup."
+    )
 
     ns = p.parse_args(args=args)
     verify_config(ns)
     setup_environment(ns)
 
-    run_docker_build(ns)
+    try:
+        if ns.config.startswith("linux") or (
+            ns.config.startswith("osx") and platform.system() == "Linux"
+        ):
+            run_docker_build(ns)
+        elif ns.config.startswith("osx"):
+            run_osx_build(ns)
+    finally:
+        recipe_license_file = os.path.join(
+            "recipe", "recipe-scripts-license.txt"
+        )
+        if os.path.exists(recipe_license_file):
+            os.remove(recipe_license_file)
 
 
 if __name__ == "__main__":

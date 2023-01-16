@@ -9,6 +9,7 @@ bld.bat text eol=crlf
 # github helper pieces to make some files not show up in diffs automatically
 .azure-pipelines/* linguist-generated=true
 .circleci/* linguist-generated=true
+.ci_support/README linguist-generated=true
 .drone/* linguist-generated=true
 .drone.yml linguist-generated=true
 .github/* linguist-generated=true
@@ -18,6 +19,7 @@ bld.bat text eol=crlf
 .gitignore linguist-generated=true
 .travis.yml linguist-generated=true
 .scripts/* linguist-generated=true
+.woodpecker.yml linguist-generated=true
 LICENSE.txt linguist-generated=true
 README.md linguist-generated=true
 azure-pipelines.yml linguist-generated=true
