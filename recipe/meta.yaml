@@ -1,4 +1,4 @@
-{% set version = "1.14.0" %}
+{% set version = "1.15.0" %}
 
 {% set pyver = "cp{}{}".format(PY_VER[0], PY_VER[2]) %}
 {% set platform = "macosx_10_11_x86_64" %}  # [osx] 
@@ -13,13 +13,13 @@ package:
 source:
   fn: {{ fn }}
   url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz  # [linux]
-  sha256: aa2a6a1daafa3af66807cfe0bc77bfe1144a9a53df9a96bab52e3e575b3047ed  # [linux]
+  sha256: a5d49c00a175a61da7431a9b289747d62339be9cf37600330ad63b611f7f5dc9  # [linux]
   url: https://pypi.io/packages/{{ pyver }}/t/tensorflow/{{ fn }}  # [not linux]
-  sha256: 46fc216db780b1a7b7a28cf6536d6ec0a171ef2fa546a24934ffe077c734c891  # [osx and py==27]    
-  sha256: a3851118d2cc5e9e697503753c2d247dca0e98d5a85b5ea091103f27d9e57a38  # [osx and py==36]  
-  sha256: 2fc989a5d3be9f3dc96c20deaa3d5cc66d2bf76fe069c202c2914a7f4b5a9a35  # [osx and py==37]
-  sha256: e84f2c8c7f23ad546076b1e73cec85706da19910b9a89c29cba3b64e297b2eb0  # [win and py==36]
-  sha256: a4f154fa98cde5974117e05af444e0bed84cf431b8129c78a2de03a1ff7201c9  # [win and py==37]
+  sha256: 0a01def34c28298970dc83776dd43877fd59e43fddd8e960d01b6eb849ba9938  # [osx and py==27]
+  sha256: 79fbb4a38c6e6417d5eef8ccae00b16053750c5d61092ec7caabe4cea6870dc2  # [osx and py==36]
+  sha256: d1694e25887bc0d0c31d6c7d9c92c8bf9e0499085c7e5a9dbaacf675c44027a8  # [osx and py==37]
+  sha256: 26b86d32f20dba79da30cb87d67a708678cc6c47f6e596c8783433e282e91f00  # [win and py==36]
+  sha256: 1afb2e573fe666eb0dd6a45dbb7679de622a318fcc1fc401fb7819068f2d858b  # [win and py==37]
   patches:
     - patches/0001-add-rt-to-linkopts.patch                                     # [linux]
     - patches/0002-stable-image-rotate-test.patch                               # [linux]
