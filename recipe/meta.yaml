@@ -35,6 +35,8 @@ build:
   number: 0
   skip: True  # [not x86_64]
   skip: True  # [win and vc<14]
+  # temp: global skip to push new branch
+  skip: true
 
 requirements:
   build:
