@@ -1,5 +1,5 @@
-{% set version = "2.11.0" %}
-{% set estimator_version = "2.11.0" %}
+{% set version = "2.12.0" %}
+{% set estimator_version = "2.12.0" %}
 
 package:
   name: tensorflow-split
@@ -121,8 +121,8 @@ requirements:
     - typing_extensions >=3.6.6
     - wrapt >=1.11.0
     # TF-API needs to move in sync
-    - tensorboard >=2.11,<2.12
-    - keras >=2.11,<2.12
+    - tensorboard >=2.12,<2.13
+    # - keras >=2.12,<2.13
 
 outputs:
   # 2021/12/29: hmaarrfk
@@ -199,8 +199,8 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.11,<2.12
-        - keras >=2.11,<2.12
+        - tensorboard >=2.12,<2.13
+        # - keras >=2.12,<2.13
       run:
         - python
         - packaging
@@ -226,8 +226,8 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.11,<2.12
-        - keras >=2.11,<2.12
+        - tensorboard >=2.12,<2.13
+        - keras >=2.12,<2.13
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda  # [cuda_compiler_version != "None"]
         - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
