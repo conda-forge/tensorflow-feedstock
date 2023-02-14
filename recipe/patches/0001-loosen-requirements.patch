@@ -13,25 +13,18 @@ Co-authored-by: ngam
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
-index c3f29b7c92728..4719e3ce63b98 100644
+index face32bbb9a2e..6b251d8ac17ee 100644
 --- a/tensorflow/tools/pip_package/setup.py
 +++ b/tensorflow/tools/pip_package/setup.py
-@@ -88,7 +88,6 @@ def standard_or_nightly(standard, nightly):
-     'gast >= 0.2.1, <= 0.4.0',
-     'google_pasta >= 0.1.1',
-     'h5py >= 2.9.0',
+@@ -92,7 +92,6 @@ def standard_or_nightly(standard, nightly):
+     # TODO(b/239052279): replace with external dependency on JAX repo once JAX
+     # no longer relies on TF.
+     'jax >= 0.3.15',
 -    'libclang >= 13.0.0',
-     'numpy >= 1.20',
+     # TODO(b/263178356): numpy 1.24 breaks TF's tests
+     'numpy >= 1.22, <1.24',
      'opt_einsum >= 2.3.2',
-     'packaging',
-@@ -99,14 +98,12 @@ def standard_or_nightly(standard, nightly):
-     # See also: https://github.com/protocolbuffers/protobuf/issues/9954
-     # See also: https://github.com/tensorflow/tensorflow/issues/56077
-     # This is a temporary patch for now, to patch previous TF releases.
--    'protobuf >= 3.9.2, < 3.20',
-+    'protobuf >= 3.9.2',
-     'setuptools',
-     'six >= 1.12.0',
+@@ -110,8 +109,6 @@ def standard_or_nightly(standard, nightly):
      'termcolor >= 1.1.0',
      'typing_extensions >= 3.6.6',
      'wrapt >= 1.11.0',
