@@ -6,14 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 99c732b92b1b37fc243a559e02f9aef5671771e272758aa4aec7f34dc92dac48
-    patches:
-      - patches/0001-loosen-requirements.patch
-
-  - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 922f9187de79e8e7f7d7a5b2d6d3aabc81bbbd6ba5f12a4f52967dd302214a43
+  - git_url: https://github.com/tensorflow/tensorflow/
+    git_branch: r2.12
+    
+  - git_url: https://github.com/tensorflow/estimator/
+    git_branch: r2.12
     folder: tensorflow-estimator
+
+  # - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
+  #   sha256: 99c732b92b1b37fc243a559e02f9aef5671771e272758aa4aec7f34dc92dac48
+  #   patches:
+  #     - patches/0001-loosen-requirements.patch
+
+  # - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
+  #   sha256: 922f9187de79e8e7f7d7a5b2d6d3aabc81bbbd6ba5f12a4f52967dd302214a43
+  #   folder: tensorflow-estimator
 
 build:
   number: 0
