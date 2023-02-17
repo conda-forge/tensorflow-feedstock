@@ -1,0 +1,72 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '10'
+cdt_name:
+- cos7
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cuda_compiler:
+- nvcc
+cuda_compiler_version:
+- '11.2'
+cudnn:
+- '8'
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '10'
+docker_image:
+- quay.io/condaforge/linux-anvil-cuda:11.2
+giflib:
+- '5.2'
+grpc_cpp:
+- '1.51'
+icu:
+- '70'
+jpeg:
+- '9'
+libabseil:
+- '20220623.0'
+libcurl:
+- '7'
+libgrpc:
+- '1.51'
+libpng:
+- '1.6'
+libprotobuf:
+- '3.21'
+nccl:
+- '2'
+numpy:
+- '1.21'
+openssl:
+- '3'
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.10.* *_cpython
+python_impl:
+- cpython
+snappy:
+- '1'
+sqlite:
+- '3'
+target_platform:
+- linux-64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+  - cudnn
+  - cuda_compiler_version
+  - cdt_name
+  - docker_image
+- - python
+  - numpy
+  - python_impl
+zlib:
+- '1.2'
