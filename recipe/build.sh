@@ -40,7 +40,7 @@ export TF_SYSTEM_LIBS="
   boringssl
   com_github_googlecloudplatform_google_cloud_cpp
   com_github_grpc_grpc
-  com_google_protobuf
+  # com_google_protobuf
   curl
   cython
   dill_archive
