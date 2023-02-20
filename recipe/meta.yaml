@@ -11,6 +11,7 @@ source:
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/revert-protobuf-change.patch
+      - patches/disable-argparse-in-absl.patch
 
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: afb81990738300e13e5ef623edbd93f43383662dea279609a99c1884e5869173
