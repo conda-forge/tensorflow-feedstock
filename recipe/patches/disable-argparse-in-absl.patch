@@ -1,0 +1,13 @@
+diff --git a/tensorflow/python/tools/BUILD b/tensorflow/python/tools/BUILD
+--- tensorflow/python/tools/BUILD
++++ tensorflow/python/tools/BUILD
+@@ -329,9 +329,8 @@
+         # (built with --define=no_tensorflow_py_deps=true) may end up with a
+         # broken saved_model_cli.
+         ":saved_model_aot_compile",
+         ":saved_model_utils",
+-        "@absl_py//absl/flags:argparse_flags",
+         "//tensorflow/python",
+         "//tensorflow/python/debug/wrappers:local_cli_wrapper",
+     ] + if_google([
+         "//tensorflow/core/tfrt/tfrt_session",
