@@ -21,7 +21,7 @@ giflib:
 grpc_cpp:
 - '1.51'
 icu:
-- '70'
+- '72'
 jpeg:
 - '9'
 libabseil:
@@ -37,7 +37,7 @@ libprotobuf:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
-- '1.21'
+- '1.20'
 openssl:
 - '3'
 pin_run_as_build:
@@ -45,7 +45,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.9.* *_cpython
 python_impl:
 - cpython
 snappy:
