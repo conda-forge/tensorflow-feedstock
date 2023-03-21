@@ -1,14 +1,13 @@
 build_platform:
   osx_arm64: osx_64
+conda_build:
+  pkg_format: '2'
 conda_forge_output_validation: true
-provider:
-  win: azure
 github:
   branch_name: main
   tooling_branch_name: main
-conda_build:
-  pkg_format: '2'
-# https://github.com/conda-forge/conda-smithy/pull/1686
+provider:
+  win: azure
 remote_ci_setup:
 - py-lief=0.12.3
 - conda-forge-ci-setup=3
