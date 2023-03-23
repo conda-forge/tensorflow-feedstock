@@ -16,7 +16,7 @@ source:
     folder: tensorflow-estimator
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
   skip: true  # [cuda_compiler_version in ("10.2", "11.0", "11.1")]
