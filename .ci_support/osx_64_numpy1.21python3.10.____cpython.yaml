@@ -21,7 +21,7 @@ giflib:
 grpc_cpp:
 - '1.51'
 icu:
-- '70'
+- '72'
 libabseil:
 - '20220623.0'
 libcurl:
