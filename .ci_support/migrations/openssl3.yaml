@@ -1,8 +1,0 @@
-__migrator:
-  build_number: 1
-  kind: version
-  migration_number: 1
-migrator_ts: 1631932209.13688
-openssl:
-- 1.1.1
-- '3'
