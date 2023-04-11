@@ -17,15 +17,15 @@ cxx_compiler_version:
 giflib:
 - '5.2'
 grpc_cpp:
-- '1.51'
+- '1.52'
 icu:
 - '72'
 libabseil:
-- '20220623.0'
+- '20230125'
 libcurl:
 - '7'
 libgrpc:
-- '1.51'
+- '1.52'
 libjpeg_turbo:
 - 2.1.5
 libpng:
