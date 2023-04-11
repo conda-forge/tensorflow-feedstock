@@ -1,0 +1,12 @@
+__migrator:
+  build_number: 1
+  kind: version
+  migration_number: 1
+
+libgrpc:
+- '1.52'
+
+grpc_cpp:
+- '1.52'
+
+migrator_ts: 1676521166.3229427
