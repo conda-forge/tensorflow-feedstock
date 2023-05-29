@@ -1,0 +1,8 @@
+migrator_ts: 1685361796
+__migrator:
+  kind: version
+  migration_number: 1
+  bump_number: 1
+
+flatbuffers:
+  - 23.5.26
