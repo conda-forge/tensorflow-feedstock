@@ -40,7 +40,6 @@ export TF_SYSTEM_LIBS="
   boringssl
   com_github_googlecloudplatform_google_cloud_cpp
   com_github_grpc_grpc
-  com_google_protobuf
   curl
   cython
   dill_archive
@@ -94,7 +93,6 @@ build --crosstool_top=//custom_toolchain:toolchain
 build --logging=6
 build --verbose_failures
 build --define=PREFIX=${PREFIX}
-build --define=PROTOBUF_INCLUDE_PATH=${PREFIX}/include
 build --config=noaws
 build --cpu=${TARGET_CPU}
 build --local_cpu_resources=${CPU_COUNT}"
@@ -105,7 +103,7 @@ if [[ "${target_platform}" == "osx-arm64" ]]; then
   # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
-export TF_ENABLE_XLA=0
+export TF_ENABLE_XLA=1
 export BUILD_TARGET="//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow //tensorflow:libtensorflow_cc${SHLIB_EXT}"
 
 # Python settings
