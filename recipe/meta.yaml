@@ -1,4 +1,6 @@
-{% set version = "2.11.1" %}
+{% set tensorflow_cpu_gpu = "tensorflow-gpu" %}  # [cuda_compiler_version != "None"]
+{% set tensorflow_cpu_gpu = "tensorflow-cpu" %}  # [cuda_compiler_version == "None" or cuda_compiler_version is undefined]
+{% set version = "2.13.0" %}
 {% set estimator_version = "2.11.0" %}
 
 package:
@@ -7,7 +9,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 624ed1cc170cdcc19e8a15d8cdde989a9a1c6b0534c90b38a6b2f06fb2963e5f
+    sha256: e58c939079588623e6fa1d054aec2f90f95018266e0a970fd353a5244f5173dc
     patches:
       - patches/0001-loosen-requirements.patch
 
@@ -262,7 +264,7 @@ outputs:
         - toco --help                # [not win and build_platform == target_platform]
 
   - name: tensorflow-estimator
-    script: build_estimator.sh   # [not win]
+    script: build_estimator.sh  # [not win]
     script: build_estimator.bat  # [win]
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
@@ -400,8 +402,8 @@ outputs:
   - name: {{ tensorflow_cpu_gpu }}
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                      # [cuda_compiler_version == "None"]
-      detect_binary_files_with_prefix: False
+      string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      detect_binary_files_with_prefix: false
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
