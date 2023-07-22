@@ -49,7 +49,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.8.* *_cpython
 python_impl:
 - cpython
 snappy:
@@ -61,7 +61,6 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - cudnn
   - cuda_compiler
   - cuda_compiler_version
   - cdt_name
