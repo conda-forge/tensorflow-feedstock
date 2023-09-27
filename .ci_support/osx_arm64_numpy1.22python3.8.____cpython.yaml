@@ -1,25 +1,19 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 c_compiler:
-- gcc
+- clang
 c_compiler_version:
-- '12'
-cdt_name:
-- cos6
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- None
 cuda_compiler_version:
 - None
-cudnn:
-- undefined
 cxx_compiler:
-- gxx
+- clangxx
 cxx_compiler_version:
-- '12'
-docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- '15'
 flatbuffers:
 - 23.5.26
 giflib:
@@ -31,17 +25,17 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.54'
+- '1.56'
 libjpeg_turbo:
 - 2.1.5
 libpng:
 - '1.6'
 libprotobuf:
-- '3.21'
-nccl:
-- '2'
+- 4.23.3
+macos_machine:
+- arm64-apple-darwin20.0.0
 numpy:
-- '1.23'
+- '1.22'
 openssl:
 - '3'
 pin_run_as_build:
@@ -49,7 +43,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.8.* *_cpython
 python_impl:
 - cpython
 snappy:
@@ -57,15 +51,10 @@ snappy:
 sqlite:
 - '3'
 target_platform:
-- linux-64
+- osx-arm64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - cudnn
-  - cuda_compiler
-  - cuda_compiler_version
-  - cdt_name
-  - docker_image
 - - libgrpc
   - libprotobuf
 - - python
