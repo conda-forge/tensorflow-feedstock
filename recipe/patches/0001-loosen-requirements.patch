@@ -1,7 +1,7 @@
-From 436c51c9864934ae399703bcaf05ff732b9ddf6e Mon Sep 17 00:00:00 2001
+From ac70ea17bab1e49d047fae473fac6fcfc9f0559a Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 30 Dec 2021 06:57:09 +0200
-Subject: [PATCH 01/12] loosen requirements
+Subject: [PATCH 01/10] loosen requirements
 
 * Remove unused libclang requirement
 * Remove unecessary tensorflow-io-gcs-filesystem
@@ -10,32 +10,29 @@ Subject: [PATCH 01/12] loosen requirements
 Co-authored-by: Mark Harfouche <mark.harfouche@gmail.com>
 Co-authored-by: ngam
 ---
- tensorflow/tools/pip_package/setup.py | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ tensorflow/tools/pip_package/setup.py | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
-index e77e6f81..f7ab72c4 100644
+index 2475ee5d..4438d799 100644
 --- a/tensorflow/tools/pip_package/setup.py
 +++ b/tensorflow/tools/pip_package/setup.py
-@@ -89,8 +89,7 @@ REQUIRED_PACKAGES = [
-     'gast >= 0.2.1, <= 0.4.0',
+@@ -88,7 +88,6 @@ REQUIRED_PACKAGES = [
+     'gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2',
      'google_pasta >= 0.1.1',
      'h5py >= 2.9.0',
 -    'libclang >= 13.0.0',
--    'numpy >= 1.22, <= 1.24.3',
-+    'numpy >= 1.22',
+     'ml_dtypes == 0.2.0',
+     'numpy >= 1.23.5',
      'opt_einsum >= 2.3.2',
-     'packaging',
-     'protobuf>=3.20.3,<5.0.0dev,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5',
-@@ -99,8 +98,6 @@ REQUIRED_PACKAGES = [
+@@ -102,7 +101,6 @@ REQUIRED_PACKAGES = [
      'termcolor >= 1.1.0',
-     'typing_extensions>=3.6.6,<4.6.0',
-     'wrapt >= 1.11.0',
--    'tensorflow-io-gcs-filesystem >= 0.23.1;platform_machine!="arm64" or ' +
--    'platform_system!="Darwin"',
+     'typing_extensions >= 3.6.6',
+     'wrapt >= 1.11.0, < 1.15',
+-    'tensorflow-io-gcs-filesystem >= 0.23.1',
      # grpcio does not build correctly on big-endian machines due to lack of
      # BoringSSL support.
      # See https://github.com/tensorflow/tensorflow/issues/17882.
 -- 
-2.30.2
+2.39.3 (Apple Git-145)
 

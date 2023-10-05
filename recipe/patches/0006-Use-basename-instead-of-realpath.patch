@@ -1,0 +1,25 @@
+From 44c23e37bf4c74d7073571f7a81f8c40e494f643 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Wed, 30 Aug 2023 16:57:31 +0200
+Subject: [PATCH 06/10] Use basename instead of realpath
+
+---
+ tensorflow/tensorflow.bzl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/tensorflow.bzl b/tensorflow/tensorflow.bzl
+index 9fa8c9d7..8d592a44 100644
+--- a/tensorflow/tensorflow.bzl
++++ b/tensorflow/tensorflow.bzl
+@@ -960,7 +960,7 @@ def _create_symlink(src, dest, visibility = None):
+         outs = [src],
+         srcs = [dest],
+         output_to_bindir = 1,
+-        cmd = "ln -sf $$(realpath --relative-to=$(RULEDIR) $<) $@",
++        cmd = "ln -sf $$(basename $<) $@",
+         visibility = visibility,
+     )
+ 
+-- 
+2.39.3 (Apple Git-145)
+

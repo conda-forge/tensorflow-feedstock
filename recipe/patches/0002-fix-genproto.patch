@@ -1,17 +1,17 @@
-From 0fa0515e3ead93083f2474352acb520feb5f77f1 Mon Sep 17 00:00:00 2001
+From 5c512b94b7596e705562e2e2597a9ef819d3628d Mon Sep 17 00:00:00 2001
 From: ngam <67342040+ngam@users.noreply.github.com>
 Date: Thu, 18 May 2023 23:36:59 -0400
-Subject: [PATCH 02/12] fix genproto
+Subject: [PATCH 02/10] fix genproto
 
 ---
  tensorflow/tsl/platform/default/build_config.bzl | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/tensorflow/tsl/platform/default/build_config.bzl b/tensorflow/tsl/platform/default/build_config.bzl
-index 6ffd37bf..cafa2013 100644
+index e2720d0e..6b5be310 100644
 --- a/tensorflow/tsl/platform/default/build_config.bzl
 +++ b/tensorflow/tsl/platform/default/build_config.bzl
-@@ -403,10 +403,7 @@ def py_proto_library(
+@@ -401,10 +401,7 @@ def py_proto_library(
  
      genproto_deps = []
      for dep in deps:
@@ -24,5 +24,5 @@ index 6ffd37bf..cafa2013 100644
      proto_gen(
          name = name + "_genproto",
 -- 
-2.30.2
+2.39.3 (Apple Git-145)
 
