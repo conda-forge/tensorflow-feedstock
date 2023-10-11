@@ -31,13 +31,13 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.54'
+- '1.57'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- '3.21'
+- 4.23.4
 nccl:
 - '2'
 numpy:
@@ -49,7 +49,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.10.* *_cpython
 python_impl:
 - cpython
 snappy:
