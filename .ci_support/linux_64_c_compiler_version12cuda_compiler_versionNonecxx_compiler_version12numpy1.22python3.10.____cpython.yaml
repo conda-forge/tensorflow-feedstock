@@ -27,7 +27,7 @@ giflib:
 icu:
 - '73'
 libabseil:
-- '20230125'
+- '20230802'
 libcurl:
 - '8'
 libgrpc:
@@ -49,7 +49,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.10.* *_cpython
 python_impl:
 - cpython
 snappy:
