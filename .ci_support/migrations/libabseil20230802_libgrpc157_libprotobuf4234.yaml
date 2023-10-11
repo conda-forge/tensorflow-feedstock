@@ -1,0 +1,13 @@
+__migrator:
+  build_number: 1
+  kind: version
+  migration_number: 1
+libabseil:
+- 20230802
+libgrpc:
+- "1.57"
+libprotobuf:
+- 4.23.4
+MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
+- "10.13"                  # [osx and x86_64]
+migrator_ts: 1692632590.658328
