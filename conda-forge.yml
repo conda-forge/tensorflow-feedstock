@@ -1,3 +1,8 @@
+azure:
+  settings_linux:
+    timeoutInMinutes: 1
+  settings_osx:
+    timeoutInMinutes: 1
 build_platform:
   osx_arm64: osx_64
 conda_build:
