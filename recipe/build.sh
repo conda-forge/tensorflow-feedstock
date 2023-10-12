@@ -162,6 +162,12 @@ build --cpu=${TARGET_CPU}
 build --local_cpu_resources=${CPU_COUNT}
 EOF
 
+# Update TF lite schema with latest flatbuffers version
+pushd tensorflow/lite/schema
+flatc --cpp --gen-object-api schema.fbs
+popd
+rm -f tensorflow/lite/schema/conversion_metadata_generated.h
+rm -f tensorflow/lite/experimental/acceleration/configuration/configuration_generated.h
 
 # build using bazel
 bazel ${BAZEL_OPTS} build ${BUILD_TARGET}
