@@ -26,9 +26,6 @@ source:
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
-  - url: https://raw.githubusercontent.com/jax-ml/ml_dtypes/v0.2.0/ml_dtypes/include/float8.h
-    fn: float8.h
-    sha256: 7c3d32809adf01e1568434760bf3c347d0ef21d5fc4c5009815a5dd54635ed25
 
 build:
   number: 0
