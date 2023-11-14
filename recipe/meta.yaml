@@ -1,5 +1,5 @@
-{% set version = "2.14.0" %}
-{% set estimator_version = "2.14.0" %}
+{% set version = "2.15.0.rc1" %}
+{% set estimator_version = "2.15.0" %}
 
 package:
   name: tensorflow-split
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: ce357fd0728f0d1b0831d1653f475591662ec5bca736a94ff789e6b1944df19f
+    sha256: 62428e073ce7e4060debedf34513f7370511f67d45f765499e587c3265d9a77d
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-fix-genproto.patch
@@ -26,7 +26,7 @@ source:
       - patches/0015-Fix-ml_dtypes-linkage.patch
 
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 622797bf5311f239c2b123364fa360868ae97d16b678413e5e0633241f7d7d5c
+    sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
   - url: https://raw.githubusercontent.com/jax-ml/ml_dtypes/v0.2.0/ml_dtypes/include/float8.h
     fn: float8.h
@@ -127,6 +127,7 @@ requirements:
     - typing_extensions >=3.6.6
     - wrapt >=1.11.0,<1.15
     # TF-API needs to move in sync
+    # TEMP: not available for 2.15 yet
     - tensorboard >=2.14,<2.15
     - keras >=2.14,<2.15
 
@@ -206,6 +207,7 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0,<1.15
         # TF-API needs to move in sync
+        # TEMP: not available for 2.15 yet
         - tensorboard >=2.14,<2.15
         - keras >=2.14,<2.15
       run:
@@ -227,6 +229,7 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0,<1.15
         # TF-API needs to move in sync
+        # TEMP: not available for 2.15 yet
         - tensorboard >=2.14,<2.15
         - keras >=2.14,<2.15
         # avoid that people without GPUs needlessly download ~0.5-1GB
