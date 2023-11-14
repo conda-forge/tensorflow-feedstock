@@ -54,7 +54,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
-    - bazel >=5.2.0,<6
+    - bazel ==6.1
     - libgrpc
     - libprotobuf
     - nasm
@@ -112,8 +112,9 @@ requirements:
     - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
     - google-pasta >=0.1.1
     - h5py >=2.9.0
-    - ml_dtypes 0.2.0
+    - ml_dtypes >=0.2.0,<0.3
     - numpy
+    - numpy <2
     - opt_einsum >=2.3.2
     - protobuf >=3.20.3,<5,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5
     - python-flatbuffers >=23.5.26
@@ -192,8 +193,9 @@ outputs:
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
         - h5py >=2.9.0
-        - ml_dtypes 0.2.0
+        - ml_dtypes >=0.2.0,<0.3
         - numpy
+        - numpy <2
         - opt_einsum >=2.3.2
         - protobuf >=3.20.3,<5,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5
         - python-flatbuffers >=23.5.26
@@ -214,7 +216,7 @@ outputs:
         - google-pasta >=0.1.1
         - grpcio {{ libgrpc }}.*
         - h5py >=2.9.0
-        - ml_dtypes 0.2.0
+        - ml_dtypes >=0.2.0,<0.3
         - {{ pin_compatible('numpy', lower_bound='1.22') }}
         - opt_einsum >=2.3.2
         - protobuf >=3.20.3,<5,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5
@@ -289,7 +291,7 @@ outputs:
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
         - {{ compiler('cuda') }}                   # [cuda_compiler_version != "None"]
-        - bazel >=5.2.0,<6
+        - bazel ==6.1
         - python                                   # [build_platform != target_platform]
         - cross-python_{{ target_platform }}       # [build_platform != target_platform]
         - libabseil                                # [build_platform != target_platform]
