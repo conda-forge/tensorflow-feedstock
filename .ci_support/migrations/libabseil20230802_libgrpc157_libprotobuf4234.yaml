@@ -1,0 +1,10 @@
+__migrator:
+  build_number: 1
+  kind: version
+  migration_number: 1
+# need to keep this in the migrator until we're ready
+# to bump the deployment target conda-forge-wide, see
+# https://github.com/conda-forge/conda-forge.github.io/issues/1844#issuecomment-1734933359
+MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
+- "10.13"                  # [osx and x86_64]
+migrator_ts: 1692632590.658328
