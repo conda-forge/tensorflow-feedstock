@@ -14,16 +14,14 @@ source:
       - patches/0003-Add-additional-absl_synchronization-linkage-to-gRPC.patch
       - patches/0004-Add-missing-any_invocable-target-to-absel-bazel.patch
       - patches/0005-Fix-missing-abseil-linkages.patch
-      - patches/0006-Use-basename-instead-of-realpath.patch
-      - patches/0007-Fix-protobuf_python-for-systemlibs.patch
-      - patches/0008-Add-absl_log-systemlib.patch
-      - patches/0009-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch
-      - patches/0010-Fix-further-abseil-linkage.patch
-      - patches/0011-Add-constraint-to-pybind11-systemlib.patch
-      - patches/0012-Different-file-ending-for-flatbuffers-LICENSE.patch
-      - patches/0013-Use-correct-hermetic-python.patch
-      - patches/0014-Add-python-runtimes-as-static-deps.patch
-      - patches/0015-Fix-ml_dtypes-linkage.patch
+      - patches/0006-Fix-protobuf_python-for-systemlibs.patch
+      - patches/0007-Add-absl_log-systemlib.patch
+      - patches/0008-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch
+      - patches/0009-Fix-further-abseil-linkage.patch
+      - patches/0010-Add-constraint-to-pybind11-systemlib.patch
+      - patches/0011-Different-file-ending-for-flatbuffers-LICENSE.patch
+      - patches/0012-Use-correct-hermetic-python.patch
+      - patches/0013-Add-python-runtimes-as-static-deps.patch
 
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530

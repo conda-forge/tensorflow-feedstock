@@ -1,14 +1,14 @@
-From caacd048fcaf56626fc5283b1a3513c6cde0f78f Mon Sep 17 00:00:00 2001
+From 1ea8f41bc4e1c94d92a5f02c1bae5417682cc571 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Sun, 2 Jul 2023 05:36:41 +0000
-Subject: [PATCH 04/15] Add missing any_invocable target to absel bazel
+Subject: [PATCH 04/13] Add missing any_invocable target to absel bazel
 
 ---
  third_party/absl/system.absl.functional.BUILD | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/third_party/absl/system.absl.functional.BUILD b/third_party/absl/system.absl.functional.BUILD
-index a4f70acf..f05aa98d 100644
+index a4f70acf35c..f05aa98d1bb 100644
 --- a/third_party/absl/system.absl.functional.BUILD
 +++ b/third_party/absl/system.absl.functional.BUILD
 @@ -9,3 +9,7 @@ cc_library(
@@ -19,6 +19,3 @@ index a4f70acf..f05aa98d 100644
 +cc_library(
 +    name = "any_invocable",
 +)
--- 
-2.42.0
-

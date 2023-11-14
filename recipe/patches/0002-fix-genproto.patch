@@ -1,16 +1,16 @@
-From 728699a89b8eae2d6b31e60a3d33f1a48f58842c Mon Sep 17 00:00:00 2001
+From 9d683cc699e2938534dfc3eda2c3176d4079c2a8 Mon Sep 17 00:00:00 2001
 From: ngam <67342040+ngam@users.noreply.github.com>
 Date: Thu, 18 May 2023 23:36:59 -0400
-Subject: [PATCH 02/15] fix genproto
+Subject: [PATCH 02/13] fix genproto
 
 ---
- tensorflow/tsl/platform/default/build_config.bzl | 5 +----
+ .../third_party/tsl/tsl/platform/default/build_config.bzl    | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/tensorflow/tsl/platform/default/build_config.bzl b/tensorflow/tsl/platform/default/build_config.bzl
-index e2720d0e..6b5be310 100644
---- a/tensorflow/tsl/platform/default/build_config.bzl
-+++ b/tensorflow/tsl/platform/default/build_config.bzl
+diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl b/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
+index 3fe7b2069a1..b2fb56775df 100644
+--- a/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
++++ b/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
 @@ -401,10 +401,7 @@ def py_proto_library(
  
      genproto_deps = []
@@ -23,6 +23,3 @@ index e2720d0e..6b5be310 100644
  
      proto_gen(
          name = name + "_genproto",
--- 
-2.42.0
-

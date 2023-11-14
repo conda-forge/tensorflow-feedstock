@@ -1,0 +1,61 @@
+From e2f595e33c63e91a1bf18ab7bd252ca0930421cc Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Fri, 27 Oct 2023 11:38:30 +0200
+Subject: [PATCH 13/13] Add python runtimes as static deps
+
+---
+ tensorflow/compiler/tf2tensorrt/BUILD | 5 +++++
+ tensorflow/python/BUILD               | 6 ++++++
+ tensorflow/tensorflow.bzl             | 6 ++++++
+ 3 files changed, 17 insertions(+)
+
+diff --git a/tensorflow/compiler/tf2tensorrt/BUILD b/tensorflow/compiler/tf2tensorrt/BUILD
+index 70bb411723d..8b0a3e04961 100644
+--- a/tensorflow/compiler/tf2tensorrt/BUILD
++++ b/tensorflow/compiler/tf2tensorrt/BUILD
+@@ -1057,6 +1057,11 @@ pybind_extension(
+         "@zlib//:__subpackages__",
+         "@local_tsl//tsl:__subpackages__",
+         "@local_xla//xla:__subpackages__",
++        "@python_x86_64-unknown-linux-gnu//:__subpackages__",
++        "@python_x86_64-pc-windows-msvc//:__subpackages__",
++        "@python_x86_64-apple-darwin//:__subpackages__",
++        "@python_aarch64-unknown-linux-gnu//:__subpackages__",
++        "@python_aarch64-apple-darwin//:__subpackages__",
+     ],
+     deps = [
+         ":common_utils",
+diff --git a/tensorflow/python/BUILD b/tensorflow/python/BUILD
+index c7feacb667e..0500f811fec 100644
+--- a/tensorflow/python/BUILD
++++ b/tensorflow/python/BUILD
+@@ -737,6 +737,12 @@ pywrap_tensorflow_macro(
+         "@zlib//:__subpackages__",
+         "@local_tsl//tsl:__subpackages__",
+         "@local_xla//xla:__subpackages__",
++        "@pypi_numpy//:__subpackages__",
++        "@python_x86_64-unknown-linux-gnu//:__subpackages__",
++        "@python_x86_64-pc-windows-msvc//:__subpackages__",
++        "@python_x86_64-apple-darwin//:__subpackages__",
++        "@python_aarch64-unknown-linux-gnu//:__subpackages__",
++        "@python_aarch64-apple-darwin//:__subpackages__",
+     ] + tsl_async_value_deps(),
+     win_def_file = ":pywrap_tensorflow_filtered_def_file",
+     deps = [
+diff --git a/tensorflow/tensorflow.bzl b/tensorflow/tensorflow.bzl
+index 98adbcc6331..151fd157480 100644
+--- a/tensorflow/tensorflow.bzl
++++ b/tensorflow/tensorflow.bzl
+@@ -3293,6 +3293,12 @@ def tf_python_pybind_static_deps(testonly = False):
+         "@upb//:__subpackages__",
+         "@zlib//:__subpackages__",
+         "@local_tsl//tsl:__subpackages__",
++        "@pypi_numpy//:__subpackages__",
++        "@python_x86_64-unknown-linux-gnu//:__subpackages__",
++        "@python_x86_64-pc-windows-msvc//:__subpackages__",
++        "@python_x86_64-apple-darwin//:__subpackages__",
++        "@python_aarch64-unknown-linux-gnu//:__subpackages__",
++        "@python_aarch64-apple-darwin//:__subpackages__",
+     ]
+     static_deps += tsl_async_value_deps()
+     static_deps += [] if not testonly else [

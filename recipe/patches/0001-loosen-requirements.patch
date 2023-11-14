@@ -1,7 +1,7 @@
-From 17c46d21b731c0f80bdc842af7ef17ada762d799 Mon Sep 17 00:00:00 2001
+From 2c195d7a9a68e2b97e2b3a4d47c3bd34e3832a9a Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 30 Dec 2021 06:57:09 +0200
-Subject: [PATCH 01/15] loosen requirements
+Subject: [PATCH 01/13] loosen requirements
 
 * Remove unused libclang requirement
 * Remove unecessary tensorflow-io-gcs-filesystem
@@ -14,7 +14,7 @@ Co-authored-by: ngam
  1 file changed, 2 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
-index 2475ee5d..4438d799 100644
+index 3bcf1809004..820ed1b9b03 100644
 --- a/tensorflow/tools/pip_package/setup.py
 +++ b/tensorflow/tools/pip_package/setup.py
 @@ -88,7 +88,6 @@ REQUIRED_PACKAGES = [
@@ -22,8 +22,8 @@ index 2475ee5d..4438d799 100644
      'google_pasta >= 0.1.1',
      'h5py >= 2.9.0',
 -    'libclang >= 13.0.0',
-     'ml_dtypes == 0.2.0',
-     'numpy >= 1.23.5',
+     'ml_dtypes ~= 0.2.0',
+     'numpy >= 1.23.5, < 2.0.0',
      'opt_einsum >= 2.3.2',
 @@ -102,7 +101,6 @@ REQUIRED_PACKAGES = [
      'termcolor >= 1.1.0',
@@ -33,6 +33,3 @@ index 2475ee5d..4438d799 100644
      # grpcio does not build correctly on big-endian machines due to lack of
      # BoringSSL support.
      # See https://github.com/tensorflow/tensorflow/issues/17882.
--- 
-2.42.0
-

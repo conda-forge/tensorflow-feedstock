@@ -1,14 +1,14 @@
-From a1e8d85eec2b6d19cd4e2d27fdaa56df9a651ad0 Mon Sep 17 00:00:00 2001
+From 8740c2347ee5d400729ed394123ba47134309af4 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 3 Jul 2023 04:45:46 +0000
-Subject: [PATCH 05/15] Fix missing abseil linkages
+Subject: [PATCH 05/13] Fix missing abseil linkages
 
 ---
  third_party/absl/system.absl.strings.BUILD | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/third_party/absl/system.absl.strings.BUILD b/third_party/absl/system.absl.strings.BUILD
-index fa9a7a84..d04776c9 100644
+index fa9a7a84f67..d04776c98bf 100644
 --- a/third_party/absl/system.absl.strings.BUILD
 +++ b/third_party/absl/system.absl.strings.BUILD
 @@ -26,7 +26,7 @@ cc_library(
@@ -20,6 +20,3 @@ index fa9a7a84..d04776c9 100644
      deps = [
          ":str_format",
          "//absl/container:compressed_tuple",
--- 
-2.42.0
-
