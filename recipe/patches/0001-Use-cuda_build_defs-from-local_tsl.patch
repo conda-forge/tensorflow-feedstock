@@ -1,0 +1,26 @@
+From 7558fc2affa62726bc64290957cdfcbd68736b18 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Tue, 21 Nov 2023 08:56:57 +0000
+Subject: [PATCH] Use cuda_build_defs from local_tsl
+
+---
+ third_party/nccl/system.BUILD.tpl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/third_party/nccl/system.BUILD.tpl b/third_party/nccl/system.BUILD.tpl
+index 405d1e72..2c964b82 100644
+--- a/third_party/nccl/system.BUILD.tpl
++++ b/third_party/nccl/system.BUILD.tpl
+@@ -1,7 +1,7 @@
+ load("@bazel_skylib//rules:write_file.bzl", "write_file")
+ load(
+-    "@org_tensorflow//tensorflow/platform/default:cuda_build_defs.bzl",
+-    "cuda_rpath_flags"
++    "@local_tsl//tsl/platform/default:cuda_build_defs.bzl",
++    "cuda_rpath_flags",
+ )
+ 
+ filegroup(
+-- 
+2.42.0
+

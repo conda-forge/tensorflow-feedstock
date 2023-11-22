@@ -24,6 +24,7 @@ source:
       - patches/0001-Add-protobuf-toolchain.patch
       - patches/0001-fix-genproto.patch
       - patches/0001-Blacklist-well-known-protos.patch
+      - patches/0001-Use-cuda_build_defs-from-local_tsl.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator

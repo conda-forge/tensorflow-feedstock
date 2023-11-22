@@ -23,17 +23,17 @@ giflib:
 icu:
 - '73'
 libabseil:
-- '20230125'
+- '20230802'
 libcurl:
 - '8'
 libgrpc:
-- '1.54'
+- '1.58'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- '3.21'
+- 4.24.3
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:

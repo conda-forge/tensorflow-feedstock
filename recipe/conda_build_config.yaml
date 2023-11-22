@@ -8,9 +8,9 @@ MACOSX_SDK_VERSION:        # [osx and x86_64]
 
 # Hold back for icu73 migration
 # https://github.com/conda-forge/tensorflow-feedstock/pull/337
-libprotobuf:
-- '3.21'
-libabseil:
-- '20230125'
-libgrpc:
-- '1.54'
+#libprotobuf:
+#- '3.21'
+#libabseil:
+#- '20230125'
+#libgrpc:
+#- '1.54'
