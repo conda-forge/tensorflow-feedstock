@@ -31,17 +31,17 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.54'
+- '1.59'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- '3.21'
+- 4.24.4
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '1.23'
 openssl:
 - '3'
 perl:
@@ -51,7 +51,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.11.* *_cpython
 python_impl:
 - cpython
 snappy:
@@ -60,6 +60,8 @@ sqlite:
 - '3'
 target_platform:
 - linux-64
+tensorflow:
+- '2.14'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
