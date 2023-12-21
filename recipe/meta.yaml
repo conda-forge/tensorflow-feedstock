@@ -40,7 +40,7 @@ source:
     sha256: b3a9970c3c6b169c41ac2fd4375f668d3fd1b492d48b912d89415fa1522a8f50
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
   skip: true  # [py<39]
