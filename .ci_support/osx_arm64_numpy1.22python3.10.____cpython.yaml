@@ -18,6 +18,8 @@ flatbuffers:
 - 23.5.26
 giflib:
 - '5.2'
+github_actions_labels:
+- cirun-openstack-cpu-large
 icu:
 - '73'
 libabseil:
@@ -53,7 +55,7 @@ sqlite:
 target_platform:
 - osx-arm64
 tensorflow:
-- '2.14'
+- '2.15'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

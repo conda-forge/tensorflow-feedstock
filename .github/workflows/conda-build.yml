@@ -1,0 +1,132 @@
+# This file was generated automatically from conda-smithy. To update this configuration,
+# update the conda-forge.yml and/or the recipe/meta.yaml.
+# -*- mode: yaml -*-
+
+name: Build conda package
+on:
+  push:
+
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.CONFIG }}
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12numpy1.22python3.10.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_h583ac9ac0b', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12numpy1.22python3.9.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_h998bba98e6', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12numpy1.23python3.11.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_hab675490e1', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_versionNonecxx_compiler_version12numpy1.22python3.10.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_h30d3536c9c', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_versionNonecxx_compiler_version12numpy1.22python3.9.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_h0cba298c1d', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+          - CONFIG: linux_64_c_compiler_version12cuda_compiler_versionNonecxx_compiler_version12numpy1.23python3.11.____cpython
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['cirun-openstack-cpu-large--${{ github.run_id }}-linux_64_c_compiler_version12cuda_c_ha76770977f', 'linux', 'x64', 'self-hosted']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build on Linux
+      if: matrix.os == 'ubuntu'
+      env:
+        CONFIG: ${{ matrix.CONFIG }}
+        UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
+        DOCKER_IMAGE: ${{ matrix.DOCKER_IMAGE }}
+        CI: github_actions
+        CONDA_FORGE_DOCKER_RUN_ARGS: "${{ matrix.CONDA_FORGE_DOCKER_RUN_ARGS }}"
+        BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
+        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+      shell: bash
+      run: |
+        echo "::group::Configure binfmt_misc"
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+        export flow_run_id="github_$GITHUB_RUN_ID"
+        export remote_url="https://github.com/$GITHUB_REPOSITORY"
+        export sha="$GITHUB_SHA"
+        export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
+        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          export IS_PR_BUILD="True"
+        else
+          export IS_PR_BUILD="False"
+        fi
+        echo "::endgroup::"
+        ./.scripts/run_docker_build.sh
+
+    - name: Build on macOS
+      if: matrix.os == 'macos'
+      env:
+        CONFIG: ${{ matrix.CONFIG }}
+        UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
+        CI: github_actions
+        BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
+        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+      shell: bash
+      run: |
+        export flow_run_id="github_$GITHUB_RUN_ID"
+        export remote_url="https://github.com/$GITHUB_REPOSITORY"
+        export sha="$GITHUB_SHA"
+        export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
+        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          export IS_PR_BUILD="True"
+        else
+          export IS_PR_BUILD="False"
+        fi
+        ./.scripts/run_osx_build.sh
+
+    - name: Install Miniconda for windows
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniforge-version: latest
+        miniforge-variant: Mambaforge
+      if: matrix.os == 'windows'
+
+    - name: Build on windows
+      shell: cmd
+      run: |
+        set "flow_run_id=github_%GITHUB_RUN_ID%"
+        set "remote_url=https://github.com/%GITHUB_REPOSITORY%"
+        set "sha=%GITHUB_SHA%"
+        call ".scripts\run_win_build.bat"
+      env:
+        PYTHONUNBUFFERED: 1
+        CONFIG: ${{ matrix.CONFIG }}
+        CI: github_actions
+        UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
+        BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
+        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+      if: matrix.os == 'windows'

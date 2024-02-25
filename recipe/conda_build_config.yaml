@@ -2,6 +2,8 @@
 # Tensorflow 2.7.0 requires futimens which is only
 # available on 10.13
 MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
-  - "10.13"                # [osx and x86_64]
+- '10.13'                  # [osx and x86_64]
 MACOSX_SDK_VERSION:        # [osx and x86_64]
-  - "10.13"                # [osx and x86_64]
+- '10.13'                  # [osx and x86_64]
+github_actions_labels:
+- cirun-openstack-cpu-large
