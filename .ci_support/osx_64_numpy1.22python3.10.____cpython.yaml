@@ -23,17 +23,17 @@ giflib:
 icu:
 - '73'
 libabseil:
-- '20230802'
+- '20240116'
 libcurl:
 - '8'
 libgrpc:
-- '1.59'
+- '1.61'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 4.24.4
+- 4.25.2
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
@@ -55,7 +55,7 @@ sqlite:
 target_platform:
 - osx-64
 tensorflow:
-- '2.14'
+- '2.15'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
