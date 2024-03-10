@@ -17,7 +17,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '16'
 flatbuffers:
-- 23.5.26
+- 24.3.7
 giflib:
 - '5.2'
 icu:
@@ -27,13 +27,13 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.59'
+- '1.60'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 4.24.4
+- 4.25.1
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
@@ -55,7 +55,7 @@ sqlite:
 target_platform:
 - osx-64
 tensorflow:
-- '2.14'
+- '2.15'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
