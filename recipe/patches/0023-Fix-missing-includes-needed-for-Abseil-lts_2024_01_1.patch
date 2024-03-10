@@ -1,0 +1,346 @@
+From ec01c2c7842e7c2e91c1ad0b52d604929a6ec847 Mon Sep 17 00:00:00 2001
+From: David Majnemer <majnemer@google.com>
+Date: Wed, 24 Jan 2024 03:58:26 -0800
+Subject: [PATCH] Fix missing includes needed for Abseil lts_2024_01_16
+
+PiperOrigin-RevId: 601072928
+---
+ tensorflow/compiler/mlir/tfrt/translate/mlrt/BUILD             | 1 +
+ .../compiler/mlir/tfrt/translate/mlrt/mlir_to_bytecode.cc      | 1 +
+ tensorflow/core/graph/graph_debug_info_builder_test.cc         | 1 +
+ tensorflow/core/tfrt/graph_executor/BUILD                      | 1 +
+ tensorflow/core/tfrt/graph_executor/config.h                   | 1 +
+ tensorflow/dtensor/mlir/function_renaming.cc                   | 1 +
+ tensorflow/lite/delegates/gpu/cl/BUILD                         | 1 +
+ tensorflow/lite/delegates/gpu/cl/cl_operation.h                | 1 +
+ .../lite/delegates/gpu/common/task/qcom_thin_filter_desc.cc    | 1 +
+ .../delegates/gpu/common/tasks/special/thin_pointwise_fuser.cc | 1 +
+ .../lite/delegates/utils/experimental/stable_delegate/BUILD    | 1 +
+ .../utils/experimental/stable_delegate/delegate_loader.cc      | 2 ++
+ tensorflow/python/framework/BUILD                              | 1 +
+ tensorflow/python/framework/python_api_dispatcher_wrapper.cc   | 1 +
+ tensorflow/python/util/BUILD                                   | 1 +
+ tensorflow/python/util/function_parameter_canonicalizer.cc     | 1 +
+ .../xla/third_party/tsl/tsl/platform/default/dlopen_checker.cc | 3 +++
+ third_party/xla/third_party/tsl/tsl/profiler/utils/BUILD       | 1 -
+ .../xla/third_party/tsl/tsl/profiler/utils/trace_utils.h       | 1 +
+ third_party/xla/xla/backends/profiler/gpu/cupti_collector.h    | 1 +
+ third_party/xla/xla/runtime/BUILD                              | 1 +
+ third_party/xla/xla/runtime/constraints.cc                     | 2 +-
+ third_party/xla/xla/service/cpu/runtime/BUILD                  | 1 +
+ third_party/xla/xla/service/cpu/runtime/rng.cc                 | 1 +
+ third_party/xla/xla/stream_executor/dnn.h                      | 3 +++
+ 25 files changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/tensorflow/compiler/mlir/tfrt/translate/mlrt/BUILD b/tensorflow/compiler/mlir/tfrt/translate/mlrt/BUILD
+index b065f29da4d..bc887cdfc96 100644
+--- a/tensorflow/compiler/mlir/tfrt/translate/mlrt/BUILD
++++ b/tensorflow/compiler/mlir/tfrt/translate/mlrt/BUILD
+@@ -25,6 +25,7 @@ cc_library(
+         "@com_google_absl//absl/log",
+         "@com_google_absl//absl/log:check",
+         "@com_google_absl//absl/status:statusor",
++        "@com_google_absl//absl/strings",
+         "@llvm-project//llvm:Support",
+         "@llvm-project//mlir:FuncDialect",
+         "@llvm-project//mlir:IR",
+diff --git a/tensorflow/compiler/mlir/tfrt/translate/mlrt/mlir_to_bytecode.cc b/tensorflow/compiler/mlir/tfrt/translate/mlrt/mlir_to_bytecode.cc
+index 8c85f9f80ac..c0ef7c58c8b 100644
+--- a/tensorflow/compiler/mlir/tfrt/translate/mlrt/mlir_to_bytecode.cc
++++ b/tensorflow/compiler/mlir/tfrt/translate/mlrt/mlir_to_bytecode.cc
+@@ -24,6 +24,7 @@ limitations under the License.
+ #include "absl/container/flat_hash_map.h"
+ #include "absl/log/check.h"
+ #include "absl/log/log.h"
++#include "absl/strings/str_cat.h"
+ #include "llvm/ADT/DenseMap.h"
+ #include "llvm/ADT/TypeSwitch.h"
+ #include "mlir/IR/Attributes.h"  // from @llvm-project
+diff --git a/tensorflow/core/graph/graph_debug_info_builder_test.cc b/tensorflow/core/graph/graph_debug_info_builder_test.cc
+index 6c236de97d0..f7e5a6c01f6 100644
+--- a/tensorflow/core/graph/graph_debug_info_builder_test.cc
++++ b/tensorflow/core/graph/graph_debug_info_builder_test.cc
+@@ -21,6 +21,7 @@ limitations under the License.
+ #include <vector>
+ 
+ #include <gmock/gmock.h>
++#include "absl/strings/str_cat.h"
+ #include "tensorflow/core/framework/graph_debug_info.pb.h"
+ #include "tensorflow/core/platform/test.h"
+ 
+diff --git a/tensorflow/core/tfrt/graph_executor/BUILD b/tensorflow/core/tfrt/graph_executor/BUILD
+index 7cc355fa1b2..d34699c2028 100644
+--- a/tensorflow/core/tfrt/graph_executor/BUILD
++++ b/tensorflow/core/tfrt/graph_executor/BUILD
+@@ -181,6 +181,7 @@ cc_library(
+         "@com_google_absl//absl/container:flat_hash_map",
+         "@com_google_absl//absl/status",
+         "@com_google_absl//absl/status:statusor",
++        "@com_google_absl//absl/strings",
+         "@com_google_protobuf//:protobuf",
+     ],
+ )
+diff --git a/tensorflow/core/tfrt/graph_executor/config.h b/tensorflow/core/tfrt/graph_executor/config.h
+index 60e96701336..b0e3fbf12d6 100644
+--- a/tensorflow/core/tfrt/graph_executor/config.h
++++ b/tensorflow/core/tfrt/graph_executor/config.h
+@@ -21,6 +21,7 @@ limitations under the License.
+ #include "absl/container/flat_hash_map.h"
+ #include "absl/status/status.h"
+ #include "absl/status/statusor.h"
++#include "absl/strings/str_cat.h"
+ #include "tensorflow/core/tfrt/graph_executor/config.pb.h"
+ 
+ namespace tensorflow {
+diff --git a/tensorflow/dtensor/mlir/function_renaming.cc b/tensorflow/dtensor/mlir/function_renaming.cc
+index fe91943915b..0c485e91878 100644
+--- a/tensorflow/dtensor/mlir/function_renaming.cc
++++ b/tensorflow/dtensor/mlir/function_renaming.cc
+@@ -16,6 +16,7 @@ limitations under the License.
+ #include <memory>
+ #include <string>
+ 
++#include "absl/strings/str_cat.h"
+ #include "mlir/Dialect/Func/IR/FuncOps.h"  // from @llvm-project
+ #include "mlir/IR/Attributes.h"  // from @llvm-project
+ #include "mlir/IR/Operation.h"  // from @llvm-project
+diff --git a/tensorflow/lite/delegates/gpu/cl/BUILD b/tensorflow/lite/delegates/gpu/cl/BUILD
+index 760f401bdc6..81e77b603b3 100644
+--- a/tensorflow/lite/delegates/gpu/cl/BUILD
++++ b/tensorflow/lite/delegates/gpu/cl/BUILD
+@@ -260,6 +260,7 @@ cc_library(
+         ":program_cache",
+         ":tensor",
+         "//tensorflow/lite/delegates/gpu/common/task:gpu_operation",
++        "@com_google_absl//absl/strings",
+     ],
+ )
+ 
+diff --git a/tensorflow/lite/delegates/gpu/cl/cl_operation.h b/tensorflow/lite/delegates/gpu/cl/cl_operation.h
+index c9192830a02..772269c003f 100644
+--- a/tensorflow/lite/delegates/gpu/cl/cl_operation.h
++++ b/tensorflow/lite/delegates/gpu/cl/cl_operation.h
+@@ -22,6 +22,7 @@ limitations under the License.
+ #include <utility>
+ #include <vector>
+ 
++#include "absl/strings/str_cat.h"
+ #include "tensorflow/lite/delegates/gpu/cl/cl_arguments.h"
+ #include "tensorflow/lite/delegates/gpu/cl/cl_command_queue.h"
+ #include "tensorflow/lite/delegates/gpu/cl/cl_context.h"
+diff --git a/tensorflow/lite/delegates/gpu/common/task/qcom_thin_filter_desc.cc b/tensorflow/lite/delegates/gpu/common/task/qcom_thin_filter_desc.cc
+index 03909221f99..ffcf1fb2cdf 100644
+--- a/tensorflow/lite/delegates/gpu/common/task/qcom_thin_filter_desc.cc
++++ b/tensorflow/lite/delegates/gpu/common/task/qcom_thin_filter_desc.cc
+@@ -18,6 +18,7 @@ limitations under the License.
+ #include <string>
+ #include <vector>
+ 
++#include "absl/strings/str_cat.h"
+ #include "absl/strings/string_view.h"
+ 
+ namespace tflite {
+diff --git a/tensorflow/lite/delegates/gpu/common/tasks/special/thin_pointwise_fuser.cc b/tensorflow/lite/delegates/gpu/common/tasks/special/thin_pointwise_fuser.cc
+index 03fd1292827..923aaf53efa 100644
+--- a/tensorflow/lite/delegates/gpu/common/tasks/special/thin_pointwise_fuser.cc
++++ b/tensorflow/lite/delegates/gpu/common/tasks/special/thin_pointwise_fuser.cc
+@@ -24,6 +24,7 @@ limitations under the License.
+ #include <utility>
+ #include <vector>
+ 
++#include "absl/strings/str_cat.h"
+ #include "absl/strings/str_replace.h"
+ #include "tensorflow/lite/delegates/gpu/common/flops_util.h"
+ #include "tensorflow/lite/delegates/gpu/common/model.h"
+diff --git a/tensorflow/lite/delegates/utils/experimental/stable_delegate/BUILD b/tensorflow/lite/delegates/utils/experimental/stable_delegate/BUILD
+index cadf44ecef9..f038e55723f 100644
+--- a/tensorflow/lite/delegates/utils/experimental/stable_delegate/BUILD
++++ b/tensorflow/lite/delegates/utils/experimental/stable_delegate/BUILD
+@@ -34,6 +34,7 @@ cc_library_with_tflite(
+     deps = [
+         "//tensorflow/lite/experimental/acceleration/compatibility:android_info",
+         "//tensorflow/lite/tools:logging",
++        "@com_google_absl//absl/strings",
+     ],
+ )
+ 
+diff --git a/tensorflow/lite/delegates/utils/experimental/stable_delegate/delegate_loader.cc b/tensorflow/lite/delegates/utils/experimental/stable_delegate/delegate_loader.cc
+index abf89f71b3f..3ed11550aae 100644
+--- a/tensorflow/lite/delegates/utils/experimental/stable_delegate/delegate_loader.cc
++++ b/tensorflow/lite/delegates/utils/experimental/stable_delegate/delegate_loader.cc
+@@ -21,6 +21,8 @@ limitations under the License.
+ #include <cerrno>
+ #include <string>
+ 
++#include "absl/strings/numbers.h"
++#include "tensorflow/lite/acceleration/configuration/c/stable_delegate.h"
+ #include "tensorflow/lite/experimental/acceleration/compatibility/android_info.h"
+ #include "tensorflow/lite/tools/logging.h"
+ 
+diff --git a/tensorflow/python/framework/BUILD b/tensorflow/python/framework/BUILD
+index 9bfb9d2d9dd..fb30987bfd8 100644
+--- a/tensorflow/python/framework/BUILD
++++ b/tensorflow/python/framework/BUILD
+@@ -1094,6 +1094,7 @@ tf_python_pybind_extension(
+         "//tensorflow/python/util:function_parameter_canonicalizer_hdrs",
+         "//third_party/python_runtime:headers",  # buildcleaner: keep
+         "@com_google_absl//absl/container:flat_hash_map",
++        "@com_google_absl//absl/strings",
+         "@pybind11",
+     ],
+ )
+diff --git a/tensorflow/python/framework/python_api_dispatcher_wrapper.cc b/tensorflow/python/framework/python_api_dispatcher_wrapper.cc
+index d3f688578a7..f6ae3df3d23 100644
+--- a/tensorflow/python/framework/python_api_dispatcher_wrapper.cc
++++ b/tensorflow/python/framework/python_api_dispatcher_wrapper.cc
+@@ -14,6 +14,7 @@ limitations under the License.
+ ==============================================================================*/
+ // Python bindings for tensorflow/python/framework/python_api_dispatcher.h.
+ 
++#include "absl/strings/str_cat.h"
+ #include "pybind11/pybind11.h"  // from @pybind11
+ #include "pybind11/pytypes.h"  // from @pybind11
+ #include "pybind11/stl.h"  // from @pybind11
+diff --git a/tensorflow/python/util/BUILD b/tensorflow/python/util/BUILD
+index d1e7d626a1d..ae257943ce7 100644
+--- a/tensorflow/python/util/BUILD
++++ b/tensorflow/python/util/BUILD
+@@ -483,6 +483,7 @@ cc_library(
+         "//tensorflow/python/lib/core:safe_pyobject_ptr",
+         "//third_party/python_runtime:headers",  # buildcleaner: keep
+         "@com_google_absl//absl/container:flat_hash_set",
++        "@com_google_absl//absl/strings",
+         "@com_google_absl//absl/types:span",
+     ],
+ )
+diff --git a/tensorflow/python/util/function_parameter_canonicalizer.cc b/tensorflow/python/util/function_parameter_canonicalizer.cc
+index 6afd6d79910..d9769242cff 100644
+--- a/tensorflow/python/util/function_parameter_canonicalizer.cc
++++ b/tensorflow/python/util/function_parameter_canonicalizer.cc
+@@ -16,6 +16,7 @@ limitations under the License.
+ #include "tensorflow/python/util/function_parameter_canonicalizer.h"
+ 
+ #include "absl/container/flat_hash_set.h"
++#include "absl/strings/str_cat.h"
+ #include "tensorflow/core/platform/logging.h"
+ #include "tensorflow/core/platform/macros.h"
+ #include "tensorflow/python/lib/core/py_util.h"
+diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/dlopen_checker.cc b/third_party/xla/third_party/tsl/tsl/platform/default/dlopen_checker.cc
+index 2d67789d8a0..6eb431c97fc 100644
+--- a/third_party/xla/third_party/tsl/tsl/platform/default/dlopen_checker.cc
++++ b/third_party/xla/third_party/tsl/tsl/platform/default/dlopen_checker.cc
+@@ -12,6 +12,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ==============================================================================*/
++#include "absl/status/status.h"
++#include "absl/status/statusor.h"
++#include "absl/strings/str_cat.h"
+ #include "tsl/platform/default/dso_loader.h"
+ #include "tsl/platform/errors.h"
+ #include "tsl/platform/logging.h"
+diff --git a/third_party/xla/third_party/tsl/tsl/profiler/utils/BUILD b/third_party/xla/third_party/tsl/tsl/profiler/utils/BUILD
+index 0c3e736a915..3b3cc94c865 100644
+--- a/third_party/xla/third_party/tsl/tsl/profiler/utils/BUILD
++++ b/third_party/xla/third_party/tsl/tsl/profiler/utils/BUILD
+@@ -190,7 +190,6 @@ cc_library(
+     deps = [
+         "//tsl/platform:types",
+         "@com_google_absl//absl/strings",
+-        "@com_google_absl//absl/types:optional",
+     ],
+ )
+ 
+diff --git a/third_party/xla/third_party/tsl/tsl/profiler/utils/trace_utils.h b/third_party/xla/third_party/tsl/tsl/profiler/utils/trace_utils.h
+index d2580982122..034a634a6f6 100644
+--- a/third_party/xla/third_party/tsl/tsl/profiler/utils/trace_utils.h
++++ b/third_party/xla/third_party/tsl/tsl/profiler/utils/trace_utils.h
+@@ -18,6 +18,7 @@ limitations under the License.
+ 
+ #include <optional>
+ 
++#include "absl/strings/numbers.h"
+ #include "absl/strings/string_view.h"
+ #include "tsl/platform/types.h"
+ 
+diff --git a/third_party/xla/xla/backends/profiler/gpu/cupti_collector.h b/third_party/xla/xla/backends/profiler/gpu/cupti_collector.h
+index 8af5927269d..ee788fd5fbd 100644
+--- a/third_party/xla/xla/backends/profiler/gpu/cupti_collector.h
++++ b/third_party/xla/xla/backends/profiler/gpu/cupti_collector.h
+@@ -21,6 +21,7 @@ limitations under the License.
+ #include "absl/container/fixed_array.h"
+ #include "absl/container/flat_hash_map.h"
+ #include "absl/container/node_hash_set.h"
++#include "absl/strings/str_cat.h"
+ #include "absl/strings/string_view.h"
+ #include "tsl/platform/macros.h"
+ #include "tsl/platform/status.h"
+diff --git a/third_party/xla/xla/runtime/BUILD b/third_party/xla/xla/runtime/BUILD
+index 92a0319568e..959af04f52a 100644
+--- a/third_party/xla/xla/runtime/BUILD
++++ b/third_party/xla/xla/runtime/BUILD
+@@ -83,6 +83,7 @@ cc_library(
+     deps = [
+         "@com_google_absl//absl/status",
+         "@com_google_absl//absl/status:statusor",
++        "@com_google_absl//absl/strings",
+         "@llvm-project//llvm:Support",
+     ],
+ )
+diff --git a/third_party/xla/xla/runtime/constraints.cc b/third_party/xla/xla/runtime/constraints.cc
+index 5086d25a31b..d93ee193585 100644
+--- a/third_party/xla/xla/runtime/constraints.cc
++++ b/third_party/xla/xla/runtime/constraints.cc
+@@ -17,10 +17,10 @@ limitations under the License.
+ 
+ #include <string>
+ #include <string_view>
+-#include <utility>
+ 
+ #include "absl/status/status.h"
+ #include "absl/status/statusor.h"
++#include "absl/strings/str_cat.h"
+ 
+ namespace xla {
+ namespace runtime {
+diff --git a/third_party/xla/xla/service/cpu/runtime/BUILD b/third_party/xla/xla/service/cpu/runtime/BUILD
+index 98c26d28448..830216b56a9 100644
+--- a/third_party/xla/xla/service/cpu/runtime/BUILD
++++ b/third_party/xla/xla/service/cpu/runtime/BUILD
+@@ -142,6 +142,7 @@ cc_library(
+         "//xla:executable_run_options",
+         "//xla/runtime:memref_view",
+         "@com_google_absl//absl/status",
++        "@com_google_absl//absl/strings",
+     ],
+ )
+ 
+diff --git a/third_party/xla/xla/service/cpu/runtime/rng.cc b/third_party/xla/xla/service/cpu/runtime/rng.cc
+index a1cc6c046d2..5db2ec0a629 100644
+--- a/third_party/xla/xla/service/cpu/runtime/rng.cc
++++ b/third_party/xla/xla/service/cpu/runtime/rng.cc
+@@ -18,6 +18,7 @@
+ #include <cstdint>
+ 
+ #include "absl/status/status.h"
++#include "absl/strings/str_cat.h"
+ #include "xla/executable_run_options.h"
+ 
+ namespace xla {
+diff --git a/third_party/xla/xla/stream_executor/dnn.h b/third_party/xla/xla/stream_executor/dnn.h
+index 3561a1ffd4f..e0b50813196 100644
+--- a/third_party/xla/xla/stream_executor/dnn.h
++++ b/third_party/xla/xla/stream_executor/dnn.h
+@@ -36,6 +36,9 @@ limitations under the License.
+ 
+ #include "google/protobuf/wrappers.pb.h"
+ #include "absl/types/optional.h"
++#include "absl/status/status.h"
++#include "absl/status/statusor.h"
++#include "absl/strings/str_cat.h"
+ #include "absl/types/span.h"
+ #include "xla/stream_executor/data_type.h"
+ #include "xla/stream_executor/device_description.h"
+-- 
+2.34.1
+

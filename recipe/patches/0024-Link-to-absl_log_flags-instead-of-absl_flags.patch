@@ -1,0 +1,53 @@
+From 9c0871526e681c03e28eaed1e5c99aa7aee43e49 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Mon, 26 Feb 2024 22:30:08 -0500
+Subject: [PATCH] Link to absl_log_flags instead of absl_flags
+
+---
+ third_party/absl/system.absl.flags.BUILD                        | 2 +-
+ third_party/xla/third_party/absl/system.absl.flags.BUILD        | 2 +-
+ .../third_party/tsl/third_party/absl/system.absl.flags.BUILD    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/third_party/absl/system.absl.flags.BUILD b/third_party/absl/system.absl.flags.BUILD
+index aff653c7e5b..ee2e1bfe5e3 100644
+--- a/third_party/absl/system.absl.flags.BUILD
++++ b/third_party/absl/system.absl.flags.BUILD
+@@ -97,7 +97,7 @@ cc_library(
+ 
+ cc_library(
+     name = "flag",
+-    linkopts = ["-labsl_flags"],
++    linkopts = ["-labsl_log_flags"],
+     deps = [
+         ":config",
+         ":flag_internal",
+diff --git a/third_party/xla/third_party/absl/system.absl.flags.BUILD b/third_party/xla/third_party/absl/system.absl.flags.BUILD
+index aff653c7e5b..ee2e1bfe5e3 100644
+--- a/third_party/xla/third_party/absl/system.absl.flags.BUILD
++++ b/third_party/xla/third_party/absl/system.absl.flags.BUILD
+@@ -97,7 +97,7 @@ cc_library(
+ 
+ cc_library(
+     name = "flag",
+-    linkopts = ["-labsl_flags"],
++    linkopts = ["-labsl_log_flags"],
+     deps = [
+         ":config",
+         ":flag_internal",
+diff --git a/third_party/xla/third_party/tsl/third_party/absl/system.absl.flags.BUILD b/third_party/xla/third_party/tsl/third_party/absl/system.absl.flags.BUILD
+index aff653c7e5b..ee2e1bfe5e3 100644
+--- a/third_party/xla/third_party/tsl/third_party/absl/system.absl.flags.BUILD
++++ b/third_party/xla/third_party/tsl/third_party/absl/system.absl.flags.BUILD
+@@ -97,7 +97,7 @@ cc_library(
+ 
+ cc_library(
+     name = "flag",
+-    linkopts = ["-labsl_flags"],
++    linkopts = ["-labsl_log_flags"],
+     deps = [
+         ":config",
+         ":flag_internal",
+-- 
+2.34.1
+

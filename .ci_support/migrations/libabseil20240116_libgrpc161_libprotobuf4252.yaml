@@ -1,16 +1,22 @@
 __migrator:
   build_number: 1
+  commit_message: Rebuild for libabseil 20240116, libgrp 1.61, libprotobuf 4.25.2
   kind: version
   migration_number: 1
   exclude:
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
     # this shouldn't attempt to modify the python feedstocks
     - protobuf
+libabseil:
+- "20240116"
 libgrpc:
-- "1.59"
+- "1.61"
 libprotobuf:
-- 4.24.4
+- 4.25.2
 # already covered by libabseil20230802_libgrpc157_libprotobuf4234,
 # which we cannot delete yet, but keep for clarity
 MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
 - "10.13"                  # [osx and x86_64]
-migrator_ts: 1698833751.21557
+migrator_ts: 1705991934.9119136
