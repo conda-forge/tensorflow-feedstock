@@ -1,0 +1,26 @@
+From d48e2727b92611b792b7db68cc3d07284a9d15be Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Fri, 27 Oct 2023 11:20:12 +0200
+Subject: [PATCH 08/19] Add constraint to pybind11 systemlib
+
+---
+ third_party/systemlibs/pybind11.BUILD | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/third_party/systemlibs/pybind11.BUILD b/third_party/systemlibs/pybind11.BUILD
+index 79a483d7..463dd1a8 100644
+--- a/third_party/systemlibs/pybind11.BUILD
++++ b/third_party/systemlibs/pybind11.BUILD
+@@ -6,3 +6,9 @@ cc_library(
+         "@org_tensorflow//third_party/python_runtime:headers",
+     ],
+ )
++
++# Needed by pybind11_bazel.
++config_setting(
++    name = "osx",
++    constraint_values = ["@platforms//os:osx"],
++)
+-- 
+2.43.2
+

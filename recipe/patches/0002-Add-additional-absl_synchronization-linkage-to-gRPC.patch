@@ -1,4 +1,4 @@
-From 2303b70a02dd11e69976599c420dfe86bc7b32f7 Mon Sep 17 00:00:00 2001
+From c845600afd2bbf99c800163ece9e2f0d015dbb14 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Fri, 30 Jun 2023 08:39:32 +0000
 Subject: [PATCH 02/19] Add additional absl_synchronization linkage to gRPC
@@ -35,3 +35,6 @@ index 8b703f11..417baf5d 100644
      ],
      visibility = ["//visibility:public"],
  )
+-- 
+2.43.2
+

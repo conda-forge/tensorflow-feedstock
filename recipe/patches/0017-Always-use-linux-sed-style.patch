@@ -1,0 +1,36 @@
+From 692f21acfe01c55abdc9f64c32a628b729ac29bb Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Wed, 13 Mar 2024 06:21:50 -0400
+Subject: [PATCH 17/19] Always use linux-sed style
+
+Original patch by: "Uwe L. Korn" <uwe.korn@quantco.com>
+---
+ tensorflow/tools/pip_package/build_pip_package.sh | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/tensorflow/tools/pip_package/build_pip_package.sh b/tensorflow/tools/pip_package/build_pip_package.sh
+index 637faec0..d9eec53b 100755
+--- a/tensorflow/tools/pip_package/build_pip_package.sh
++++ b/tensorflow/tools/pip_package/build_pip_package.sh
+@@ -278,15 +278,9 @@ function prepare_src() {
+     cp -RLn bazel-bin/tensorflow/tools/pip_package/build_pip_package.runfiles/local_xla/xla ${TMPDIR}/tensorflow/compiler
+   fi
+   # Fix the proto stubs
+-  if is_macos; then
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i '' 's/from tsl\./from tensorflow.tsl./' {} \;
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i '' 's/from local_xla\.xla/from tensorflow.compiler.xla/' {} \;
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i '' 's/from xla/from tensorflow.compiler.xla/' {} \;
+-  else
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from tsl\./from tensorflow.tsl./' {} \;
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from local_xla\.xla/from tensorflow.compiler.xla/' {} \;
+-    find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from xla/from tensorflow.compiler.xla/' {} \;
+-  fi
++  find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from tsl\./from tensorflow.tsl./' {} \;
++  find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from local_xla\.xla/from tensorflow.compiler.xla/' {} \;
++  find ${TMPDIR}/tensorflow/ -name "*.py" -type f -exec sed -i'' 's/from xla/from tensorflow.compiler.xla/' {} \;
+ 
+   mkdir -p ${TMPDIR}/third_party
+   cp -LR $RUNFILES/../local_config_cuda/cuda/_virtual_includes/cuda_headers_virtual/third_party/gpus ${TMPDIR}/third_party
+-- 
+2.43.2
+

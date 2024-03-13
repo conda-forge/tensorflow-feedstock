@@ -1,0 +1,29 @@
+From 02e68726417d00ca62895785071785444003e0cb Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Wed, 13 Mar 2024 06:24:35 -0400
+Subject: [PATCH 19/19] Update flatbuffers static assert
+
+---
+ .../acceleration/configuration/configuration_generated.h    | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tensorflow/lite/acceleration/configuration/configuration_generated.h b/tensorflow/lite/acceleration/configuration/configuration_generated.h
+index 675dfc9d..6772d01b 100644
+--- a/tensorflow/lite/acceleration/configuration/configuration_generated.h
++++ b/tensorflow/lite/acceleration/configuration/configuration_generated.h
+@@ -22,9 +22,9 @@ limitations under the License.
+ 
+ // Ensure the included flatbuffers.h is the same version as when this file was
+ // generated, otherwise it may not be compatible.
+-static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+-              FLATBUFFERS_VERSION_MINOR == 5 &&
+-              FLATBUFFERS_VERSION_REVISION == 26,
++static_assert(FLATBUFFERS_VERSION_MAJOR == 24 &&
++              FLATBUFFERS_VERSION_MINOR == 3 &&
++              FLATBUFFERS_VERSION_REVISION == 7,
+              "Non-compatible flatbuffers version included");
+ 
+ namespace tflite {
+-- 
+2.43.2
+

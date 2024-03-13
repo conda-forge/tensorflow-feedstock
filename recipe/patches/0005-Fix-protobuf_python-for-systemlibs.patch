@@ -1,4 +1,4 @@
-From 35ac91ebaf60bad15a9c295bc7023a643b97dd07 Mon Sep 17 00:00:00 2001
+From 88f98abdd9214170e7f690ed045a17504cf4c8d1 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
 Subject: [PATCH 05/19] Fix protobuf_python for systemlibs
@@ -12,10 +12,10 @@ Subject: [PATCH 05/19] Fix protobuf_python for systemlibs
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index 8601192e..fe422018 100644
+index 9e15c75c..6ca2f04b 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -373,6 +373,7 @@ def _tf_repositories():
+@@ -382,6 +382,7 @@ def _tf_repositories():
          system_link_files = {
              "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
              "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
@@ -23,7 +23,7 @@ index 8601192e..fe422018 100644
          },
          urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"),
      )
-@@ -776,10 +777,10 @@ def _tf_repositories():
+@@ -786,10 +787,10 @@ def _tf_repositories():
  
      tf_http_archive(
          name = "pybind11_protobuf",
@@ -81,3 +81,6 @@ index 00000000..982617a7
 +   #  hdrs = ["google/protobuf/proto_api.h"],
 +    visibility = ["//visibility:public"],
 +)
+-- 
+2.43.2
+

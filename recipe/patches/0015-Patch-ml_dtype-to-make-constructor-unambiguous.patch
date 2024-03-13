@@ -1,0 +1,53 @@
+From 292409c9c4a71eae535022396c9f6af74c4e475b Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Thu, 23 Nov 2023 20:50:37 +0000
+Subject: [PATCH 15/19] Patch ml_dtype to make constructor unambiguous
+
+Both constructors can be used and sadly, it seems there is no way to
+force the use of one of them as part of the macros Tensorflow uses. As
+the header is only used during the build, we remove one of the options
+to make it explicit.
+---
+ third_party/py/ml_dtypes/int4.patch    | 15 +++++++++++++++
+ third_party/py/ml_dtypes/workspace.bzl |  3 +++
+ 2 files changed, 18 insertions(+)
+ create mode 100644 third_party/py/ml_dtypes/int4.patch
+
+diff --git a/third_party/py/ml_dtypes/int4.patch b/third_party/py/ml_dtypes/int4.patch
+new file mode 100644
+index 00000000..d91c68cb
+--- /dev/null
++++ b/third_party/py/ml_dtypes/int4.patch
+@@ -0,0 +1,15 @@
++diff --git ml_dtypes/include/int4.h ml_dtypes/include/int4.h
++index 419cc9f..651e525 100644
++--- ml_dtypes/include/int4.h
+++++ ml_dtypes/include/int4.h
++@@ -38,8 +38,8 @@ struct i4 {
++   constexpr i4& operator=(i4&&) = default;
++
++   explicit constexpr i4(UnderlyingTy val) : v(val & 0x0F) {}
++-  template <typename T>
++-  explicit constexpr i4(T t) : i4(static_cast<UnderlyingTy>(t)) {}
+++  /*template <typename T>
+++  explicit constexpr i4(T t) : i4(static_cast<UnderlyingTy>(t)) {}*/
++
++   static constexpr i4 lowest() {
++     return std::is_signed<UnderlyingTy>::value ? i4(-8) : i4(0);
+diff --git a/third_party/py/ml_dtypes/workspace.bzl b/third_party/py/ml_dtypes/workspace.bzl
+index 84aeb00e..5e6abdfc 100644
+--- a/third_party/py/ml_dtypes/workspace.bzl
++++ b/third_party/py/ml_dtypes/workspace.bzl
+@@ -12,6 +12,9 @@ def repo():
+     tf_http_archive(
+         name = "ml_dtypes",
+         build_file = "//third_party/py/ml_dtypes:ml_dtypes.BUILD",
++	patch_file = [
++            "//third_party/py/ml_dtypes:int4.patch",
++	],
+         link_files = {
+             "//third_party/py/ml_dtypes:ml_dtypes.tests.BUILD": "tests/BUILD.bazel",
+             "//third_party/py/ml_dtypes:LICENSE": "LICENSE",
+-- 
+2.43.2
+

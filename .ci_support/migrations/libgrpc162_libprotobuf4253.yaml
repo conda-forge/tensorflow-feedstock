@@ -1,0 +1,23 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libprotobuf 4.25.3
+  kind: version
+  migration_number: 1
+  exclude:
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
+    - protobuf
+libgrpc:
+- "1.62"
+libprotobuf:
+- 4.25.3
+# keep abseil bump from libabseil20240116_libgrpc161_libprotobuf4252;
+# this ensures that this migration applies also without the previous one
+libabseil:
+- "20240116"
+# already covered by libabseil20230802_libgrpc157_libprotobuf4234,
+# which we cannot delete yet, but keep for clarity
+MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
+- "10.13"                  # [osx and x86_64]
+migrator_ts: 1709522594.9193177

@@ -1,0 +1,28 @@
+From 4976814888c435dfcf6ee74c4d8be9f4c2e954c8 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Mon, 27 Nov 2023 10:35:53 +0000
+Subject: [PATCH 16/19] Use PYTHON for build wheel
+
+Tensorflow tries to use a Python binary it downloaded as part of its
+hermetic Python approach. As we use our own Python toolchain, this is
+not existing. Instead, point it to our Python installation.
+---
+ tensorflow/tools/pip_package/build_pip_package.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/tools/pip_package/build_pip_package.sh b/tensorflow/tools/pip_package/build_pip_package.sh
+index ff21aadb..637faec0 100755
+--- a/tensorflow/tools/pip_package/build_pip_package.sh
++++ b/tensorflow/tools/pip_package/build_pip_package.sh
+@@ -352,7 +352,7 @@ function build_wheel() {
+ 
+   rm -f MANIFEST
+   echo $(date) : "=== Building wheel"
+-  $FULL_DIR setup.py bdist_wheel ${PKG_NAME_FLAG} >/dev/null
++  $PYTHON setup.py bdist_wheel ${PKG_NAME_FLAG} >/dev/null
+   mkdir -p ${DEST}
+   cp dist/* ${DEST}
+   popd > /dev/null
+-- 
+2.43.2
+
