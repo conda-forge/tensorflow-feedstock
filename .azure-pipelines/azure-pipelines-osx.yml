@@ -27,6 +27,7 @@ jobs:
         CONFIG: osx_arm64_numpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 1
+  variables: {}
 
   steps:
   # TODO: Fast finish on azure pipelines?

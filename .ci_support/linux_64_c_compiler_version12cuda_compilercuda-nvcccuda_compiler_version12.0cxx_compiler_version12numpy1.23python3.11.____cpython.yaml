@@ -2,6 +2,10 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cdt_name:
 - cos7
 channel_sources:
@@ -21,7 +25,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 flatbuffers:
-- 24.3.7
+- 23.5.26
 giflib:
 - '5.2'
 icu:
@@ -41,7 +45,7 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '1.23'
 openssl:
 - '3'
 perl:
@@ -51,7 +55,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.9.* *_cpython
+- 3.11.* *_cpython
 python_impl:
 - cpython
 snappy:
@@ -65,12 +69,11 @@ tensorflow:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cdt_name
   - cuda_compiler
   - cuda_compiler_version
   - docker_image
-- - libgrpc
-  - libprotobuf
 - - python
   - numpy
   - python_impl

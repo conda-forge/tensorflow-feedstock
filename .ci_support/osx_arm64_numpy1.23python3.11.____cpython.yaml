@@ -4,6 +4,10 @@ c_compiler:
 - clang
 c_compiler_version:
 - '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,7 +19,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '16'
 flatbuffers:
-- 24.3.7
+- 23.5.26
 giflib:
 - '5.2'
 icu:
@@ -57,8 +61,6 @@ tensorflow:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - libgrpc
-  - libprotobuf
 - - python
   - numpy
   - python_impl
