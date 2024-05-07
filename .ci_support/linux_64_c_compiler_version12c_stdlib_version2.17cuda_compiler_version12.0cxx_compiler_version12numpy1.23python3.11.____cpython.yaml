@@ -2,16 +2,20 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.0'
 cudnn:
 - '8'
 cxx_compiler:
@@ -21,7 +25,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 flatbuffers:
-- 23.5.26
+- 24.3.25
 giflib:
 - '5.2'
 github_actions_labels:
@@ -29,21 +33,21 @@ github_actions_labels:
 icu:
 - '73'
 libabseil:
-- '20230802'
+- '20240116'
 libcurl:
 - '8'
 libgrpc:
-- '1.59'
+- '1.62'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 4.24.4
+- 4.25.3
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '1.23'
 openssl:
 - '3'
 perl:
@@ -53,11 +57,11 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.11.* *_cpython
 python_impl:
 - cpython
 snappy:
-- '1'
+- '1.1'
 sqlite:
 - '3'
 target_platform:
@@ -67,12 +71,11 @@ tensorflow:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
+  - cdt_name
   - cuda_compiler
   - cuda_compiler_version
-  - cdt_name
   - docker_image
-- - libgrpc
-  - libprotobuf
 - - python
   - numpy
   - python_impl

@@ -5,7 +5,7 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-11
+    vmImage: macOS-12
   strategy:
     matrix:
       osx_64_numpy1.22python3.10.____cpython:
@@ -27,6 +27,7 @@ jobs:
         CONFIG: osx_arm64_numpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 1
+  variables: {}
 
   steps:
   # TODO: Fast finish on azure pipelines?
