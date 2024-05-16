@@ -1,0 +1,51 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libgoogle_cloud 2.22
+  kind: version
+  migration_number: 1
+google_cloud_cpp:  # legacy setup
+  - '2.22'
+libgoogle_cloud:   # legacy setup
+  - '2.22'
+libgoogle_cloud_devel:
+  - '2.22'
+libgoogle_cloud_all_devel:
+  - '2.22'
+libgoogle_cloud_aiplatform_devel:
+  - '2.22'
+libgoogle_cloud_automl_devel:
+  - '2.22'
+libgoogle_cloud_bigquery_devel:
+  - '2.22'
+libgoogle_cloud_bigtable_devel:
+  - '2.22'
+libgoogle_cloud_compute_devel:
+  - '2.22'
+libgoogle_cloud_dialogflow_cx_devel:
+  - '2.22'
+libgoogle_cloud_dialogflow_es_devel:
+  - '2.22'
+libgoogle_cloud_discoveryengine_devel:
+  - '2.22'
+libgoogle_cloud_dlp_devel:
+  - '2.22'
+libgoogle_cloud_iam_devel:
+  - '2.22'
+libgoogle_cloud_oauth2_devel:
+  - '2.22'
+libgoogle_cloud_policytroubleshooter_devel:
+  - '2.22'
+libgoogle_cloud_pubsub_devel:
+  - '2.22'
+libgoogle_cloud_spanner_devel:
+  - '2.22'
+libgoogle_cloud_speech_devel:
+  - '2.22'
+libgoogle_cloud_storage_devel:
+  - '2.22'
+# 2.22 got coupled with libprotobuf/grpc bump
+libgrpc:
+  - '1.62'
+libprotobuf:
+  - 4.25.3
+migrator_ts: 1709602930.8528247
