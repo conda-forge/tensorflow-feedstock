@@ -43,7 +43,7 @@ source:
     sha256: b3a9970c3c6b169c41ac2fd4375f668d3fd1b492d48b912d89415fa1522a8f50
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
   skip: true  # [py<39]
@@ -69,6 +69,7 @@ requirements:
     - pybind11                               # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
     - bazel 6.1.2
@@ -180,6 +181,7 @@ outputs:
       # build requirements needs to pick up the compiler run_exports
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}              # [cuda_compiler_version != "None"]
         - python                              # [build_platform != target_platform]
@@ -265,7 +267,6 @@ outputs:
         - __cuda                                                  # [cuda_compiler_version != "None"]
         # https://github.com/conda-forge/tensorflow-feedstock/issues/296#issuecomment-1835781851
         - cuda-nvcc-tools                                         # [(cuda_compiler_version or "").startswith("12")]
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
     # TODO: decide on the name of the package
     # run_constrained:
     #   What is the difference between these two packages?
@@ -327,6 +328,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
@@ -375,6 +377,7 @@ outputs:
       # build requirements needs to pick up the compiler run_exports
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
@@ -420,6 +423,7 @@ outputs:
       # build requirements needs to pick up the compiler run_exports
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
