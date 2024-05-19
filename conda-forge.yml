@@ -7,17 +7,17 @@ build_platform:
   osx_arm64: osx_64
 conda_build:
   pkg_format: '2'
+conda_build_tool: conda-build+conda-libmamba-solver
 conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
-test: native_and_emulated
-conda_build_tool: conda-build+conda-libmamba-solver
 github_actions:
-  timeout_minutes: 720
   self_hosted: true
+  timeout_minutes: 720
   triggers:
   - push
   - pull_request
 provider:
   linux_64: github_actions
+test: native_and_emulated
