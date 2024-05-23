@@ -9,7 +9,7 @@ c_stdlib_version:
 cdt_name:
 - cos6
 channel_sources:
-- conda-forge
+- conda-forge/label/numpy_rc,conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
@@ -47,7 +47,7 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '2.0'
 openssl:
 - '3'
 perl:
