@@ -47,7 +47,7 @@ source:
     folder: tensorflow-estimator
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
   skip: true  # [py<39]
@@ -238,7 +238,6 @@ outputs:
         - grpcio {{ libgrpc }}.*
         - h5py >=3.10
         - ml_dtypes >={{ ml_dtypes_version }},<0.4
-        - {{ pin_compatible('numpy', lower_bound='1.22') }}
         - opt_einsum >=2.3.2
         - protobuf >=3.20.3,<5,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5
         - python-flatbuffers >=23.5.26
