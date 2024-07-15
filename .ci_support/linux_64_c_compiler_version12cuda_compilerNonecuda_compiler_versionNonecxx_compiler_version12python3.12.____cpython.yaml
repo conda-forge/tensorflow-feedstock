@@ -13,9 +13,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- cuda-nvcc
+- None
 cuda_compiler_version:
-- '12.0'
+- None
 cudnn:
 - '8'
 cxx_compiler:
@@ -31,7 +31,7 @@ giflib:
 github_actions_labels:
 - cirun-openstack-cpu-xlarge
 icu:
-- '73'
+- '75'
 libabseil:
 - '20240116'
 libcurl:
@@ -47,7 +47,7 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '1.26'
 openssl:
 - '3'
 perl:
@@ -57,7 +57,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.12.* *_cpython
 python_impl:
 - cpython
 snappy:

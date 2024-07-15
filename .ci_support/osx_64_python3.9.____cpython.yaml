@@ -27,7 +27,7 @@ giflib:
 github_actions_labels:
 - cirun-openstack-cpu-xlarge
 icu:
-- '73'
+- '75'
 libabseil:
 - '20240116'
 libcurl:

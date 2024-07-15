@@ -5,17 +5,17 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.12'
+- '2.17'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.0'
 cudnn:
 - '8'
 cxx_compiler:
@@ -31,7 +31,7 @@ giflib:
 github_actions_labels:
 - cirun-openstack-cpu-xlarge
 icu:
-- '73'
+- '75'
 libabseil:
 - '20240116'
 libcurl:
@@ -47,7 +47,7 @@ libprotobuf:
 nccl:
 - '2'
 numpy:
-- '1.22'
+- '1.23'
 openssl:
 - '3'
 perl:
@@ -57,7 +57,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.11.* *_cpython
 python_impl:
 - cpython
 snappy:
