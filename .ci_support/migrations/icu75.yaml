@@ -1,0 +1,8 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for icu 75
+  kind: version
+  migration_number: 1
+icu:
+- '75'
+migrator_ts: 1720864544.533804
