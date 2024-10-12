@@ -5,7 +5,7 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-12
+    vmImage: macOS-13
   strategy:
     matrix:
       osx_64_python3.10.____cpython:
