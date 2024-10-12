@@ -1,0 +1,18 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libabseil 20240722, libgrp 1.65 & libprotobuf 5.27.5
+  kind: version
+  migration_number: 1
+  exclude:
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
+    - protobuf
+    - re2
+libabseil:
+- 20240722
+libgrpc:
+- "1.65"
+libprotobuf:
+- 5.27.5
+migrator_ts: 1727040240.8650293
