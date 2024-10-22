@@ -37,13 +37,13 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.65'
+- '1.67'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 5.27.5
+- 5.28.2
 nccl:
 - '2'
 numpy:

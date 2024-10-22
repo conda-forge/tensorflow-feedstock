@@ -13,7 +13,6 @@ stages:
         RET: 'true'
       steps:
       - checkout: self
-        
         fetchDepth: '2'
       - bash: |
           git_log=`git log --max-count=1 --skip=1 --pretty=format:"%B" | tr "\n" " "`
