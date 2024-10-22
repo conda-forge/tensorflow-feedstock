@@ -1,0 +1,10 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libgrpc 1.67 & libprotobuf 5.28.2
+  kind: version
+  migration_number: 1
+libgrpc:
+- "1.67"
+libprotobuf:
+- 5.28.2
+migrator_ts: 1729238463
