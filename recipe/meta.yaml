@@ -1,6 +1,6 @@
 {% set version = "2.17.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 3 %}
+{% set build = 6 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -55,6 +55,8 @@ build:
   number: {{ build }}
   skip: true  # [win]
   skip: true  # [python_impl == 'pypy']
+  skip: true  # [py!=310]
+  skip: true  # [cuda_compiler_version == "None"]
   skip: true  # [py<39]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
@@ -98,6 +100,8 @@ requirements:
     - cuda-cupti-dev    # [(cuda_compiler_version or "").startswith("12")]
     - cuda-cudart-dev   # [(cuda_compiler_version or "").startswith("12")]
     - cuda-nvml-dev     # [(cuda_compiler_version or "").startswith("12")]
+    - cuda-nvvm-tools   # [(cuda_compiler_version or "")=="12.6"]
+    - cuda-nvcc-tools   # [(cuda_compiler_version or "")=="12.0"]
     - cuda-nvtx-dev     # [(cuda_compiler_version or "").startswith("12")]
     - libcublas-dev     # [(cuda_compiler_version or "").startswith("12")]
     - libcusolver-dev   # [(cuda_compiler_version or "").startswith("12")]

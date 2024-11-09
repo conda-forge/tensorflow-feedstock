@@ -1,2 +1,67 @@
 github_actions_labels:
 - cirun-openstack-cpu-xlarge
+
+c_compiler_version:            # [linux]
+  - 13                         # [linux]
+  - 11                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+c_stdlib_version:              # [unix]
+  - 2.17                       # [linux]
+  - 2.17                       # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                       # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                       # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+cxx_compiler_version:          # [linux]
+  - 13                         # [linux]
+  - 11                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+fortran_compiler_version:      # [linux]
+  - 13                         # [linux]
+  - 11                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+  - 12                         # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and linux]
+
+cuda_compiler:
+  - None
+  - nvcc                       # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - cuda-nvcc                  # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - cuda-nvcc                  # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+cuda_compiler_version:
+  - None
+  - 11.8                       # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.0                       # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.6                       # [(linux or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cdt_name:  # [linux]
+  - cos7   # [linux]
+  - cos7   # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - cos7   # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - cos7   # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+docker_image:                                   # [os.environ.get("BUILD_PLATFORM", "").startswith("linux-")]
+  # Native builds
+  - quay.io/condaforge/linux-anvil-cos7-x86_64  # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
+
+  # CUDA 11.8
+  - quay.io/condaforge/linux-anvil-cuda:11.8              # [linux64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:11.8              # [ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:11.8              # [aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+
+  # CUDA 12
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [linux64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  # case: native compilation (build == target)
+  - quay.io/condaforge/linux-anvil-ppc64le                # [ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-aarch64                # [aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-aarch64"]
+  # case: cross-compilation (build != target)
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+
+  # CUDA 12.6
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [linux64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  # case: native compilation (build == target)
+  - quay.io/condaforge/linux-anvil-ppc64le                # [ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-aarch64                # [aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-aarch64"]
+  # case: cross-compilation (build != target)
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cos7-x86_64            # [aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64"]

@@ -105,15 +105,31 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         export TF_CUDA_COMPUTE_CAPABILITIES=sm_35,sm_50,sm_60,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,compute_90
         export TF_CUDA_PATHS="${PREFIX},${CUDA_HOME}"
     elif [[ "${cuda_compiler_version}" == 12* ]]; then
-        export TF_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_70,sm_75,sm_80,sm_86,sm_89,sm_90,compute_90
-	export CUDNN_INSTALL_PATH=$PREFIX
-	export NCCL_INSTALL_PATH=$PREFIX
-	export CUDA_HOME="${BUILD_PREFIX}/targets/x86_64-linux"
-        export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/x86_64-linux,${PREFIX}/targets/x86_64-linux"
-	# XLA can only cope with a single cuda header include directory, merge both
-	rsync -a ${PREFIX}/targets/x86_64-linux/include/ ${BUILD_PREFIX}/targets/x86_64-linux/include/
 
-	# hmaarrfk -- 2023/12/30
+        # CUDA nvvm tools only started to exist in 12.2 onward and the following
+        # find and replace is only valid for that
+        # We need to tell xla to find things in our prefix, not some other location
+        # See https://github.com/conda-forge/tensorflow-feedstock/issues/296#issuecomment-2423371916
+        # Something just doesn't feel right here... this path does not exist in the final state
+        if [[ "${cuda_compiler_version}" == "12.0" ]]; then
+            sed -i.bak '\|^#define TF_CUDA_TOOLKIT_PATH|c\#define TF_CUDA_TOOLKIT_PATH "'"${PREFIX}/nvvm/libdevice"'"' third_party/gpus/cuda/cuda_config.h.tpl
+            sed -i.bak '\|^#define TF_CUDA_TOOLKIT_PATH|c\#define TF_CUDA_TOOLKIT_PATH "'"${PREFIX}/nvvm/libdevice"'"' third_party/xla/third_party/tsl/third_party/gpus/cuda/cuda_config.h.tpl
+        else
+            sed -i.bak '\|^#define TF_CUDA_TOOLKIT_PATH|c\#define TF_CUDA_TOOLKIT_PATH "'"${PREFIX}/targets/x86_64-linux"'"' third_party/gpus/cuda/cuda_config.h.tpl
+            sed -i.bak '\|^#define TF_CUDA_TOOLKIT_PATH|c\#define TF_CUDA_TOOLKIT_PATH "'"${PREFIX}/targets/x86_64-linux"'"' third_party/xla/third_party/tsl/third_party/gpus/cuda/cuda_config.h.tpl
+        fi
+        rm -f third_party/gpus/cuda/cuda_config.h.tpl.bak
+        rm -f third_party/xla/third_party/tsl/third_party/gpus/cuda/cuda_config.h.tpl.bak
+
+        export TF_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_70,sm_75,sm_80,sm_86,sm_89,sm_90,compute_90
+        export CUDNN_INSTALL_PATH=$PREFIX
+        export NCCL_INSTALL_PATH=$PREFIX
+        export CUDA_HOME="${BUILD_PREFIX}/targets/x86_64-linux"
+        export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/x86_64-linux,${PREFIX}/targets/x86_64-linux"
+        # XLA can only cope with a single cuda header include directory, merge both
+        rsync -a ${PREFIX}/targets/x86_64-linux/include/ ${BUILD_PREFIX}/targets/x86_64-linux/include/
+
+        # hmaarrfk -- 2023/12/30
         # This logic should be safe to keep in even when the underlying issue is resolved
         # xref: https://github.com/conda-forge/cuda-nvcc-impl-feedstock/issues/9
         if [[ -x ${BUILD_PREFIX}/nvvm/bin/cicc ]]; then
@@ -148,6 +164,7 @@ if [[ "${target_platform}" == "osx-arm64" ]]; then
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 export TF_ENABLE_XLA=1
+
 export BUILD_TARGET="//tensorflow/tools/pip_package:wheel //tensorflow/tools/lib_package:libtensorflow //tensorflow:libtensorflow_cc${SHLIB_EXT}"
 
 # Python settings
