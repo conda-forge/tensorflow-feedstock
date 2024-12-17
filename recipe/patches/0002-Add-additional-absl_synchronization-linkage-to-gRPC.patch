@@ -1,4 +1,4 @@
-From 14a1b6162855bfe8d8d16cbd054f98afba4f16e5 Mon Sep 17 00:00:00 2001
+From f80db539ec99bf062c5e7b935d0e2391225627fc Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Fri, 30 Jun 2023 08:39:32 +0000
 Subject: [PATCH 02/27] Add additional absl_synchronization linkage to gRPC

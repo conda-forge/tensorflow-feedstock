@@ -27,7 +27,7 @@ flatbuffers:
 giflib:
 - '5.2'
 github_actions_labels:
-- cirun-openstack-cpu-xlarge
+- cirun-openstack-gpu-xlarge
 icu:
 - '75'
 libabseil:
@@ -45,7 +45,7 @@ libprotobuf:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
-- '1.23'
+- '2.0'
 openssl:
 - '3'
 pin_run_as_build:

@@ -1,2 +1,6 @@
 github_actions_labels:
-- cirun-openstack-cpu-xlarge
+- cirun-openstack-gpu-xlarge
+c_compiler_version:    # [osx]
+  - '17'               # [osx]
+cxx_compiler_version:  # [osx]
+  - '17'               # [osx]

@@ -1,4 +1,4 @@
-From 6d4c056204f6417cc7b01706d0a6b063a50e40e3 Mon Sep 17 00:00:00 2001
+From bb623beeb54b94c22a2b019a935e684cc1dff2c8 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:59:28 +0200
 Subject: [PATCH 05/27] Add absl_log systemlib
@@ -38,7 +38,7 @@ index 00000000..0248bda0
 +    ],
 +)
 diff --git a/third_party/absl/workspace.bzl b/third_party/absl/workspace.bzl
-index 06f75166..c54df3cf 100644
+index 9565a82c..addb2410 100644
 --- a/third_party/absl/workspace.bzl
 +++ b/third_party/absl/workspace.bzl
 @@ -20,6 +20,7 @@ def repo():
