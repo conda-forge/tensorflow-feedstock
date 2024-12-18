@@ -112,6 +112,12 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/x86_64-linux,${PREFIX}/targets/x86_64-linux"
 	# XLA can only cope with a single cuda header include directory, merge both
 	rsync -a ${PREFIX}/targets/x86_64-linux/include/ ${BUILD_PREFIX}/targets/x86_64-linux/include/
+	mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/bin/crt
+	cp ${BUILD_PREFIX}/bin/crt/link.stub ${BUILD_PREFIX}/targets/x86_64-linux/bin/crt/link.stub
+	test -f ${BUILD_PREFIX}/targets/x86_64-linux/bin/bin2c || ln -s ${BUILD_PREFIX}/bin/bin2c ${BUILD_PREFIX}/targets/x86_64-linux/bin/bin2c
+	test -f ${BUILD_PREFIX}/targets/x86_64-linux/bin/fatbinary || ln -s ${BUILD_PREFIX}/bin/fatbinary ${BUILD_PREFIX}/targets/x86_64-linux/bin/fatbinary
+	test -f ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvlink || ln -s ${BUILD_PREFIX}/bin/fatbinary ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvlink
+	test -f ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvprune || ln -s ${BUILD_PREFIX}/bin/fatbinary ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvprune
 
 	# hmaarrfk -- 2023/12/30
         # This logic should be safe to keep in even when the underlying issue is resolved
