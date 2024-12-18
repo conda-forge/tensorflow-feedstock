@@ -1,2 +1,7 @@
 github_actions_labels:
 - cirun-openstack-cpu-xlarge
+# We need to pin to LLVM 17 to fix some abseil linkages
+c_compiler_version:    # [osx]
+  - '17'               # [osx]
+cxx_compiler_version:  # [osx]
+  - '17'               # [osx]
