@@ -2,6 +2,11 @@
 
 set -exuo pipefail
 
+if [[ "${cuda_compiler_version}" == 12* ]]; then
+    # cuda-compat is used for providing libcuda.so.1 temporarily
+    cp $PREFIX/cuda-compat/libcuda.so.1 $PREFIX/lib/libcuda.so.1
+fi
+
 pushd tensorflow-estimator
 
 WHEEL_DIR=${PWD}/wheel_dir
@@ -14,3 +19,9 @@ bazel-bin/tensorflow_estimator/tools/pip_package/build_pip_package ${WHEEL_DIR}
 ${PYTHON} -m pip install --no-deps ${WHEEL_DIR}/*.whl
 bazel clean
 popd
+
+if [[ "${cuda_compiler_version}" == 12* ]]; then
+    # This was needed to load in the cuda symbols correctly temporarily
+    # https://github.com/conda-forge/tensorflow-feedstock/pull/408#issuecomment-2585259178
+    rm -f $PREFIX/lib/libcuda.so.1
+fi

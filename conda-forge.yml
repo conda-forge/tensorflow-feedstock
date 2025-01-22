@@ -1,8 +1,8 @@
-azure:
-  settings_linux:
-    timeoutInMinutes: 1
-  settings_osx:
-    timeoutInMinutes: 1
+# azure:
+#   settings_linux:
+#     timeoutInMinutes: 1
+#   settings_osx:
+#     timeoutInMinutes: 1
 build_platform:
   osx_arm64: osx_64
 conda_build:
@@ -18,6 +18,6 @@ github_actions:
   triggers:
   - push
   - pull_request
-provider:
-  linux_64: github_actions
+# provider:
+#   linux_64: github_actions
 test: native_and_emulated

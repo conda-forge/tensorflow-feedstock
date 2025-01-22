@@ -1,4 +1,4 @@
-From d98ec2c4eb0a0b58f0003d3b9d7ba7aeb413fe78 Mon Sep 17 00:00:00 2001
+From 61c8a1306bb7bbc8919a237602e6dd158c80ff23 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 10 Oct 2024 19:59:31 +0200
 Subject: [PATCH 27/27] Protobuf 5 compatability
@@ -23,12 +23,12 @@ Subject: [PATCH 27/27] Protobuf 5 compatability
  create mode 100644 third_party/0002-Fix-compatibility-with-protobuf-v26-migrate-from-dep.patch
 
 diff --git a/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc b/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
-index ed968b54..71e16db6 100644
+index eba1ebc4..dc9f7b81 100644
 --- a/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
 +++ b/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
 @@ -57,7 +57,7 @@ namespace {
  // Error collector that simply ignores errors reported.
- class NoOpErrorCollector : public protobuf::io::ErrorCollector {
+ class NoOpErrorCollector : public tsl::protobuf::io::ErrorCollector {
   public:
 -  void AddError(int line, int column, const std::string& message) override {}
 +  void RecordError(int line, int column, const absl::string_view message) override {}
@@ -110,7 +110,7 @@ index b289f54b..38e89170 100644
                                                      json_options);
    if (!status.ok()) {
 diff --git a/tensorflow/core/profiler/convert/xplane_to_tools_data.cc b/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
-index b623c6a9..624f2c04 100644
+index dcc7cea4..a995db64 100644
 --- a/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
 +++ b/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
 @@ -218,7 +218,11 @@ absl::StatusOr<std::string> ConvertMultiXSpacesToPodViewer(
@@ -197,10 +197,10 @@ index 406e6641..d97eae73 100644
                 << column << " - " << message;
    }
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index dc78011d..a4faad8f 100644
+index 5320aa18..32f0a39c 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -870,6 +870,10 @@ def _tf_repositories():
+@@ -878,6 +878,10 @@ def _tf_repositories():
          name = "riegeli",
          sha256 = "1d216d5c97fa60632143d209a1bb48c2a83788efdb876902e7bbc06396d5ee1f",
          strip_prefix = "riegeli-5d75119232cd4f6db8dfa69a1503289f050e9643",
@@ -309,7 +309,7 @@ index 00000000..b5af8d2d
 +2.34.1
 +
 diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc b/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
-index 4f70c155..ae746f33 100644
+index 167cdd2b..dc1ebdd1 100644
 --- a/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
 +++ b/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
 @@ -33,7 +33,11 @@ absl::StatusOr<std::string> ProtoToHumanReadableJson(

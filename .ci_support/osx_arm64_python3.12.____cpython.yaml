@@ -23,11 +23,11 @@ cxx_compiler:
 cxx_compiler_version:
 - '17'
 flatbuffers:
-- 24.3.25
+- 24.12.23
 giflib:
 - '5.2'
 github_actions_labels:
-- cirun-openstack-cpu-xlarge
+- cirun-openstack-gpu-xlarge
 icu:
 - '75'
 libabseil:
@@ -35,17 +35,17 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.65'
+- '1.67'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 5.27.5
+- 5.28.3
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
-- '1.26'
+- '2.0'
 openssl:
 - '3'
 pin_run_as_build:
