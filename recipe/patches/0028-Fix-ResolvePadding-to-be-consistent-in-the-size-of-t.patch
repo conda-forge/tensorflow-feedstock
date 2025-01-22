@@ -1,0 +1,38 @@
+From b3804de29e8b40b1cb18b940656307e24cd7a457 Mon Sep 17 00:00:00 2001
+From: "A. Unique TensorFlower" <gardener@tensorflow.org>
+Date: Thu, 14 Nov 2024 15:25:44 -0800
+Subject: [PATCH 28/28] Fix ResolvePadding to be consistent in the size of the
+ small vector
+
+PiperOrigin-RevId: 696670235
+---
+ .../transforms/legalize_hlo_conversions/op_util_common.cc       | 2 +-
+ .../transforms/legalize_hlo_conversions/op_util_common.h        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.cc b/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.cc
+index 3d67bbfd..df67b39d 100644
+--- a/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.cc
++++ b/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.cc
+@@ -68,7 +68,7 @@ llvm::SmallVector<int64_t, 4> ResolveStridesOrDilations(
+   return llvm::SmallVector<int64_t, 4>(attr.getValues<int64_t>());
+ }
+ 
+-llvm::SmallVector<DimPadding, 2> ResolvePadding(
++llvm::SmallVector<DimPadding, 4> ResolvePadding(
+     int64_t rank, std::optional<mlir::DenseIntElementsAttr> opt_padding) {
+   llvm::SmallVector<DimPadding, 4> res;
+   if (!opt_padding.has_value()) {
+diff --git a/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.h b/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.h
+index 3c2c8ae5..b522b41c 100644
+--- a/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.h
++++ b/tensorflow/compiler/mlir/lite/stablehlo/transforms/legalize_hlo_conversions/op_util_common.h
+@@ -127,7 +127,7 @@ llvm::SmallVector<int64_t, 4> ResolveStridesOrDilations(
+ 
+ // Resolves optional paddings attributes. If not present, will return
+ // trivial [0, 0] paddings on each dim.
+-llvm::SmallVector<DimPadding, 2> ResolvePadding(
++llvm::SmallVector<DimPadding, 4> ResolvePadding(
+     int64_t rank, std::optional<mlir::DenseIntElementsAttr> opt_padding);
+ 
+ // Does the padding correspond to "SAME" on given dimension configuration.

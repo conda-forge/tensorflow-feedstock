@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -21,13 +21,11 @@ cuda_compiler_version:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '17'
+- '18'
 flatbuffers:
-- 24.3.25
+- 24.12.23
 giflib:
 - '5.2'
-github_actions_labels:
-- cirun-openstack-cpu-xlarge
 icu:
 - '75'
 libabseil:
@@ -35,17 +33,17 @@ libabseil:
 libcurl:
 - '8'
 libgrpc:
-- '1.65'
+- '1.67'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 5.27.5
+- 5.28.3
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
-- '1.22'
+- '2.0'
 openssl:
 - '3'
 pin_run_as_build:
@@ -54,8 +52,6 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.10.* *_cpython
-python_impl:
-- cpython
 snappy:
 - '1.2'
 sqlite:
@@ -69,6 +65,5 @@ zip_keys:
   - cxx_compiler_version
 - - python
   - numpy
-  - python_impl
 zlib:
 - '1'

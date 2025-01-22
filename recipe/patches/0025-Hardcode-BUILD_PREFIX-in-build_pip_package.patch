@@ -1,4 +1,4 @@
-From ed916a2d3c5399dbf6c71b1f6f7f07b8b1ddb8fc Mon Sep 17 00:00:00 2001
+From 7985aee1f8f9efc8832c7ec8b4e13485928a669c Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Fri, 12 Jul 2024 12:52:38 +0000
 Subject: [PATCH 25/27] Hardcode BUILD_PREFIX in build_pip_package
@@ -8,10 +8,10 @@ Subject: [PATCH 25/27] Hardcode BUILD_PREFIX in build_pip_package
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/build_pip_package.py b/tensorflow/tools/pip_package/build_pip_package.py
-index 9588fc19..2d0718af 100644
+index d882db09..091db3f4 100644
 --- a/tensorflow/tools/pip_package/build_pip_package.py
 +++ b/tensorflow/tools/pip_package/build_pip_package.py
-@@ -240,12 +240,12 @@ def patch_so(srcs_dir: str) -> None:
+@@ -285,12 +285,12 @@ def patch_so(srcs_dir: str) -> None:
    }
    for file, path in to_patch.items():
      rpath = subprocess.check_output(

@@ -1,15 +1,13 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
-MACOSX_SDK_VERSION:
-- '11.0'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '18'
+- '13'
 c_stdlib:
-- macosx_deployment_target
+- sysroot
 c_stdlib_version:
-- '11.0'
+- '2.17'
+cdt_name:
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -18,14 +16,20 @@ cuda_compiler:
 - None
 cuda_compiler_version:
 - None
+cudnn:
+- '9'
 cxx_compiler:
-- clangxx
+- gxx
 cxx_compiler_version:
-- '18'
+- '13'
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
 - 24.12.23
 giflib:
 - '5.2'
+github_actions_labels:
+- cirun-openstack-gpu-2xlarge
 icu:
 - '75'
 libabseil:
@@ -40,29 +44,34 @@ libpng:
 - '1.6'
 libprotobuf:
 - 5.28.3
-macos_machine:
-- arm64-apple-darwin20.0.0
+nccl:
+- '2'
 numpy:
 - '2.0'
 openssl:
 - '3'
+perl:
+- 5.32.1
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.9.* *_cpython
+- 3.11.* *_cpython
 snappy:
 - '1.2'
 sqlite:
 - '3'
 target_platform:
-- osx-arm64
+- linux-64
 tensorflow:
 - '2.16'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - cuda_compiler
+  - cuda_compiler_version
+  - docker_image
 - - python
   - numpy
 zlib:

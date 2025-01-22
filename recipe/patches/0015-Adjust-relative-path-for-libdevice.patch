@@ -1,4 +1,4 @@
-From 38ca4efe105b78c1622f2246cc5b66c5c6aa5e7a Mon Sep 17 00:00:00 2001
+From f44de9a6a74b949da5681b31eb51b7bc601110fb Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Sat, 27 Jan 2024 22:27:56 -0500
 Subject: [PATCH 15/27] Adjust relative path for libdevice
@@ -8,15 +8,15 @@ Subject: [PATCH 15/27] Adjust relative path for libdevice
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-index 46321e74..fd0cab0d 100644
+index ac0a804b..fe8305fd 100644
 --- a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
 +++ b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-@@ -51,7 +51,7 @@ std::vector<std::string> CandidateCudaRoots() {
+@@ -69,7 +69,7 @@ std::vector<std::string> CandidateCudaRoots() {
      // TF lib binaries are located in both the package's root dir and within a
      // 'python' subdirectory (for pywrap libs). So we check two possible paths
      // relative to the current binary for the wheel-based nvcc package.
 -    for (auto path : {"../nvidia/cuda_nvcc", "../../nvidia/cuda_nvcc"})
 +    for (auto path : {"../nvidia/cuda_nvcc", "../../nvidia/cuda_nvcc", "../../../.."})
        roots.emplace_back(io::JoinPath(dir, path));
-   }
- #endif  // defined(PLATFORM_POSIX) && !defined(__APPLE__)
+ 
+     // Also add the path to the copy of libdevice.10.bc that we include within
