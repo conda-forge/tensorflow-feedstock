@@ -22,10 +22,14 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
 - 24.12.23
 giflib:
 - '5.2'
+github_actions_labels:
+- cirun-openstack-cpu-2xlarge
 icu:
 - '75'
 libabseil:
