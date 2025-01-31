@@ -1,6 +1,4 @@
 azure:
-  settings_linux:
-    timeoutInMinutes: 1
   settings_osx:
     timeoutInMinutes: 1
 build_platform:
@@ -19,6 +17,4 @@ github_actions:
   triggers:
   - push
   - pull_request
-provider:
-  linux_64: github_actions
 test: native_and_emulated
