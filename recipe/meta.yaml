@@ -56,10 +56,6 @@ build:
   skip: true  # [win]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
-  # CUDA builds on GPU agents, non-CUDA builds on CPU agents; these gymnastics would be avoidable with
-  # https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/6910, but that didn't find consensus
-  skip: true  # [cuda_compiler_version == "None" and github_actions_labels == "cirun-openstack-gpu-2xlarge"]
-  skip: true  # [cuda_compiler_version != "None" and github_actions_labels == "cirun-openstack-cpu-2xlarge"]
 
 requirements:
   build:

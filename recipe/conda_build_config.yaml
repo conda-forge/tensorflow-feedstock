@@ -1,3 +1,3 @@
-github_actions_labels:          # [linux]
+github_actions_labels:
 - cirun-openstack-gpu-2xlarge   # [linux]
-- cirun-openstack-cpu-2xlarge   # [linux]
+- cirun-openstack-cpu-2xlarge   # [osx]
