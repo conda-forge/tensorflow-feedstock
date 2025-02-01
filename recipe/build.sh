@@ -84,6 +84,7 @@ export CC_OPT_FLAGS="-O2"
 # bazel query 'deps(//tensorflow/tools/lib_package:libtensorflow)' --output graph > graph.in
 if [[ "${target_platform}" == osx-* ]]; then
   export LDFLAGS="${LDFLAGS} -lz -framework CoreFoundation -Xlinker -undefined -Xlinker dynamic_lookup"
+  export BAZEL_OPTS="${BAZEL_OPTS} --override_repository=local_sdk=${CONDA_BUILD_SYSROOT}"
 else
   export LDFLAGS="${LDFLAGS} -lrt"
 fi
