@@ -84,7 +84,9 @@ export CC_OPT_FLAGS="-O2"
 # bazel query 'deps(//tensorflow/tools/lib_package:libtensorflow)' --output graph > graph.in
 if [[ "${target_platform}" == osx-* ]]; then
   export LDFLAGS="${LDFLAGS} -lz -framework CoreFoundation -Xlinker -undefined -Xlinker dynamic_lookup"
-  # BZ_SDK_PATH=$(bazel info execution_root)/external/macos_sdk
+  mkdir ${PREFIX}/sdk
+  cp -R ${CONDA_BUILD_SYSROOT}/* ${PREFIX}/sdk
+  export CONDA_BUILD_SYSROOT=${PREFIX}/sdk
 else
   export LDFLAGS="${LDFLAGS} -lrt"
 fi
