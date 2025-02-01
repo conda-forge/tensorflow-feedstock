@@ -29,7 +29,7 @@ toolchain {
   cxx_flag: "-std=c++17"
   cxx_flag: "-fmessage-length=0"
   linker_flag: "-Wl,-pie"
-  linker_flag: "-headerpad_max_install_names"
+  linker_flag: "-Wl,-headerpad_max_install_names"
   linker_flag: "-Wl,-dead_strip_dylibs"
   linker_flag: "-undefined"
   linker_flag: "dynamic_lookup"
