@@ -1,17 +1,17 @@
-From cf4e36f47e874278b60c2fdab575bfb33fe803ac Mon Sep 17 00:00:00 2001
+From b1f716e00675cb578b9cc9187136ab67b07aa261 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 12 May 2024 22:46:04 +1100
-Subject: [PATCH 21/27] add absl_die_if_null target
+Subject: [PATCH 21/29] add absl_die_if_null target
 
 ---
- third_party/absl/system.absl.log.BUILD | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ third_party/absl/system.absl.log.BUILD | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/third_party/absl/system.absl.log.BUILD b/third_party/absl/system.absl.log.BUILD
-index 1fe1e342..6606aaa5 100644
+index 1fe1e342594..141bb319489 100644
 --- a/third_party/absl/system.absl.log.BUILD
 +++ b/third_party/absl/system.absl.log.BUILD
-@@ -2,6 +2,17 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
+@@ -2,6 +2,22 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
  
  package(default_visibility = ["//visibility:public"])
  
@@ -24,6 +24,11 @@ index 1fe1e342..6606aaa5 100644
 +        "//absl/base:core_headers",
 +        "//absl/strings",
 +    ],
++)
++
++alias(
++    name = "absl_log",
++    actual = ":log",
 +)
 +
  cc_library(

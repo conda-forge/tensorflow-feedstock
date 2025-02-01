@@ -1,7 +1,7 @@
-From ae92d44a00de6f162bdc045052be0d6140fc081f Mon Sep 17 00:00:00 2001
+From 4c3408a720c8127576dd0aecbe9dd28f02c123da Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 23 Nov 2023 09:05:37 +0000
-Subject: [PATCH 14/27] Remove some usage of absl::str_format in CUDA
+Subject: [PATCH 14/29] Remove some usage of absl::str_format in CUDA
 
 nvcc from CUDA 11 is unable to correctly handle the new C++ features
 used in this template. We use a different implementation that should
@@ -13,7 +13,7 @@ yield the same results without the usage of absl.
  3 files changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/tensorflow/core/framework/resource_base.h b/tensorflow/core/framework/resource_base.h
-index 46a76ea0..2f8d0a21 100644
+index 46a76ea094c..2f8d0a21878 100644
 --- a/tensorflow/core/framework/resource_base.h
 +++ b/tensorflow/core/framework/resource_base.h
 @@ -18,8 +18,9 @@ limitations under the License.
@@ -42,7 +42,7 @@ index 46a76ea0..2f8d0a21 100644
  
    // Returns memory used by this resource.
 diff --git a/tensorflow/core/framework/resource_var.cc b/tensorflow/core/framework/resource_var.cc
-index c441a8e2..7e1f1fdf 100644
+index c441a8e2648..7e1f1fdf0ea 100644
 --- a/tensorflow/core/framework/resource_var.cc
 +++ b/tensorflow/core/framework/resource_var.cc
 @@ -18,6 +18,8 @@ limitations under the License.
@@ -55,7 +55,7 @@ index c441a8e2..7e1f1fdf 100644
  
  Status Var::AsGraphDef(GraphDefBuilder* builder, Node** out) const {
 diff --git a/tensorflow/core/kernels/conv_ops_gpu.h b/tensorflow/core/kernels/conv_ops_gpu.h
-index 627450ef..d0c97527 100644
+index 627450ef2d6..d0c97527284 100644
 --- a/tensorflow/core/kernels/conv_ops_gpu.h
 +++ b/tensorflow/core/kernels/conv_ops_gpu.h
 @@ -22,7 +22,7 @@ limitations under the License.

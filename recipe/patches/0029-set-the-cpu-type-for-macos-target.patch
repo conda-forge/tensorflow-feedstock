@@ -1,0 +1,21 @@
+From 28f4ade46fa0a8fe3e4678d9e41a26be410e0448 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sat, 1 Feb 2025 22:36:18 +1100
+Subject: [PATCH 29/29] set the cpu type for macos target
+
+---
+ .bazelrc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/.bazelrc b/.bazelrc
+index 0d1c0305d97..c048c3e3e2f 100644
+--- a/.bazelrc
++++ b/.bazelrc
+@@ -155,6 +155,7 @@ build:android --define=xnn_enable_avxvnniint8=false
+ 
+ # Sets the default Apple platform to macOS.
+ build:macos --apple_platform_type=macos
++build:macos --cpu=darwin_x86_64
+ 
+ # gRPC on MacOS requires this #define
+ build:macos --copt=-DGRPC_BAZEL_BUILD

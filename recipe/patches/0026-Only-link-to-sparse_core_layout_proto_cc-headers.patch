@@ -1,17 +1,17 @@
-From c3205a7e020e1e9ee30581b2b869ed83746136b7 Mon Sep 17 00:00:00 2001
+From 0bbb91fd9c2750876113839b9b74765426ec23c7 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 16 Jul 2024 17:18:23 +0200
-Subject: [PATCH 26/27] Only link to sparse_core_layout_proto_cc headers
+Subject: [PATCH 26/29] Only link to sparse_core_layout_proto_cc headers
 
 ---
  tensorflow/core/tpu/kernels/BUILD | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/tensorflow/core/tpu/kernels/BUILD b/tensorflow/core/tpu/kernels/BUILD
-index 7d55de7b..c409c1b0 100644
+index 5c1dc5da889..4d467227ba2 100644
 --- a/tensorflow/core/tpu/kernels/BUILD
 +++ b/tensorflow/core/tpu/kernels/BUILD
-@@ -1487,7 +1487,7 @@ cc_library(
+@@ -1483,7 +1483,7 @@ cc_library(
      hdrs = ["sparse_core_layout.h"],
      visibility = ["//tensorflow/python/tpu:__pkg__"],  # ONLY for `_pywrap_sparse_core_layout`.
      deps = [

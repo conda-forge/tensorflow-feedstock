@@ -1,0 +1,52 @@
+__migrator:
+  build_number: 1
+  kind: version
+  commit_message: |
+    Rebuild for numpy 2.0
+    
+    TL;DR: The way we build against numpy has changed as of numpy 2.0. This bot
+    PR has updated the recipe to account for the changes (see below for details).
+    
+    The biggest change is that we no longer need to use the oldest available numpy
+    version at build time in order to support old numpy version at runtime - numpy
+    will by default use a compatible ABI for the oldest still-supported numpy versions.
+    
+    Additionally, we no longer need to use `{{ pin_compatible("numpy") }}` as a
+    run requirement - this has been handled for more than two years now by a
+    run-export on the numpy package itself. The migrator will therefore remove
+    any occurrences of this.
+    
+    However, you will still need to add the lower bound for the numpy version,
+    in line with what the upstream package requires. The default lower bound from
+    the run-export is `>=1.19`; if your package needs a newer version than that,
+    please add `numpy >=x.y` under `run:`.
+    
+    Finally, by default, building against numpy 2.0 will assume that the package
+    is compatible with numpy 2.0, which is not necessarily the case. You should
+    check that the upstream package explicitly supports numpy 2.0, otherwise you
+    need to add a `- numpy <2.0dev0` run requirement until that happens (check numpy
+    issue 26191 for an overview of the most important packages).
+    
+    ### To-Dos:
+      * [ ] Match run-requirements for numpy (i.e. check upstream `pyproject.toml` or however the project specifies numpy compatibility)
+        * If upstream is not yet compatible with numpy 2.0, add `numpy <2.0dev0` upper bound under `run:`.
+        * If upstream is already compatible with numpy 2.0, double-check their supported numpy versions.
+        * If upstream requires a minimum numpy version newer than 1.19, you need to add `numpy >=x.y` under `run:`.
+      * [ ] Remove any remaining occurrences of `{{ pin_compatible("numpy") }}` that the bot may have missed.
+    
+    PS. If the build does not compile anymore, this is almost certainly a sign that
+    the upstream project is not yet ready for numpy 2.0; do not close this PR until
+    a version compatible with numpy 2.0 has been released upstream and on this
+    feedstock (in the meantime, you can keep the bot from reopening this PR in
+    case of git conflicts by marking it as a draft).
+
+  migration_number: 1
+
+# needs to match length of zip {python, python_impl, numpy}
+# as it is in global CBC in order to override it
+numpy:
+  - 2.0
+  - 2.0
+  - 2.0
+  - 2.0
+migrator_ts: 1713572489.295986

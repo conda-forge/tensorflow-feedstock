@@ -1,7 +1,7 @@
-From 81ff1b5ec7052ab02abc008d031b9a85a82069e0 Mon Sep 17 00:00:00 2001
+From ee83172851b5edbf302918785a58af0bdb5d2782 Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Tue, 27 Feb 2024 18:01:19 -0500
-Subject: [PATCH 17/27] Update ABSL Log Definition for
+Subject: [PATCH 17/29] Update ABSL Log Definition for
  libabsl_vlog_config_internal.so
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 17/27] Update ABSL Log Definition for
  1 file changed, 2 insertions(+)
 
 diff --git a/third_party/absl/system.absl.log.BUILD b/third_party/absl/system.absl.log.BUILD
-index 0248bda0..1fe1e342 100644
+index 0248bda0f52..1fe1e342594 100644
 --- a/third_party/absl/system.absl.log.BUILD
 +++ b/third_party/absl/system.absl.log.BUILD
 @@ -5,6 +5,7 @@ package(default_visibility = ["//visibility:public"])

@@ -1,14 +1,14 @@
-From de24030836aeecfa290e5f5ba11e61f9c6dbcbc5 Mon Sep 17 00:00:00 2001
+From 1ac99cf3d59dafde68d4f1a58a19f723d63653f0 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 15 Nov 2023 10:32:41 +0000
-Subject: [PATCH 12/27] Add protobuf toolchain
+Subject: [PATCH 12/29] Add protobuf toolchain
 
 ---
  third_party/systemlibs/protobuf.BUILD | 14 ++++++++++++++
  1 file changed, 14 insertions(+)
 
 diff --git a/third_party/systemlibs/protobuf.BUILD b/third_party/systemlibs/protobuf.BUILD
-index 504bc81a..4f105d33 100644
+index 504bc81af0d..4f105d33f84 100644
 --- a/third_party/systemlibs/protobuf.BUILD
 +++ b/third_party/systemlibs/protobuf.BUILD
 @@ -65,12 +65,26 @@ cc_library(

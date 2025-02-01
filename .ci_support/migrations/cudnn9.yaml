@@ -1,8 +1,0 @@
-__migrator:
-  build_number: 1
-  commit_message: Rebuild for cudnn 9
-  kind: version
-  migration_number: 1
-cudnn:
-- '9'
-migrator_ts: 1724175586.3831317

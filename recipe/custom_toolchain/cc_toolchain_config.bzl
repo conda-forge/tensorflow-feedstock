@@ -22,7 +22,7 @@ def _impl(ctx):
         ),
         tool_path(
             name = "ld",
-            path = "${LD}",
+            path = "${BUILD_PREFIX}/bin/${LD}",
         ),
         tool_path(
             name = "ar",
@@ -34,7 +34,7 @@ def _impl(ctx):
         ),
         tool_path(
             name = "cpp",
-            path = "/usr/bin/cpp",
+            path = "${BUILD_PREFIX}/bin/clang-cpp",
         ),
         tool_path(
             name = "gcov",
@@ -42,15 +42,15 @@ def _impl(ctx):
         ),
         tool_path(
             name = "nm",
-            path = "${NM}",
+            path = "${BUILD_PREFIX}/bin/${NM}",
         ),
         tool_path(
             name = "objdump",
-            path = "/usr/bin/objdump",
+            path = "${BUILD_PREFIX}/bin/llvm-objdump",
         ),
         tool_path(
             name = "strip",
-            path = "${STRIP}",
+            path = "${BUILD_PREFIX}/bin/${STRIP}",
         ),
     ]
 
@@ -150,6 +150,10 @@ def _impl(ctx):
     toolchain_include_directories_flags = [
         "-isystem",
         "${PREFIX}/include",
+        "-isystem",
+        "${PREFIX}/include/c++/v1",
+        "-isystem",
+        "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
     ]
 
     toolchain_include_directories_feature = feature(
@@ -283,27 +287,14 @@ def _impl(ctx):
         ],
     )
 
-    if "TARGET_PLATFORM".startswith("osx"):
-        cxx_builtin_include_directories = [
-            "${CONDA_BUILD_SYSROOT}/System/Library/Frameworks",
-            "${CONDA_BUILD_SYSROOT}/usr/include",
-            "${BUILD_PREFIX}/lib/clang/${COMPILER_VERSION}/include",
-            "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
-            "${BUILD_PREFIX}/include/c++/v1",
-            "${PREFIX}/include",
-        ]
-    else:
-        cxx_builtin_include_directories = [
-            "${CONDA_BUILD_SYSROOT}/usr/include",
-            "${BUILD_PREFIX}/lib/gcc/${HOST}/${COMPILER_VERSION}",
-            "${BUILD_PREFIX}/${HOST}/include/c++/${COMPILER_VERSION}",
-            "${PREFIX}/include",
-        ]
-
-        if (len("${CUDA_HOME}")):
-            cxx_builtin_include_directories.append("${CUDA_HOME}/include")
-            cxx_builtin_include_directories.append("${CUDA_HOME}/targets/x86_64-linux/include/")
-            cxx_builtin_include_directories.append("${PREFIX}/targets/x86_64-linux/include")
+    cxx_builtin_include_directories = [
+        "@macos_sdk//System/Library/Frameworks",
+        "@macos_sdk//usr/include",
+        "${BUILD_PREFIX}/lib/clang/${COMPILER_VERSION}/include",
+        "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
+        "${PREFIX}/include/c++/v1",
+        "${PREFIX}/include",
+    ]
 
     return cc_common.create_cc_toolchain_config_info(
         ctx = ctx,
@@ -317,6 +308,7 @@ def _impl(ctx):
         abi_version = "local",
         abi_libc_version = "local",
         tool_paths = tool_paths,
+        builtin_sysroot = "${CONDA_BUILD_SYSROOT}",
         cxx_builtin_include_directories = cxx_builtin_include_directories,
         features = [toolchain_include_directories_feature, compiler_flags, cxx_flags, supports_pic_feature, linker_flags, supports_dynamic_linker, link_libcpp_feature, objcpp_flags],
     )

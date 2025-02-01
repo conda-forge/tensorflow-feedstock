@@ -1,14 +1,14 @@
-From 16b223f630d00a46d1c90ad129924afb6f7143e4 Mon Sep 17 00:00:00 2001
+From 713e64e743e198245f61270629828397f92b55f0 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 12 May 2024 22:29:25 +1100
-Subject: [PATCH 20/27] add absl_prefetch target
+Subject: [PATCH 20/29] add absl_prefetch target
 
 ---
  third_party/absl/system.absl.base.BUILD | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/third_party/absl/system.absl.base.BUILD b/third_party/absl/system.absl.base.BUILD
-index a423d5f7..b31592d3 100644
+index a423d5f70da..b31592d31a3 100644
 --- a/third_party/absl/system.absl.base.BUILD
 +++ b/third_party/absl/system.absl.base.BUILD
 @@ -116,6 +116,14 @@ cc_library(

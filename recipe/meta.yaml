@@ -1,15 +1,14 @@
-{% set version = "2.17.0" %}
+{% set version = "2.18.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 3 %}
+{% set build = 0 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
 {% endif %}
 
-# 2.17.0.rc1 uses unreleased commit
-# https://github.com/jax-ml/ml_dtypes/commit/24084d9ed2c3d45bf83b7a9bff833aa185bf9172
-# see
-# https://github.com/tensorflow/tensorflow/blob/v2.17.0-rc1/third_party/py/ml_dtypes/workspace.bzl
+# Quite often libml_dtypes-headers and ml_dtypes diverge.
+# https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
+{% set libml_dtypes_version = "0.5.0" %}
 {% set ml_dtypes_version = "0.4.0" %}
 
 package:
@@ -18,7 +17,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 9cc4d5773b8ee910079baaecb4086d0c28939f024dd74b33fc5e64779b6533dc
+    sha256: d7876f4bb0235cac60eb6316392a7c48676729860da1ab659fb440379ad5186d
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
@@ -47,15 +46,15 @@ source:
       - patches/0025-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
       - patches/0026-Only-link-to-sparse_core_layout_proto_cc-headers.patch
       - patches/0027-Protobuf-5-compatability.patch
+      - patches/0028-Fix-ResolvePadding-to-be-consistent-in-the-size-of-t.patch
+      - patches/0029-set-the-cpu-type-for-macos-target.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
 
 build:
   number: {{ build }}
-  skip: true  # [win]
-  skip: true  # [python_impl == 'pypy']
-  skip: true  # [py<39]
+  skip: true  # [not osx]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
 
@@ -91,6 +90,7 @@ requirements:
     # so we install coreutils here
     - coreutils  # [cuda_compiler_version != "None"]
   host:
+    - libcxx-devel  # [osx]
     # GPU requirements for CUDA
     - cudnn      # [cuda_compiler_version != "None"]
     - nccl       # [cuda_compiler_version != "None"]
@@ -104,6 +104,8 @@ requirements:
     - libcurand-dev     # [(cuda_compiler_version or "").startswith("12")]
     - libcufft-dev      # [(cuda_compiler_version or "").startswith("12")]
     - libcusparse-dev   # [(cuda_compiler_version or "").startswith("12")]
+    - cuda-compat       # [(cuda_compiler_version or "").startswith("12")]
+    - libnvjitlink-dev  # [(cuda_compiler_version or "").startswith("12")]
     # conda build requirements
     - python
     - pip
@@ -143,6 +145,7 @@ requirements:
     - sqlite
     - snappy
     - zlib
+    - ml_dtypes >={{ ml_dtypes_version }},<0.5
 
 outputs:
   # 2021/12/29: hmaarrfk
@@ -191,6 +194,8 @@ outputs:
         - libcurand-dev     # [(cuda_compiler_version or "").startswith("12")]
         - libcufft-dev      # [(cuda_compiler_version or "").startswith("12")]
         - libcusparse-dev   # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-compat       # [(cuda_compiler_version or "").startswith("12")]
+        - libnvjitlink-dev  # [(cuda_compiler_version or "").startswith("12")]
         # conda build requirements
         - python
         - pip
@@ -222,7 +227,7 @@ outputs:
         - astunparse >=1.6.0
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
-        - h5py >=3.10
+        - h5py >=3.11
         - ml_dtypes >={{ ml_dtypes_version }},<0.5
         - numpy
         - opt_einsum >=2.3.2
@@ -235,7 +240,7 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.17,<2.18
+        - tensorboard >=2.18,<2.19
         - keras >=3.0
       run:
         - python
@@ -245,7 +250,7 @@ outputs:
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
         - grpcio {{ libgrpc }}.*
-        - h5py >=3.10
+        - h5py >=3.11
         - ml_dtypes >={{ ml_dtypes_version }},<0.5
         - opt_einsum >=2.3.2
         - protobuf >=5.26,<6
@@ -256,7 +261,7 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.17,<2.18
+        - tensorboard >=2.18,<2.19
         - keras >=3.0
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda                                                  # [cuda_compiler_version != "None"]
@@ -337,6 +342,7 @@ outputs:
         - icu                                      # [build_platform != target_platform]
         - {{ pin_subpackage('tensorflow-base') }}  # [build_platform != target_platform]
       host:
+        - cuda-compat       # [(cuda_compiler_version or "").startswith("12")]
         - python
         - pip
         - packaging
@@ -441,7 +447,7 @@ outputs:
         - sqlite
         - zlib
       run:
-        - libml_dtypes-headers >={{ ml_dtypes_version }},<0.5
+        - libml_dtypes-headers >={{ libml_dtypes_version }},<0.6
         # avoid that people without GPUs needlessly download ~200-300MB
         - __cuda  # [cuda_compiler_version != "None"]
     test:

@@ -1,7 +1,7 @@
-From d70aa0acf092f069a154502100abd8c6f230129d Mon Sep 17 00:00:00 2001
+From 5678ef4465522b829b2cf56ec5de64da439a032d Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
-Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
+Subject: [PATCH 04/29] Fix protobuf_python for systemlibs
 
 ---
  tensorflow/workspace2.bzl                     |  9 ++++---
@@ -12,10 +12,10 @@ Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index fd29dff0..dc78011d 100644
+index be83c971749..5320aa187fd 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -382,6 +382,7 @@ def _tf_repositories():
+@@ -390,6 +390,7 @@ def _tf_repositories():
          system_link_files = {
              "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
              "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
@@ -23,7 +23,7 @@ index fd29dff0..dc78011d 100644
          },
          urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"),
      )
-@@ -786,10 +787,10 @@ def _tf_repositories():
+@@ -794,10 +795,10 @@ def _tf_repositories():
  
      tf_http_archive(
          name = "pybind11_protobuf",
@@ -40,7 +40,7 @@ index fd29dff0..dc78011d 100644
      tf_http_archive(
 diff --git a/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
 new file mode 100644
-index 00000000..18a1ddf8
+index 00000000000..18a1ddf84f3
 --- /dev/null
 +++ b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
 @@ -0,0 +1,26 @@
@@ -72,7 +72,7 @@ index 00000000..18a1ddf8
 +
 diff --git a/third_party/systemlibs/protobuf_python.bzl b/third_party/systemlibs/protobuf_python.bzl
 new file mode 100644
-index 00000000..982617a7
+index 00000000000..982617a765c
 --- /dev/null
 +++ b/third_party/systemlibs/protobuf_python.bzl
 @@ -0,0 +1,5 @@
