@@ -1,4 +1,4 @@
-From ae92d44a00de6f162bdc045052be0d6140fc081f Mon Sep 17 00:00:00 2001
+From 0472aaf3932e1ea815cfd45582c001e159fc1052 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 23 Nov 2023 09:05:37 +0000
 Subject: [PATCH 14/27] Remove some usage of absl::str_format in CUDA

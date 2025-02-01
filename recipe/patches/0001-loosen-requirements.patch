@@ -1,4 +1,4 @@
-From e6a16ebf1cb912b32f8fa6f9b26dbe8add0d930b Mon Sep 17 00:00:00 2001
+From e38b64198fe3f683895817c3685f9da939aadfd3 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 30 Dec 2021 06:57:09 +0200
 Subject: [PATCH 01/27] loosen requirements
@@ -11,32 +11,22 @@ Co-authored-by: Mark Harfouche <mark.harfouche@gmail.com>
 Co-authored-by: ngam
 Co-authored-by: Uwe L. Korn <uwelk@xhochy.com>
 ---
- tensorflow/tools/pip_package/setup.py | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ tensorflow/tools/pip_package/setup.py | 6 ------
+ 1 file changed, 6 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
-index 88da8b54..ac24634f 100644
+index fb37ef9b..61f6ce1f 100644
 --- a/tensorflow/tools/pip_package/setup.py
 +++ b/tensorflow/tools/pip_package/setup.py
-@@ -82,16 +82,12 @@ REQUIRED_PACKAGES = [
+@@ -81,7 +81,6 @@ REQUIRED_PACKAGES = [
+     'flatbuffers >= 24.3.25',
      'gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2',
      'google_pasta >= 0.1.1',
-     'h5py >= 3.10.0',
 -    'libclang >= 13.0.0',
-     'ml_dtypes >= 0.3.1, < 0.5.0',
--    # TODO(b/304751256): Adjust the numpy pin to a single version, when ready
--    'numpy >= 1.23.5, < 2.0.0 ; python_version <= "3.11"',
--    'numpy >= 1.26.0, < 2.0.0 ; python_version >= "3.12"',
      'opt_einsum >= 2.3.2',
      'packaging',
      # pylint:disable=line-too-long
-     (
--        'protobuf>=3.20.3,<5.0.0dev,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5'
-+        'protobuf>=3.20.3,<6.0.0dev,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5'
-     ),
-     'requests >= 2.21.0, < 3',
-     'setuptools',
-@@ -99,8 +95,6 @@ REQUIRED_PACKAGES = [
+@@ -94,8 +93,6 @@ REQUIRED_PACKAGES = [
      'termcolor >= 1.1.0',
      'typing_extensions >= 3.6.6',
      'wrapt >= 1.11.0',
@@ -45,3 +35,13 @@ index 88da8b54..ac24634f 100644
      # grpcio does not build correctly on big-endian machines due to lack of
      # BoringSSL support.
      # See https://github.com/tensorflow/tensorflow/issues/17882.
+@@ -111,9 +108,6 @@ REQUIRED_PACKAGES = [
+     # 'keras >= 2.14.0rc0, < 2.15' on the release branch after the branch cut.
+     'tensorboard >= 2.18, < 2.19',
+     'keras >= 3.5.0',
+-    # TODO(b/367877753): Update the upper bound to <2.2.0 once the compatibility
+-    # issues with numpy 2.1.0 is fixed.
+-    'numpy >= 1.26.0, < 2.1.0',
+     'h5py >= 3.11.0',
+     'ml_dtypes >= 0.4.0, < 0.5.0',
+ ]
