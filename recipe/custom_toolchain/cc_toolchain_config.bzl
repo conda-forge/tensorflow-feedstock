@@ -289,8 +289,8 @@ def _impl(ctx):
 
     if True:
         cxx_builtin_include_directories = [
-            "${CONDA_BUILD_SYSROOT}/System/Library/Frameworks",
-            "${CONDA_BUILD_SYSROOT}/usr/include",
+            "@macos_sdk//System/Library/Frameworks",
+            "@macos_sdk//usr/include",
             "${BUILD_PREFIX}/lib/clang/${COMPILER_VERSION}/include",
             "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
             "${PREFIX}/include/c++/v1",
