@@ -86,6 +86,7 @@ requirements:
     - sed
     - rsync
     - lld        # [osx]
+    - sigtool    # [osx]
     # realpath is not available from the docker image for cuda <= 10.2
     # so we install coreutils here
     - coreutils  # [cuda_compiler_version != "None"]
