@@ -91,6 +91,7 @@ requirements:
     # so we install coreutils here
     - coreutils  # [cuda_compiler_version != "None"]
   host:
+    - libcxx-devel  # [osx]
     # GPU requirements for CUDA
     - cudnn      # [cuda_compiler_version != "None"]
     - nccl       # [cuda_compiler_version != "None"]
