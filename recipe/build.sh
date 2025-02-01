@@ -155,19 +155,14 @@ else
     export TF_NEED_CUDA=0
 fi
 
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
-echo "before gen-bazel-toolchain.sh"
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
-find ./custom_toolchain | xargs cat
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
 echo "run gen-bazel-toolchain.sh"
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
 source ${RECIPE_DIR}/gen-bazel-toolchain.sh
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
-echo "after gen-bazel-toolchain.sh"
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
-find ./custom_toolchain | xargs cat
-seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
+
+#seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
+#echo "after gen-bazel-toolchain.sh"
+#seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
+#find ./custom_toolchain | xargs cat
+#seq 3 | xargs -I{} bash -c 'printf "=%.0s" {1..40}; echo'
 
 if [[ "${target_platform}" == "osx-64" ]]; then
   # Tensorflow doesn't cope yet with an explicit architecture (darwin_x86_64) on osx-64 yet.
