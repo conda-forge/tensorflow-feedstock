@@ -41,22 +41,6 @@ cc_toolchain_suite(
     toolchains = toolchains,
 )
 
-config_setting(
-    name = "macos_arm64",
-    values = {
-        "apple_platform_type": "macos",
-        "cpu": "darwin_arm64",
-    },
-)
-
-config_setting(
-    name = "macos_x86_64",
-    values = {
-        "apple_platform_type": "macos",
-        "cpu": "darwin_x86_64",
-    },
-)
-
 cc_toolchain(
     name = "cc-compiler-target",
     all_files = ":compiler_deps",
