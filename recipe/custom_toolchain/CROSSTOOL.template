@@ -59,16 +59,16 @@ toolchain {
   compiler_flag: "-fstack-protector-strong"
   compiler_flag: "-O2"
   compiler_flag: "-pipe"
-  tool_path {name: "ld" path: "${BUILD_PREFIX}/bin/ld.lld" }
+  tool_path {name: "ld" path: "${BUILD_PREFIX}/bin/${LD}" }
   tool_path {name: "cpp" path: "${BUILD_PREFIX}/bin/clang-cpp" }
   tool_path {name: "dwp" path: "/usr/bin/dwp" }
   tool_path {name: "gcov" path: "/usr/bin/gcov" }
-  tool_path {name: "nm" path: "${BUILD_PREFIX}/bin/llvm-nm" }
+  tool_path {name: "nm" path: "${BUILD_PREFIX}/bin/${NM}" }
   tool_path {name: "objcopy" path: "${BUILD_PREFIX}/bin/llvm-objcopy" }
   tool_path {name: "objdump" path: "${BUILD_PREFIX}/bin/llvm-objdump" }
-  tool_path {name: "strip" path: "${BUILD_PREFIX}/bin/llvm-strip" }
+  tool_path {name: "strip" path: "${BUILD_PREFIX}/bin/${STRIP}" }
   tool_path {name: "gcc" path: "cc_wrapper.sh" }
-  tool_path {name: "ar" path: "${BUILD_PREFIX}/bin/llvm-ar" }
+  tool_path {name: "ar" path: "${BUILD_PREFIX}/bin/${AR}" }
 
   compilation_mode_flags {
     mode: DBG

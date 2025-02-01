@@ -22,11 +22,11 @@ def _impl(ctx):
         ),
         tool_path(
             name = "ld",
-            path = "${BUILD_PREFIX}/bin/ld.lld",
+            path = "${BUILD_PREFIX}/bin/${LD}",
         ),
         tool_path(
             name = "ar",
-            path = "${BUILD_PREFIX}/bin/llvm-ar",
+            path = "${BUILD_PREFIX}/bin/${AR}",
         ),
         tool_path(
             name = "patchelf",
@@ -42,7 +42,7 @@ def _impl(ctx):
         ),
         tool_path(
             name = "nm",
-            path = "${BUILD_PREFIX}/bin/llvm-nm",
+            path = "${BUILD_PREFIX}/bin/${NM}",
         ),
         tool_path(
             name = "objdump",
@@ -50,7 +50,7 @@ def _impl(ctx):
         ),
         tool_path(
             name = "strip",
-            path = "${BUILD_PREFIX}/bin/llvm-strip",
+            path = "${BUILD_PREFIX}/bin/${STRIP}",
         ),
     ]
 
