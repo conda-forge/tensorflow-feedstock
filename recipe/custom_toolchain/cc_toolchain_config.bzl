@@ -308,6 +308,7 @@ def _impl(ctx):
         abi_version = "local",
         abi_libc_version = "local",
         tool_paths = tool_paths,
+        builtin_sysroot = "${CONDA_BUILD_SYSROOT}",
         cxx_builtin_include_directories = cxx_builtin_include_directories,
         features = [toolchain_include_directories_feature, compiler_flags, cxx_flags, supports_pic_feature, linker_flags, supports_dynamic_linker, link_libcpp_feature, objcpp_flags],
     )
