@@ -150,6 +150,8 @@ def _impl(ctx):
     toolchain_include_directories_flags = [
         "-isystem",
         "${PREFIX}/include",
+        "-isystem",
+        "${PREFIX}/include/c++/v1",
     ]
 
     toolchain_include_directories_feature = feature(
