@@ -150,6 +150,10 @@ def _impl(ctx):
     toolchain_include_directories_flags = [
         "-isystem",
         "${PREFIX}/include",
+        "-isystem",
+        "${PREFIX}/include/c++/v1",
+        "-isystem",
+        "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
     ]
 
     toolchain_include_directories_feature = feature(

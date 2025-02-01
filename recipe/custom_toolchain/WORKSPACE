@@ -1,1 +1,6 @@
 workspace(name = "local_config_cc")
+
+local_repository(
+    name = "macos_sdk",
+    path = "${CONDA_BUILD_SYSROOT}",
+)

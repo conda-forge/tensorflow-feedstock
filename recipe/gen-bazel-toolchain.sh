@@ -131,6 +131,7 @@ pushd custom_toolchain
   cp cc_toolchain_config.bzl cc_toolchain_build_config.bzl
   apply_cc_template cc_toolchain_config.bzl
   apply_cc_template crosstool_wrapper_driver_is_not_gcc
+  apply_cc_template WORKSPACE
   (
     if [[ "${build_platform}" != "${target_platform}" ]]; then
       if [[ "${target_platform}" == osx-* ]]; then
