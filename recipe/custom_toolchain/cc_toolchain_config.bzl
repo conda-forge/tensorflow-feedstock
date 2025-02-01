@@ -152,6 +152,12 @@ def _impl(ctx):
         "${PREFIX}/include",
         "-isystem",
         "${PREFIX}/include/c++/v1",
+        "-isystem",
+        "${CONDA_BUILD_SYSROOT}/usr/include",
+        "-isystem",
+        "${CONDA_BUILD_SYSROOT}/System/Library/Frameworks",
+        "-isystem",
+        "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
     ]
 
     toolchain_include_directories_feature = feature(
