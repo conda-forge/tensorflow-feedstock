@@ -181,6 +181,8 @@ if [[ "${target_platform}" == "osx-arm64" ]]; then
   echo "build --config=macos_arm64" >> .bazelrc
   # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
+elif [[ "${target_platform}" == "osx-64" ]]; then
+  echo "build --config=macos_x86_64" >> .bazelrc
 fi
 export TF_ENABLE_XLA=1
 export BUILD_TARGET="//tensorflow/tools/pip_package:wheel //tensorflow/tools/lib_package:libtensorflow //tensorflow:libtensorflow_cc${SHLIB_EXT}"

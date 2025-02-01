@@ -45,7 +45,6 @@ cc_toolchain(
     name = "cc-compiler-target",
     all_files = ":compiler_deps",
     compiler_files = ":compiler_deps",
-    cpu = "TARGET_CPU",
     toolchain_identifier = "local",
     toolchain_config = ":cc-compiler-target-config",
     dwp_files = ":empty",
