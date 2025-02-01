@@ -34,14 +34,13 @@ toolchain {
   linker_flag: "-undefined"
   linker_flag: "dynamic_lookup"
   linker_flag: "-force_load"
-  linker_flag: "${BUILD_PREFIX}/lib/libc++.a"
+  linker_flag: "${PREFIX}/lib/libc++.a"
   linker_flag: "-force_load"
-  linker_flag: "${BUILD_PREFIX}/lib/libc++abi.a"
+  linker_flag: "-lc++abi.a"
   linker_flag: "-nostdlib"
   linker_flag: "-lc"
   linker_flag: "-isysroot${CONDA_BUILD_SYSROOT}"
   cxx_builtin_include_directory: "${PREFIX}/include/c++/v1"
-  cxx_builtin_include_directory: "${PREFIX}/lib/clang/10.0.0/include"
   cxx_builtin_include_directory: "${CONDA_BUILD_SYSROOT}/usr/include"
   cxx_builtin_include_directory: "${CONDA_BUILD_SYSROOT}/System/Library/Frameworks"
   objcopy_embed_flag: "-I"
@@ -60,16 +59,16 @@ toolchain {
   compiler_flag: "-fstack-protector-strong"
   compiler_flag: "-O2"
   compiler_flag: "-pipe"
-  tool_path {name: "ld" path: "${LD}" }
-  tool_path {name: "cpp" path: "/usr/bin/cpp" }
+  tool_path {name: "ld" path: "${BUILD_PREFIX}/bin/ld.lld" }
+  tool_path {name: "cpp" path: "${BUILD_PREFIX}/bin/clang-cpp" }
   tool_path {name: "dwp" path: "/usr/bin/dwp" }
   tool_path {name: "gcov" path: "/usr/bin/gcov" }
-  tool_path {name: "nm" path: "${NM}" }
-  tool_path {name: "objcopy" path: "/usr/bin/objcopy" }
-  tool_path {name: "objdump" path: "/usr/bin/objdump" }
-  tool_path {name: "strip" path: "${STRIP}" }
+  tool_path {name: "nm" path: "${BUILD_PREFIX}/bin/llvm-nm" }
+  tool_path {name: "objcopy" path: "${BUILD_PREFIX}/bin/llvm-objcopy" }
+  tool_path {name: "objdump" path: "${BUILD_PREFIX}/bin/llvm-objdump" }
+  tool_path {name: "strip" path: "${BUILD_PREFIX}/bin/llvm-strip" }
   tool_path {name: "gcc" path: "cc_wrapper.sh" }
-  tool_path {name: "ar" path: "${LIBTOOL}" }
+  tool_path {name: "ar" path: "${BUILD_PREFIX}/bin/llvm-ar" }
 
   compilation_mode_flags {
     mode: DBG
