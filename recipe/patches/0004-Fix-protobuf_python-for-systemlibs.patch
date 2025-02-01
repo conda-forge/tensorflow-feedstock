@@ -1,4 +1,4 @@
-From d70aa0acf092f069a154502100abd8c6f230129d Mon Sep 17 00:00:00 2001
+From 53fce719a6f0c64954b48d4b59b3be046b709493 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
 Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
@@ -12,10 +12,10 @@ Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index fd29dff0..dc78011d 100644
+index be83c971..5320aa18 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -382,6 +382,7 @@ def _tf_repositories():
+@@ -390,6 +390,7 @@ def _tf_repositories():
          system_link_files = {
              "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
              "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
@@ -23,7 +23,7 @@ index fd29dff0..dc78011d 100644
          },
          urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"),
      )
-@@ -786,10 +787,10 @@ def _tf_repositories():
+@@ -794,10 +795,10 @@ def _tf_repositories():
  
      tf_http_archive(
          name = "pybind11_protobuf",

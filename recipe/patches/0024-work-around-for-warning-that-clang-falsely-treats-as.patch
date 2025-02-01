@@ -1,4 +1,4 @@
-From a89bade09f737a1cd5f7e2ee7ec26b38dfb771dd Mon Sep 17 00:00:00 2001
+From 24eeae23f9140fddfbfe2568e49f9d3359f2a71d Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 19 May 2024 20:52:35 +1100
 Subject: [PATCH 24/27] work around for warning that clang falsely treats as
@@ -10,10 +10,10 @@ see https://github.com/llvm/llvm-project/issues/92630
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/.bazelrc b/.bazelrc
-index fb80a081..01668b2c 100644
+index f48811d1..0d1c0305 100644
 --- a/.bazelrc
 +++ b/.bazelrc
-@@ -313,7 +313,7 @@ build:ios --noenable_platform_specific_config
+@@ -310,7 +310,7 @@ build:ios --noenable_platform_specific_config
  build:android --copt=-w
  build:ios --copt=-w
  build:linux --host_copt=-w

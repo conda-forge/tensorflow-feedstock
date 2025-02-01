@@ -22,11 +22,11 @@ def _impl(ctx):
         ),
         tool_path(
             name = "ld",
-            path = "${LD}",
+            path = "${BUILD_PREFIX}/bin/ld.lld",
         ),
         tool_path(
             name = "ar",
-            path = "${BUILD_PREFIX}/bin/${AR}",
+            path = "${BUILD_PREFIX}/bin/llvm-ar",
         ),
         tool_path(
             name = "patchelf",
@@ -34,7 +34,7 @@ def _impl(ctx):
         ),
         tool_path(
             name = "cpp",
-            path = "/usr/bin/cpp",
+            path = "${BUILD_PREFIX}/bin/clang-cpp",
         ),
         tool_path(
             name = "gcov",
@@ -42,15 +42,15 @@ def _impl(ctx):
         ),
         tool_path(
             name = "nm",
-            path = "${NM}",
+            path = "${BUILD_PREFIX}/bin/llvm-nm",
         ),
         tool_path(
             name = "objdump",
-            path = "/usr/bin/objdump",
+            path = "${BUILD_PREFIX}/bin/llvm-objdump",
         ),
         tool_path(
             name = "strip",
-            path = "${STRIP}",
+            path = "${BUILD_PREFIX}/bin/llvm-strip",
         ),
     ]
 
@@ -289,7 +289,7 @@ def _impl(ctx):
             "${CONDA_BUILD_SYSROOT}/usr/include",
             "${BUILD_PREFIX}/lib/clang/${COMPILER_VERSION}/include",
             "${BUILD_PREFIX}/lib/clang/${SHORT_COMPILER_VERSION}/include",
-            "${BUILD_PREFIX}/include/c++/v1",
+            "${PREFIX}/include/c++/v1",
             "${PREFIX}/include",
         ]
     else:
