@@ -1,7 +1,7 @@
-From 61c8a1306bb7bbc8919a237602e6dd158c80ff23 Mon Sep 17 00:00:00 2001
+From 6b7eab274229f57e295940322452c3d920800c52 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 10 Oct 2024 19:59:31 +0200
-Subject: [PATCH 27/27] Protobuf 5 compatability
+Subject: [PATCH 27/29] Protobuf 5 compatability
 
 ---
  .../mlir/lite/python/jax_to_tfl_flatbuffer.cc |  2 +-
@@ -23,7 +23,7 @@ Subject: [PATCH 27/27] Protobuf 5 compatability
  create mode 100644 third_party/0002-Fix-compatibility-with-protobuf-v26-migrate-from-dep.patch
 
 diff --git a/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc b/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
-index eba1ebc4..dc9f7b81 100644
+index eba1ebc48ce..dc9f7b81af6 100644
 --- a/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
 +++ b/tensorflow/compiler/mlir/lite/python/jax_to_tfl_flatbuffer.cc
 @@ -57,7 +57,7 @@ namespace {
@@ -36,7 +36,7 @@ index eba1ebc4..dc9f7b81 100644
  
  bool LoadHloProto(const std::string& contents, xla::HloProto* hlo_proto) {
 diff --git a/tensorflow/compiler/mlir/tensorflow/utils/parse_text_proto.cc b/tensorflow/compiler/mlir/tensorflow/utils/parse_text_proto.cc
-index 906a058d..0c673310 100644
+index 906a058d04e..0c67331094b 100644
 --- a/tensorflow/compiler/mlir/tensorflow/utils/parse_text_proto.cc
 +++ b/tensorflow/compiler/mlir/tensorflow/utils/parse_text_proto.cc
 @@ -30,7 +30,7 @@ namespace {
@@ -49,7 +49,7 @@ index 906a058d..0c673310 100644
  }  // namespace
  
 diff --git a/tensorflow/core/debug/debug_io_utils.cc b/tensorflow/core/debug/debug_io_utils.cc
-index 0e4e11d8..912970b7 100644
+index 0e4e11d81e9..912970b7d82 100644
 --- a/tensorflow/core/debug/debug_io_utils.cc
 +++ b/tensorflow/core/debug/debug_io_utils.cc
 @@ -94,7 +94,11 @@ Event PrepareChunkEventProto(const DebugNodeKey& debug_node_key,
@@ -65,7 +65,7 @@ index 0e4e11d8..912970b7 100644
        metadata, &json_output, json_options);
    if (status.ok()) {
 diff --git a/tensorflow/core/ir/importexport/parse_text_proto.cc b/tensorflow/core/ir/importexport/parse_text_proto.cc
-index c631785c..3ab6e17c 100644
+index c631785cefc..3ab6e17c3aa 100644
 --- a/tensorflow/core/ir/importexport/parse_text_proto.cc
 +++ b/tensorflow/core/ir/importexport/parse_text_proto.cc
 @@ -35,7 +35,7 @@ namespace {
@@ -78,7 +78,7 @@ index c631785c..3ab6e17c 100644
  }  // namespace
  
 diff --git a/tensorflow/core/profiler/convert/hlo_to_tools_data.cc b/tensorflow/core/profiler/convert/hlo_to_tools_data.cc
-index 7fbcd397..d17f3402 100644
+index 7fbcd397906..d17f3402a3f 100644
 --- a/tensorflow/core/profiler/convert/hlo_to_tools_data.cc
 +++ b/tensorflow/core/profiler/convert/hlo_to_tools_data.cc
 @@ -62,7 +62,11 @@ absl::StatusOr<std::string> ConvertHloProtoToMemoryViewer(
@@ -94,7 +94,7 @@ index 7fbcd397..d17f3402 100644
        result_or.value(), &json_output, options);
    if (!encoded_status.ok()) {
 diff --git a/tensorflow/core/profiler/convert/xplane_to_memory_profile.cc b/tensorflow/core/profiler/convert/xplane_to_memory_profile.cc
-index b289f54b..38e89170 100644
+index b289f54baa6..38e89170f42 100644
 --- a/tensorflow/core/profiler/convert/xplane_to_memory_profile.cc
 +++ b/tensorflow/core/profiler/convert/xplane_to_memory_profile.cc
 @@ -529,7 +529,11 @@ void ProcessMemoryProfileProto(int64_t max_num_snapshots,
@@ -110,7 +110,7 @@ index b289f54b..38e89170 100644
                                                      json_options);
    if (!status.ok()) {
 diff --git a/tensorflow/core/profiler/convert/xplane_to_tools_data.cc b/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
-index dcc7cea4..a995db64 100644
+index dcc7cea45f7..a995db64d42 100644
 --- a/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
 +++ b/tensorflow/core/profiler/convert/xplane_to_tools_data.cc
 @@ -218,7 +218,11 @@ absl::StatusOr<std::string> ConvertMultiXSpacesToPodViewer(
@@ -138,7 +138,7 @@ index dcc7cea4..a995db64 100644
    auto encode_status =
        protobuf::util::MessageToJsonString(profile, &json_output, opts);
 diff --git a/tensorflow/core/util/proto/proto_utils.cc b/tensorflow/core/util/proto/proto_utils.cc
-index 282be94a..7cfed84d 100644
+index 282be94a774..7cfed84d2a8 100644
 --- a/tensorflow/core/util/proto/proto_utils.cc
 +++ b/tensorflow/core/util/proto/proto_utils.cc
 @@ -101,17 +101,17 @@ StringErrorCollector::StringErrorCollector(string* error_text,
@@ -165,7 +165,7 @@ index 282be94a..7cfed84d 100644
  
  }  // namespace proto_utils
 diff --git a/tensorflow/core/util/proto/proto_utils.h b/tensorflow/core/util/proto/proto_utils.h
-index f0347a84..c8b2a4b9 100644
+index f0347a84cbe..c8b2a4b936a 100644
 --- a/tensorflow/core/util/proto/proto_utils.h
 +++ b/tensorflow/core/util/proto/proto_utils.h
 @@ -53,10 +53,10 @@ class StringErrorCollector : public protobuf::io::ErrorCollector {
@@ -182,7 +182,7 @@ index f0347a84..c8b2a4b9 100644
   private:
    string* const error_text_;
 diff --git a/tensorflow/tools/proto_text/gen_proto_text_functions.cc b/tensorflow/tools/proto_text/gen_proto_text_functions.cc
-index 406e6641..d97eae73 100644
+index 406e6641178..d97eae7346b 100644
 --- a/tensorflow/tools/proto_text/gen_proto_text_functions.cc
 +++ b/tensorflow/tools/proto_text/gen_proto_text_functions.cc
 @@ -31,8 +31,8 @@ class CrashOnErrorCollector
@@ -197,7 +197,7 @@ index 406e6641..d97eae73 100644
                 << column << " - " << message;
    }
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index 5320aa18..32f0a39c 100644
+index 5320aa187fd..32f0a39c91c 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
 @@ -878,6 +878,10 @@ def _tf_repositories():
@@ -213,7 +213,7 @@ index 5320aa18..32f0a39c 100644
  
 diff --git a/third_party/0001-Migrate-from-AddError-to-RecordError.patch b/third_party/0001-Migrate-from-AddError-to-RecordError.patch
 new file mode 100644
-index 00000000..0ed75ee8
+index 00000000000..0ed75ee8019
 --- /dev/null
 +++ b/third_party/0001-Migrate-from-AddError-to-RecordError.patch
 @@ -0,0 +1,33 @@
@@ -252,7 +252,7 @@ index 00000000..0ed75ee8
 +
 diff --git a/third_party/0002-Fix-compatibility-with-protobuf-v26-migrate-from-dep.patch b/third_party/0002-Fix-compatibility-with-protobuf-v26-migrate-from-dep.patch
 new file mode 100644
-index 00000000..b5af8d2d
+index 00000000000..b5af8d2dff5
 --- /dev/null
 +++ b/third_party/0002-Fix-compatibility-with-protobuf-v26-migrate-from-dep.patch
 @@ -0,0 +1,52 @@
@@ -309,7 +309,7 @@ index 00000000..b5af8d2d
 +2.34.1
 +
 diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc b/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
-index 167cdd2b..dc1ebdd1 100644
+index 167cdd2b891..dc1ebdd10e6 100644
 --- a/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
 +++ b/third_party/xla/third_party/tsl/tsl/platform/default/human_readable_json.cc
 @@ -33,7 +33,11 @@ absl::StatusOr<std::string> ProtoToHumanReadableJson(

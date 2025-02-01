@@ -1,14 +1,14 @@
-From f44de9a6a74b949da5681b31eb51b7bc601110fb Mon Sep 17 00:00:00 2001
+From 9c6c561823988ae34c2af979486b06cace20ebee Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Sat, 27 Jan 2024 22:27:56 -0500
-Subject: [PATCH 15/27] Adjust relative path for libdevice
+Subject: [PATCH 15/29] Adjust relative path for libdevice
 
 ---
  .../third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-index ac0a804b..fe8305fd 100644
+index ac0a804b4df..fe8305fd893 100644
 --- a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
 +++ b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
 @@ -69,7 +69,7 @@ std::vector<std::string> CandidateCudaRoots() {

@@ -1,7 +1,7 @@
-From 24eeae23f9140fddfbfe2568e49f9d3359f2a71d Mon Sep 17 00:00:00 2001
+From 956d7230488a7f96625078a0766933178f31b523 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 19 May 2024 20:52:35 +1100
-Subject: [PATCH 24/27] work around for warning that clang falsely treats as
+Subject: [PATCH 24/29] work around for warning that clang falsely treats as
  error
 
 see https://github.com/llvm/llvm-project/issues/92630
@@ -10,7 +10,7 @@ see https://github.com/llvm/llvm-project/issues/92630
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/.bazelrc b/.bazelrc
-index f48811d1..0d1c0305 100644
+index f48811d13d2..0d1c0305d97 100644
 --- a/.bazelrc
 +++ b/.bazelrc
 @@ -310,7 +310,7 @@ build:ios --noenable_platform_specific_config

@@ -1,7 +1,7 @@
-From 53fce719a6f0c64954b48d4b59b3be046b709493 Mon Sep 17 00:00:00 2001
+From 5678ef4465522b829b2cf56ec5de64da439a032d Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
-Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
+Subject: [PATCH 04/29] Fix protobuf_python for systemlibs
 
 ---
  tensorflow/workspace2.bzl                     |  9 ++++---
@@ -12,7 +12,7 @@ Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index be83c971..5320aa18 100644
+index be83c971749..5320aa187fd 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
 @@ -390,6 +390,7 @@ def _tf_repositories():
@@ -40,7 +40,7 @@ index be83c971..5320aa18 100644
      tf_http_archive(
 diff --git a/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
 new file mode 100644
-index 00000000..18a1ddf8
+index 00000000000..18a1ddf84f3
 --- /dev/null
 +++ b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
 @@ -0,0 +1,26 @@
@@ -72,7 +72,7 @@ index 00000000..18a1ddf8
 +
 diff --git a/third_party/systemlibs/protobuf_python.bzl b/third_party/systemlibs/protobuf_python.bzl
 new file mode 100644
-index 00000000..982617a7
+index 00000000000..982617a765c
 --- /dev/null
 +++ b/third_party/systemlibs/protobuf_python.bzl
 @@ -0,0 +1,5 @@
