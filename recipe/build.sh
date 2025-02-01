@@ -166,7 +166,7 @@ source ${RECIPE_DIR}/gen-bazel-toolchain.sh
 
 if [[ "${target_platform}" == "osx-64" ]]; then
   # Tensorflow doesn't cope yet with an explicit architecture (darwin_x86_64) on osx-64 yet.
-  TARGET_CPU=darwin
+  TARGET_CPU=darwin_x86_64
   # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
