@@ -44,6 +44,7 @@ pushd custom_toolchain
     export BAZEL_TOOLCHAIN_COMPILER_VERSION=$($CC -v 2>&1 | head -n1 | cut -d' ' -f3)
     export SHORT_BAZEL_TOOLCHAIN_COMPILER_VERSION=$(echo ${BAZEL_TOOLCHAIN_COMPILER_VERSION} | cut -d. -f1)
     sed -e "s:\${CLANG}:${CLANG}:" \
+        -e "s:\${BUILD_PREFIX}:${BUILD_PREFIX}:" \
         -e "s:\${target_platform}:${target_platform}:" \
         -e "s:\${INSTALL_NAME_TOOL}:${INSTALL_NAME_TOOL}:" \
         -e "s:\${CONDA_BUILD_SYSROOT}:${CONDA_BUILD_SYSROOT}:" \
@@ -52,6 +53,7 @@ pushd custom_toolchain
         cc_wrapper.sh.template > cc_wrapper.sh
     chmod +x cc_wrapper.sh
     sed -e "s:\${CLANG}:${CC_FOR_BUILD}:" \
+        -e "s:\${BUILD_PREFIX}:${BUILD_PREFIX}:" \
         -e "s:\${target_platform}:${target_platform}:" \
         -e "s:\${INSTALL_NAME_TOOL}:${INSTALL_NAME_TOOL//${HOST}/${BUILD}}:" \
         -e "s:\${CONDA_BUILD_SYSROOT}:${CONDA_BUILD_SYSROOT}:" \
