@@ -22,6 +22,8 @@ export INCLUDEDIR=$PREFIX/include
 
 export TF_PYTHON_VERSION=$PY_VER
 
+touch requirements_lock_3_13.txt
+
 # Upstream docstring for TF_SYSTEM_LIBS in:
 # https://github.com/tensorflow/tensorflow/blob/v{{ version }}/third_party/systemlibs/syslibs_configure.bzl
 #   * `TF_SYSTEM_LIBS`: list of third party dependencies that should use
