@@ -89,6 +89,10 @@ else
 fi
 
 if [[ ${cuda_compiler_version} != "None" ]]; then
+    if [[ "${cuda_compiler_version}" != 12* ]]; then
+        echo "unsupported cuda version ${cuda_compiler_version}."
+        exit 1
+    fi
     export LDFLAGS="${LDFLAGS} -lcusparse"
     export GCC_HOST_COMPILER_PATH="${GCC}"
     export GCC_HOST_COMPILER_PREFIX="$(dirname ${GCC})"
@@ -96,59 +100,51 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     export TF_NEED_CUDA=1
     export TF_CUDA_VERSION="${cuda_compiler_version}"
     export TF_CUDNN_VERSION="${cudnn}"
-    export HERMETIC_CUDA_VERSION="${cuda_compiler_version}"
-    export HERMETIC_CUDNN_VERSION="${cudnn}"
     export TF_NCCL_VERSION=$(pkg-config nccl --modversion | grep -Po '\d+\.\d+')
 
     export LDFLAGS="${LDFLAGS//-Wl,-z,now/-Wl,-z,lazy}"
     export CC_OPT_FLAGS="-march=nocona -mtune=haswell"
 
-    if [[ ${cuda_compiler_version} == 11.8 ]]; then
-        export HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_35,sm_50,sm_60,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,compute_90
-        export TF_CUDA_PATHS="${PREFIX},${CUDA_HOME}"
-    elif [[ "${cuda_compiler_version}" == 12* ]]; then
-        export HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_70,sm_75,sm_80,sm_86,sm_89,sm_90,compute_90
-        export CUDNN_INSTALL_PATH=$PREFIX
-        export NCCL_INSTALL_PATH=$PREFIX
-        export CUDA_HOME="${BUILD_PREFIX}/targets/x86_64-linux"
-        export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/x86_64-linux,${PREFIX}/targets/x86_64-linux"
-        # XLA can only cope with a single cuda header include directory, merge both
-        rsync -a ${PREFIX}/targets/x86_64-linux/include/ ${BUILD_PREFIX}/targets/x86_64-linux/include/
+    export TF_CUDA_COMPUTE_CAPABILITIES=sm_35,sm_50,sm_60,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,compute_90
+    export TF_CUDA_PATHS="${PREFIX},${CUDA_HOME}"
+    # export HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_70,sm_75,sm_80,sm_86,sm_89,sm_90,compute_90
+    export TF_CUDA_COMPUTE_CAPABILITIES=sm_60,sm_70,sm_75,sm_80,sm_86,sm_89,sm_90,compute_90
+    export CUDNN_INSTALL_PATH=$PREFIX
+    export NCCL_INSTALL_PATH=$PREFIX
+    export CUDA_HOME="${BUILD_PREFIX}/targets/x86_64-linux"
+    export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/x86_64-linux,${PREFIX}/targets/x86_64-linux"
+    # XLA can only cope with a single cuda header include directory, merge both
+    rsync -a ${PREFIX}/targets/x86_64-linux/include/ ${BUILD_PREFIX}/targets/x86_64-linux/include/
 
-        # Although XLA supports a non-hermetic build, it still tries to find headers in the hermetic locations.
-        # We do this in the BUILD_PREFIX to not have any impact on the resulting jaxlib package.
-        # Otherwise, these copied files would be included in the package.
-        rm -rf ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party
-        mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/extras/CUPTI
-        cp -r ${PREFIX}/targets/x86_64-linux/include ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/
-        cp -r ${PREFIX}/targets/x86_64-linux/include ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/extras/CUPTI/
-        mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cudnn
-        cp ${PREFIX}/include/cudnn*.h ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cudnn/
-        mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/nccl
-        cp ${PREFIX}/include/nccl.h ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/nccl/
-        rsync -a ${PREFIX}/targets/x86_64-linux/lib/ ${BUILD_PREFIX}/targets/x86_64-linux/lib/
-        ln -s ${BUILD_PREFIX}/bin/fatbinary ${BUILD_PREFIX}/targets/x86_64-linux/bin/fatbinary
-        ln -s ${BUILD_PREFIX}/bin/nvlink ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvlink
-        ln -s ${BUILD_PREFIX}/bin/ptxas ${BUILD_PREFIX}/targets/x86_64-linux/bin/ptxas
+    # Although XLA supports a non-hermetic build, it still tries to find headers in the hermetic locations.
+    # We do this in the BUILD_PREFIX to not have any impact on the resulting jaxlib package.
+    # Otherwise, these copied files would be included in the package.
+    # rm -rf ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party
+    # mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/extras/CUPTI
+    # cp -r ${PREFIX}/targets/x86_64-linux/include ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/
+    # cp -r ${PREFIX}/targets/x86_64-linux/include ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cuda/extras/CUPTI/
+    # mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cudnn
+    # cp ${PREFIX}/include/cudnn*.h ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/gpus/cudnn/
+    # mkdir -p ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/nccl
+    # cp ${PREFIX}/include/nccl.h ${BUILD_PREFIX}/targets/x86_64-linux/include/third_party/nccl/
+    # rsync -a ${PREFIX}/targets/x86_64-linux/lib/ ${BUILD_PREFIX}/targets/x86_64-linux/lib/
+    # ln -s ${BUILD_PREFIX}/bin/fatbinary ${BUILD_PREFIX}/targets/x86_64-linux/bin/fatbinary
+    # ln -s ${BUILD_PREFIX}/bin/nvlink ${BUILD_PREFIX}/targets/x86_64-linux/bin/nvlink
+    # ln -s ${BUILD_PREFIX}/bin/ptxas ${BUILD_PREFIX}/targets/x86_64-linux/bin/ptxas
 
-        export LOCAL_CUDA_PATH="${BUILD_PREFIX}/targets/x86_64-linux"
-        export LOCAL_CUDNN_PATH="${PREFIX}"
-        export LOCAL_NCCL_PATH="${PREFIX}"
+    # export LOCAL_CUDA_PATH="${BUILD_PREFIX}/targets/x86_64-linux"
+    # export LOCAL_CUDNN_PATH="${PREFIX}"
+    # export LOCAL_NCCL_PATH="${PREFIX}"
 
-        # hmaarrfk -- 2023/12/30
-        # This logic should be safe to keep in even when the underlying issue is resolved
-        # xref: https://github.com/conda-forge/cuda-nvcc-impl-feedstock/issues/9
-        if [[ -x ${BUILD_PREFIX}/nvvm/bin/cicc ]]; then
-            cp ${BUILD_PREFIX}/nvvm/bin/cicc ${BUILD_PREFIX}/bin/cicc
-        fi
-
-        # Needs GCC 13+
-        echo "build --define=xnn_enable_avxvnniint8=false" >> .bazelrc
-
-    else
-        echo "unsupported cuda version."
-        exit 1
+    # hmaarrfk -- 2023/12/30
+    # This logic should be safe to keep in even when the underlying issue is resolved
+    # xref: https://github.com/conda-forge/cuda-nvcc-impl-feedstock/issues/9
+    if [[ -x ${BUILD_PREFIX}/nvvm/bin/cicc ]]; then
+        cp ${BUILD_PREFIX}/nvvm/bin/cicc ${BUILD_PREFIX}/bin/cicc
     fi
+
+    # Needs GCC 13+
+    # echo "build --define=xnn_enable_avxvnniint8=false" >> .bazelrc
 else
     export TF_NEED_CUDA=0
 fi
@@ -168,7 +164,11 @@ sed -i -e "/PREFIX/c\ " .bazelrc
 # Ensure .bazelrc ends in a newline
 echo "" >> .bazelrc
 
-if [[ "${target_platform}" == "osx-arm64" ]]; then
+if [[ ${cuda_compiler_version} != "None" ]]; then
+    # https://github.com/tensorflow/tensorflow/pull/86413#issuecomment-2648797177
+    # Disable the use of HERMETIC_CUDA
+    echo "build --config=cuda_wheel" >> .bazelrc
+elif [[ "${target_platform}" == "osx-arm64" ]]; then
   echo "build --config=macos_arm64" >> .bazelrc
   # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
