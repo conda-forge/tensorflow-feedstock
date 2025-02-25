@@ -1,50 +1,43 @@
-From 53fce719a6f0c64954b48d4b59b3be046b709493 Mon Sep 17 00:00:00 2001
+From 6019245a5452cf34f3bc11132bc91b16422175b7 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
-Subject: [PATCH 04/27] Fix protobuf_python for systemlibs
+Subject: [PATCH 04/29] Fix protobuf_python for systemlibs
 
 ---
- tensorflow/workspace2.bzl                     |  9 ++++---
- .../0001-Add-Python-include-path.patch        | 26 +++++++++++++++++++
+ tensorflow/workspace2.bzl                     |  2 ++
+ .../0001-Add-Python-include-path.patch        | 23 +++++++++++++++++++
  third_party/systemlibs/protobuf_python.bzl    |  5 ++++
- 3 files changed, 36 insertions(+), 4 deletions(-)
+ 3 files changed, 30 insertions(+)
  create mode 100644 third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index be83c971..5320aa18 100644
+index 5d75ffd4a6d..e985a71b74e 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -390,6 +390,7 @@ def _tf_repositories():
+@@ -401,6 +401,7 @@ def _tf_repositories():
          system_link_files = {
              "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
              "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
-+	    "//third_party/systemlibs:protobuf_python.bzl": "python/BUILD",
++            "//third_party/systemlibs:protobuf_python.bzl": "python/BUILD",
          },
          urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"),
      )
-@@ -794,10 +795,10 @@ def _tf_repositories():
- 
-     tf_http_archive(
-         name = "pybind11_protobuf",
--        urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/80f3440cd8fee124e077e2e47a8a17b78b451363.zip"),
--        sha256 = "c7ab64b1ccf9a678694a89035a8c865a693e4e872803778f91f0965c2f281d78",
--        strip_prefix = "pybind11_protobuf-80f3440cd8fee124e077e2e47a8a17b78b451363",
--        patch_file = ["//third_party/pybind11_protobuf:remove_license.patch"],
-+        urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/c8cc30e2495309e3499b7d76033446236d21c837.zip"),
-+        sha256 = "0663f73b34c0b4af55003edbb066e62aceff99bfcf12e47ea9a15d6013d81413",
-+        strip_prefix = "pybind11_protobuf-c8cc30e2495309e3499b7d76033446236d21c837",
-+	patch_file = ["//third_party/pybind11_protobuf:remove_license.patch", "//third_party/pybind11_protobuf:0001-Add-Python-include-path.patch"],
+@@ -792,6 +793,7 @@ def _tf_repositories():
+         strip_prefix = "pybind11_protobuf-80f3440cd8fee124e077e2e47a8a17b78b451363",
+         patch_file = [
+             "//third_party/pybind11_protobuf:remove_license.patch",
++            "//third_party/pybind11_protobuf:0001-Add-Python-include-path.patch",
+         ],
      )
  
-     tf_http_archive(
 diff --git a/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
 new file mode 100644
-index 00000000..18a1ddf8
+index 00000000000..3d6508441c3
 --- /dev/null
 +++ b/third_party/pybind11_protobuf/0001-Add-Python-include-path.patch
-@@ -0,0 +1,26 @@
-+From 5ccde396f198927bbf758697d6bef39fdb5ac6b0 Mon Sep 17 00:00:00 2001
+@@ -0,0 +1,23 @@
++From 3e7cd1a8ea5c67630a12e579748505b4c7ad4139 Mon Sep 17 00:00:00 2001
 +From: "Uwe L. Korn" <uwe.korn@quantco.com>
 +Date: Tue, 29 Aug 2023 21:33:08 +0200
 +Subject: [PATCH] Add Python include path
@@ -54,10 +47,10 @@ index 00000000..18a1ddf8
 + 1 file changed, 3 insertions(+)
 +
 +diff --git a/pybind11_protobuf/BUILD b/pybind11_protobuf/BUILD
-+index bc23e79..d701b68 100755
++index b62eb91..b3e5324 100644
 +--- a/pybind11_protobuf/BUILD
 ++++ b/pybind11_protobuf/BUILD
-+@@ -85,6 +85,9 @@ cc_library(
++@@ -87,6 +87,9 @@ cc_library(
 +     visibility = [
 +         "//visibility:private",
 +     ],
@@ -67,12 +60,9 @@ index 00000000..18a1ddf8
 +     deps = [
 +         "@com_google_absl//absl/container:flat_hash_map",
 +         "@com_google_absl//absl/container:flat_hash_set",
-+-- 
-+2.41.0
-+
 diff --git a/third_party/systemlibs/protobuf_python.bzl b/third_party/systemlibs/protobuf_python.bzl
 new file mode 100644
-index 00000000..982617a7
+index 00000000000..982617a765c
 --- /dev/null
 +++ b/third_party/systemlibs/protobuf_python.bzl
 @@ -0,0 +1,5 @@
