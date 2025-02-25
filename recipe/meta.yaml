@@ -1,4 +1,4 @@
-{% set version = "2.18.0" %}
+{% set version = "2.19.0.rc0" %}
 {% set estimator_version = "2.15.0" %}
 {% set build = 0 %}
 
@@ -8,8 +8,8 @@
 
 # Quite often libml_dtypes-headers and ml_dtypes diverge.
 # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
-{% set libml_dtypes_version = "0.5.0" %}
-{% set ml_dtypes_version = "0.4.0" %}
+{% set libml_dtypes_version = "0.5.1" %}
+{% set ml_dtypes_version = "0.5.1" %}
 
 package:
   name: tensorflow-split
@@ -17,7 +17,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: d7876f4bb0235cac60eb6316392a7c48676729860da1ab659fb440379ad5186d
+    sha256: 905189abc73b89ded3adcd0d4c12319ff0e0905baf6116cfa34a3cdd307667c7
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
@@ -145,7 +145,7 @@ requirements:
     - sqlite
     - snappy
     - zlib
-    - ml_dtypes >={{ ml_dtypes_version }},<0.5
+    - ml_dtypes >={{ ml_dtypes_version }},<1.0
 
 outputs:
   # 2021/12/29: hmaarrfk
@@ -227,7 +227,7 @@ outputs:
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
         - h5py >=3.11
-        - ml_dtypes >={{ ml_dtypes_version }},<0.5
+        - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - numpy
         - opt_einsum >=2.3.2
         # simplified compared to upstream due to constraints arising through libprotobuf
@@ -239,8 +239,8 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.18,<2.19
-        - keras >=3.0
+        - tensorboard >=2.19,<2.20
+        - keras >=3.5
       run:
         - python
         - packaging
@@ -250,7 +250,7 @@ outputs:
         - google-pasta >=0.1.1
         - grpcio {{ libgrpc }}.*
         - h5py >=3.11
-        - ml_dtypes >={{ ml_dtypes_version }},<0.5
+        - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - opt_einsum >=2.3.2
         - protobuf >=5.26,<6
         - python-flatbuffers >=24.3.25
@@ -260,8 +260,8 @@ outputs:
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
         # TF-API needs to move in sync
-        - tensorboard >=2.18,<2.19
-        - keras >=3.0
+        - tensorboard >=2.19,<2.20
+        - keras >=3.5
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda                                                  # [cuda_compiler_version != "None"]
         # https://github.com/conda-forge/tensorflow-feedstock/issues/296#issuecomment-1835781851
