@@ -1,14 +1,14 @@
-From f98ad31ffbb83ba849a8a97592c8c6f78e6f7fd0 Mon Sep 17 00:00:00 2001
+From 05d43d4b5a7a94307b48c66b3ec6510d70a179ed Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Mon, 13 May 2024 23:36:48 +1100
-Subject: [PATCH 23/27] add kernel_timeout_internal target
+Subject: [PATCH 23/29] add kernel_timeout_internal target
 
 ---
  .../absl/system.absl.synchronization.BUILD        | 15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
 diff --git a/third_party/absl/system.absl.synchronization.BUILD b/third_party/absl/system.absl.synchronization.BUILD
-index c0fa37aa..b47309de 100644
+index c0fa37aacd7..b47309deb39 100644
 --- a/third_party/absl/system.absl.synchronization.BUILD
 +++ b/third_party/absl/system.absl.synchronization.BUILD
 @@ -16,14 +16,29 @@ cc_library(
