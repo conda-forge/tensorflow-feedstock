@@ -1,17 +1,17 @@
-From a6a1ee1af7e7829adc68a8f05b2ad8a9273982fb Mon Sep 17 00:00:00 2001
+From f4060fd6e3b6d381aa6ed4e1e9d0d041fe593c7c Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 16 Nov 2023 06:38:27 +0000
-Subject: [PATCH 13/27] fix genproto
+Subject: [PATCH 13/29] fix genproto
 
 ---
- .../third_party/tsl/tsl/platform/default/build_config.bzl    | 5 +----
+ third_party/xla/xla/tsl/platform/default/build_config.bzl | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl b/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
-index 726f5463..62837c84 100644
---- a/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
-+++ b/third_party/xla/third_party/tsl/tsl/platform/default/build_config.bzl
-@@ -400,10 +400,7 @@ def py_proto_library(
+diff --git a/third_party/xla/xla/tsl/platform/default/build_config.bzl b/third_party/xla/xla/tsl/platform/default/build_config.bzl
+index dd79a03cd8a..ec2b163f3b0 100644
+--- a/third_party/xla/xla/tsl/platform/default/build_config.bzl
++++ b/third_party/xla/xla/tsl/platform/default/build_config.bzl
+@@ -423,10 +423,7 @@ def py_proto_library(
  
      genproto_deps = []
      for dep in deps:

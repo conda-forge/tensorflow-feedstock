@@ -1,17 +1,17 @@
-From f44de9a6a74b949da5681b31eb51b7bc601110fb Mon Sep 17 00:00:00 2001
+From 72c17ba1af3441ee2b90feebe0b9d88834ecc1fa Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Sat, 27 Jan 2024 22:27:56 -0500
-Subject: [PATCH 15/27] Adjust relative path for libdevice
+Subject: [PATCH 15/29] Adjust relative path for libdevice
 
 ---
- .../third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc | 2 +-
+ third_party/xla/xla/tsl/platform/default/cuda_root_path.cc | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-index ac0a804b..fe8305fd 100644
---- a/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-+++ b/third_party/xla/third_party/tsl/tsl/platform/default/cuda_libdevice_path.cc
-@@ -69,7 +69,7 @@ std::vector<std::string> CandidateCudaRoots() {
+diff --git a/third_party/xla/xla/tsl/platform/default/cuda_root_path.cc b/third_party/xla/xla/tsl/platform/default/cuda_root_path.cc
+index 60c7dabf3ea..8d1f29b2e90 100644
+--- a/third_party/xla/xla/tsl/platform/default/cuda_root_path.cc
++++ b/third_party/xla/xla/tsl/platform/default/cuda_root_path.cc
+@@ -70,7 +70,7 @@ std::vector<std::string> CandidateCudaRoots() {
      // TF lib binaries are located in both the package's root dir and within a
      // 'python' subdirectory (for pywrap libs). So we check two possible paths
      // relative to the current binary for the wheel-based nvcc package.
