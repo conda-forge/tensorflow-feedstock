@@ -1,4 +1,4 @@
-{% set version = "2.19.0.rc0" %}
+{% set version = "2.19.0" %}
 {% set estimator_version = "2.15.0" %}
 {% set build = 0 %}
 
@@ -17,7 +17,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 905189abc73b89ded3adcd0d4c12319ff0e0905baf6116cfa34a3cdd307667c7
+    sha256: 4691b18e8c914cdf6759b80f1b3b7f3e17be41099607ed0143134f38836d058e
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
