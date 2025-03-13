@@ -1,0 +1,21 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libabseil 20250127, libgrpc 1.71 & libprotobuf 5.29.3
+  kind: version
+  migration_number: 1
+  exclude:
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
+    - protobuf
+    - re2
+libabseil:
+- 20250127
+libgrpc:
+- "1.71"
+libprotobuf:
+- 5.29.3
+# see https://github.com/grpc/grpc/commit/14ac94d923b80650e0df55bed17be5efa0e4becd
+c_stdlib_version:   # [osx and x86_64]
+  - 10.14           # [osx and x86_64]
+migrator_ts: 1741118046.5882597
