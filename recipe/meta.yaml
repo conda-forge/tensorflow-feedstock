@@ -1,6 +1,6 @@
 {% set version = "2.18.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 0 %}
+{% set build = 1 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -57,6 +57,8 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
+  # debug
+  skip: true  # [py!=312]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
 
