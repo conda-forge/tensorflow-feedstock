@@ -460,7 +460,7 @@ outputs:
   # 2021/08/01, hmaarrfk
   # While this seems like a roundabout way of defining the package name
   # It helps the linter avoid errors on a package not having tests.
-  {% set tensorflow_cpu_gpu = "tensorflow-cpu" %}   # [cuda_compiler_version == "None" or cuda_compiler_version is undefined]
+  {% set tensorflow_cpu_gpu = "tensorflow-cpu" %}   # [cuda_compiler_version == "None"]
   {% set tensorflow_cpu_gpu = "tensorflow-gpu" %}   # [cuda_compiler_version != "None"]
   - name: {{ tensorflow_cpu_gpu }}
     build:
