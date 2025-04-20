@@ -1,14 +1,14 @@
-From f80db539ec99bf062c5e7b935d0e2391225627fc Mon Sep 17 00:00:00 2001
+From 09eff6c3c065d9e6c7316f979b90aa6848117d85 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Fri, 30 Jun 2023 08:39:32 +0000
-Subject: [PATCH 02/27] Add additional absl_synchronization linkage to gRPC
+Subject: [PATCH 02/29] Add additional absl_synchronization linkage to gRPC
 
 ---
  third_party/systemlibs/grpc.BUILD | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/third_party/systemlibs/grpc.BUILD b/third_party/systemlibs/grpc.BUILD
-index 8b703f11..417baf5d 100644
+index 0e4e862ce4c..e794699772e 100644
 --- a/third_party/systemlibs/grpc.BUILD
 +++ b/third_party/systemlibs/grpc.BUILD
 @@ -10,6 +10,7 @@ cc_library(
@@ -27,7 +27,7 @@ index 8b703f11..417baf5d 100644
      ],
      visibility = ["//visibility:public"],
  )
-@@ -38,6 +40,7 @@ cc_library(
+@@ -33,6 +35,7 @@ cc_library(
      linkopts = [
          "-lgrpc_unsecure",
          "-lgpr",

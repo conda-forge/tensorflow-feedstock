@@ -1,2 +1,10 @@
 github_actions_labels:          # [linux]
 - cirun-openstack-cpu-2xlarge   # [linux]
+
+# still needs fixes for next round of absl/grpc/protobuf
+libabseil:
+  - 20240722
+libgrpc:
+  - "1.67"
+libprotobuf:
+  - 5.28.3

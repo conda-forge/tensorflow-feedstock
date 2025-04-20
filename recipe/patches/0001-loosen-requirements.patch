@@ -1,7 +1,7 @@
-From e38b64198fe3f683895817c3685f9da939aadfd3 Mon Sep 17 00:00:00 2001
+From 3e11e83a4e6b381f17e993266cb52c67b23383b7 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 30 Dec 2021 06:57:09 +0200
-Subject: [PATCH 01/27] loosen requirements
+Subject: [PATCH 01/29] loosen requirements
 
 * Remove unused libclang requirement
 * Remove unecessary tensorflow-io-gcs-filesystem
@@ -11,14 +11,14 @@ Co-authored-by: Mark Harfouche <mark.harfouche@gmail.com>
 Co-authored-by: ngam
 Co-authored-by: Uwe L. Korn <uwelk@xhochy.com>
 ---
- tensorflow/tools/pip_package/setup.py | 6 ------
- 1 file changed, 6 deletions(-)
+ tensorflow/tools/pip_package/setup.py | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/tensorflow/tools/pip_package/setup.py b/tensorflow/tools/pip_package/setup.py
-index fb37ef9b..61f6ce1f 100644
+index f5d074a9dc4..3552878c51d 100644
 --- a/tensorflow/tools/pip_package/setup.py
 +++ b/tensorflow/tools/pip_package/setup.py
-@@ -81,7 +81,6 @@ REQUIRED_PACKAGES = [
+@@ -84,7 +84,6 @@ REQUIRED_PACKAGES = [
      'flatbuffers >= 24.3.25',
      'gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2',
      'google_pasta >= 0.1.1',
@@ -26,7 +26,7 @@ index fb37ef9b..61f6ce1f 100644
      'opt_einsum >= 2.3.2',
      'packaging',
      # pylint:disable=line-too-long
-@@ -94,8 +93,6 @@ REQUIRED_PACKAGES = [
+@@ -97,8 +96,6 @@ REQUIRED_PACKAGES = [
      'termcolor >= 1.1.0',
      'typing_extensions >= 3.6.6',
      'wrapt >= 1.11.0',
@@ -35,13 +35,11 @@ index fb37ef9b..61f6ce1f 100644
      # grpcio does not build correctly on big-endian machines due to lack of
      # BoringSSL support.
      # See https://github.com/tensorflow/tensorflow/issues/17882.
-@@ -111,9 +108,6 @@ REQUIRED_PACKAGES = [
+@@ -114,7 +111,6 @@ REQUIRED_PACKAGES = [
      # 'keras >= 2.14.0rc0, < 2.15' on the release branch after the branch cut.
-     'tensorboard >= 2.18, < 2.19',
+     'tensorboard ~= 2.19.0',
      'keras >= 3.5.0',
--    # TODO(b/367877753): Update the upper bound to <2.2.0 once the compatibility
--    # issues with numpy 2.1.0 is fixed.
--    'numpy >= 1.26.0, < 2.1.0',
+-    'numpy >= 1.26.0, < 2.2.0',
      'h5py >= 3.11.0',
-     'ml_dtypes >= 0.4.0, < 0.5.0',
+     'ml_dtypes >= 0.5.1, < 1.0.0',
  ]
