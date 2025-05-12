@@ -1,0 +1,65 @@
+migrator_ts: 1738229377
+__migrator:
+  kind:
+    version
+  use_local: true
+  migration_number:
+    1
+  build_number:
+    1
+  paused: false
+  override_cbc_keys:
+    - cuda_compiler_stub
+  operation: key_add
+  check_solvable: false
+  primary_key: cuda_compiler_version
+  ordering:
+    cuda_compiler:
+      - None
+      - nvcc
+      - cuda-nvcc
+    cuda_compiler_version:
+      - None
+      - 11.8
+      - 12.4
+      - 12.6
+      - 12.8
+  commit_message: |
+    Upgrade to CUDA 12.8
+    
+    With CUDA 12.8, the following new architectures are added `sm_100`, `sm_101` and `sm_120`.
+    To build for these architectures, maintainers will need to add these to list of architectures
+    that their package builds for.
+    
+    ref: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#new-features
+
+cuda_compiler:                 # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - cuda-nvcc                  # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.8                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_compiler_version:            # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [((linux and x86_64) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cxx_compiler_version:          # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [((linux and x86_64) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+fortran_compiler_version:      # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [((linux and x86_64) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+docker_image:                                       # [os.environ.get("BUILD_PLATFORM", "").startswith("linux-") and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  # CUDA 12 builds on CentOS 7
+  - quay.io/condaforge/linux-anvil-x86_64:cos7      # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") == "cos7"]
+  - quay.io/condaforge/linux-anvil-aarch64:cos7     # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-aarch64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") == "cos7"]
+
+  # CUDA 12 builds on AlmaLinux 8
+  - quay.io/condaforge/linux-anvil-x86_64:alma8     # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") in ("alma8", "ubi8")]
+  - quay.io/condaforge/linux-anvil-aarch64:alma8    # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-aarch64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") in ("alma8", "ubi8")]
+
+  # CUDA 12 builds on AlmaLinux 9
+  - quay.io/condaforge/linux-anvil-x86_64:alma9     # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") == "alma9"]
+  - quay.io/condaforge/linux-anvil-aarch64:alma9    # [os.environ.get("CF_CUDA_ENABLED", "False") == "True" and os.environ.get("BUILD_PLATFORM") == "linux-aarch64" and os.environ.get("DEFAULT_LINUX_VERSION", "alma9") == "alma9"]

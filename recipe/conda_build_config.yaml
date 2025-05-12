@@ -1,2 +1,9 @@
 github_actions_labels:          # [linux]
 - cirun-openstack-cpu-2xlarge   # [linux]
+# Remove once we start the abseil migration
+libabseil:
+- '20240722'
+libgrpc:
+- '1.67'
+libprotobuf:
+- 5.28.3

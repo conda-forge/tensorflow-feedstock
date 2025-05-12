@@ -1,0 +1,57 @@
+From a2b525b41e7f37f899144ace54d14a1849a2b18e Mon Sep 17 00:00:00 2001
+From: "Patrick J. LoPresti" <lopresti@gmail.com>
+Date: Thu, 3 Apr 2025 10:44:00 -0700
+Subject: [PATCH] Adapt commit 5467ee9 from XLA to TensorFlow.
+
+TensorFlow has a build failure with newer CUDA. The problem has been
+fixed in XLA (openxla/xla#16095 and TensorFlow commit 5457ee9). This
+change adapts this commit to tensorflow/core/kernels/gpu_prim.h.
+
+Fixes #90562.
+---
+ WORKSPACE.rej                                 | 20 +++++++++++++
+ tensorflow/core/kernels/gpu_prim.h            | 13 ++++----
+ .../toolchains/python/python_repo.bzl.rej     | 11 +++++++
+ tensorflow/workspace2.bzl.rej                 | 16 ++++++++++
+ ...rosstool_wrapper_driver_is_not_gcc.tpl.rej | 11 +++++++
+ .../gpus/find_cuda_config.py.gz.base64.rej    |  4 +++
+ third_party/gpus/find_cuda_config.py.rej      | 30 +++++++++++++++++++
+ 7 files changed, 97 insertions(+), 8 deletions(-)
+ create mode 100644 WORKSPACE.rej
+ create mode 100644 tensorflow/tools/toolchains/python/python_repo.bzl.rej
+ create mode 100644 tensorflow/workspace2.bzl.rej
+ create mode 100644 third_party/gpus/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc.tpl.rej
+ create mode 100644 third_party/gpus/find_cuda_config.py.gz.base64.rej
+ create mode 100644 third_party/gpus/find_cuda_config.py.rej
+
+diff --git a/tensorflow/core/kernels/gpu_prim.h b/tensorflow/core/kernels/gpu_prim.h
+index bef22b50ada12c..f80bd54d4a1779 100644
+--- a/tensorflow/core/kernels/gpu_prim.h
++++ b/tensorflow/core/kernels/gpu_prim.h
+@@ -44,10 +44,9 @@ __device__ __forceinline__ void ThreadStoreVolatilePtr<Eigen::half>(
+       Eigen::numext::bit_cast<uint16_t>(val);
+ }
+ 
+-template <>
+-__device__ __forceinline__ Eigen::half ThreadLoadVolatilePointer<Eigen::half>(
+-    Eigen::half *ptr, Int2Type<true> /*is_primitive*/) {
+-  uint16_t result = *reinterpret_cast<volatile uint16_t *>(ptr);
++__device__ __forceinline__ Eigen::half ThreadLoadVolatilePointer(
++    const Eigen::half *ptr, Int2Type<true> /*is_primitive*/) {
++  uint16_t result = *reinterpret_cast<volatile const uint16_t *>(ptr);
+   return Eigen::numext::bit_cast<Eigen::half>(result);
+ }
+ 
+@@ -59,10 +58,8 @@ __device__ __forceinline__ void ThreadStoreVolatilePtr<Eigen::bfloat16>(
+       Eigen::numext::bit_cast<uint16_t>(val);
+ }
+ 
+-template <>
+-__device__ __forceinline__ Eigen::bfloat16
+-ThreadLoadVolatilePointer<Eigen::bfloat16>(Eigen::bfloat16 *ptr,
+-                                           Int2Type<true> /*is_primitive*/) {
++__device__ __forceinline__ Eigen::bfloat16 ThreadLoadVolatilePointer(
++    Eigen::bfloat16 *ptr, Int2Type<true> /*is_primitive*/) {
+   uint16_t result = *reinterpret_cast<volatile uint16_t *>(ptr);
+   return Eigen::numext::bit_cast<Eigen::bfloat16>(result);
+ }

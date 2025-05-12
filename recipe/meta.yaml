@@ -50,6 +50,10 @@ source:
       # https://github.com/tensorflow/tensorflow/pull/86413
       - patches/0029-Avoid-linking-with-internal-nvrtc.patch
       - patches/0030-remove-dependencies-to-libcuda.patch
+      - patches/0031-bump-h5py-req.patch     # [aarch64]
+      # backport https://github.com/tensorflow/tensorflow/pull/90563 (applies to cuda-12.8, any platform)
+      - patches/0032-gpu_prim-error.patch
+      - patches/0034-build-dirty.patch  # [linux_aarch64 and target_platform != build_platform]
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
@@ -59,6 +63,10 @@ build:
   skip: true  # [win]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
+  # aarch64 support added only for CUDA 12.8+
+  skip: true  # [cuda_compiler_version == "12.6" and target_platform == "linux-aarch64"]
+  # only enable CUDA 12.8 for aarch64 at this time.
+  skip: true  # [cuda_compiler_version == "12.8" and target_platform != "linux-aarch64"]
 
 requirements:
   build:
@@ -77,11 +85,15 @@ requirements:
     - onednn-cpu-threadpool                  # [build_platform != target_platform]
     - pybind11                               # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
+    - libcurl                                # [build_platform != target_platform]
+    - zlib                                   # [build_platform != target_platform]
+    - pkg-config
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}                 # [cuda_compiler_version != "None"]
     - bazel 6.*
+    - bazel-toolchain
     - libgrpc
     - libprotobuf
     - nasm
@@ -334,6 +346,7 @@ outputs:
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
         - {{ compiler('cuda') }}                   # [cuda_compiler_version != "None"]
         - bazel 6.*
+        - bazel-toolchain
         - python                                   # [build_platform != target_platform]
         - cross-python_{{ target_platform }}       # [build_platform != target_platform]
         - libabseil                                # [build_platform != target_platform]
@@ -461,7 +474,7 @@ outputs:
   # 2021/08/01, hmaarrfk
   # While this seems like a roundabout way of defining the package name
   # It helps the linter avoid errors on a package not having tests.
-  {% set tensorflow_cpu_gpu = "tensorflow-cpu" %}   # [cuda_compiler_version == "None" or cuda_compiler_version is undefined]
+  {% set tensorflow_cpu_gpu = "tensorflow-cpu" %}   # [cuda_compiler_version == "None"]
   {% set tensorflow_cpu_gpu = "tensorflow-gpu" %}   # [cuda_compiler_version != "None"]
   - name: {{ tensorflow_cpu_gpu }}
     build:
