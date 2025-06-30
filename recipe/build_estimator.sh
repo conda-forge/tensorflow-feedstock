@@ -4,7 +4,7 @@ set -exuo pipefail
 
 pushd tensorflow-estimator
 
-WHEEL_DIR=${PWD}/wheel_dir
+WHEEL_DIR=${PWD}/wheel_dir${PY_VER}
 mkdir -p ${WHEEL_DIR}
 if [[ "${build_platform}" == linux-* ]]; then
   $RECIPE_DIR/add_py_toolchain.sh

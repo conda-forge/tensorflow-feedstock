@@ -65,12 +65,12 @@ build:
   skip: true  # [win]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
-  skip: true  # [microarch_level != 3 or py != 312]
+  skip: true  # [cuda_compiler_version != "None" or not linux64 or microarch_level != 3]
 
 requirements:
   build:
     - perl                                   # [linux]
-    - python                                 # [build_platform != target_platform]
+    - python 3.12.*                          # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - nsync                                  # [build_platform != target_platform]
@@ -115,7 +115,7 @@ requirements:
     - libcusparse-dev   # [(cuda_compiler_version or "").startswith("12")]
     - libnvjitlink-dev  # [(cuda_compiler_version or "").startswith("12")]
     # conda build requirements
-    - python
+    - python 3.12.*
     - pip
     - setuptools
     - packaging

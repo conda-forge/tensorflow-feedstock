@@ -62,7 +62,7 @@ index 00000000..18a1ddf8
 +         "//visibility:private",
 +     ],
 ++    copts = [
-++	"-I@@PREFIX@@/include/python@@PY_VER@@",
+++	"-I@@PREFIX@@/include/python",
 ++    ],
 +     deps = [
 +         "@com_google_absl//absl/container:flat_hash_map",
