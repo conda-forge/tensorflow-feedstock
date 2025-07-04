@@ -114,8 +114,9 @@ requirements:
     - libcufft-dev      # [(cuda_compiler_version or "").startswith("12")]
     - libcusparse-dev   # [(cuda_compiler_version or "").startswith("12")]
     - libnvjitlink-dev  # [(cuda_compiler_version or "").startswith("12")]
-    # conda build requirements
+    # If 3.12 is changed, edit recipe/build_pkg.sh too
     - python 3.12.*
+    # conda build requirements
     - pip
     - setuptools
     - packaging
