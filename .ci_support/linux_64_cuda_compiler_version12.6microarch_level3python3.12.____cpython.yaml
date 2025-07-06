@@ -33,17 +33,17 @@ github_actions_labels:
 icu:
 - '75'
 libabseil:
-- '20240722'
+- '20250512'
 libcurl:
 - '8'
 libgrpc:
-- '1.67'
+- '1.73'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 5.28.3
+- 6.31.1
 microarch_level:
 - '3'
 nccl:
@@ -71,8 +71,6 @@ tensorflow:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - cuda_compiler
   - cuda_compiler_version
-  - docker_image
 zlib:
 - '1'
