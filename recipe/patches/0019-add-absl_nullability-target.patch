@@ -1,7 +1,7 @@
 From 658f2abc90327d50689f33a98269342cbc683762 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 12 May 2024 19:30:44 +1100
-Subject: [PATCH 19/29] add absl_nullability target
+Subject: [PATCH 19/32] add absl_nullability target
 
 ---
  third_party/absl/system.absl.base.BUILD | 8 ++++++++

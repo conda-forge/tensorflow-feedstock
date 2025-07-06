@@ -1,7 +1,7 @@
 From c89fcbc0cf8dfef18fe8d92a3ac61628b0bc692e Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:59:28 +0200
-Subject: [PATCH 05/29] Add absl_log systemlib
+Subject: [PATCH 05/32] Add absl_log systemlib
 
 ---
  third_party/absl/system.absl.log.BUILD | 22 ++++++++++++++++++++++

@@ -1,7 +1,7 @@
 From e0646f6172ede357e16d3cf2c1ad7594ec64ba6a Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Sun, 2 Feb 2025 08:32:46 -0500
-Subject: [PATCH 28/29] Avoid linking with internal nvrtc
+Subject: [PATCH 28/32] Avoid linking with internal nvrtc
 
 ---
  third_party/gpus/cuda/hermetic/cuda_nvrtc.BUILD.tpl          | 5 -----

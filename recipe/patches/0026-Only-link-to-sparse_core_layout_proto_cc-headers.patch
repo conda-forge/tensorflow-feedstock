@@ -1,7 +1,7 @@
 From 6a35681aec328b683d70cfc6ac37a95ee779ce28 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 16 Jul 2024 17:18:23 +0200
-Subject: [PATCH 26/29] Only link to sparse_core_layout_proto_cc headers
+Subject: [PATCH 26/32] Only link to sparse_core_layout_proto_cc headers
 
 ---
  tensorflow/core/tpu/kernels/BUILD | 2 +-

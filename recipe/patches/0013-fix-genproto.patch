@@ -1,7 +1,7 @@
 From 934bda8e573d192babe5cc9e2a6f6110bbdccee2 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Thu, 16 Nov 2023 06:38:27 +0000
-Subject: [PATCH 13/29] fix genproto
+Subject: [PATCH 13/32] fix genproto
 
 ---
  third_party/xla/xla/tsl/platform/default/build_config.bzl | 5 +----

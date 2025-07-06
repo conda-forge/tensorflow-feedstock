@@ -1,7 +1,7 @@
 From b3c253724f13616d81027b4c1c946665f01d8d64 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Mon, 13 May 2024 09:41:09 +1100
-Subject: [PATCH 22/29] add absl_crc32c targets
+Subject: [PATCH 22/32] add absl_crc32c targets
 
 ---
  third_party/absl/system.absl.crc.BUILD | 70 ++++++++++++++++++++++++++

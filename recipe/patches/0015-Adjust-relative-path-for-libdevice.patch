@@ -1,7 +1,7 @@
 From 0a9eb70ec08a3e8522fb452eb1859fd7044179d5 Mon Sep 17 00:00:00 2001
 From: Mark Harfouche <mark.harfouche@gmail.com>
 Date: Sat, 27 Jan 2024 22:27:56 -0500
-Subject: [PATCH 15/29] Adjust relative path for libdevice
+Subject: [PATCH 15/32] Adjust relative path for libdevice
 
 ---
  third_party/xla/xla/tsl/platform/default/cuda_root_path.cc | 2 +-

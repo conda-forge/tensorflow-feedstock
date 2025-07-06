@@ -1,7 +1,7 @@
 From 04167d68c1106007561a5b9a201abe6f779aa0be Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 12 May 2024 22:46:04 +1100
-Subject: [PATCH 21/29] add absl_die_if_null target
+Subject: [PATCH 21/32] add absl_die_if_null target
 
 ---
  third_party/absl/system.absl.log.BUILD | 16 ++++++++++++++++
