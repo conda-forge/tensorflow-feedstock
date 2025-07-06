@@ -1,0 +1,53 @@
+From 436e2d3ef04cb57b464b31354e326c17546755e8 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Sun, 6 Jul 2025 17:32:42 -0400
+Subject: [PATCH 31/31] Update linkages for new absl organization
+
+---
+ third_party/absl/system.absl.types.BUILD                        | 2 --
+ .../third_party/tsl/third_party/absl/system.absl.types.BUILD    | 2 --
+ 2 files changed, 4 deletions(-)
+
+diff --git a/third_party/absl/system.absl.types.BUILD b/third_party/absl/system.absl.types.BUILD
+index db94fc99..623c0e96 100644
+--- a/third_party/absl/system.absl.types.BUILD
++++ b/third_party/absl/system.absl.types.BUILD
+@@ -30,7 +30,6 @@ cc_library(
+ 
+ cc_library(
+     name = "bad_optional_access",
+-    linkopts = ["-labsl_bad_optional_access"],
+     deps = [
+         "//absl/base:raw_logging_internal",
+     ],
+@@ -38,7 +37,6 @@ cc_library(
+ 
+ cc_library(
+     name = "bad_variant_access",
+-    linkopts = ["-labsl_bad_variant_access"],
+     deps = [
+         "//absl/base:raw_logging_internal",
+     ],
+diff --git a/third_party/xla/third_party/tsl/third_party/absl/system.absl.types.BUILD b/third_party/xla/third_party/tsl/third_party/absl/system.absl.types.BUILD
+index db94fc99..623c0e96 100644
+--- a/third_party/xla/third_party/tsl/third_party/absl/system.absl.types.BUILD
++++ b/third_party/xla/third_party/tsl/third_party/absl/system.absl.types.BUILD
+@@ -30,7 +30,6 @@ cc_library(
+ 
+ cc_library(
+     name = "bad_optional_access",
+-    linkopts = ["-labsl_bad_optional_access"],
+     deps = [
+         "//absl/base:raw_logging_internal",
+     ],
+@@ -38,7 +37,6 @@ cc_library(
+ 
+ cc_library(
+     name = "bad_variant_access",
+-    linkopts = ["-labsl_bad_variant_access"],
+     deps = [
+         "//absl/base:raw_logging_internal",
+     ],
+-- 
+2.43.0
+
