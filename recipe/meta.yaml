@@ -238,7 +238,7 @@ outputs:
         - numpy
         - opt_einsum >=2.3.2
         # simplified compared to upstream due to constraints arising through libprotobuf
-        - protobuf >=5.26,<6
+        - protobuf >=5.28
         - python-flatbuffers >=24.3.25
         - requests >=2.21.0,<3
         - six >=1.12
@@ -259,7 +259,7 @@ outputs:
         - h5py >=3.11
         - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - opt_einsum >=2.3.2
-        - protobuf >=5.26,<6
+        - protobuf >=5.26
         - python-flatbuffers >=24.3.25
         - requests >=2.21.0,<3
         - six >=1.12
