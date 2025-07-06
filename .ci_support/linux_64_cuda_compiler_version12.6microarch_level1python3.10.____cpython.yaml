@@ -9,7 +9,7 @@ c_stdlib_version:
 cdt_name:
 - conda
 channel_sources:
-- conda-forge
+- mark.harfouche,conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
