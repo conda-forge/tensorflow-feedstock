@@ -62,8 +62,10 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
-  # The following skip can be removed when the absl::StrFormat build issues are fixed.
-  skip: true  # [cuda_compiler_version == "11.8"]
+  # hmaarrfk -- temporary for now, just don't build out the cuda matrix while we debug
+  skip: true  # [cuda_compiler_version != "None"]
+  # hmaarrfk -- temporary for now, just reduce the build matrix while we troubleshoot
+  skip: true  # [py!=312]
 
 requirements:
   build:
