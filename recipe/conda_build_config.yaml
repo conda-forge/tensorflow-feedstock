@@ -3,3 +3,11 @@ github_actions_labels:          # [linux]
 microarch_level:
 - 1
 - 3   # [linux and x86_64]
+
+# hmaarrfk -- 2025/07/06
+# Temporary to work around the fact that Bazel 6.X still doesn't support
+# the latest abseil on conda-forge
+# See discussion in
+# https://github.com/conda-forge/tensorflow-feedstock/pull/433#issuecomment-3041338048
+channel_sources:
+- mark.harfouche,conda-forge
