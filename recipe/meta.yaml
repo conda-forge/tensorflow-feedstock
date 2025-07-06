@@ -58,6 +58,8 @@ source:
       # adjust patch 0004 for newer absl -- hmaarrfk - 2025/07/06
       - patches/0030-Fixup-pybind11_protobuf.patch
       - patches/0031-Update-linkages-for-new-absl-organization.patch
+      # Already included in the release after 2.19.0
+      - patches/0032-fix-mlir-trivial-constructor.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
