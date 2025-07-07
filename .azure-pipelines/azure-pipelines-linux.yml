@@ -8,6 +8,10 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
+      linux_64_cuda_compiler_version12.6python3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_64_cuda_compiler_versionNonepython3.12.____cpython:
         CONFIG: linux_64_cuda_compiler_versionNonepython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
