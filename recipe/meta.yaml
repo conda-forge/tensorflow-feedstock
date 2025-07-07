@@ -67,8 +67,6 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
-  # hmaarrfk -- temporary for now, just don't build out the cuda matrix while we debug
-  skip: true  # [cuda_compiler_version != "None"]
   # hmaarrfk -- temporary for now, just reduce the build matrix while we troubleshoot
   skip: true  # [py!=312]
 
