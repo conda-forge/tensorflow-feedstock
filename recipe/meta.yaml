@@ -1,6 +1,6 @@
 {% set version = "2.18.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 0 %}
+{% set build = 1 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -69,7 +69,7 @@ build:
 requirements:
   build:
     - perl                                   # [linux]
-    - python                                 # [build_platform != target_platform]
+    - python 3.12.*                          # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - nsync                                  # [build_platform != target_platform]
@@ -113,8 +113,9 @@ requirements:
     - libcufft-dev      # [(cuda_compiler_version or "").startswith("12")]
     - libcusparse-dev   # [(cuda_compiler_version or "").startswith("12")]
     - libnvjitlink-dev  # [(cuda_compiler_version or "").startswith("12")]
+    # If 3.12 is changed, edit recipe/build_pkg.sh too
+    - python 3.12.*
     # conda build requirements
-    - python
     - pip
     - setuptools
     - packaging
@@ -155,6 +156,48 @@ requirements:
     - ml_dtypes >={{ ml_dtypes_version }},<0.5
 
 outputs:
+  - name: libtensorflow_framework
+    script: cp_libtensorflow_framework.sh
+    build:
+      skip: true  # [win]
+      string: cuda{{ cuda_compiler_version | replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+      string: cpu_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
+      run_exports:
+        # tensorflow makes no ABI guarantees, need to pin to what we built with
+        - libtensorflow_framework {{ version }}
+    requirements:
+      # build requirements needs to pick up the compiler run_exports
+      build:
+        - {{ compiler('c') }}
+        - {{ stdlib("c") }}
+        - {{ compiler('cxx') }}
+        # Keep the cuda compiler here since it helps package solvers
+        # decide on the cuda variant
+        # https://github.com/conda-forge/tensorflow-feedstock/issues/162
+        - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
+        - x86_64-microarch-level  {{ microarch_level }}  # [linux and x86_64]
+      # host requirements to pick up run_exports
+      host:
+        - libabseil
+        - giflib
+        - libgrpc
+        - icu
+        - libjpeg-turbo
+        - libcurl
+        - libpng
+        - libprotobuf
+        - openssl
+        - snappy
+        - sqlite
+        - zlib
+      run:
+        # avoid that people without GPUs needlessly download ~200-300MB
+        - __cuda  # [cuda_compiler_version != "None"]
+    test:
+      commands:
+        - test -f $PREFIX/lib/libtensorflow_framework${SHLIB_EXT}  # [cuda_compiler_version == "None"]
+        - test ! -f $PREFIX/lib/libtensorflow${SHLIB_EXT}  # [cuda_compiler_version == "None"]
+
   # 2021/12/29: hmaarrfk
   # as of tensorflow 2.7.0 we need the tensorflow-base package to break
   # circular dependency when buliding tensorflow extra packages This annoying
@@ -249,6 +292,8 @@ outputs:
         # TF-API needs to move in sync
         - tensorboard >=2.18,<2.19
         - keras >=3.0
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
+        - {{ pin_subpackage("libtensorflow_cc", exact=True) }}
       run:
         - python
         - packaging
@@ -274,6 +319,8 @@ outputs:
         - __cuda                                                  # [cuda_compiler_version != "None"]
         # https://github.com/conda-forge/tensorflow-feedstock/issues/296#issuecomment-1835781851
         - cuda-nvcc-tools                                         # [(cuda_compiler_version or "").startswith("12")]
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
+        - {{ pin_subpackage("libtensorflow_cc", exact=True) }}
     # TODO: decide on the name of the package
     # run_constrained:
     #   What is the difference between these two packages?
@@ -406,9 +453,11 @@ outputs:
         - snappy
         - sqlite
         - zlib
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
       run:
         # avoid that people without GPUs needlessly download ~200-300MB
         - __cuda  # [cuda_compiler_version != "None"]
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
     test:
       files:
         - test_libtensorflow.sh
@@ -455,10 +504,12 @@ outputs:
         - snappy
         - sqlite
         - zlib
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
       run:
         - libml_dtypes-headers >={{ libml_dtypes_version }},<0.6
         # avoid that people without GPUs needlessly download ~200-300MB
         - __cuda  # [cuda_compiler_version != "None"]
+        - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
     test:
       files:
         - test_libtensorflow_cc.sh
