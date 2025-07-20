@@ -1,0 +1,8 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for flatbuffers 25.2.10
+  kind: version
+  migration_number: 1
+flatbuffers:
+- 25.2.10
+migrator_ts: 1747133790.3211389
