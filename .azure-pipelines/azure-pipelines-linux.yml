@@ -8,12 +8,12 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13python3.12.____cpython:
-        CONFIG: linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13python3.12.____cpython
+      linux_64_cuda_compiler_version12.9python3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.9python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_c_compiler_version14cuda_compiler_versionNonecxx_compiler_version14python3.12.____cpython:
-        CONFIG: linux_64_c_compiler_version14cuda_compiler_versionNonecxx_compiler_version14python3.12.____cpython
+      linux_64_cuda_compiler_versionNonepython3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_versionNonepython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
   timeoutInMinutes: 360
