@@ -2,10 +2,5 @@ github_actions_labels:          # [linux]
 - cirun-openstack-cpu-2xlarge   # [linux]
 microarch_level:
 - 1
-- 3   # [linux and x86_64]
-libabseil:
-- '20240722'
-libgrpc:
-- '1.67'
-libprotobuf:
-- 5.28.3
+# hmaarrfk -- temporary, uncomment during actual build
+# - 3   # [linux and x86_64]

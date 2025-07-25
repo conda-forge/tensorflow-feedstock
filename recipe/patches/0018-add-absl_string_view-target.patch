@@ -1,14 +1,14 @@
-From 918451e9f02087c2891d58d4969216a3a702c2ac Mon Sep 17 00:00:00 2001
+From 2f189e7d3773d872a0734bfa225882964a24a49f Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 12 May 2024 18:45:03 +1100
-Subject: [PATCH 18/27] add absl_string_view target
+Subject: [PATCH 18/29] add absl_string_view target
 
 ---
  third_party/absl/system.absl.strings.BUILD | 14 +++++++++++++-
  1 file changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/third_party/absl/system.absl.strings.BUILD b/third_party/absl/system.absl.strings.BUILD
-index d04776c9..9f537def 100644
+index d04776c98bf..9f537def3d7 100644
 --- a/third_party/absl/system.absl.strings.BUILD
 +++ b/third_party/absl/system.absl.strings.BUILD
 @@ -2,6 +2,18 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
