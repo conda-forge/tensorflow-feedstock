@@ -1,7 +1,7 @@
-From 70bda39b9de02070156308d9e4070c9d0e651c38 Mon Sep 17 00:00:00 2001
+From 397c47bbaab3acf15188e50c18bf7dd9af77534f Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 15 Nov 2023 10:32:41 +0000
-Subject: [PATCH 12/27] Add protobuf toolchain
+Subject: [PATCH 12/39] Add protobuf toolchain
 
 ---
  third_party/systemlibs/protobuf.BUILD | 14 ++++++++++++++

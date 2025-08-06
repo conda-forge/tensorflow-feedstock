@@ -14,7 +14,7 @@ jobs:
       osx_arm64_:
         CONFIG: osx_arm64_
         UPLOAD_PACKAGES: 'True'
-  timeoutInMinutes: 1
+  timeoutInMinutes: 360
   variables: {}
 
   steps:

@@ -1,0 +1,29 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for libabseil 20250512, libgrpc 1.73 & libprotobuf 6.31.1
+  kind: version
+  migration_number: 1
+  exclude:
+    # core deps
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
+    # required for building/testing
+    - protobuf
+    - re2
+    # bazel stack
+    - bazel
+    - grpc_java_plugin
+    - singlejar
+libabseil:
+- 20250512
+libgrpc:
+- "1.73"
+libprotobuf:
+- 6.31.1
+# we need to leave this migration open until we're ready to move the global baseline, see
+# https://github.com/conda-forge/conda-forge.github.io/issues/2467; grpc 1.72 requires 11.0,
+# see https://github.com/grpc/grpc/commit/f122d248443c81592e748da1adb240cbf0a0231c
+c_stdlib_version:   # [osx]
+  - 11.0            # [osx]
+migrator_ts: 1748506837.6039238
