@@ -62,7 +62,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: true  # [win]
+  skip: true  # [win or not osx]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
 
