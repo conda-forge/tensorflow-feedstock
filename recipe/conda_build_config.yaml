@@ -3,9 +3,19 @@ github_actions_labels:          # [linux]
 microarch_level:
 - 1
 - 3   # [linux and x86_64]
+# Remove once we start the abseil migration
 libabseil:
 - '20240722'
 libgrpc:
 - '1.67'
 libprotobuf:
 - 5.28.3
+
+# problem with vendored xnnpack on with gcc 14 at time of tensorflow 2.18 - check again for future releases
+cxx_compiler_version:  # [linux]
+  - 13  # [linux]
+  - 13  # [linux]
+c_compiler_version:  # [linux]
+  - 13  # [linux]
+  - 13  # [linux]
+
