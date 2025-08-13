@@ -1,6 +1,6 @@
-{% set version = "2.18.0" %}
+{% set version = "2.20.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 1 %}
+{% set build = 0 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -23,7 +23,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: d7876f4bb0235cac60eb6316392a7c48676729860da1ab659fb440379ad5186d
+    sha256: a640d1f97be316a09301dfc9347e3d929ad4d9a2336e3ca23c32c93b0ff7e5d0
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
@@ -523,7 +523,7 @@ outputs:
   - name: tensorflow-cpu
     build:
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      skip: True  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler_version != "None"]
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
@@ -534,7 +534,7 @@ outputs:
   - name: tensorflow-gpu
     build:
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      skip: True  # [cuda_compiler_version == "None"]
+      skip: true  # [cuda_compiler_version == "None"]
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
@@ -544,7 +544,7 @@ outputs:
 
   - name: tensorflow-sse3
     build:
-      skip: True  # [(not x86_64) or microarch_level != 1]
+      skip: true  # [(not x86_64) or microarch_level != 1]
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
@@ -554,7 +554,7 @@ outputs:
 
   - name: tensorflow-avx2
     build:
-      skip: True  # [(not x86_64) or microarch_level != 3]
+      skip: true  # [(not x86_64) or microarch_level != 3]
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
@@ -564,7 +564,7 @@ outputs:
 
   - name: tensorflow-avx512
     build:
-      skip: True  # [(not x86_64) or microarch_level != 4]
+      skip: true  # [(not x86_64) or microarch_level != 4]
     requirements:
       run:
         - {{ pin_subpackage("tensorflow", exact=True) }}
