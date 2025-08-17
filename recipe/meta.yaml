@@ -67,6 +67,8 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
+  # DEBUG: reduce matrix
+  skip: true  # [microarch_level != 1]
 
 requirements:
   build:
