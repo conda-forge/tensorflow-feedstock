@@ -15,7 +15,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.6'
 cudnn:
 - '9'
 cxx_compiler:
@@ -25,7 +25,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
-- 24.12.23
+- 25.2.10
 giflib:
 - '5.2'
 github_actions_labels:
@@ -33,21 +33,21 @@ github_actions_labels:
 icu:
 - '75'
 libabseil:
-- '20240722'
+- '20250512'
 libcurl:
 - '8'
 libgrpc:
-- '1.67'
+- '1.73'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 5.28.3
+- 6.31.1
 libtensorflow_cc:
 - '2.16'
 microarch_level:
-- '3'
+- '1'
 nccl:
 - '2'
 numpy:
