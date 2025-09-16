@@ -1,0 +1,44 @@
+From de476257d4854677ac636cc0f9bcd5d397b01a91 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sun, 12 May 2024 18:45:03 +1100
+Subject: [PATCH 11/34] add absl_string_view target
+
+---
+ third_party/absl/system.absl.strings.BUILD | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/third_party/absl/system.absl.strings.BUILD b/third_party/absl/system.absl.strings.BUILD
+index d04776c98bf..9f537def3d7 100644
+--- a/third_party/absl/system.absl.strings.BUILD
++++ b/third_party/absl/system.absl.strings.BUILD
+@@ -2,6 +2,18 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
+ 
+ package(default_visibility = ["//visibility:public"])
+ 
++cc_library(
++    name = "string_view",
++    linkopts = ["-labsl_string_view"],
++    deps = [
++        "//absl/base",
++        "//absl/base:config",
++        "//absl/base:core_headers",
++        "//absl/base:nullability",
++        "//absl/base:throw_delegate",
++    ],
++)
++
+ cc_library(
+     name = "strings",
+     linkopts = ["-labsl_strings"],
+@@ -26,7 +38,7 @@ cc_library(
+ 
+ cc_library(
+     name = "cord",
+-    linkopts = ["-labsl_cord", "-labsl_cordz_functions", "-labsl_cordz_info"],
++    linkopts = ["-labsl_cord", "-labsl_cordz_functions", "-labsl_cordz_info", "-labsl_cord_internal"],
+     deps = [
+         ":str_format",
+         "//absl/container:compressed_tuple",
+-- 
+2.47.1
+

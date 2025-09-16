@@ -1,0 +1,117 @@
+From 7b456f619de6bea20931d09458015b401c439140 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 14 Jul 2025 15:35:54 +0800
+Subject: [PATCH 24/34] third_party/ducc: fix ambiguous failure
+
+...
+bazel-out/k8-opt/bin/external/ducc/_virtual_includes/fft/ducc/src/ducc0/fft/fftnd_impl.h:1393:20: error: call of '(ducc0::detail_mav::vmav<std::complex<float>, 2>) (long unsigned int&, size_t&)' is ambiguous
+ 1393 |                 tmp(i,j) *= conj(roots[i*j]);
+      |                 ~~~^~~~~
+In file included from bazel-out/k8-opt/bin/external/ducc/_virtual_includes/fft/ducc/src/ducc0/fft/fft.h:65,
+                 from external/ducc/google/fft.cc:26:
+external/ducc/src/ducc0/infra/mav.h:803:41: note: there are 2 candidates
+  803 | template<typename T, size_t ndim> class vmav: public cmav<T, ndim>
+      |                                         ^~~~
+external/ducc/src/ducc0/infra/mav.h:765:39: note: candidate 1: 'const T& ducc0::detail_mav::cmav<T, ndim>::operator()(Ns ...) const [with Ns = {long unsigned int, long unsigned int}; T = std::complex<float>; long unsigned int ndim = 2]'
+  765 |     template<typename... Ns> const T &operator()(Ns... ns) const
+      |                                       ^~~~~~~~
+external/ducc/src/ducc0/infra/mav.h:856:33: note: candidate 2: 'T& ducc0::detail_mav::vmav<T, ndim>::operator()(Ns ...) const [with Ns = {long unsigned int, long unsigned int}; T = std::complex<float>; long unsigned int ndim = 2]'
+  856 |     template<typename... Ns> T &operator()(Ns... ns) const
+...
+
+Upstream-Status: Pending
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ .../ducc/0001-fix-ambiguous-failure.patch     | 51 +++++++++++++++++++
+ third_party/ducc/ducc.BUILD                   |  1 +
+ third_party/ducc/workspace.bzl                |  3 ++
+ 3 files changed, 55 insertions(+)
+ create mode 100644 third_party/ducc/0001-fix-ambiguous-failure.patch
+
+diff --git a/third_party/ducc/0001-fix-ambiguous-failure.patch b/third_party/ducc/0001-fix-ambiguous-failure.patch
+new file mode 100644
+index 00000000000..2abb2848952
+--- /dev/null
++++ b/third_party/ducc/0001-fix-ambiguous-failure.patch
+@@ -0,0 +1,51 @@
++From e297a09e813aa001be02737bddd2a7a1555518a7 Mon Sep 17 00:00:00 2001
++From: Hongxu Jia <hongxu.jia@windriver.com>
++Date: Mon, 14 Jul 2025 15:21:20 +0800
++Subject: [PATCH] fix ambiguous failure
++
++...
++bazel-out/k8-opt/bin/external/ducc/_virtual_includes/fft/ducc/src/ducc0/fft/fftnd_impl.h:1393:20: error: call of '(ducc0::detail_mav::vmav<std::complex<float>, 2>) (long unsigned int&, size_t&)' is ambiguous
++ 1393 |                 tmp(i,j) *= conj(roots[i*j]);
++      |                 ~~~^~~~~
++In file included from bazel-out/k8-opt/bin/external/ducc/_virtual_includes/fft/ducc/src/ducc0/fft/fft.h:65,
++                 from external/ducc/google/fft.cc:26:
++external/ducc/src/ducc0/infra/mav.h:803:41: note: there are 2 candidates
++  803 | template<typename T, size_t ndim> class vmav: public cmav<T, ndim>
++      |                                         ^~~~
++external/ducc/src/ducc0/infra/mav.h:765:39: note: candidate 1: 'const T& ducc0::detail_mav::cmav<T, ndim>::operator()(Ns ...) const [with Ns = {long unsigned int, long unsigned int}; T = std::complex<float>; long unsigned int ndim = 2]'
++  765 |     template<typename... Ns> const T &operator()(Ns... ns) const
++      |                                       ^~~~~~~~
++external/ducc/src/ducc0/infra/mav.h:856:33: note: candidate 2: 'T& ducc0::detail_mav::vmav<T, ndim>::operator()(Ns ...) const [with Ns = {long unsigned int, long unsigned int}; T = std::complex<float>; long unsigned int ndim = 2]'
++  856 |     template<typename... Ns> T &operator()(Ns... ns) const
++...
++
++Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
++---
++ src/ducc0/infra/mav.h | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/src/ducc0/infra/mav.h b/src/ducc0/infra/mav.h
++index 73f0441..87a9bc9 100644
++--- a/src/ducc0/infra/mav.h
+++++ b/src/ducc0/infra/mav.h
++@@ -640,7 +640,7 @@ template<typename T> class vfmav: public cfmav<T>
++ 
++     T *data() const
++      { return const_cast<T *>(tbuf::d); }
++-    template<typename I> T &raw(I i) const
+++    template<typename I> const T &raw(I i) const
++       { return data()[i]; }
++ 
++     // no-op. Needed for template tricks.
++@@ -853,7 +853,7 @@ template<typename T, size_t ndim> class vmav: public cmav<T, ndim>
++     vfmav<T> to_fmav() const { return operator vfmav<T>(); }
++ 
++     using parent::operator();
++-    template<typename... Ns> T &operator()(Ns... ns) const
+++    template<typename... Ns> const T &operator()(Ns... ns) const
++       { return const_cast<T &>(parent::operator()(ns...)); }
++ 
++     template<size_t nd2> vmav<T,nd2> subarray(const vector<slice> &slices) const
++-- 
++2.34.1
++
+diff --git a/third_party/ducc/ducc.BUILD b/third_party/ducc/ducc.BUILD
+index a1c4956d0a7..c82f1247629 100644
+--- a/third_party/ducc/ducc.BUILD
++++ b/third_party/ducc/ducc.BUILD
+@@ -9,6 +9,7 @@ DUCC_COPTS = [
+     "-frtti",
+     "-fexceptions",
+     "-ffp-contract=fast",
++    "-fpermissive",
+ ]
+ 
+ # This library exposes the raw DUCC fft API.  It should be used
+diff --git a/third_party/ducc/workspace.bzl b/third_party/ducc/workspace.bzl
+index 99c8b14cd9f..0168c5e9886 100644
+--- a/third_party/ducc/workspace.bzl
++++ b/third_party/ducc/workspace.bzl
+@@ -11,6 +11,9 @@ def repo():
+         sha256 = DUCC_SHA256,
+         urls = tf_mirror_urls("https://gitlab.mpcdf.mpg.de/mtr/ducc/-/archive/{commit}/ducc-{commit}.tar.gz".format(commit = DUCC_COMMIT)),
+         build_file = "//third_party/ducc:ducc.BUILD",
++        patch_file = [
++            "//third_party/ducc:0001-fix-ambiguous-failure.patch",
++        ],
+         link_files = {
+             "//third_party/ducc:ducc0_custom_lowlevel_threading.h": "google/ducc0_custom_lowlevel_threading.h",
+             "//third_party/ducc:fft.h": "google/fft.h",
+-- 
+2.47.1
+

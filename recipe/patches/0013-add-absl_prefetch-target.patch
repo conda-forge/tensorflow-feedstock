@@ -1,0 +1,31 @@
+From 026e7d59dd2005251e5a5fbe914420938aa2d32a Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sun, 12 May 2024 22:29:25 +1100
+Subject: [PATCH 13/34] add absl_prefetch target
+
+---
+ third_party/absl/system.absl.base.BUILD | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/third_party/absl/system.absl.base.BUILD b/third_party/absl/system.absl.base.BUILD
+index a423d5f70da..b31592d31a3 100644
+--- a/third_party/absl/system.absl.base.BUILD
++++ b/third_party/absl/system.absl.base.BUILD
+@@ -116,6 +116,14 @@ cc_library(
+     ],
+ )
+ 
++cc_library(
++    name = "prefetch",
++    deps = [
++        ":config",
++        ":core_headers",
++    ],
++)
++
+ cc_library(
+     name = "strerror",
+     linkopts = ["-labsl_strerror"],
+-- 
+2.47.1
+

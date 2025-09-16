@@ -1,0 +1,46 @@
+From 6c45a9e7efa72fef9f97111cea2c3fa418fca25a Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Mon, 13 May 2024 23:36:48 +1100
+Subject: [PATCH 16/34] add kernel_timeout_internal target
+
+---
+ .../absl/system.absl.synchronization.BUILD        | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/third_party/absl/system.absl.synchronization.BUILD b/third_party/absl/system.absl.synchronization.BUILD
+index c0fa37aacd7..b47309deb39 100644
+--- a/third_party/absl/system.absl.synchronization.BUILD
++++ b/third_party/absl/system.absl.synchronization.BUILD
+@@ -16,14 +16,29 @@ cc_library(
+     ],
+ )
+ 
++cc_library(
++    name = "kernel_timeout_internal",
++    visibility = [
++    ],
++    deps = [
++        "//absl/base",
++        "//absl/base:config",
++        "//absl/base:core_headers",
++        "//absl/base:raw_logging_internal",
++        "//absl/time",
++    ],
++)
++
+ cc_library(
+     name = "synchronization",
+     linkopts = [
+         "-labsl_synchronization",
++        "-labsl_kernel_timeout_internal",
+         "-pthread",
+     ],
+     deps = [
+         ":graphcycles_internal",
++        ":kernel_timeout_internal",
+         "//absl/base",
+         "//absl/base:atomic_hook",
+         "//absl/base:dynamic_annotations",
+-- 
+2.47.1
+

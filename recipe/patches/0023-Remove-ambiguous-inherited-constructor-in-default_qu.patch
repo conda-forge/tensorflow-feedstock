@@ -1,0 +1,30 @@
+From 09f13d859b615f67b1303b11143d90e09180d5f8 Mon Sep 17 00:00:00 2001
+From: "Patrick J. LoPresti" <lopresti@gmail.com>
+Date: Thu, 3 Apr 2025 10:24:37 -0700
+Subject: [PATCH 23/34] Remove ambiguous inherited constructor in
+ default_quant_params.cc. GCC complains about this
+ (https://stackoverflow.com/q/79553477/). Fix is trivial and harmless.
+
+Fixes #84977.
+---
+ .../compiler/mlir/lite/transforms/default_quant_params.cc     | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tensorflow/compiler/mlir/lite/transforms/default_quant_params.cc b/tensorflow/compiler/mlir/lite/transforms/default_quant_params.cc
+index f1b602a6763..7acbb7d1724 100644
+--- a/tensorflow/compiler/mlir/lite/transforms/default_quant_params.cc
++++ b/tensorflow/compiler/mlir/lite/transforms/default_quant_params.cc
+@@ -54,7 +54,9 @@ namespace {
+ class DefaultQuantParamsPass
+     : public impl::DefaultQuantParamsPassBase<DefaultQuantParamsPass> {
+  public:
+-  using DefaultQuantParamsPassBase::DefaultQuantParamsPassBase;
++  DefaultQuantParamsPass()
++  {
++  }
+ 
+   explicit DefaultQuantParamsPass(double default_min, double default_max,
+                                   bool is_signed) {
+-- 
+2.47.1
+

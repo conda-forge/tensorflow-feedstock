@@ -1,0 +1,43 @@
+From 4615cf33af91882378f52719241dbc8e8f542cf9 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <ifernando@quansight.com>
+Date: Wed, 6 Aug 2025 15:36:13 +0000
+Subject: [PATCH 28/34] add absl_tracing_internal
+
+---
+ tensorflow/core/kernels/batching_util/BUILD | 1 +
+ third_party/absl/system.absl.base.BUILD     | 7 +++++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/tensorflow/core/kernels/batching_util/BUILD b/tensorflow/core/kernels/batching_util/BUILD
+index f953c4de7e7..2b5853055b3 100644
+--- a/tensorflow/core/kernels/batching_util/BUILD
++++ b/tensorflow/core/kernels/batching_util/BUILD
+@@ -466,6 +466,7 @@ cc_library(
+         "@com_google_absl//absl/synchronization",
+         "@com_google_absl//absl/time",
+         "@com_google_absl//absl/types:optional",
++	"@com_google_absl//absl/base:tracing_internal",
+         "@local_tsl//tsl/platform:criticality",
+     ],
+ )
+diff --git a/third_party/absl/system.absl.base.BUILD b/third_party/absl/system.absl.base.BUILD
+index b31592d31a3..6534793637c 100644
+--- a/third_party/absl/system.absl.base.BUILD
++++ b/third_party/absl/system.absl.base.BUILD
+@@ -25,6 +25,13 @@ cc_library(
+     ],
+ )
+ 
++cc_library(
++    name = "tracing_internal",
++    linkopts = [
++        "-labsl_tracing_internal",
++    ],
++)
++
+ cc_library(
+     name = "nullability",
+     deps = [
+-- 
+2.47.1
+

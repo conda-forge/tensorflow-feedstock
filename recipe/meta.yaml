@@ -28,54 +28,44 @@ source:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
       - patches/0003-Fix-missing-abseil-linkages.patch
-      #- patches/0004-Fix-protobuf_python-for-systemlibs.patch
-      - patches/0005-Add-absl_log-systemlib.patch
-      #- patches/0006-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch
-      - patches/0007-Fix-further-abseil-linkage.patch
-      - patches/0008-Add-constraint-to-pybind11-systemlib.patch
-      - patches/0009-Different-file-ending-for-flatbuffers-LICENSE.patch
-      - patches/0010-Use-correct-hermetic-python.patch
-      #- patches/0011-Add-well_known_types_py_pb2-to-protobuf-systemlib.patch
-      #- patches/0012-Add-protobuf-toolchain.patch
-      #- patches/0013-fix-genproto.patch
-      - patches/0014-Remove-some-usage-of-absl-str_format-in-CUDA.patch  # [(cuda_compiler_version or "").startswith("11")]
-      - patches/0015-Adjust-relative-path-for-libdevice.patch            # [(cuda_compiler_version or "").startswith("11")]
-      - patches/0016-Link-to-absl_log_flags-instead-of-absl_flags.patch
-      - patches/0017-Update-ABSL-Log-Definition-for-libabsl_vlog_config_i.patch
-      - patches/0018-add-absl_string_view-target.patch
-      - patches/0019-add-absl_nullability-target.patch
-      - patches/0020-add-absl_prefetch-target.patch
-      - patches/0021-add-absl_die_if_null-target.patch
-      - patches/0022-add-absl_crc32c-targets.patch
-      - patches/0023-add-kernel_timeout_internal-target.patch
-      - patches/0024-work-around-for-warning-that-clang-falsely-treats-as.patch
-      - patches/0025-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
-      #- patches/0026-Only-link-to-sparse_core_layout_proto_cc-headers.patch
-      #- patches/0027-Protobuf-5-compatability.patch
+      - patches/0004-Add-absl_log-systemlib.patch
+      - patches/0005-Fix-further-abseil-linkage.patch
+      - patches/0006-Add-constraint-to-pybind11-systemlib.patch
+      - patches/0007-Different-file-ending-for-flatbuffers-LICENSE.patch
+      - patches/0008-Use-correct-hermetic-python.patch
+      - patches/0009-Link-to-absl_log_flags-instead-of-absl_flags.patch
+      - patches/0010-Update-ABSL-Log-Definition-for-libabsl_vlog_config_i.patch
+      - patches/0011-add-absl_string_view-target.patch
+      - patches/0012-add-absl_nullability-target.patch
+      - patches/0013-add-absl_prefetch-target.patch
+      - patches/0014-add-absl_die_if_null-target.patch
+      - patches/0015-add-absl_crc32c-targets.patch
+      - patches/0016-add-kernel_timeout_internal-target.patch
+      - patches/0017-work-around-for-warning-that-clang-falsely-treats-as.patch
+      - patches/0018-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
+      - patches/0019-Only-link-to-sparse_core_layout_proto_cc-headers.patch
       # https://github.com/tensorflow/tensorflow/pull/86413
-      - patches/0028-Avoid-linking-with-internal-nvrtc.patch
-      - patches/0029-remove-dependencies-to-libcuda.patch
-      # adjust patch 0004 for newer absl -- hmaarrfk - 2025/07/06
-      #- patches/0030-Fixup-pybind11_protobuf.patch
-      - patches/0031-Update-linkages-for-new-absl-organization.patch
+      - patches/0020-Avoid-linking-with-internal-nvrtc.patch
+      - patches/0021-remove-dependencies-to-libcuda.patch
+      - patches/0022-Update-linkages-for-new-absl-organization.patch
       # Already included in the release after 2.19.0
-      - patches/0032-Remove-ambiguous-inherited-constructor-in-default_qu.patch
+      - patches/0023-Remove-ambiguous-inherited-constructor-in-default_qu.patch
+      - patches/0024-third_party-ducc-fix-ambiguous-failure.patch
+      - patches/0025-third_party-tf_runtime-fix-compile-failure.patch
+      - patches/0026-support-to-build-with-gcc-15.patch
       # these came from https://git.yoctoproject.org/meta-tensorflow/tree/recipes-framework/tensorflow/files
       # check every release there for patches in the future
-      # - patches/0033-third_party-ducc-fix-ambiguous-failure.patch
-      # - patches/0034-third_party-tf_runtime-fix-compile-failure.patch
-      # - patches/0035-support-to-build-with-gcc-15.patch
-      - patches/0036-third_party-eigen_archive-workaround-ice-failure-whi.patch
+      - patches/0027-third_party-eigen_archive-workaround-ice-failure-whi.patch
       # for our system absl
-      - patches/0037-add-absl_tracing_internal.patch
+      - patches/0028-add-absl_tracing_internal.patch
       # for the megabuild
-      - patches/0038-Fix-building-different-python-wheels-from-one-python.patch
-      - patches/0039-Fix-matmul-unused-result-error.patch
-      - patches/0040-Support-cuda-12.8.patch
-      - patches/0031-bump-h5py-req.patch     # [aarch64]
+      - patches/0029-Fix-building-different-python-wheels-from-one-python.patch
+      - patches/0030-Fix-matmul-unused-result-error.patch
+      - patches/0031-Support-cuda-12.8.patch
+      - patches/0032-bump-h5py-req.patch     # [aarch64]
       # backport https://github.com/tensorflow/tensorflow/pull/90563 (applies to cuda-12.8, any platform)
-      - patches/0032-gpu_prim-error.patch
-      - patches/0033-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      - patches/0033-Support-for-TFv2.20-to-compile-with-CUDA-v12.9.1.patch
+      - patches/0034-Fix-incorrect-target-when-cross-compiling-in-bazel-c.patch  # [aarch64 and target_platform != build_platform]
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
