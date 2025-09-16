@@ -13,10 +13,6 @@ fi
 mkdir -p $PREFIX/include/python
 cp -r $PREFIX/include/google $PREFIX/include/python/
 
-cp ${RECIPE_DIR}/pybind11_protobuf/*.patch ${SRC_DIR}/third_party/pybind11_protobuf/.
-
-sed -i.bak "s;@@PREFIX@@;$PREFIX;" third_party/pybind11_protobuf/0002-Add-Python-include-path.patch
-
 export PATH="$PWD:$PATH"
 export CC=$(basename $CC)
 export CXX=$(basename $CXX)
@@ -55,7 +51,6 @@ export TF_SYSTEM_LIBS="
   com_github_googlecloudplatform_google_cloud_cpp
   com_github_grpc_grpc
   com_google_absl
-  com_google_protobuf
   curl
   cython
   dill_archive
@@ -277,5 +272,4 @@ if [[ ! -f "${SRC_DIR}/libtensorflow_cc_output.tar" ]]; then
   rm -r $SRC_DIR/libtensorflow_cc_output
 fi
 
-# This was only needed for protobuf_python
 rm -rf $PREFIX/include/python

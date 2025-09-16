@@ -28,16 +28,16 @@ source:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
       - patches/0003-Fix-missing-abseil-linkages.patch
-      - patches/0004-Fix-protobuf_python-for-systemlibs.patch
+      #- patches/0004-Fix-protobuf_python-for-systemlibs.patch
       - patches/0005-Add-absl_log-systemlib.patch
-      - patches/0006-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch
+      #- patches/0006-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch
       - patches/0007-Fix-further-abseil-linkage.patch
       - patches/0008-Add-constraint-to-pybind11-systemlib.patch
       - patches/0009-Different-file-ending-for-flatbuffers-LICENSE.patch
       - patches/0010-Use-correct-hermetic-python.patch
-      - patches/0011-Add-well_known_types_py_pb2-to-protobuf-systemlib.patch
-      - patches/0012-Add-protobuf-toolchain.patch
-      - patches/0013-fix-genproto.patch
+      #- patches/0011-Add-well_known_types_py_pb2-to-protobuf-systemlib.patch
+      #- patches/0012-Add-protobuf-toolchain.patch
+      #- patches/0013-fix-genproto.patch
       - patches/0014-Remove-some-usage-of-absl-str_format-in-CUDA.patch  # [(cuda_compiler_version or "").startswith("11")]
       - patches/0015-Adjust-relative-path-for-libdevice.patch            # [(cuda_compiler_version or "").startswith("11")]
       - patches/0016-Link-to-absl_log_flags-instead-of-absl_flags.patch
@@ -50,13 +50,13 @@ source:
       - patches/0023-add-kernel_timeout_internal-target.patch
       - patches/0024-work-around-for-warning-that-clang-falsely-treats-as.patch
       - patches/0025-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
-      - patches/0026-Only-link-to-sparse_core_layout_proto_cc-headers.patch
-      - patches/0027-Protobuf-5-compatability.patch
+      #- patches/0026-Only-link-to-sparse_core_layout_proto_cc-headers.patch
+      #- patches/0027-Protobuf-5-compatability.patch
       # https://github.com/tensorflow/tensorflow/pull/86413
       - patches/0028-Avoid-linking-with-internal-nvrtc.patch
       - patches/0029-remove-dependencies-to-libcuda.patch
       # adjust patch 0004 for newer absl -- hmaarrfk - 2025/07/06
-      - patches/0030-Fixup-pybind11_protobuf.patch
+      #- patches/0030-Fixup-pybind11_protobuf.patch
       - patches/0031-Update-linkages-for-new-absl-organization.patch
       # Already included in the release after 2.19.0
       - patches/0032-Remove-ambiguous-inherited-constructor-in-default_qu.patch
@@ -104,7 +104,6 @@ requirements:
     - x86_64-microarch-level  {{ microarch_level }}  # [linux and x86_64]
     - bazel 6.*
     - libgrpc
-    - libprotobuf
     - nasm
     - patchelf
     - sed
@@ -160,8 +159,6 @@ requirements:
     - icu
     - libjpeg-turbo
     - libpng
-    - libprotobuf
-    - libprotobuf-python-headers
     - openssl
     - pybind11
     - sqlite
@@ -199,7 +196,6 @@ outputs:
         - libjpeg-turbo
         - libcurl
         - libpng
-        - libprotobuf
         - openssl
         - snappy
         - sqlite
@@ -278,8 +274,6 @@ outputs:
         - libjpeg-turbo
         - libcurl
         - libpng
-        - libprotobuf
-        - libprotobuf-python-headers
         - openssl
         - pybind11
         - snappy
@@ -295,8 +289,6 @@ outputs:
         - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - numpy
         - opt_einsum >=2.3.2
-        # simplified compared to upstream due to constraints arising through libprotobuf
-        - protobuf >=5.28
         - python-flatbuffers >=24.3.25
         - requests >=2.21.0,<3
         - six >=1.12
@@ -319,7 +311,6 @@ outputs:
         - h5py >=3.11
         - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - opt_einsum >=2.3.2
-        - protobuf >=5.26
         - python-flatbuffers >=24.3.25
         - requests >=2.21.0,<3
         - six >=1.12
@@ -462,7 +453,6 @@ outputs:
         - libjpeg-turbo
         - libcurl
         - libpng
-        - libprotobuf
         - openssl
         - snappy
         - sqlite
@@ -513,7 +503,6 @@ outputs:
         - libgrpc
         - libjpeg-turbo
         - libpng
-        - libprotobuf
         - openssl
         - snappy
         - sqlite
