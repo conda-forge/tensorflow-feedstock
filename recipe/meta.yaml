@@ -73,6 +73,7 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
+  skip: true  # [microarch_level != 1]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
 
