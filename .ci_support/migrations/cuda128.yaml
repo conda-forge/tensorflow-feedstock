@@ -1,0 +1,50 @@
+migrator_ts: 1738229377
+__migrator:
+  kind:
+    version
+  migration_number:
+    1
+  build_number:
+    1
+  paused: false
+  use_local: true
+  override_cbc_keys:
+    - cuda_compiler_stub
+  check_solvable: false
+  primary_key: cuda_compiler_version
+  ordering:
+    cuda_compiler_version:
+      - 11.8
+      - 12.4
+      - 12.6
+      - 12.8
+      - None
+  commit_message: |
+    Upgrade to CUDA 12.8
+    
+    With CUDA 12.8, the following new architectures are added `sm_100`, `sm_101` and `sm_120`.
+    To build for these architectures, maintainers will need to add these to list of architectures
+    that their package builds for.
+    
+    ref: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#new-features
+
+cuda_compiler_version:         # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.8                       # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_stdlib_version:              # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                       # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_compiler_version:            # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cxx_compiler_version:          # [linux and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+fortran_compiler_version:      # [linux and (x86_64 or aarch64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13                         # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 11                         # [linux and aarch64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+
+

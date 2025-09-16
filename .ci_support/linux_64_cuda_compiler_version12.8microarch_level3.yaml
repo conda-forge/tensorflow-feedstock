@@ -15,7 +15,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.6'
+- '12.8'
 cudnn:
 - '9'
 cxx_compiler:
@@ -42,12 +42,10 @@ libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
-libprotobuf:
-- 6.31.1
 libtensorflow_cc:
 - '2.16'
 microarch_level:
-- '1'
+- '3'
 nccl:
 - '2'
 numpy:
@@ -64,7 +62,7 @@ python:
 - 3.10.* *_cpython
 - 3.11.* *_cpython
 - 3.12.* *_cpython
-- 3.9.* *_cpython
+- 3.13.* *_cp313
 snappy:
 - '1.2'
 sqlite:
@@ -76,6 +74,7 @@ tensorflow:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cuda_compiler_version
 zlib:
 - '1'

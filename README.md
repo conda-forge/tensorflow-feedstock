@@ -37,17 +37,38 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13</td>
+              <td>linux_64_cuda_compiler_version12.8microarch_level1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4385&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.8microarch_level1" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_compiler_version14cuda_compiler_versionNonecxx_compiler_version14</td>
+              <td>linux_64_cuda_compiler_version12.8microarch_level3</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4385&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version14cuda_compiler_versionNonecxx_compiler_version14" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.8microarch_level3" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_cuda_compiler_versionNonemicroarch_level1</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4385&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_versionNonemicroarch_level1" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_cuda_compiler_versionNonemicroarch_level3</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4385&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_versionNonemicroarch_level3" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_cuda_compiler_versionNone</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4385&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tensorflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_versionNone" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -81,6 +102,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtensorflow__cc-green.svg)](https://anaconda.org/conda-forge/libtensorflow_cc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtensorflow_cc.svg)](https://anaconda.org/conda-forge/libtensorflow_cc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtensorflow_cc.svg)](https://anaconda.org/conda-forge/libtensorflow_cc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtensorflow_cc.svg)](https://anaconda.org/conda-forge/libtensorflow_cc) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtensorflow__framework-green.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow-green.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--avx2-green.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--base-green.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--cpu-green.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--estimator-green.svg)](https://anaconda.org/conda-forge/tensorflow-estimator) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-estimator.svg)](https://anaconda.org/conda-forge/tensorflow-estimator) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-estimator.svg)](https://anaconda.org/conda-forge/tensorflow-estimator) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-estimator.svg)](https://anaconda.org/conda-forge/tensorflow-estimator) |
@@ -97,16 +119,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libtensorflow, libtensorflow_cc, libtensorflow_framework, tensorflow, tensorflow-base, tensorflow-cpu, tensorflow-estimator, tensorflow-gpu, tensorflow-sse3` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libtensorflow, libtensorflow_cc, libtensorflow_framework, tensorflow, tensorflow-avx2, tensorflow-base, tensorflow-cpu, tensorflow-estimator, tensorflow-gpu, tensorflow-sse3` can be installed with `conda`:
 
 ```
-conda install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-base tensorflow-cpu tensorflow-estimator tensorflow-gpu tensorflow-sse3
+conda install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-base tensorflow-cpu tensorflow-estimator tensorflow-gpu tensorflow-sse3
 ```
 
 or with `mamba`:
 
 ```
-mamba install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-base tensorflow-cpu tensorflow-estimator tensorflow-gpu tensorflow-sse3
+mamba install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-base tensorflow-cpu tensorflow-estimator tensorflow-gpu tensorflow-sse3
 ```
 
 It is possible to list all of the versions of `libtensorflow` available on your platform with `conda`:
@@ -206,6 +228,7 @@ Feedstock Maintainers
 * [@h-vetinari](https://github.com/h-vetinari/)
 * [@hajapy](https://github.com/hajapy/)
 * [@hmaarrfk](https://github.com/hmaarrfk/)
+* [@isuruf](https://github.com/isuruf/)
 * [@jschueller](https://github.com/jschueller/)
 * [@ngam](https://github.com/ngam/)
 * [@njzjz](https://github.com/njzjz/)

@@ -9,6 +9,7 @@ azure:
     free_disk_space: true
 build_platform:
   osx_arm64: osx_64
+  linux_aarch64: linux_64
 conda_build:
   pkg_format: '2'
 conda_build_tool: conda-build+conda-libmamba-solver
@@ -24,4 +25,5 @@ github_actions:
   - pull_request
 provider:
   linux_64: github_actions
+  linux_aarch64: default
 test: native_and_emulated

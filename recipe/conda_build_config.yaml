@@ -2,5 +2,13 @@ github_actions_labels:          # [linux]
 - cirun-openstack-cpu-2xlarge   # [linux]
 microarch_level:
 - 1
-# hmaarrfk -- temporary, uncomment during actual build
-# - 3   # [linux and x86_64]
+- 3   # [linux and x86_64]
+# problem with vendored xnnpack on with gcc 14 at time of tensorflow 2.18 - check again for future releases
+cxx_compiler_version:  # [linux]
+  - 13                 # [linux and x86_64]
+  - 11                 # [linux and aarch64]
+  - 13                 # [linux]
+c_compiler_version:    # [linux]
+  - 13                 # [linux and x86_64]
+  - 11                 # [linux and aarch64]
+  - 13                 # [linux]
