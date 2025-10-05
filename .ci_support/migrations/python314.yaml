@@ -1,0 +1,43 @@
+# this is intentionally sorted before the 3.13t migrator, because that determines
+# the order of application of the migrators; otherwise we'd have to add values for
+# is_freethreading and is_abi3 keys here, since that migration extends the zip;
+migrator_ts: 1724712607
+__migrator:
+    commit_message: Rebuild for python 3.14
+    migration_number: 1
+    operation: key_add
+    primary_key: python
+    ordering:
+        python:
+            - 3.9.* *_cpython
+            - 3.10.* *_cpython
+            - 3.11.* *_cpython
+            - 3.12.* *_cpython
+            - 3.13.* *_cp313
+            - 3.13.* *_cp313t
+            - 3.14.* *_cp314  # new entry
+    paused: false
+    longterm: true
+    pr_limit: 5
+    max_solver_attempts: 3  # this will make the bot retry "not solvable" stuff 12 times
+    exclude:
+        # this shouldn't attempt to modify the python feedstocks
+        - python
+        - pypy3.6
+        - pypy-meta
+        - cross-python
+        - python_abi
+    exclude_pinned_pkgs: false
+    ignored_deps_per_node:
+        matplotlib:
+            - pyqt
+    additional_zip_keys:
+        - channel_sources
+
+python:
+- 3.14.* *_cp314
+# additional entries to add for zip_keys
+is_python_min:
+- false
+channel_sources:
+- conda-forge,conda-forge/label/python_rc
