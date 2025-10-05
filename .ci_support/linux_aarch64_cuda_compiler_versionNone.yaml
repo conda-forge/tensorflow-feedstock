@@ -6,10 +6,12 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
-cdt_name:
-- conda
 channel_sources:
 - conda-forge
+- conda-forge
+- conda-forge
+- conda-forge
+- conda-forge,conda-forge/label/python_rc
 channel_targets:
 - conda-forge main
 cuda_compiler:
@@ -61,6 +63,7 @@ python:
 - 3.11.* *_cpython
 - 3.12.* *_cpython
 - 3.13.* *_cp313
+- 3.14.* *_cp314
 snappy:
 - '1.2'
 sqlite:
@@ -74,5 +77,7 @@ zip_keys:
   - cxx_compiler_version
   - c_stdlib_version
   - cuda_compiler_version
+- - python
+  - channel_sources
 zlib:
 - '1'
