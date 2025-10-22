@@ -1,11 +1,11 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '14'
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.28'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -13,11 +13,13 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '13.0'
+cudnn:
+- '9'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '11'
+- '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
@@ -44,10 +46,12 @@ libtensorflow_cc:
 - '2.16'
 microarch_level:
 - '1'
+nccl:
+- '2'
 numpy:
 - '2'
 openssl:
-- '3'
+- '3.5'
 perl:
 - 5.32.1
 pin_run_as_build:
@@ -64,7 +68,7 @@ snappy:
 sqlite:
 - '3'
 target_platform:
-- linux-aarch64
+- linux-64
 tensorflow:
 - '2.16'
 zip_keys:

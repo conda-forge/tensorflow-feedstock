@@ -49,7 +49,7 @@ microarch_level:
 numpy:
 - '2'
 openssl:
-- '3'
+- '3.5'
 pin_run_as_build:
   python:
     min_pin: x.x

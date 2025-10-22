@@ -51,7 +51,7 @@ nccl:
 numpy:
 - '2'
 openssl:
-- '3'
+- '3.5'
 perl:
 - 5.32.1
 pin_run_as_build:
