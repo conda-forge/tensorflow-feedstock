@@ -19,3 +19,5 @@ c_compiler_version:    # [linux]
   - 13                 # [linux and x86_64]
   - 11                 # [linux and aarch64]
   - 13                 # [linux]
+cudnn:
+  - 9.10
