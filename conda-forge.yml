@@ -1,4 +1,8 @@
 azure:
+#   settings_linux:
+#     timeoutInMinutes: 1
+#   settings_osx:
+#     timeoutInMinutes: 1
   free_disk_space: true
   settings_linux:
     swapfile_size: 10GiB
