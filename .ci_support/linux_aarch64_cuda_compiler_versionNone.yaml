@@ -6,8 +6,6 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
-cdt_name:
-- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -23,7 +21,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
-- 24.12.23
+- 25.2.10
 giflib:
 - '5.2'
 github_actions_labels:
@@ -49,7 +47,7 @@ microarch_level:
 numpy:
 - '2'
 openssl:
-- '3'
+- '3.5'
 perl:
 - 5.32.1
 pin_run_as_build:
