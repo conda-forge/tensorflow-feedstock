@@ -65,6 +65,11 @@ build:
   skip: true  # [win]
   # The following skip can be removed when the absl::StrFormat build issues are fixed.
   skip: true  # [cuda_compiler_version == "11.8"]
+  # We decided to rebuild for cudnn 9.10 for increased compatibility with pre-tunning
+  # devices, as such
+  # we don't need to rebuild non-cuda builds
+  # https://github.com/conda-forge/tensorflow-feedstock/pull/459
+  skip: true  # [cuda_compiler_version != "12.6"]
 
 requirements:
   build:
