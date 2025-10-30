@@ -1,15 +1,10 @@
-# azure:
-#   settings_linux:
-#     timeoutInMinutes: 1
-#   settings_osx:
-#     timeoutInMinutes: 1
 azure:
-    settings_linux:
-        swapfile_size: 10GiB
-    free_disk_space: true
+  free_disk_space: true
+  settings_linux:
+    swapfile_size: 10GiB
 build_platform:
-  osx_arm64: osx_64
   linux_aarch64: linux_64
+  osx_arm64: osx_64
 conda_build:
   pkg_format: '2'
 conda_build_tool: conda-build+conda-libmamba-solver
