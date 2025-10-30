@@ -1,6 +1,6 @@
-{% set version = "2.19.0" %}
+{% set version = "2.19.1" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 3 %}
+{% set build = 0 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -23,7 +23,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: 4691b18e8c914cdf6759b80f1b3b7f3e17be41099607ed0143134f38836d058e
+    sha256: fcfb3e88ab3eebdbab98a03c869a4d2616d52ea166c8d8021de1ef921b47be8d
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch

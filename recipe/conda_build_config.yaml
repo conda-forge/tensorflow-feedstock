@@ -4,5 +4,3 @@ microarch_level:
 - 1
 # hmaarrfk -- temporary, uncomment during actual build
 - 3   # [linux and x86_64]
-cudnn:
-  - 9.10

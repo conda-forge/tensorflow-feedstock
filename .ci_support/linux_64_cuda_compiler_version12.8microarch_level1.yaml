@@ -76,5 +76,6 @@ zip_keys:
   - cxx_compiler_version
   - c_stdlib_version
   - cuda_compiler_version
+  - cudnn
 zlib:
 - '1'
