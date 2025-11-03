@@ -1,0 +1,71 @@
+From 5b8c4e963accc3b2fe646df6f6679701ba6e3ab7 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <ifernando@quansight.com>
+Date: Wed, 6 Aug 2025 17:50:08 +0000
+Subject: [PATCH 36/40] Fix building different python wheels from one python
+
+---
+ tensorflow/tools/pip_package/build_pip_package.py | 11 ++++++++++-
+ tensorflow/tools/pip_package/utils/tf_wheel.bzl   |  1 +
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/tensorflow/tools/pip_package/build_pip_package.py b/tensorflow/tools/pip_package/build_pip_package.py
+index e254358d435..0f8426a411a 100644
+--- a/tensorflow/tools/pip_package/build_pip_package.py
++++ b/tensorflow/tools/pip_package/build_pip_package.py
+@@ -60,6 +60,9 @@ def parse_args() -> argparse.Namespace:
+       required=True,
+       help="Platform name to be passed to setup.py",
+   )
++  parser.add_argument(
++      "--full-wheel-name",
++  )
+   parser.add_argument(
+       "--headers", help="header files for the wheel", action="append"
+   )
+@@ -419,6 +422,7 @@ def build_wheel(
+     project_name: str,
+     platform: str,
+     collab: str = False,
++    full_wheel_name: str = "",
+ ) -> None:
+   """Build the wheel in the target directory.
+ 
+@@ -444,13 +448,17 @@ def build_wheel(
+           sys.executable,
+           "tensorflow/tools/pip_package/setup.py",
+           "bdist_wheel",
+-          f"--dist-dir={dir_path}",
++          f"--dist-dir={dir_path}.bak",
+           f"--plat-name={platform}",
+       ],
+       check=True,
+       cwd=cwd,
+       env=env,
+   )
++  wheels = list(glob.glob(f"{dir_path}.bak/*.whl"))
++  assert len(wheels) == 1
++  for f in wheels:
++      os.rename(f, f"{dir_path}/{full_wheel_name}")
+ 
+ 
+ if __name__ == "__main__":
+@@ -472,6 +480,7 @@ if __name__ == "__main__":
+         args.project_name,
+         args.platform,
+         args.collab,
++        args.full_wheel_name,
+     )
+   finally:
+     temp_dir.cleanup()
+diff --git a/tensorflow/tools/pip_package/utils/tf_wheel.bzl b/tensorflow/tools/pip_package/utils/tf_wheel.bzl
+index 057779e946e..dd34695b5dd 100644
+--- a/tensorflow/tools/pip_package/utils/tf_wheel.bzl
++++ b/tensorflow/tools/pip_package/utils/tf_wheel.bzl
+@@ -91,6 +91,7 @@ def _tf_wheel_impl(ctx):
+         ctx.attr.platform_name,
+         ctx.attr.platform_tag,
+     ))
++    args.add("--full-wheel-name", full_wheel_name)
+     args.add("--collab", str(WHEEL_COLLAB))
+     args.add("--output-name", wheel_dir)
+     args.add("--version", VERSION)

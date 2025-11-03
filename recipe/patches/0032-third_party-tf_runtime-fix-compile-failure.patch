@@ -1,0 +1,82 @@
+From 0cd2b52cd241742b43a79b597c8cd8e8e0745db7 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 14 Jul 2025 16:13:33 +0800
+Subject: [PATCH 32/40] third_party/tf_runtime: fix compile failure
+
+...
+In file included from external/tf_runtime/include/tfrt/support/crc32c.h:26,
+                 from external/tf_runtime/lib/support/crc32c.cc:19:
+external/tf_runtime/include/tfrt/support/forward_decls.h:110:15: error: 'int64_t' does not name a type
+  110 | using Index = int64_t;
+      |               ^~~~~~~
+external/tf_runtime/include/tfrt/support/forward_decls.h:28:1: note: 'int64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+   27 | #include "llvm/Support/ErrorHandling.h"
+  +++ |+#include <cstdint>
+...
+
+Upstream-Status: Pending
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ .../tf_runtime/0001-fix-compile-failure.patch | 36 +++++++++++++++++++
+ third_party/tf_runtime/workspace.bzl          |  6 ++--
+ 2 files changed, 39 insertions(+), 3 deletions(-)
+ create mode 100644 third_party/tf_runtime/0001-fix-compile-failure.patch
+
+diff --git a/third_party/tf_runtime/0001-fix-compile-failure.patch b/third_party/tf_runtime/0001-fix-compile-failure.patch
+new file mode 100644
+index 00000000000..c05ea5b41e7
+--- /dev/null
++++ b/third_party/tf_runtime/0001-fix-compile-failure.patch
+@@ -0,0 +1,36 @@
++From 7723f8c54b2b6f0db9c1420d4478de1f6dcf9459 Mon Sep 17 00:00:00 2001
++From: Hongxu Jia <hongxu.jia@windriver.com>
++Date: Mon, 14 Jul 2025 16:04:18 +0800
++Subject: [PATCH] fix compile failure
++
++...
++In file included from external/tf_runtime/include/tfrt/support/crc32c.h:26,
++                 from external/tf_runtime/lib/support/crc32c.cc:19:
++external/tf_runtime/include/tfrt/support/forward_decls.h:110:15: error: 'int64_t' does not name a type
++  110 | using Index = int64_t;
++      |               ^~~~~~~
++external/tf_runtime/include/tfrt/support/forward_decls.h:28:1: note: 'int64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
++   27 | #include "llvm/Support/ErrorHandling.h"
++  +++ |+#include <cstdint>
++...
++
++Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
++---
++ include/tfrt/support/forward_decls.h | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/include/tfrt/support/forward_decls.h b/include/tfrt/support/forward_decls.h
++index c3a4250..d8e28db 100644
++--- a/include/tfrt/support/forward_decls.h
+++++ b/include/tfrt/support/forward_decls.h
++@@ -25,6 +25,7 @@
++ 
++ #include "llvm/Support/Casting.h"
++ #include "llvm/Support/ErrorHandling.h"
+++#include <cstdint>
++ 
++ // We don't forward declare:
++ //   DenseMap, SmallVector, StringMap, StringSet
++-- 
++2.34.1
++
+diff --git a/third_party/tf_runtime/workspace.bzl b/third_party/tf_runtime/workspace.bzl
+index 69fc0f81f6f..460641dde06 100644
+--- a/third_party/tf_runtime/workspace.bzl
++++ b/third_party/tf_runtime/workspace.bzl
+@@ -18,7 +18,7 @@ def repo():
+             "@tsl": "@local_tsl",
+             "@xla": "@local_xla",
+         },
+-        # A patch file can be provided for atomic commits to both TF and TFRT.
+-        # The job that bumps the TFRT_COMMIT also resets patch_file to 'None'.
+-        patch_file = None,
++        patch_file = [
++            "//third_party/tf_runtime:0001-fix-compile-failure.patch",
++        ],
+     )
