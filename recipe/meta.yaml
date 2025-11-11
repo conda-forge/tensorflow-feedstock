@@ -1,6 +1,6 @@
 {% set version = "2.19.1" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -73,8 +73,10 @@ source:
       - patches/0039-Fix-matmul-unused-result-error.patch
       - patches/0040-Support-cuda-12.8.patch
       - patches/0041-Disable-profiler.patch
-      - patches/0042-bump-h5py-req.patch     # [aarch64]
       - patches/0043-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      # compile fix for xla: https://github.com/openxla/xla/pull/22572
+      - patches/0044-xla-const-countdown.patch 
+
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
