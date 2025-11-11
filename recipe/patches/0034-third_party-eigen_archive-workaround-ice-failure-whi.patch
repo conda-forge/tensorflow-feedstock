@@ -1,0 +1,107 @@
+From f2263ddde40a201c97bcc0ffab9ba5cfb0d62278 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 16 May 2022 23:15:47 -0700
+Subject: [PATCH 34/40] third_party/eigen_archive:workaround ice failure while
+ building from source with gcc 7.3.1
+
+The root cause is gcc ice issue:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=89752
+
+But we could not patch on native gcc,so try to workaround,
+Refer: https://github.com/tensorflow/tensorflow/issues/25323
+
+Upstream-Status: Inappropriate [wr-installer specific]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ ...ailure-while-building-from-source-wi.patch | 68 +++++++++++++++++++
+ third_party/eigen3/workspace.bzl              |  1 +
+ 2 files changed, 69 insertions(+)
+ create mode 100644 third_party/eigen3/0001-workaround-ice-failure-while-building-from-source-wi.patch
+
+diff --git a/third_party/eigen3/0001-workaround-ice-failure-while-building-from-source-wi.patch b/third_party/eigen3/0001-workaround-ice-failure-while-building-from-source-wi.patch
+new file mode 100644
+index 00000000000..82ef62a0d9a
+--- /dev/null
++++ b/third_party/eigen3/0001-workaround-ice-failure-while-building-from-source-wi.patch
+@@ -0,0 +1,68 @@
++From 649d0b938aab1b7081c3895aa1f527d034edb735 Mon Sep 17 00:00:00 2001
++From: Hongxu Jia <hongxu.jia@windriver.com>
++Date: Fri, 23 Aug 2024 10:49:54 +0800
++Subject: [PATCH] workaround ice failure while building from source with gcc
++ 7.3.1
++
++The root cause is gcc ice issue:
++https://gcc.gnu.org/bugzilla/show_bug.cgi?id=89752
++
++But we could not patch on native gcc,so try to workaround,
++Refer: https://github.com/tensorflow/tensorflow/issues/25323
++
++Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
++---
++ unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h | 4 +++-
++ unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h  | 9 ++++++---
++ 2 files changed, 9 insertions(+), 4 deletions(-)
++
++diff --git a/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h b/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h
++index 291301a..94e78ba 100644
++--- a/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h
+++++ b/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h
++@@ -531,7 +531,9 @@ struct TensorEvaluator<const TensorImagePatchOp<Rows, Cols, ArgType>, Device> {
++     EIGEN_ALIGN_MAX std::remove_const_t<CoeffReturnType> values[PacketSize];
++     EIGEN_UNROLL_LOOP
++     for (int i = 0; i < PacketSize; ++i) {
++-      values[i] = coeff(index + i);
+++      Self::CoeffReturnType a = coeff(index+i);
+++      values[i] = a;
+++
++     }
++     PacketReturnType rslt = internal::pload<PacketReturnType>(values);
++     return rslt;
++diff --git a/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h b/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h
++index 2ecbb7c..ae0f745 100644
++--- a/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h
+++++ b/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h
++@@ -838,8 +838,9 @@ struct TensorReductionEvaluatorBase<const TensorReductionOp<Op, Dims, ArgType, M
++       const Index firstIndex = firstInput(index);
++       for (Index i = 0; i < PacketSize; ++i) {
++         Op reducer(m_reducer);
++-        values[i] = internal::InnerMostDimReducer<Self, Op>::reduce(*this, firstIndex + i * num_values_to_reduce,
+++        Self::CoeffReturnType a = internal::InnerMostDimReducer<Self, Op>::reduce(*this, firstIndex + i * num_values_to_reduce,
++                                                                     num_values_to_reduce, reducer);
+++        values[i] = a;
++       }
++     } else if (PreservingInnerMostDims) {
++       const Index firstIndex = firstInput(index);
++@@ -852,12 +853,14 @@ struct TensorReductionEvaluatorBase<const TensorReductionOp<Op, Dims, ArgType, M
++         return reducer.finalizePacket(accum);
++       } else {
++         for (int i = 0; i < PacketSize; ++i) {
++-          values[i] = coeff(index + i);
+++          Self::CoeffReturnType a = coeff(index + i);
+++          values[i] = a;
++         }
++       }
++     } else {
++       for (int i = 0; i < PacketSize; ++i) {
++-        values[i] = coeff(index + i);
+++        Self::CoeffReturnType a = coeff(index + i);
+++        values[i] = a;
++       }
++     }
++     PacketReturnType rslt = internal::pload<PacketReturnType>(values);
++-- 
++2.27.0
++
+diff --git a/third_party/eigen3/workspace.bzl b/third_party/eigen3/workspace.bzl
+index f06eca368c1..40bdebd6796 100644
+--- a/third_party/eigen3/workspace.bzl
++++ b/third_party/eigen3/workspace.bzl
+@@ -14,6 +14,7 @@ def repo():
+     tf_http_archive(
+         name = "eigen_archive",
+         build_file = "//third_party/eigen3:eigen_archive.BUILD",
++        patch_file = ["//third_party/eigen3:0001-workaround-ice-failure-while-building-from-source-wi.patch"],
+         sha256 = EIGEN_SHA256,
+         strip_prefix = "eigen-{commit}".format(commit = EIGEN_COMMIT),
+         urls = tf_mirror_urls("https://gitlab.com/libeigen/eigen/-/archive/{commit}/eigen-{commit}.tar.gz".format(commit = EIGEN_COMMIT)),

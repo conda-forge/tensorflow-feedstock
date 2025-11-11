@@ -1,0 +1,46 @@
+From e01b39341727714eb0211516d9663e4eb76063e9 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <ifernando@openteams.com>
+Date: Mon, 13 Oct 2025 19:52:15 +0000
+Subject: [PATCH 39/40] Disable profiler
+
+Enabling the profiler results in
+
+  E0000 00:00:1755006819.633883 1325783 descriptor_database.cc:678] File already exists in database: tensorflow/core/example/feature.proto
+  F0000 00:00:1755006819.633924 1325783 descriptor.cc:2519] Check failed: GeneratedDatabase()->Add(encoded_file_descriptor, size)
+
+isuruf and xhochy spent lots of time figuring out bazel and could
+not arrive at a solution.
+
+See https://github.com/conda-forge/tensorflow-feedstock/pull/437#issuecomment-3391979920
+---
+ tensorflow/python/profiler/profiler_client.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/tensorflow/python/profiler/profiler_client.py b/tensorflow/python/profiler/profiler_client.py
+index ad931ce6d69..3fec5ea1cd5 100644
+--- a/tensorflow/python/profiler/profiler_client.py
++++ b/tensorflow/python/profiler/profiler_client.py
+@@ -15,7 +15,6 @@
+ """Profiler client APIs."""
+ 
+ from tensorflow.python.framework import errors
+-from tensorflow.python.profiler.internal import _pywrap_profiler_plugin
+ from tensorflow.python.util.tf_export import tf_export
+ 
+ _GRPC_PREFIX = 'grpc://'
+@@ -125,6 +124,7 @@ def trace(service_addr,
+                                       'duration_ms must be greater than zero.')
+ 
+   opts = dict(options._asdict()) if options is not None else {}
++  raise RuntimeError("conda-forge builds do not support the profiler plugin yet.")
+   _pywrap_profiler_plugin.trace(
+       _strip_addresses(service_addr, _GRPC_PREFIX),
+       logdir,
+@@ -165,6 +165,7 @@ def monitor(service_addr, duration_ms, level=1):
+   ```
+ 
+   """
++  raise RuntimeError("conda-forge builds do not support the profiler plugin yet.")
+   return _pywrap_profiler_plugin.monitor(
+       _strip_prefix(service_addr, _GRPC_PREFIX), duration_ms, level, True
+   )

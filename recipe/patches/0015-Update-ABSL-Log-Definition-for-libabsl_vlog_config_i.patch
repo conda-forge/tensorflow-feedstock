@@ -1,0 +1,30 @@
+From a992f6848323db9ecb7f43de4880a99ffaa42b07 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Tue, 27 Feb 2024 18:01:19 -0500
+Subject: [PATCH 15/40] Update ABSL Log Definition for
+ libabsl_vlog_config_internal.so
+
+---
+ third_party/absl/system.absl.log.BUILD | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/third_party/absl/system.absl.log.BUILD b/third_party/absl/system.absl.log.BUILD
+index 0248bda0f52..1fe1e342594 100644
+--- a/third_party/absl/system.absl.log.BUILD
++++ b/third_party/absl/system.absl.log.BUILD
+@@ -5,6 +5,7 @@ package(default_visibility = ["//visibility:public"])
+ cc_library(
+     name = "log",
+     linkopts = [
++        "-labsl_vlog_config_internal",
+         "-labsl_log_internal_conditions",
+         "-labsl_log_internal_check_op",
+         "-labsl_log_internal_message",
+@@ -15,6 +16,7 @@ cc_library(
+ cc_library(
+     name = "check",
+     linkopts = [
++        "-labsl_vlog_config_internal",
+         "-labsl_log_internal_check_op",
+         "-labsl_log_internal_message",
+         "-labsl_log_internal_nullguard",

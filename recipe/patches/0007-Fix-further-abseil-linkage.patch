@@ -1,7 +1,7 @@
-From 06977c1cf3f9af375fab69b189a3862e02774f44 Mon Sep 17 00:00:00 2001
+From 86260278281eff45de43ffd41372ab4bdd1fbf57 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Mon, 18 Sep 2023 14:47:08 +0000
-Subject: [PATCH 07/41] Fix further abseil linkage
+Subject: [PATCH 07/40] Fix further abseil linkage
 
 ---
  third_party/absl/system.absl.base.BUILD | 14 ++++++++++++--

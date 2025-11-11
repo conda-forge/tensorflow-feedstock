@@ -1,7 +1,7 @@
-From 78fe26cde07460b7e2ebfe2b017398986ea8f10a Mon Sep 17 00:00:00 2001
+From 17122e23957b0f2c035ea2d1480c4cf71eefb6ae Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 30 Aug 2023 16:58:41 +0200
-Subject: [PATCH 04/41] Fix protobuf_python for systemlibs
+Subject: [PATCH 04/40] Fix protobuf_python for systemlibs
 
 ---
  tensorflow/workspace2.bzl                  | 1 +

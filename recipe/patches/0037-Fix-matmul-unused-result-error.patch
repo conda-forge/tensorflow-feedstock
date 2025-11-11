@@ -1,0 +1,22 @@
+From 565f7c7adf6d598b5689908b51f27780069f8403 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?= <lahwaacz@archlinux.org>
+Date: Wed, 6 Aug 2025 18:16:06 +0000
+Subject: [PATCH 37/40] Fix matmul unused result error
+
+---
+ .../toco/graph_transformations/resolve_tensorflow_matmul.cc     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc b/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
+index ccca3f7a2e0..e961891dda4 100644
+--- a/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
++++ b/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
+@@ -174,7 +174,7 @@ TransposeOperator* FindTransposeOpWithInput(const Model& model,
+   fc_op->outputs = matmul_op->outputs;
+ 
+   // Insert the newly constructed FullyConnectedOperator.
+-  model->operators.emplace(matmul_it, fc_op) + 1;
++  model->operators.emplace(matmul_it, fc_op);
+ 
+   // Find the op producing the array passed to this MatMul
+   auto previous_op_it = model->operators.begin();
