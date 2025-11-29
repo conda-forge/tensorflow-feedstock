@@ -1,0 +1,75 @@
+From 8e1d101acfaed847d292650609839f1a6a1939be Mon Sep 17 00:00:00 2001
+From: mmakevic-amd <Milica.Makevic@amd.com>
+Date: Thu, 13 Feb 2025 06:43:50 -0800
+Subject: [PATCH 44/44] PR #22572: Fix build break in
+ convolution_thunk_internal
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Imported from GitHub PR https://github.com/openxla/xla/pull/22572
+
+After this change https://github.com/openxla/xla/commit/8e6b84bd729a1d079ed5035f1ba8afc9d205587e, following build error occurred:
+
+```
+In file included from xla/backends/cpu/runtime/convolution_thunk_f16.cc:16:
+./xla/backends/cpu/runtime/convolution_thunk_internal.h: In lambda function:
+./xla/backends/cpu/runtime/convolution_thunk_internal.h:345:71: error: no matching function for call to ‘tsl::CountDownAsyncValueRef<tsl::Chain>::CountDown() const’
+  345 |           auto on_done = [count_down]() mutable { count_down.CountDown(); };
+      |                                                   ~~~~~~~~~~~~~~~~~~~~^~
+In file included from ./xla/backends/cpu/runtime/convolution_thunk_internal.h:26,
+                 from xla/backends/cpu/runtime/convolution_thunk_f16.cc:16:
+./xla/tsl/concurrency/async_value_ref.h:867:8: note: candidate: ‘bool tsl::CountDownAsyncValueRef<T>::CountDown(size_t, const absl::lts_20230802::Status&) [with T = tsl::Chain; size_t = long unsigned int]’
+  867 |   bool CountDown(size_t count, const absl::Status& status = absl::OkStatus()) {
+      |        ^~~~~~~~~
+./xla/tsl/concurrency/async_value_ref.h:867:8: note:   candidate expects 2 arguments, 0 provided
+./xla/tsl/concurrency/async_value_ref.h:919:8: note: candidate: ‘bool tsl::CountDownAsyncValueRef<T>::CountDown(absl::lts_20230802::Status) [with T = tsl::Chain]’ (near match)
+  919 |   bool CountDown(absl::Status status = absl::OkStatus()) {
+      |        ^~~~~~~~~
+./xla/tsl/concurrency/async_value_ref.h:919:8: note:   passing ‘const tsl::CountDownAsyncValueRef<tsl::Chain>*’ as ‘this’ argument discards qualifiers
+```
+Copybara import of the project:
+
+--
+69268a699eb07efb65be4e42087f75d504f750a6 by Milica Makevic <Milica.Makevic@amd.com>:
+
+Allow modification of captured variable in nested lambda
+
+Merging this change closes #22572
+
+COPYBARA_INTEGRATE_REVIEW=https://github.com/openxla/xla/pull/22572 from ROCm:ci_build_fix_250211 69268a699eb07efb65be4e42087f75d504f750a6
+PiperOrigin-RevId: 726463713
+---
+ .../cpu/runtime/convolution_thunk_internal.h  | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/third_party/xla/xla/backends/cpu/runtime/convolution_thunk_internal.h b/third_party/xla/xla/backends/cpu/runtime/convolution_thunk_internal.h
+index 84fed6bb786..7e22492e785 100644
+--- a/third_party/xla/xla/backends/cpu/runtime/convolution_thunk_internal.h
++++ b/third_party/xla/xla/backends/cpu/runtime/convolution_thunk_internal.h
+@@ -338,15 +338,16 @@ void EigenGenericConv2D(
+     auto num_tasks = Eigen::numext::div_ceil(feature_group_count, task_size);
+ 
+     if (use_thunk_runtime) {
+-      ScheduleAll(&device, num_tasks, [=, &device](Eigen::Index task_index) {
+-        Eigen::Index start = task_index * task_size;
+-        Eigen::Index end = std::min(start + task_size, feature_group_count);
+-        for (Eigen::Index i = start; i < end; ++i) {
+-          auto on_done = [count_down]() mutable { count_down.CountDown(); };
+-          auto [output, convolved] = convolve_group(i);
+-          output.device(device, std::move(on_done)) = convolved;
+-        }
+-      });
++      ScheduleAll(
++          &device, num_tasks, [=, &device](Eigen::Index task_index) mutable {
++            Eigen::Index start = task_index * task_size;
++            Eigen::Index end = std::min(start + task_size, feature_group_count);
++            for (Eigen::Index i = start; i < end; ++i) {
++              auto on_done = [count_down]() mutable { count_down.CountDown(); };
++              auto [output, convolved] = convolve_group(i);
++              output.device(device, std::move(on_done)) = convolved;
++            }
++          });
+     } else {
+       Eigen::Barrier barrier(num_tasks);
+       ScheduleAll(
