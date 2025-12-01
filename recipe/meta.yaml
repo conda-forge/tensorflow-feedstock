@@ -13,9 +13,9 @@
 {% set build = build + 25*(microarch_level | int - 1) %}
 
 # Quite often libml_dtypes-headers and ml_dtypes diverge.
-# https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
-{% set libml_dtypes_version = "0.5.1" %}
-{% set ml_dtypes_version = "0.5.1" %}
+# https://github.com/tensorflow/tensorflow/blob/v2.19.1/third_party/py/ml_dtypes/workspace.bzl
+{% set libml_dtypes_version = "0.5.4" %}
+{% set ml_dtypes_version = "0.5.4" %}
 
 package:
   name: tensorflow-split
@@ -87,6 +87,8 @@ build:
   skip: true  # [win]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
+  skip: true  # [cuda_compiler_version != "None"]
+  skip: true  # [microarch_level != 3]
 
 requirements:
   build:
