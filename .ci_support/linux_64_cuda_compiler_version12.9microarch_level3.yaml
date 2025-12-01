@@ -13,7 +13,9 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.9'
+cudnn:
+- '9'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -44,6 +46,8 @@ libtensorflow_cc:
 - '2.16'
 microarch_level:
 - '3'
+nccl:
+- '2'
 numpy:
 - '2'
 openssl:
