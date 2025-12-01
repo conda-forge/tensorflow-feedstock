@@ -87,7 +87,7 @@ build:
   skip: true  # [win]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
-  skip: true  # [cuda_compiler_version != "None"]
+  skip: true  # [cuda_compiler_version == "None"]
   skip: true  # [microarch_level != 3]
 
 requirements:
