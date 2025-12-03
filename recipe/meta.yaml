@@ -1,6 +1,6 @@
 {% set version = "2.19.1" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 2 %}
+{% set build = 4 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -13,9 +13,9 @@
 {% set build = build + 25*(microarch_level | int - 1) %}
 
 # Quite often libml_dtypes-headers and ml_dtypes diverge.
-# https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
-{% set libml_dtypes_version = "0.5.1" %}
-{% set ml_dtypes_version = "0.5.1" %}
+# https://github.com/tensorflow/tensorflow/blob/v2.19.1/third_party/py/ml_dtypes/workspace.bzl
+{% set libml_dtypes_version = "0.5.4" %}
+{% set ml_dtypes_version = "0.5.4" %}
 
 package:
   name: tensorflow-split
@@ -73,8 +73,9 @@ source:
       - patches/0039-Fix-matmul-unused-result-error.patch
       - patches/0040-Support-cuda-12.8.patch
       - patches/0041-Disable-profiler.patch
-      - patches/0042-bump-h5py-req.patch     # [aarch64]
-      - patches/0043-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      - patches/0042-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      # https://github.com/tensorflow/tensorflow/pull/99046
+      - patches/0043-Fix-shared-memory-alignment-in-concat-split-GPU-kern.patch
       # backport https://github.com/tensorflow/tensorflow/pull/99364
       - patches/0044-Support-for-TFv2.20-to-compile-with-CUDA-v12.9.1.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
@@ -86,6 +87,8 @@ build:
   skip: true  # [win]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
+  skip: true  # [cuda_compiler_version == "None"]
+  skip: true  # [microarch_level != 3]
 
 requirements:
   build:
@@ -235,6 +238,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       # weigh down cpu implementation and give cuda preference
@@ -362,6 +366,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
       # weigh down cpu implementation and give cuda preference
@@ -409,6 +414,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
     requirements:
@@ -581,6 +587,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                # [cuda_compiler_version == "None"]
     requirements:
@@ -599,6 +606,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                # [cuda_compiler_version == "None"]
     requirements:
@@ -617,6 +625,7 @@ outputs:
       # tensorflow 2.18 doesn't support py313 until 2.20, see
       # https://github.com/tensorflow/tensorflow/issues/78774
       skip: true  # [py==313]
+      skip: true  # [py!=312]
       string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
       string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                # [cuda_compiler_version == "None"]
     requirements:
