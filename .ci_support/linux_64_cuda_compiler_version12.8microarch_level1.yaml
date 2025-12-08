@@ -13,7 +13,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.9'
+- '12.8'
 cudnn:
 - '9'
 cxx_compiler:
@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
-- 25.2.10
+- 25.9.23
 giflib:
 - '5.2'
 github_actions_labels:

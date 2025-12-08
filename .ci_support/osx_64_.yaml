@@ -23,7 +23,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 flatbuffers:
-- 25.2.10
+- 25.9.23
 giflib:
 - '5.2'
 icu:
