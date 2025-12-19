@@ -1,6 +1,6 @@
 {% set version = "2.19.1" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 2 %}
+{% set build = 3 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -75,8 +75,6 @@ source:
       - patches/0041-Disable-profiler.patch
       - patches/0042-bump-h5py-req.patch     # [aarch64]
       - patches/0043-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
-      # backport https://github.com/tensorflow/tensorflow/pull/99364
-      - patches/0044-Support-for-TFv2.20-to-compile-with-CUDA-v12.9.1.patch
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
@@ -84,6 +82,8 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
+  # debug
+  skip: true  # [not osx]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
 

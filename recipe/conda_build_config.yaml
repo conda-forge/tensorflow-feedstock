@@ -6,8 +6,9 @@ cxx_compiler_version:           # [aarch64]
   - 11                          # [aarch64]
   - 11                          # [aarch64]
 
-github_actions_labels:          # [linux]
+github_actions_labels:          # [unix]
 - cirun-openstack-cpu-2xlarge   # [linux]
+- cirun-macos-m4-large          # [osx]
 microarch_level:
 - 1
 # hmaarrfk -- temporary, uncomment during actual build
