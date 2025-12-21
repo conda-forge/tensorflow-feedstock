@@ -27,7 +27,7 @@ flatbuffers:
 giflib:
 - '5.2'
 icu:
-- '75'
+- '78'
 libabseil:
 - '20250512'
 libcurl:
