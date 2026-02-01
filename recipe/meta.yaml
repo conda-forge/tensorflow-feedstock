@@ -73,8 +73,10 @@ source:
       - patches/0039-Fix-matmul-unused-result-error.patch
       - patches/0040-Support-cuda-12.8.patch
       - patches/0041-Disable-profiler.patch
-      - patches/0042-bump-h5py-req.patch     # [aarch64]
-      - patches/0043-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      - patches/0042-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      # backport https://github.com/openxla/xla/pull/22572 into vendored xla
+      - patches/0044-PR-22572-Fix-build-break-in-convolution_thunk_intern.patch
+      - patches/0045-Force-python-wheel-architecture-to-aarch64.patch  # [aarch64 and target_platform != build_platform]
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
@@ -88,6 +90,8 @@ build:
   skip: true  # [osx]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
+  # DEBUG:
+  skip: true  # [not aarch64]
 
 requirements:
   build:

@@ -1,0 +1,30 @@
+From 2647d10989b95d1f682cbe125f5e1023c74e2f9e Mon Sep 17 00:00:00 2001
+From: David Lecomber <david+dslarm@lecomber.net>
+Date: Fri, 30 Jan 2026 13:38:07 +0000
+Subject: [PATCH] Force python wheel architecture to aarch64 When
+ cross-building, the wheel-creation phase creates for the host architecture
+ instead of target as bazel has somehow confused the architecture; this patch
+ is a workaround to this issue.
+
+---
+ tensorflow/tools/pip_package/BUILD | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/tensorflow/tools/pip_package/BUILD b/tensorflow/tools/pip_package/BUILD
+index 5aecef595ba..d3aa65c48ef 100644
+--- a/tensorflow/tools/pip_package/BUILD
++++ b/tensorflow/tools/pip_package/BUILD
+@@ -288,12 +288,7 @@ tf_wheel(
+         "@platforms//os:windows": "win",
+         "@platforms//os:linux": "linux",
+     }),
+-    platform_tag = select({
+-        "@platforms//cpu:aarch64": "arm64",
+-        "@platforms//cpu:arm64": "arm64",
+-        "@platforms//cpu:x86_64": "x86_64",
+-        "@platforms//cpu:ppc": "ppc64le",
+-    }),
++    platform_tag = "arm64",
+     source_files = [
+         "MANIFEST.in",
+         "//tensorflow/tools/pip_package:THIRD_PARTY_NOTICES.txt",
