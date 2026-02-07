@@ -13,7 +13,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.9'
 cudnn:
 - '9'
 cxx_compiler:
@@ -31,17 +31,17 @@ github_actions_labels:
 icu:
 - '78'
 libabseil:
-- '20250512'
+- '20260107'
 libcurl:
 - '8'
 libgrpc:
-- '1.73'
+- '1.78'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 6.31.1
+- 6.33.5
 libtensorflow_cc:
 - '2.16'
 microarch_level:
