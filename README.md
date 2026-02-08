@@ -4,7 +4,7 @@ About tensorflow-feedstock
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock/blob/main/LICENSE.txt)
 
 Home: http://tensorflow.org/
-
+ 
 Package license: Apache-2.0
 
 Summary: TensorFlow is an end-to-end open source platform for machine learning.
