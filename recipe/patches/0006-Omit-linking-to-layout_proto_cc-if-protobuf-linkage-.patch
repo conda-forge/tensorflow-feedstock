@@ -1,7 +1,7 @@
-From e449e51b042dac4e687fb9dd95cb472819ae0dba Mon Sep 17 00:00:00 2001
+From d202b58b74d311e89d29cc0ce303c3ac46d7e292 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
-Date: Fri, 15 Sep 2023 11:06:27 +0200
-Subject: [PATCH 06/44] Omit linking to layout_proto_cc if protobuf linkage is
+Date: Fri, 6 Feb 2026 00:58:49 +0000
+Subject: [PATCH 06/31] Omit linking to layout_proto_cc if protobuf linkage is
  shared
 
 ---
@@ -9,14 +9,14 @@ Subject: [PATCH 06/44] Omit linking to layout_proto_cc if protobuf linkage is
  1 file changed, 1 deletion(-)
 
 diff --git a/tensorflow/python/BUILD b/tensorflow/python/BUILD
-index 8a781badc68..5edfb0a4846 100644
+index 8fea090dc44..d291f01b188 100644
 --- a/tensorflow/python/BUILD
 +++ b/tensorflow/python/BUILD
-@@ -1382,7 +1382,6 @@ tf_python_pybind_extension(
-     features = ["-layering_check"],
-     deps = [
-         ":pywrap_densor_device_headers",
+@@ -1402,7 +1402,6 @@ tf_pybind_cc_library_wrapper(
+         "//tensorflow/core:protos_all_cc",
+         "//tensorflow/dtensor/cc:dtensor_device_cc",
+         "//tensorflow/dtensor/cc:tensor_layout",
 -        "//tensorflow/dtensor/proto:layout_proto_cc",
-         "//tensorflow/python/lib/core:pybind11_lib",
-         "//tensorflow/python/lib/core:pybind11_status_headers",
-         "//third_party/python_runtime:headers",  # buildcleaner: keep
+         "//tensorflow/python/eager:pywrap_tfe_lib",
+         "//tensorflow/python/lib/core:safe_pyobject_ptr",
+         "//tensorflow/python/util:cpp_python_util",

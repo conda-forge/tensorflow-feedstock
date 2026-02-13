@@ -1,26 +1,30 @@
-From 298c5e540ab03f75ab5ede906fbb21d54ee8dc8f Mon Sep 17 00:00:00 2001
+From ad6b00e9edcd316d7009ecf749bd77c964f542b1 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
-Date: Wed, 30 Aug 2023 16:58:41 +0200
-Subject: [PATCH 04/44] Fix protobuf_python for systemlibs
+Date: Fri, 6 Feb 2026 00:55:09 +0000
+Subject: [PATCH 04/31] Fix protobuf_python for systemlibs
 
 ---
- tensorflow/workspace2.bzl                  | 1 +
+ tensorflow/workspace2.bzl                  | 5 +++++
  third_party/systemlibs/protobuf_python.bzl | 5 +++++
- 2 files changed, 6 insertions(+)
+ 2 files changed, 10 insertions(+)
  create mode 100644 third_party/systemlibs/protobuf_python.bzl
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
-index 5d75ffd4a6d..fe87aac9a8c 100644
+index 9e49ab40b25..1f0ff1b11fd 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -401,6 +401,7 @@ def _tf_repositories():
-         system_link_files = {
-             "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
-             "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
+@@ -396,6 +396,11 @@ def _tf_repositories():
+ 
+     tf_http_archive(
+         name = "com_google_protobuf",
++	system_link_files = {
++            "//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",
++            "//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",
 +            "//third_party/systemlibs:protobuf_python.bzl": "python/BUILD",
-         },
-         urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"),
-     )
++        },
+         patch_file = ["@local_xla//third_party/protobuf:protobuf.patch"],
+         sha256 = "f645e6e42745ce922ca5388b1883ca583bafe4366cc74cf35c3c9299005136e2",
+         strip_prefix = "protobuf-5.28.3",
 diff --git a/third_party/systemlibs/protobuf_python.bzl b/third_party/systemlibs/protobuf_python.bzl
 new file mode 100644
 index 00000000000..982617a765c

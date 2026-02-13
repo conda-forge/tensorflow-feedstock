@@ -70,8 +70,6 @@ export TF_SYSTEM_LIBS="
   snappy
   zlib
   "
-sed -i -e "s/GRPCIO_VERSION/${libgrpc}/" tensorflow/tools/pip_package/setup.py
-sed -i -e "s/<6.0.0dev/<7.0.0dev/g" tensorflow/tools/pip_package/setup.py
 
 # do not build with MKL support
 export TF_NEED_MKL=0

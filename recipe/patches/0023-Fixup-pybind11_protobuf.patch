@@ -1,0 +1,67 @@
+From 063e28adcd3dcd92ddc24d3d718a929e283e1b5b Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Sun, 6 Jul 2025 16:45:03 -0400
+Subject: [PATCH 23/31] Fixup pybind11_protobuf
+
+---
+ tensorflow/workspace2.bzl                          |  5 +++++
+ third_party/pybind11_protobuf/remove_license.patch | 10 +++++-----
+ third_party/xla/workspace2.bzl                     |  5 +++++
+ 3 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
+index 1f0ff1b11fd..52204d79ed6 100644
+--- a/tensorflow/workspace2.bzl
++++ b/tensorflow/workspace2.bzl
+@@ -793,6 +793,11 @@ def _tf_repositories():
+         urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/f02a2b7653bc50eb5119d125842a3870db95d251.zip"),
+         sha256 = "3cf7bf0f23954c5ce6c37f0a215f506efa3035ca06e3b390d67f4cbe684dce23",
+         strip_prefix = "pybind11_protobuf-f02a2b7653bc50eb5119d125842a3870db95d251",
++        patch_file = [
++            "//third_party/pybind11_protobuf:remove_license.patch",
++            "//third_party/pybind11_protobuf:0001-DO-not-link-to-proto_api.patch",
++            "//third_party/pybind11_protobuf:0002-Add-Python-include-path.patch",
++        ],
+     )
+ 
+     tf_http_archive(
+diff --git a/third_party/pybind11_protobuf/remove_license.patch b/third_party/pybind11_protobuf/remove_license.patch
+index 2e41474ee4a..7180fa8167e 100644
+--- a/third_party/pybind11_protobuf/remove_license.patch
++++ b/third_party/pybind11_protobuf/remove_license.patch
+@@ -1,13 +1,13 @@
+-diff --git third_party/pybind11_protobuf/BUILD third_party/pybind11_protobuf/BUILD
+-index b62eb91..b7d1240 100644
++diff --git a/pybind11_protobuf/BUILD b/pybind11_protobuf/BUILD
++index 3393167..5f5568d 100644
+ --- a/pybind11_protobuf/BUILD
+ +++ b/pybind11_protobuf/BUILD
+-@@ -3,8 +3,6 @@
++@@ -2,8 +2,6 @@
++
+  load("@pybind11_bazel//:build_defs.bzl", "pybind_library")
+- load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+ 
+ -licenses(["notice"])
+ -
+  pybind_library(
+      name = "enum_type_caster",
+-     hdrs = ["enum_type_caster.h"],
+\ No newline at end of file
++     hdrs = ["enum_type_caster.h"],
+diff --git a/third_party/xla/workspace2.bzl b/third_party/xla/workspace2.bzl
+index 9e4166034d0..47646f463bf 100644
+--- a/third_party/xla/workspace2.bzl
++++ b/third_party/xla/workspace2.bzl
+@@ -512,6 +512,11 @@ def _tf_repositories():
+         urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/f02a2b7653bc50eb5119d125842a3870db95d251.zip"),
+         sha256 = "3cf7bf0f23954c5ce6c37f0a215f506efa3035ca06e3b390d67f4cbe684dce23",
+         strip_prefix = "pybind11_protobuf-f02a2b7653bc50eb5119d125842a3870db95d251",
++        patch_file = [
++            "//third_party/pybind11_protobuf:remove_license.patch",
++            "//third_party/pybind11_protobuf:0001-DO-not-link-to-proto_api.patch",
++            "//third_party/pybind11_protobuf:0002-Add-Python-include-path.patch",
++        ],
+     )
+ 
+     java_import_external(

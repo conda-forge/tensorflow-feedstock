@@ -1,18 +1,18 @@
-From 8d650f38d371a8ba2a48bf2caed5ec094a15a4c3 Mon Sep 17 00:00:00 2001
+From b376774d7eb851a7ee56f9bf4df1364bf9000956 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Fri, 27 Oct 2023 11:20:12 +0200
-Subject: [PATCH 08/44] Add constraint to pybind11 systemlib
+Subject: [PATCH 08/31] Add constraint to pybind11 systemlib
 
 ---
  third_party/systemlibs/pybind11.BUILD | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/third_party/systemlibs/pybind11.BUILD b/third_party/systemlibs/pybind11.BUILD
-index 44e7496fc25..21ec073b7a4 100644
+index 6579133497d..66fee809387 100644
 --- a/third_party/systemlibs/pybind11.BUILD
 +++ b/third_party/systemlibs/pybind11.BUILD
 @@ -6,3 +6,9 @@ cc_library(
-         "@local_tsl//third_party/python_runtime:headers",
+         "@xla@local_xla//third_party/python_runtime:headers",
      ],
  )
 +

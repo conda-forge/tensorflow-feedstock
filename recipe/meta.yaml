@@ -1,6 +1,6 @@
-{% set version = "2.19.1" %}
+{% set version = "2.20.0" %}
 {% set estimator_version = "2.15.0" %}
-{% set build = 3 %}
+{% set build = 0 %}
 
 {% if cuda_compiler_version != "None" %}
 {% set build = build + 200 %}
@@ -23,7 +23,7 @@ package:
 
 source:
   - url: https://github.com/tensorflow/tensorflow/archive/refs/tags/v{{ version.replace(".rc", "-rc") }}.tar.gz
-    sha256: fcfb3e88ab3eebdbab98a03c869a4d2616d52ea166c8d8021de1ef921b47be8d
+    sha256: a640d1f97be316a09301dfc9347e3d929ad4d9a2336e3ca23c32c93b0ff7e5d0
     patches:
       - patches/0001-loosen-requirements.patch
       - patches/0002-Add-additional-absl_synchronization-linkage-to-gRPC.patch
@@ -37,46 +37,34 @@ source:
       - patches/0010-Use-correct-hermetic-python.patch
       - patches/0011-Add-well_known_types_py_pb2-to-protobuf-systemlib.patch
       - patches/0012-Add-protobuf-toolchain.patch
-      - patches/0013-fix-genproto.patch
-      - patches/0014-Remove-some-usage-of-absl-str_format-in-CUDA.patch  # [(cuda_compiler_version or "").startswith("11")]
-      - patches/0015-Adjust-relative-path-for-libdevice.patch            # [(cuda_compiler_version or "").startswith("11")]
-      - patches/0016-Link-to-absl_log_flags-instead-of-absl_flags.patch
-      - patches/0017-Update-ABSL-Log-Definition-for-libabsl_vlog_config_i.patch
-      - patches/0018-add-absl_string_view-target.patch
-      - patches/0019-add-absl_nullability-target.patch
-      - patches/0020-add-absl_prefetch-target.patch
-      - patches/0021-add-absl_die_if_null-target.patch
-      - patches/0022-add-absl_crc32c-targets.patch
-      - patches/0023-add-kernel_timeout_internal-target.patch
-      - patches/0024-work-around-for-warning-that-clang-falsely-treats-as.patch
-      - patches/0025-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
-      - patches/0026-Only-link-to-sparse_core_layout_proto_cc-headers.patch
-      - patches/0027-Protobuf-5-compatability.patch
-      # https://github.com/tensorflow/tensorflow/pull/86413
-      - patches/0028-Avoid-linking-with-internal-nvrtc.patch
-      - patches/0029-remove-dependencies-to-libcuda.patch
+      - patches/0013-add-absl_string_view-target.patch
+      - patches/0014-add-absl_nullability-target.patch
+      - patches/0015-add-absl_prefetch-target.patch
+      - patches/0016-add-absl_die_if_null-target.patch
+      - patches/0017-add-absl_crc32c-targets.patch
+      - patches/0018-add-kernel_timeout_internal-target.patch
+      - patches/0019-work-around-for-warning-that-clang-falsely-treats-as.patch
+      - patches/0020-Hardcode-BUILD_PREFIX-in-build_pip_package.patch
+      - patches/0021-Only-link-to-sparse_core_layout_proto_cc-headers.patch
+      - patches/0022-remove-dependencies-to-libcuda.patch
       # adjust patch 0004 for newer absl -- hmaarrfk - 2025/07/06
-      - patches/0030-Fixup-pybind11_protobuf.patch
-      - patches/0031-Update-linkages-for-new-absl-organization.patch
-      # Already included in the release after 2.19.0
-      - patches/0032-Remove-ambiguous-inherited-constructor-in-default_qu.patch
+      - patches/0023-Fixup-pybind11_protobuf.patch
+      - patches/0024-Update-linkages-for-new-absl-organization.patch
+      # for our system absl
+      - patches/0025-add-absl_tracing_internal.patch
+      # for the megabuild
+      - patches/0026-Fix-building-different-python-wheels-from-one-python.patch
+      - patches/0027-Fix-matmul-unused-result-error.patch
+      - patches/0028-Support-cuda-12.8.patch
+      - patches/0029-Disable-profiler.patch
+      - patches/0030-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
+      - patches/0031-Force-python-wheel-architecture-to-aarch64.patch  # [aarch64 and target_platform != build_platform]
+      - patches/0032-Restore-system-link-files-for-absl.patch
       # these came from https://git.yoctoproject.org/meta-tensorflow/tree/recipes-framework/tensorflow/files
       # check every release there for patches in the future
       # - patches/0033-third_party-ducc-fix-ambiguous-failure.patch
       # - patches/0034-third_party-tf_runtime-fix-compile-failure.patch
       # - patches/0035-support-to-build-with-gcc-15.patch
-      - patches/0036-third_party-eigen_archive-workaround-ice-failure-whi.patch
-      # for our system absl
-      - patches/0037-add-absl_tracing_internal.patch
-      # for the megabuild
-      - patches/0038-Fix-building-different-python-wheels-from-one-python.patch
-      - patches/0039-Fix-matmul-unused-result-error.patch
-      - patches/0040-Support-cuda-12.8.patch
-      - patches/0041-Disable-profiler.patch
-      - patches/0042-cross-arch-config.patch  # [aarch64 and target_platform != build_platform]
-      # backport https://github.com/openxla/xla/pull/22572 into vendored xla
-      - patches/0044-PR-22572-Fix-build-break-in-convolution_thunk_intern.patch
-      - patches/0045-Force-python-wheel-architecture-to-aarch64.patch  # [aarch64 and target_platform != build_platform]
   - url: https://github.com/tensorflow/estimator/archive/refs/tags/v{{ estimator_version.replace(".rc", "-rc") }}.tar.gz
     sha256: 2d7e100b1878084da34b5e23b49a0cbb5ee8a7add74b7dd189a82ada1cf85530
     folder: tensorflow-estimator
@@ -90,6 +78,7 @@ build:
   skip: true  # [osx]
   # TODO: debug issues with CUDA cross-compilation
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
+  skip: true  # [cuda_compiler_version != "None" or microarch_level != 1]
 
 requirements:
   build:
@@ -306,46 +295,48 @@ outputs:
         # github.com/tensorflow/tensorflow/blob/v{{ version }}/tensorflow/tools/pip_package/setup.py
         - absl-py >=1.0.0
         - astunparse >=1.6.0
+        - python-flatbuffers >=24.3.25
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
-        - h5py >=3.11
-        - ml_dtypes >={{ ml_dtypes_version }},<1.0
-        - numpy
         - opt_einsum >=2.3.2
-        # simplified compared to upstream due to constraints arising through libprotobuf
-        - protobuf >=5.28
-        - python-flatbuffers >=24.3.25
+        - packaging
+        - protobuf >=5.28.0
         - requests >=2.21.0,<3
         - six >=1.12
         - termcolor >=1.1.0
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
+        - grpcio {{ libgrpc }}.*
         # TF-API needs to move in sync
-        - tensorboard >=2.19,<2.20
-        - keras >=3.5
+        - tensorboard >=2.20,<2.21
+        - keras >=3.10.0
+        - numpy
+        - h5py >=3.11.0
+        - ml_dtypes >={{ ml_dtypes_version }},<1.0.0
         - {{ pin_subpackage("libtensorflow_framework", exact=True) }}
         - {{ pin_subpackage("libtensorflow_cc", exact=True) }}
       run:
         - python
-        - packaging
         - absl-py >=1.0.0
         - astunparse >=1.6.0
+        - python-flatbuffers >=24.3.25
         - gast >=0.2.1,!=0.5.0,!=0.5.1,!=0.5.2
         - google-pasta >=0.1.1
-        - grpcio {{ libgrpc }}.*
-        - h5py >=3.11
-        - ml_dtypes >={{ ml_dtypes_version }},<1.0
         - opt_einsum >=2.3.2
-        - protobuf >=5.26
-        - python-flatbuffers >=24.3.25
+        - packaging
+        - protobuf >=5.28.0
         - requests >=2.21.0,<3
         - six >=1.12
         - termcolor >=1.1.0
         - typing_extensions >=3.6.6
         - wrapt >=1.11.0
+        - grpcio {{ libgrpc }}.*
         # TF-API needs to move in sync
-        - tensorboard >=2.19,<2.20
-        - keras >=3.5
+        - tensorboard >=2.20,<2.21
+        - keras >=3.10.0
+        - numpy >=1.26.0
+        - h5py >=3.11.0
+        - ml_dtypes >={{ ml_dtypes_version }},<1.0.0
         # avoid that people without GPUs needlessly download ~0.5-1GB
         - __cuda                                                  # [cuda_compiler_version != "None"]
         # https://github.com/conda-forge/tensorflow-feedstock/issues/296#issuecomment-1835781851

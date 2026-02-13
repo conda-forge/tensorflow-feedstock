@@ -1,20 +1,22 @@
-From d49beaef49c52ea690f02de7cfbde0e6aef06490 Mon Sep 17 00:00:00 2001
+From f891ca063cf333c2f52e58975fd28587ff7f7440 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
-Date: Wed, 30 Aug 2023 16:59:28 +0200
-Subject: [PATCH 05/44] Add absl_log systemlib
+Date: Tue, 27 Feb 2024 18:01:19 -0500
+Subject: [PATCH 05/31] Add absl_log systemlib
 
+Co-authored-by: Mark Harfouche <mark.harfouche@gmail.com>
 ---
- third_party/absl/system.absl.log.BUILD | 22 ++++++++++++++++++++++
- third_party/absl/workspace.bzl         |  1 +
- 2 files changed, 23 insertions(+)
+ third_party/absl/system.absl.log.BUILD        | 24 +++++++++++++++++++
+ .../third_party/absl/system.absl.log.BUILD    | 24 +++++++++++++++++++
+ 2 files changed, 48 insertions(+)
  create mode 100644 third_party/absl/system.absl.log.BUILD
+ create mode 100644 third_party/xla/third_party/absl/system.absl.log.BUILD
 
 diff --git a/third_party/absl/system.absl.log.BUILD b/third_party/absl/system.absl.log.BUILD
 new file mode 100644
-index 00000000000..0248bda0f52
+index 00000000000..1fe1e342594
 --- /dev/null
 +++ b/third_party/absl/system.absl.log.BUILD
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,24 @@
 +load("@rules_cc//cc:defs.bzl", "cc_library")
 +
 +package(default_visibility = ["//visibility:public"])
@@ -22,6 +24,7 @@ index 00000000000..0248bda0f52
 +cc_library(
 +    name = "log",
 +    linkopts = [
++        "-labsl_vlog_config_internal",
 +        "-labsl_log_internal_conditions",
 +        "-labsl_log_internal_check_op",
 +        "-labsl_log_internal_message",
@@ -32,20 +35,39 @@ index 00000000000..0248bda0f52
 +cc_library(
 +    name = "check",
 +    linkopts = [
++        "-labsl_vlog_config_internal",
 +        "-labsl_log_internal_check_op",
 +        "-labsl_log_internal_message",
 +        "-labsl_log_internal_nullguard",
 +    ],
 +)
-diff --git a/third_party/absl/workspace.bzl b/third_party/absl/workspace.bzl
-index d5973b13b39..b5197f9304b 100644
---- a/third_party/absl/workspace.bzl
-+++ b/third_party/absl/workspace.bzl
-@@ -20,6 +20,7 @@ def repo():
-         "flags",
-         "functional",
-         "hash",
-+        "log",
-         "memory",
-         "meta",
-         "numeric",
+diff --git a/third_party/xla/third_party/absl/system.absl.log.BUILD b/third_party/xla/third_party/absl/system.absl.log.BUILD
+new file mode 100644
+index 00000000000..1fe1e342594
+--- /dev/null
++++ b/third_party/xla/third_party/absl/system.absl.log.BUILD
+@@ -0,0 +1,24 @@
++load("@rules_cc//cc:defs.bzl", "cc_library")
++
++package(default_visibility = ["//visibility:public"])
++
++cc_library(
++    name = "log",
++    linkopts = [
++        "-labsl_vlog_config_internal",
++        "-labsl_log_internal_conditions",
++        "-labsl_log_internal_check_op",
++        "-labsl_log_internal_message",
++        "-labsl_log_internal_nullguard",
++    ],
++)
++
++cc_library(
++    name = "check",
++    linkopts = [
++        "-labsl_vlog_config_internal",
++        "-labsl_log_internal_check_op",
++        "-labsl_log_internal_message",
++        "-labsl_log_internal_nullguard",
++    ],
++)

@@ -1,0 +1,22 @@
+From d94283a86058f58325e1f2dcb3442c57d25442dd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?= <lahwaacz@archlinux.org>
+Date: Wed, 6 Aug 2025 18:16:06 +0000
+Subject: [PATCH 27/31] Fix matmul unused result error
+
+---
+ .../toco/graph_transformations/resolve_tensorflow_matmul.cc     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc b/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
+index ceacf0378ff..892462551d2 100644
+--- a/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
++++ b/tensorflow/lite/toco/graph_transformations/resolve_tensorflow_matmul.cc
+@@ -173,7 +173,7 @@ absl::Status ResolveTensorFlowMatMul::Run(Model* model, std::size_t op_index,
+   fc_op->outputs = matmul_op->outputs;
+ 
+   // Insert the newly constructed FullyConnectedOperator.
+-  model->operators.emplace(matmul_it, fc_op) + 1;
++  model->operators.emplace(matmul_it, fc_op);
+ 
+   // Find the op producing the array passed to this MatMul
+   auto previous_op_it = model->operators.begin();
