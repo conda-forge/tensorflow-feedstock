@@ -1,7 +1,7 @@
 About tensorflow-feedstock
 ==========================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock2-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock/blob/main/LICENSE.txt)
 
 Home: http://tensorflow.org/
 
