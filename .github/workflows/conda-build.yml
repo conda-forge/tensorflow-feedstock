@@ -22,36 +22,43 @@ jobs:
       max-parallel: 50
       matrix:
         include:
-          # - CONFIG: linux_64_cuda_compiler_version12.8microarch_level1
-          #   UPLOAD_PACKAGES: True
-          #   os: ubuntu
-          #   runs_on: ['namespace-profile-16cpu-on-linux-64']
-          #   DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-          # - CONFIG: linux_64_cuda_compiler_version12.8microarch_level3
-          #   UPLOAD_PACKAGES: True
-          #   os: ubuntu
-          #   runs_on: ['namespace-profile-16cpu-on-linux-64']
-          #   DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-          # - CONFIG: linux_64_cuda_compiler_versionNonemicroarch_level1
-          #   UPLOAD_PACKAGES: True
-          #   os: ubuntu
-          #   runs_on: ['namespace-profile-16cpu-on-linux-64']
-          #   DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: linux_64_cuda_compiler_version12.8microarch_level1
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: linux_64_cuda_compiler_version12.8microarch_level3
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: linux_64_cuda_compiler_versionNonemicroarch_level1
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
           - CONFIG: linux_64_cuda_compiler_versionNonemicroarch_level3
+            STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: ubuntu
             runs_on: ['namespace-profile-16cpu-on-linux-64']
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
           - CONFIG: linux_aarch64_cuda_compiler_versionNone
+            STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: ubuntu
-            runs_on: ['namespace-profile-16cpu-on-linux-aarch64']
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-          # - CONFIG: osx_64_
-          #   UPLOAD_PACKAGES: True
-          #   os: macos
-          #   runs_on: ['namespace-profile-12cpu-on-osx-arm64']
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: osx_64_
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: macos
+            runs_on: ['namespace-profile-12cpu-on-osx-arm64']
           - CONFIG: osx_arm64_
+            STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             os: macos
             runs_on: ['namespace-profile-12cpu-on-osx-arm64']
@@ -127,7 +134,7 @@ jobs:
       env:
         # default value; make it explicit, as it needs to match with artefact
         # generation below. Not configurable for now, can be revisited later
-        CONDA_BLD_DIR: C:\bld
+        CONDA_BLD_PATH: C:\bld
         MINIFORGE_HOME: ${{ contains(runner.arch, 'ARM') && 'C' || 'D' }}:\Miniforge
         PYTHONUNBUFFERED: 1
         CONFIG: ${{ matrix.CONFIG }}

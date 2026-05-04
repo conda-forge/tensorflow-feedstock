@@ -19,13 +19,13 @@ cxx_compiler:
 cxx_compiler_version:
 - '11'
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
 - 25.9.23
 giflib:
 - '5.2'
 github_actions_labels:
-- namespace-profile-8cpu-on-linux-aarch64
+- namespace-profile-16cpu-on-linux-64
 icu:
 - '78'
 libabseil:

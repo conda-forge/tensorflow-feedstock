@@ -27,7 +27,7 @@ flatbuffers:
 giflib:
 - '5.2'
 github_actions_labels:
-- namespace-profile-8cpu-on-linux-64
+- namespace-profile-16cpu-on-linux-64
 icu:
 - '78'
 libabseil:
