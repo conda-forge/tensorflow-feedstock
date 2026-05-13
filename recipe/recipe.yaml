@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.19.1"
-  build: 5
+  build: 6
   # Quite often libml_dtypes-headers and ml_dtypes diverge.
   # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
   libml_dtypes_version: "0.5.1"
@@ -66,6 +66,8 @@ source:
       - patches/0038-Fix-building-different-python-wheels-from-one-python.patch
       - patches/0039-Fix-matmul-unused-result-error.patch
       - patches/0040-Support-cuda-12.8.patch
+      - if: cuda_compiler_version == "12.9"
+        then: patches/0043-Support-for-TFv2.20-to-compile-with-CUDA-v12.9.1.patch
       - patches/0041-Disable-profiler.patch
       - if: aarch64 and target_platform != build_platform
         then: patches/0042-cross-arch-config.patch

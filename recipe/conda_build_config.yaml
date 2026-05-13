@@ -1,10 +1,28 @@
 # aarch has issues with newer GCC
-c_compiler_version:             # [aarch64]
+c_compiler_version:
   - 11                          # [aarch64]
   - 11                          # [aarch64]
-cxx_compiler_version:           # [aarch64]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+cxx_compiler_version:
   - 11                          # [aarch64]
   - 11                          # [aarch64]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+fortran_compiler_version:
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                          # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+c_stdlib_version:
+  - 2.17                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+cuda_compiler_version:
+  - None                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.9                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.8                        # [linux and x86_64 and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 github_actions_labels:          # [unix]
 - namespace-profile-16cpu-on-linux-64       # [linux64]
