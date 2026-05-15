@@ -35,6 +35,18 @@ description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_ve
 [tasks."inspect-linux_64_cuda_compiler_version12.8microarch_level3"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version12.8microarch_level3.yaml"
 description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version12.8microarch_level3"
+[tasks."build-linux_64_cuda_compiler_version13.0microarch_level1"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level1.yaml"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level1 directly (without setup scripts)"
+[tasks."inspect-linux_64_cuda_compiler_version13.0microarch_level1"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level1.yaml"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level1"
+[tasks."build-linux_64_cuda_compiler_version13.0microarch_level3"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level3.yaml"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level3 directly (without setup scripts)"
+[tasks."inspect-linux_64_cuda_compiler_version13.0microarch_level3"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level3.yaml"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level3"
 [tasks."build-linux_64_cuda_compiler_versionNonemicroarch_level1"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level1.yaml"
 description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level1 directly (without setup scripts)"

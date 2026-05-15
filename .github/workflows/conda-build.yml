@@ -34,6 +34,18 @@ jobs:
             os: ubuntu
             runs_on: ['namespace-profile-16cpu-on-linux-64']
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: linux_64_cuda_compiler_version13.0microarch_level1
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+          - CONFIG: linux_64_cuda_compiler_version13.0microarch_level3
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            os: ubuntu
+            runs_on: ['namespace-profile-16cpu-on-linux-64']
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
           - CONFIG: linux_64_cuda_compiler_versionNonemicroarch_level1
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
