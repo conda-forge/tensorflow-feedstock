@@ -1,0 +1,62 @@
+migrator_ts: 1755016036
+__migrator:
+  operation: key_add
+  migration_number:
+    1
+  build_number:
+    1
+  paused: false
+  override_cbc_keys:
+    - cuda_compiler_stub
+  check_solvable: false
+  primary_key: cuda_compiler_version
+  ordering:
+    cuda_compiler_version:
+      - 12.4
+      - 12.6
+      - 12.8
+      - None
+      - 12.9
+      - 13.0
+      # to allow manual opt-in for CUDA 11.8, see
+      # https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/7472
+      # must be last due to how cuda_compiler ordering in that migrator works
+      - 11.8
+  wait_for_migrators:
+    - cuda129
+  commit_message: |
+    Upgrade to CUDA 13.0
+    
+    CUDA 13.0 requires architecture `sm_75` or higher, and renamed `sm_101` to
+    `sm_110`. To build for these, maintainers will need to modify their existing list of
+    specified architectures (e.g. `CMAKE_CUDA_ARCHITECTURES`, `TORCH_CUDA_ARCH_LIST`, etc.)
+    for their package.
+
+    Since CUDA 12.8, the conda-forge nvcc package now sets `CUDAARCHS` and
+    in its activation script to a string containing all
+    of the supported real architectures plus the virtual architecture of the
+    latest. Recipes for packages who use these variables to control their build
+    but do not want to build for all supported architectures will need to override
+    these variables in their build script.
+
+    ref: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#new-features
+
+    > [[!IMPORTANT]]
+    > Remember to update any CUDA 11/12 specific selector syntax in the recipe to include
+    > CUDA 13. For example `# [(cuda_compiler_version or "None").startswith("12")]`
+    > might be replaced with `# [cuda_compiler_version != "None"]`.
+
+cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 13.0                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_stdlib_version:              # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.28                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_compiler_version:            # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                         # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cxx_compiler_version:          # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                         # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+fortran_compiler_version:      # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 14                         # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
