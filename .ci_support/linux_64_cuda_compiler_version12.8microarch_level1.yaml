@@ -31,17 +31,17 @@ github_actions_labels:
 icu:
 - '78'
 libabseil:
-- '20260107'
+- '20260526'
 libcurl:
 - '8'
 libgrpc:
-- '1.78'
+- '1.82'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 6.33.5
+- 7.35.1
 microarch_level:
 - '1'
 nccl:
