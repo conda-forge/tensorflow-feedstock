@@ -1,0 +1,34 @@
+__migrator:
+  build_number: 1
+  commit_message: |
+    Rebuild for libabseil 20260526, libgrpc 1.82 & libprotobuf 7.35.1
+    
+    grpc v1.82 is currently in pre-release and thus not published yet.
+    Therefore, it is expected that feedstocks depending on libgrpc will
+    see resolver errors for now.
+  kind: version
+  migration_number: 1
+  exclude:
+    # core deps
+    - abseil-cpp
+    - grpc-cpp
+    - libprotobuf
+    # required for building/testing
+    - protobuf
+    - re2
+    # bazel stack
+    - bazel
+    - grpc_java_plugin
+    - singlejar
+    # built manually beforehand due to enormous build time
+    - pytorch-cpu
+libabseil:
+- 20260526
+libgrpc:
+- "1.82"
+libprotobuf:
+- 7.35.1
+# https://github.com/protocolbuffers/protobuf/commit/66a9ea7540ad7d3d0822ace6fc8d9ba6cd088c4d
+c_stdlib_version:   # [osx]
+  - 12.0            # [osx]
+migrator_ts: 1775539322.336586
