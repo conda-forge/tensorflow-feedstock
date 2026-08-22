@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '19'
+- '21'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -19,7 +19,7 @@ cuda_compiler_version:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '19'
+- '21'
 flatbuffers:
 - 25.9.23
 giflib:
@@ -29,17 +29,17 @@ github_actions_labels:
 icu:
 - '78'
 libabseil:
-- '20260107'
+- '20260526'
 libcurl:
 - '8'
 libgrpc:
-- '1.78'
+- '1.82'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 6.33.5
+- 7.35.1
 macos_machine:
 - arm64-apple-darwin20.0.0
 microarch_level:
