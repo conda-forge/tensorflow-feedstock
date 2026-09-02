@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.21.0"
-  build: 0
+  build: 1
   # Quite often libml_dtypes-headers and ml_dtypes diverge.
   # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
   libml_dtypes_version: "0.5.1"
@@ -387,10 +387,6 @@ outputs:
       run_exports: false
     build:
       script: build_pkg.sh
-      # tensorflow 2.18 doesn't support py313 until 2.20, see
-      # https://github.com/tensorflow/tensorflow/issues/78774
-      skip:
-        - match(python, "3.13.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
       python:
         entry_points:
@@ -462,10 +458,6 @@ outputs:
     build:
       # Meta-package: no-op script to avoid falling back to build.sh
       script: "true"
-      # tensorflow 2.18 doesn't support py313 until 2.20, see
-      # https://github.com/tensorflow/tensorflow/issues/78774
-      skip:
-        - match(python, "3.13.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -546,9 +538,6 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 1
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -567,9 +556,6 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 3
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -588,9 +574,6 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 4
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
