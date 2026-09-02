@@ -115,7 +115,7 @@ jobs:
     steps:
 
     - name: Checkout code
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Configure binfmt_misc
       if: matrix.os == 'ubuntu'
       shell: bash
@@ -144,7 +144,7 @@ jobs:
       run: |
         export CONDA_BLD_PATH="${CONDA_BLD_PATH/#~/${HOME}}"
         export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
-        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        export GIT_BRANCH="${GITHUB_REF_NAME}"
         export MINIFORGE_HOME="${MINIFORGE_HOME/#~/${HOME}}"
         export flow_run_id="github_$GITHUB_RUN_ID"
         export remote_url="https://github.com/$GITHUB_REPOSITORY"
@@ -174,7 +174,7 @@ jobs:
       run: |
         export CONDA_BLD_PATH="${CONDA_BLD_PATH/#~/${HOME}}"
         export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
-        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        export GIT_BRANCH="${GITHUB_REF_NAME}"
         export MINIFORGE_HOME="${MINIFORGE_HOME/#~/${HOME}}"
         export flow_run_id="github_$GITHUB_RUN_ID"
         export remote_url="https://github.com/$GITHUB_REPOSITORY"
@@ -196,6 +196,7 @@ jobs:
         set "sha=%GITHUB_SHA%"
         call ".scripts\run_win_build.bat"
       env:
+        BUILD_PLATFORM: ${{ matrix.build_platform }}
         CI: github_actions
         CONDA_BLD_PATH: ${{ matrix.build_workspace_dir }}
         CONFIG: ${{ matrix.CONFIG }}
@@ -242,6 +243,7 @@ jobs:
         CONFIG: ${{ matrix.CONFIG }}
         CONFIG_SHORT: ${{ matrix.CONFIG_SHORT }}
         JOB_STATUS: ${{ steps.determine-status.outputs.status }}
+        MINIFORGE_HOME: ${{ matrix.tools_install_dir }}
         OS: ${{ matrix.os }}
       run: |
         export ARTIFACT_STAGING_DIR="$GITHUB_WORKSPACE"
@@ -254,8 +256,9 @@ jobs:
         # Use different prefix for successful and failed build artifacts
         # so random failures don't prevent rebuilds from creating artifacts.
         if [ $JOB_STATUS == "failure" ]; then
-          export BLD_ARTIFACT_PREFIX="conda_artifacts"
+          export BLD_ARTIFACT_PREFIX="conda_pkgs_failed"
           export ENV_ARTIFACT_PREFIX="conda_envs"
+          export WRK_ARTIFACT_PREFIX="conda_work"
         else
           export BLD_ARTIFACT_PREFIX="conda_pkgs"
         fi
@@ -267,19 +270,31 @@ jobs:
 
     - name: Store conda build artifacts
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' }}
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.BLD_ARTIFACT_PATH != '' }}
       with:
         name: ${{ steps.prepare-artifacts.outputs.BLD_ARTIFACT_NAME }}
         path: ${{ steps.prepare-artifacts.outputs.BLD_ARTIFACT_PATH }}
         retention-days: 14
+        archive: false
+      continue-on-error: true
+
+    - name: Store conda work directory artifacts
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.WRK_ARTIFACT_PATH != '' }}
+      with:
+        name: ${{ steps.prepare-artifacts.outputs.WRK_ARTIFACT_NAME }}
+        path: ${{ steps.prepare-artifacts.outputs.WRK_ARTIFACT_PATH }}
+        retention-days: 14
+        archive: false
       continue-on-error: true
 
     - name: Store conda build environment artifacts
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       # only relevant if build failed, see above
-      if: ${{ always() && steps.determine-status.outputs.status == 'failure' && steps.prepare-artifacts.outcome == 'success' }}
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.ENV_ARTIFACT_PATH != '' }}
       with:
         name: ${{ steps.prepare-artifacts.outputs.ENV_ARTIFACT_NAME }}
         path: ${{ steps.prepare-artifacts.outputs.ENV_ARTIFACT_PATH }}
         retention-days: 14
+        archive: false
       continue-on-error: true
