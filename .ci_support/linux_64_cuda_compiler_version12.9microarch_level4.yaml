@@ -43,7 +43,7 @@ libpng:
 libprotobuf:
 - 6.33.5
 microarch_level:
-- '1'
+- '4'
 nccl:
 - '2'
 openssl:

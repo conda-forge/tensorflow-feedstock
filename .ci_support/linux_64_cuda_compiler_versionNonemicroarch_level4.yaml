@@ -13,7 +13,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.9'
+- None
 cudnn:
 - '9'
 cxx_compiler:
@@ -43,7 +43,7 @@ libpng:
 libprotobuf:
 - 6.33.5
 microarch_level:
-- '1'
+- '4'
 nccl:
 - '2'
 openssl:

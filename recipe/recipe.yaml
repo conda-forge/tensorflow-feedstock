@@ -387,10 +387,10 @@ outputs:
       run_exports: false
     build:
       script: build_pkg.sh
-      # tensorflow 2.18 doesn't support py313 until 2.20, see
-      # https://github.com/tensorflow/tensorflow/issues/78774
+      # tensorflow doesn't support py314 until 2.22, see
+      # https://github.com/tensorflow/tensorflow/issues/102890
       skip:
-        - match(python, "3.13.*")
+        - match(python, "3.14.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
       python:
         entry_points:
@@ -462,10 +462,10 @@ outputs:
     build:
       # Meta-package: no-op script to avoid falling back to build.sh
       script: "true"
-      # tensorflow 2.18 doesn't support py313 until 2.20, see
-      # https://github.com/tensorflow/tensorflow/issues/78774
+      # tensorflow doesn't support py314 until 2.22, see
+      # https://github.com/tensorflow/tensorflow/issues/102890
       skip:
-        - match(python, "3.13.*")
+        - match(python, "3.14.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -499,14 +499,15 @@ outputs:
           - test -x $PREFIX/bin/saved_model_cli
           - if: build_platform == target_platform
             then:
-              - python test_tensorflow.py
-              - tf_upgrade_v2 --help
-              - tflite_convert --help
-              - toco --help
-              - test "${{ cuda_compiler_version }}" != "None" && python -c 'import tensorflow as tf; assert tf.test.is_built_with_cuda()'
-              - test "${{ cuda_compiler_version }}" = "None" && python -c 'import tensorflow as tf; assert not tf.test.is_built_with_cuda()'
+              - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+              - run python test_tensorflow.py
+              - run tf_upgrade_v2 --help
+              - run tflite_convert --help
+              - run toco --help
+              - test "${{ cuda_compiler_version }}" != "None" && run python -c 'import tensorflow as tf; assert tf.test.is_built_with_cuda()'
+              - test "${{ cuda_compiler_version }}" = "None" && run python -c 'import tensorflow as tf; assert not tf.test.is_built_with_cuda()'
               # See https://github.com/conda-forge/tensorflow-feedstock/issues/364
-              - python -c "import tensorflow as tf;graph = tf.function(lambda x:x).get_concrete_function(1.).graph;tf.compat.v1.train.export_meta_graph(graph=graph,graph_def=graph.as_graph_def())"
+              - run python -c "import tensorflow as tf;graph = tf.function(lambda x:x).get_concrete_function(1.).graph;tf.compat.v1.train.export_meta_graph(graph=graph,graph_def=graph.as_graph_def())"
 
   - package:
       name: tensorflow-cpu
@@ -519,10 +520,11 @@ outputs:
       run:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
-      - python:
-          imports:
-            - if: build_platform == target_platform
-              then: tensorflow
+      - if: build_platform == target_platform
+        then:
+          script:
+            - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+            - run python -c "import tensorflow"
 
   - package:
       name: tensorflow-gpu
@@ -535,10 +537,11 @@ outputs:
       run:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
-      - python:
-          imports:
-            - if: build_platform == target_platform
-              then: tensorflow
+      - if: build_platform == target_platform
+        then:
+          script:
+            - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+            - run python -c "import tensorflow"
 
   - package:
       name: tensorflow-sse3
@@ -546,9 +549,9 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 1
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
+        # tensorflow doesn't support py314 until 2.22, see
+        # https://github.com/tensorflow/tensorflow/issues/102890
+        - match(python, "3.14.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -557,9 +560,9 @@ outputs:
       run:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
-      - python:
-          imports:
-            - tensorflow
+      - script:
+          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - run python -c "import tensorflow"
 
   - package:
       name: tensorflow-avx2
@@ -567,9 +570,9 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 3
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
+        # tensorflow doesn't support py314 until 2.22, see
+        # https://github.com/tensorflow/tensorflow/issues/102890
+        - match(python, "3.14.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -578,9 +581,9 @@ outputs:
       run:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
-      - python:
-          imports:
-            - tensorflow
+      - script:
+          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - run python -c "import tensorflow"
 
   - package:
       name: tensorflow-avx512
@@ -588,9 +591,9 @@ outputs:
       script: "true"
       skip:
         - (not x86_64) or (microarch_level | default("1") | int) != 4
-        # tensorflow 2.18 doesn't support py313 until 2.20, see
-        # https://github.com/tensorflow/tensorflow/issues/78774
-        - match(python, "3.13.*")
+        # tensorflow doesn't support py314 until 2.22, see
+        # https://github.com/tensorflow/tensorflow/issues/102890
+        - match(python, "3.14.*")
       string: ${{ build_str_prefix ~ "py" ~ (python | version_to_buildstring) ~ "h" ~ hash ~ "_" ~ build_number }}
     requirements:
       host:
@@ -599,9 +602,9 @@ outputs:
       run:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
-      - python:
-          imports:
-            - tensorflow
+      - script:
+          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - run python -c "import tensorflow"
 
 about:
   homepage: http://tensorflow.org/
