@@ -135,6 +135,9 @@ source:
       # nvcc 12.9's cicc segfaults on RAFT select_k; use the (default-path-
       # equivalent) select_k stub instead.
       - patches/0070-XLA-use-select_k-stub-to-avoid-nvcc-12.9-cicc-crash.patch
+      # GitHub regenerated the llvm-project archive tarball (and the TF mirror
+      # 404s), so the pinned sha256 no longer matches.
+      - patches/0080-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
 
 build:
   number: ${{ build + (200 if cuda_compiler_version != "None" else 0) + 25 * ((microarch_level | default("1") | int) - 1) }}
