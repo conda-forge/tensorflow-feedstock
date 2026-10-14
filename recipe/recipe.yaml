@@ -499,7 +499,7 @@ outputs:
           - test -x $PREFIX/bin/saved_model_cli
           - if: build_platform == target_platform
             then:
-              - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+              - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
               - run python test_tensorflow.py
               - run tf_upgrade_v2 --help
               - run tflite_convert --help
@@ -523,7 +523,7 @@ outputs:
       - if: build_platform == target_platform
         then:
           script:
-            - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+            - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
             - run python -c "import tensorflow"
 
   - package:
@@ -540,7 +540,7 @@ outputs:
       - if: build_platform == target_platform
         then:
           script:
-            - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+            - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
             - run python -c "import tensorflow"
 
   - package:
@@ -561,7 +561,7 @@ outputs:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
       - script:
-          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
           - run python -c "import tensorflow"
 
   - package:
@@ -582,7 +582,7 @@ outputs:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
       - script:
-          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
           - run python -c "import tensorflow"
 
   - package:
@@ -603,7 +603,7 @@ outputs:
         - ${{ pin_subpackage("tensorflow", exact=True) }}
     tests:
       - script:
-          - function run() { ${CROSSCOMPILING_EMULATOR} $@; }
+          - function run() { ${CROSSCOMPILING_EMULATOR} "$@"; }
           - run python -c "import tensorflow"
 
 about:
