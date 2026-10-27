@@ -42,6 +42,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtensorflow__framework-green.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtensorflow_framework.svg)](https://anaconda.org/conda-forge/libtensorflow_framework) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow-green.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow.svg)](https://anaconda.org/conda-forge/tensorflow) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--avx2-green.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-avx2.svg)](https://anaconda.org/conda-forge/tensorflow-avx2) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--avx512-green.svg)](https://anaconda.org/conda-forge/tensorflow-avx512) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-avx512.svg)](https://anaconda.org/conda-forge/tensorflow-avx512) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-avx512.svg)](https://anaconda.org/conda-forge/tensorflow-avx512) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-avx512.svg)](https://anaconda.org/conda-forge/tensorflow-avx512) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--base-green.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-base.svg)](https://anaconda.org/conda-forge/tensorflow-base) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--cpu-green.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-cpu.svg)](https://anaconda.org/conda-forge/tensorflow-cpu) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tensorflow--gpu-green.svg)](https://anaconda.org/conda-forge/tensorflow-gpu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/tensorflow-gpu.svg)](https://anaconda.org/conda-forge/tensorflow-gpu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/tensorflow-gpu.svg)](https://anaconda.org/conda-forge/tensorflow-gpu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/tensorflow-gpu.svg)](https://anaconda.org/conda-forge/tensorflow-gpu) |
@@ -57,31 +58,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libtensorflow, libtensorflow_cc, libtensorflow_framework, tensorflow, tensorflow-avx2, tensorflow-base, tensorflow-cpu, tensorflow-gpu, tensorflow-sse3` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
+conda install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-avx512 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
+mamba install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-avx512 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
 ```
 
-It is possible to list all of the versions of `libtensorflow` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-avx512 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
+# for installing globally
+pixi global install libtensorflow libtensorflow_cc libtensorflow_framework tensorflow tensorflow-avx2 tensorflow-avx512 tensorflow-base tensorflow-cpu tensorflow-gpu tensorflow-sse3
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `libtensorflow` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search libtensorflow --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search libtensorflow --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search libtensorflow --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -93,6 +136,8 @@ mamba repoquery whoneeds libtensorflow --channel conda-forge
 # List dependencies of `libtensorflow`:
 mamba repoquery depends libtensorflow --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge

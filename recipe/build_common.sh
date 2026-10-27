@@ -98,12 +98,17 @@ export BAZEL_MKL_OPT=""
 mkdir -p ./bazel_output_base
 export BAZEL_OPTS=""
 # Set this to something as otherwise, it would include CFLAGS which itself contains a host path and this then breaks bazel's include path validation.
-if [[ "${target_platform}" != *-64 ]]; then
-  export CC_OPT_FLAGS="-O2"
-elif [[ "${microarch_level}" == "1" ]]; then
-  export CC_OPT_FLAGS="-O2 -march=nocona -mtune=haswell"
-else
-  export CC_OPT_FLAGS="-O2 -march=x86-64-v${microarch_level}"
+export CC_OPT_FLAGS="-O2"
+
+if [[ "${target_platform}" == "linux-64" && "${microarch_level}" == "4" &&  "${CROSSCOMPILING_EMULATOR:-}" != "" ]]; then
+  # we can't use the x86-64-v4 emulator from Intel with bazel. Instead build with
+  # - v4 for TF libraries
+  # - v3 for external libraries
+  # - v3 for TF executables
+  CFLAGS=$(echo "$CFLAGS" | sed 's/-march=x86-64-v4/-march=x86-64-v3/g')
+  CXXFLAGS=$(echo "$CXXFLAGS" | sed 's/-march=x86-64-v4/-march=x86-64-v3/g')
+  CPPFLAGS=$(echo "$CPPFLAGS" | sed 's/-march=x86-64-v4/-march=x86-64-v3/g')
+  BAZEL_OPTS="${BAZEL_OPTS} --copt=-march=x86-64-v${microarch_level} --host_copt=-march=x86-64-v3"
 fi
 
 # Quick debug:
@@ -493,7 +498,7 @@ rm -f tensorflow/lite/acceleration/configuration/configuration_generated.h
 sed -ie "s;BUILD_PREFIX;${BUILD_PREFIX};g" tensorflow/tools/pip_package/build_pip_package.py
 
 # build using bazel
-bazel ${BAZEL_OPTS} build ${BUILD_TARGET}
+bazel build ${BUILD_TARGET} ${BAZEL_OPTS}
 
 # copy the whl file. Bazel marks its outputs read-only, so a plain cp of an
 # already-copied wheel fails; -f removes the stale destination and retries.

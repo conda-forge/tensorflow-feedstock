@@ -19,10 +19,10 @@ if [[ "$arch" == "x86_64" ]]; then
 fi
 sed -i.bak "s/platforms = .*/platforms = [\"osx-${arch}\"]/" pixi.toml
 echo "Creating environment"
-pixi install
-pixi list
+pixi install --environment build
+pixi list --environment build
 echo "Activating environment"
-eval "$(pixi shell-hook)"
+eval "$(pixi shell-hook --environment build)"
 mv pixi.toml.bak pixi.toml
 ( endgroup "Provisioning base env with pixi" ) 2> /dev/null
 
@@ -88,6 +88,7 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     rattler-build debug setup \
         --recipe ./recipe \
         -m ./.ci_support/${CONFIG}.yaml \
+        --build-platform "${BUILD_PLATFORM}" \
         --target-platform "${HOST_PLATFORM}" \
         ${BUILD_OUTPUT_ID:+--output-name "${BUILD_OUTPUT_ID}"} \
         ${EXTRA_CB_OPTIONS:-}
@@ -102,6 +103,7 @@ else
     rattler-build build --recipe ./recipe \
         -m ./.ci_support/${CONFIG}.yaml \
         ${EXTRA_CB_OPTIONS:-} \
+        --build-platform "${BUILD_PLATFORM}" \
         --target-platform "${HOST_PLATFORM}" \
         --extra-meta flow_run_id="$flow_run_id" \
         --extra-meta remote_url="$remote_url" \

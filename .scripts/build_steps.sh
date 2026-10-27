@@ -40,7 +40,7 @@ fi
 sed -i.bak -e "s/platforms = .*/platforms = [\"linux-${arch}\"]/" -e "s/# __PLATFORM_SPECIFIC_ENV__ =/docker-build-linux-$arch =/" pixi.toml
 echo "Creating environment"
 PIXI_CACHE_DIR=/opt/conda pixi install --environment docker-build-linux-$arch
-pixi list
+pixi list --environment docker-build-linux-$arch
 echo "Activating environment"
 eval "$(pixi shell-hook --environment docker-build-linux-$arch)"
 mv pixi.toml.bak pixi.toml
@@ -81,6 +81,7 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
         -m "${CI_SUPPORT}/${CONFIG}.yaml" \
         ${EXTRA_CB_OPTIONS:-} \
         ${BUILD_OUTPUT_ID:+--output-name "${BUILD_OUTPUT_ID}"} \
+        --build-platform "${BUILD_PLATFORM}" \
         --target-platform "${HOST_PLATFORM}"
 
     rattler-build debug shell
@@ -96,6 +97,7 @@ else
         --recipe "${RECIPE_ROOT}" \
         -m "${CI_SUPPORT}/${CONFIG}.yaml" \
         ${EXTRA_CB_OPTIONS:-} \
+        --build-platform "${BUILD_PLATFORM}" \
         --target-platform "${HOST_PLATFORM}" \
         --extra-meta flow_run_id="${flow_run_id:-}" \
         --extra-meta remote_url="${remote_url:-}" \

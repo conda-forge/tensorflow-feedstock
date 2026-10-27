@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <isuruf@gmail.com>
+Date: Wed, 14 Oct 2026 00:00:00 -0500
+Subject: [PATCH] Update LLVM archive sha256 for regenerated GitHub tarball
+
+GitHub regenerated the archive tarball for llvm-project commit
+909041e4802c4b9a2223ca04099f35bf1dbbd460 and the TF mirror copy is gone
+(404), so the pinned checksum no longer matches what is downloaded.
+---
+diff --git a/third_party/xla/third_party/llvm/workspace.bzl b/third_party/xla/third_party/llvm/workspace.bzl
+--- a/third_party/xla/third_party/llvm/workspace.bzl
++++ b/third_party/xla/third_party/llvm/workspace.bzl
+@@ -5,7 +5,7 @@ load("//third_party:repo.bzl", "tf_http_archive")
+ def repo(name):
+     """Imports LLVM."""
+     LLVM_COMMIT = "909041e4802c4b9a2223ca04099f35bf1dbbd460"
+-    LLVM_SHA256 = "3f986184ee126677dbd77edb16d6b82c057ec869fefd7a9871979941e52e837a"
++    LLVM_SHA256 = "00b1077e029fa57e6f2d9ac24936a49acf23ebc051b04f487131116258be6248"
+ 
+     tf_http_archive(
+         name = name,
