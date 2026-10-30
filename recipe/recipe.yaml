@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.21.0"
-  build: 0
+  build: 1
   # Quite often libml_dtypes-headers and ml_dtypes diverge.
   # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
   libml_dtypes_version: "0.5.1"
