@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Thu, 15 May 2026 00:00:00 -0400
+Subject: [PATCH] Add cstdint include to TFRT headers for clang
+
+TFRT's forward_decls.h, crc32c.h and raw_coding.h use fixed-width
+integer types without including <cstdint>; clang rejects this with
+'unknown type name uint32_t'. Prepend the include via patch_cmds
+(the tf_http_archive patch_cmds support added by patch 0021).
+---
+diff --git a/third_party/tf_runtime/workspace.bzl b/third_party/tf_runtime/workspace.bzl
+index 5c8ec13c..dc5027f9 100644
+--- a/third_party/tf_runtime/workspace.bzl
++++ b/third_party/tf_runtime/workspace.bzl
+@@ -21,4 +21,9 @@ def repo():
+         # A patch file can be provided for atomic commits to both TF and TFRT.
+         # The job that bumps the TFRT_COMMIT also resets patch_file to 'None'.
+         patch_file = None,
++        # TFRT headers use fixed-width integer types (uint32_t, ...) without
++        # including <cstdint>; clang requires the explicit include.
++        patch_cmds = [
++            "sed -i '1i #include <cstdint>' include/tfrt/support/forward_decls.h include/tfrt/support/crc32c.h include/tfrt/support/raw_coding.h",
++        ],
+     )
