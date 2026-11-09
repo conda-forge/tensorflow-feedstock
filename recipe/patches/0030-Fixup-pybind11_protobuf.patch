@@ -4,16 +4,16 @@ Date: Sun, 6 Jul 2025 16:45:03 -0400
 Subject: [PATCH] Fixup pybind11_protobuf
 
 ---
- tensorflow/workspace2.bzl                          |  5 +++++
+ tensorflow/workspace2.bzl                          |  6 ++++++
  third_party/pybind11_protobuf/remove_license.patch | 10 +++++-----
- third_party/xla/workspace2.bzl                     |  5 +++++
- 3 files changed, 15 insertions(+), 5 deletions(-)
+ third_party/xla/workspace2.bzl                     |  6 ++++++
+ 3 files changed, 17 insertions(+), 5 deletions(-)
 
 diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
 index 94151996..c59b64c7 100644
 --- a/tensorflow/workspace2.bzl
 +++ b/tensorflow/workspace2.bzl
-@@ -802,6 +802,11 @@ def _tf_repositories():
+@@ -802,6 +802,12 @@ def _tf_repositories():
          urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/f02a2b7653bc50eb5119d125842a3870db95d251.zip"),
          sha256 = "3cf7bf0f23954c5ce6c37f0a215f506efa3035ca06e3b390d67f4cbe684dce23",
          strip_prefix = "pybind11_protobuf-f02a2b7653bc50eb5119d125842a3870db95d251",
@@ -21,6 +21,7 @@ index 94151996..c59b64c7 100644
 +            "//third_party/pybind11_protobuf:remove_license.patch",
 +            "//third_party/pybind11_protobuf:0001-DO-not-link-to-proto_api.patch",
 +            "//third_party/pybind11_protobuf:0002-Add-Python-include-path.patch",
++            "//third_party/pybind11_protobuf:0003-Use-string_view-in-DescriptorDatabase-overrides.patch",
 +        ],
      )
  
@@ -53,7 +54,7 @@ diff --git a/third_party/xla/workspace2.bzl b/third_party/xla/workspace2.bzl
 index 3f9041ed..22991473 100644
 --- a/third_party/xla/workspace2.bzl
 +++ b/third_party/xla/workspace2.bzl
-@@ -495,6 +495,11 @@ def _tf_repositories():
+@@ -495,6 +495,12 @@ def _tf_repositories():
          urls = tf_mirror_urls("https://github.com/pybind/pybind11_protobuf/archive/f02a2b7653bc50eb5119d125842a3870db95d251.zip"),
          sha256 = "3cf7bf0f23954c5ce6c37f0a215f506efa3035ca06e3b390d67f4cbe684dce23",
          strip_prefix = "pybind11_protobuf-f02a2b7653bc50eb5119d125842a3870db95d251",
@@ -61,6 +62,7 @@ index 3f9041ed..22991473 100644
 +            "//third_party/pybind11_protobuf:remove_license.patch",
 +            "//third_party/pybind11_protobuf:0001-DO-not-link-to-proto_api.patch",
 +            "//third_party/pybind11_protobuf:0002-Add-Python-include-path.patch",
++            "//third_party/pybind11_protobuf:0003-Use-string_view-in-DescriptorDatabase-overrides.patch",
 +        ],
      )
  

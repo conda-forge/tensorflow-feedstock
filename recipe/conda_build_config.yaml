@@ -58,9 +58,3 @@ microarch_level:
 - 3   # [linux and x86_64]
 - 4   # [linux and x86_64]
 
-libabseil:
-- '20260107'
-libgrpc:
-- '1.78'
-libprotobuf:
-- 6.33.5

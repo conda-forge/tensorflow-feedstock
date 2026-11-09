@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <ifernando@openteams.com>
+Date: Fri, 6 Nov 2026 00:00:00 +0000
+Subject: [PATCH 3/3] Use absl::string_view in DescriptorDatabase overrides
+
+protobuf 7 (v35) changed DescriptorDatabase::FindFileByName,
+FindFileContainingSymbol and FindFileContainingExtension to take
+absl::string_view instead of const std::string&.
+---
+ pybind11_protobuf/proto_cast_util.cc | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/pybind11_protobuf/proto_cast_util.cc b/pybind11_protobuf/proto_cast_util.cc
+--- a/pybind11_protobuf/proto_cast_util.cc
++++ b/pybind11_protobuf/proto_cast_util.cc
+@@ -355,10 +355,10 @@
+     // the Python DescriptorPool.
+ 
+     // Find a file by file name.
+-    bool FindFileByName(const std::string& filename,
++    bool FindFileByName(absl::string_view filename,
+                         FileDescriptorProto* output) override {
+       try {
+-        auto file = pool_.attr("FindFileByName")(filename);
++        auto file = pool_.attr("FindFileByName")(std::string(filename));
+         return CopyToFileDescriptorProto(file, output);
+       } catch (py::error_already_set& e) {
+         std::cerr << "FindFileByName " << filename << " raised an error";
+@@ -371,10 +371,10 @@
+     }
+ 
+     // Find the file that declares the given fully-qualified symbol name.
+-    bool FindFileContainingSymbol(const std::string& symbol_name,
++    bool FindFileContainingSymbol(absl::string_view symbol_name,
+                                   FileDescriptorProto* output) override {
+       try {
+-        auto file = pool_.attr("FindFileContainingSymbol")(symbol_name);
++        auto file = pool_.attr("FindFileContainingSymbol")(std::string(symbol_name));
+         return CopyToFileDescriptorProto(file, output);
+       } catch (py::error_already_set& e) {
+         std::cerr << "FindFileContainingSymbol " << symbol_name
+@@ -389,11 +389,11 @@
+ 
+     // Find the file which defines an extension extending the given message type
+     // with the given field number.
+-    bool FindFileContainingExtension(const std::string& containing_type,
++    bool FindFileContainingExtension(absl::string_view containing_type,
+                                      int field_number,
+                                      FileDescriptorProto* output) override {
+       try {
+-        auto descriptor = pool_.attr("FindMessageTypeByName")(containing_type);
++        auto descriptor = pool_.attr("FindMessageTypeByName")(std::string(containing_type));
+         auto file =
+             pool_.attr("FindExtensionByNumber")(descriptor, field_number)
+                 .attr("file");
