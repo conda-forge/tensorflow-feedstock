@@ -463,9 +463,13 @@ EOF
   done
 fi
 
-# conda's linux libabseil/libprotobuf use the pre-clang-18 Itanium mangling;
-# clang 18 changed it, so pin clang to the GCC-compatible ABI to match the
-# exported symbols. Linux always builds with conda clang (Apple clang rejects it).
+# conda's linux libabseil/libprotobuf are built with GCC, which still uses the
+# pre-clang-18 Itanium mangling for constrained templates, templates with
+# `auto` non-type parameters, etc. clang 18 adopted the new manglings
+# (https://github.com/llvm/llvm-project/commit/4b163e343cfa54c8d55c9da73c70d58f55ea9df2),
+# GCC has not yet (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100825), so pin
+# clang to the GCC-compatible ABI to match the exported symbols. Linux always
+# builds with conda clang (Apple clang rejects it).
 if [[ "${target_platform}" == linux-* ]]; then
   cat >> .bazelrc <<EOF
 build --cxxopt=-fclang-abi-compat=17
