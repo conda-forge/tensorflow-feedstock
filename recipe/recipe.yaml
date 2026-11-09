@@ -31,12 +31,7 @@ source:
       - patches/0008-Add-constraint-to-pybind11-systemlib.patch
       - patches/0009-Different-file-ending-for-flatbuffers-LICENSE.patch
       - patches/0010-Use-correct-hermetic-python.patch
-      - patches/0011-Add-well_known_types_py_pb2-to-protobuf-systemlib.patch
       - patches/0012-Add-protobuf-toolchain.patch
-      - if: cuda_compiler_version != "None" and cuda_compiler_version[:2] == "11"
-        then:
-          - patches/0014-Remove-some-usage-of-absl-str_format-in-CUDA.patch
-          - patches/0015-Adjust-relative-path-for-libdevice.patch
       - patches/0016-Link-to-absl_log_flags-instead-of-absl_flags.patch
       - patches/0017-Update-ABSL-Log-Definition-for-libabsl_vlog_config_i.patch
       - patches/0018-add-absl_string_view-target.patch
@@ -53,12 +48,10 @@ source:
       - patches/0029-remove-dependencies-to-libcuda.patch
       - patches/0030-Fixup-pybind11_protobuf.patch
       - patches/0031-Update-linkages-for-new-absl-organization.patch
-      - patches/0036-third_party-eigen_archive-workaround-ice-failure-whi.patch
       # for our system absl
       - patches/0037-add-absl_tracing_internal.patch
       # for the megabuild
       - patches/0038-Fix-building-different-python-wheels-from-one-python.patch
-      - patches/0039-Fix-matmul-unused-result-error.patch
       - patches/0041-Disable-profiler.patch
       - if: aarch64 and target_platform != build_platform
         then: patches/0042-cross-arch-config.patch
@@ -82,7 +75,6 @@ source:
       # well-known-type _cc_proto targets (wrappers_cc_proto, ...) for systemlib
       - patches/0056-Add-wkt-cc_proto-targets-to-protobuf-systemlib.patch
       - patches/0057-Add-missing-absl-base-container-functional-hash-status.patch
-      - patches/0058-Add-absl-strings-charset-to-system-BUILD.patch
       # Highway 1.3.0's x86_512-inl.h doesn't handle clang's AVX10 evex512
       # target-feature split; any TU that includes it fails to build under
       # clang >= 22 (google/highway#1864, fixed upstream in 1.4.0).
@@ -93,8 +85,6 @@ source:
       - patches/0079-rules_ml_toolchain-add-clang-22-max-PTX-version.patch
       # TFRT headers need an explicit <cstdint> include under clang
       - patches/0059-Add-cstdint-to-TFRT-headers-for-clang.patch
-      # vendored grpc glob.cc needs <algorithm> under clang
-      - patches/0060-Add-algorithm-include-to-grpc-glob.patch
       # custom-op header set must declare xla/tsl/concurrency/executor.h
       - patches/0061-Declare-tsl-concurrency-executor-for-custom-ops.patch
       # core lib/framework hub targets must declare the same

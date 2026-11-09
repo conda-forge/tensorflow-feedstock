@@ -9,13 +9,14 @@ declare. Alias each well-known-type _cc_proto to the bundled
 cc_wkt_protos library.
 ---
 diff --git a/third_party/systemlibs/protobuf.BUILD b/third_party/systemlibs/protobuf.BUILD
-index 4f105d33..cf85b5ab 100644
+index 203f91b..d8505db 100644
 --- a/third_party/systemlibs/protobuf.BUILD
 +++ b/third_party/systemlibs/protobuf.BUILD
-@@ -126,6 +126,15 @@ py_library(
+@@ -125,3 +125,12 @@ py_library(
+     visibility = ["//visibility:public"],
      deps = [dep + "_proto" for dep in proto[1][1]],
  ) for proto in WELL_KNOWN_PROTO_MAP.items()]
- 
++
 +# The well-known-type C++ proto targets (e.g. wrappers_cc_proto). Their
 +# generated code already ships inside the system libprotobuf, so alias each
 +# one to the bundled cc_wkt_protos library.
@@ -24,7 +25,3 @@ index 4f105d33..cf85b5ab 100644
 +    actual = ":cc_wkt_protos",
 +    visibility = ["//visibility:public"],
 +) for proto in WELL_KNOWN_PROTO_MAP.items()]
-+
- py_proto_library(
-     name = "well_known_types_py_pb2",
-     include = ".",

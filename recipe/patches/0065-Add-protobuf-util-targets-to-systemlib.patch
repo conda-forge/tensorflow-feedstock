@@ -9,13 +9,13 @@ that TF 2.21.0/XLA reference but the systemlib protobuf.BUILD lacked,
 aliasing the cc_libraries to :protobuf since the code ships in libprotobuf.
 ---
 diff --git a/third_party/systemlibs/protobuf.BUILD b/third_party/systemlibs/protobuf.BUILD
-index cf85b5ab..7d2377e6 100644
+index d8505db..497cde0 100644
 --- a/third_party/systemlibs/protobuf.BUILD
 +++ b/third_party/systemlibs/protobuf.BUILD
-@@ -141,3 +141,23 @@ py_proto_library(
-     srcs = [proto[1][0] for proto in WELL_KNOWN_PROTO_MAP.items()],
+@@ -134,3 +134,23 @@ py_library(
+     actual = ":cc_wkt_protos",
      visibility = ["//visibility:public"],
- )
+ ) for proto in WELL_KNOWN_PROTO_MAP.items()]
 +
 +# protobuf C++ utility libraries -- the code ships inside the system
 +# libprotobuf, so alias each to the :protobuf cc_library.
