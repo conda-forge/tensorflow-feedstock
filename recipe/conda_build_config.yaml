@@ -20,13 +20,16 @@
 # the clang 22 pin is kept as correct upstream alignment, not as that
 # crash's fix.
 #
-# c_compiler_version / cxx_compiler_version / c_stdlib_version are in the
-# conda-forge `unix` zip_keys group; under CF_CUDA_ENABLED the cuda migrator
-# adds a second entry (the CUDA variant), so every overridden linux key must
-# carry TWO parallel entries to keep the zip group consistent (mirrors how
-# jaxlib-feedstock pins clang alongside its CUDA variants). The migrator
-# overrides element 1's *_compiler_version for the CUDA build; c_compiler
-# stays clang, so the CUDA variant builds with clang at the migrator's version.
+# c_compiler_version / cxx_compiler_version / fortran_compiler_version /
+# c_stdlib_version / cuda_compiler_version are in the conda-forge `unix`
+# zip_keys group. The CUDA variants are defined here directly (instead of via
+# local cuda migrators): entry 0 is the CPU build, the rest are CUDA 12.9
+# and 13.0 under CF_CUDA_ENABLED. All variants build with clang 22;
+# CUDA 13 needs glibc 2.28.
+cuda_compiler_version:
+  - None
+  - 12.9                        # [linux]
+  - 13.0                        # [linux]
 c_compiler:                     # [linux]
   - clang                       # [linux]
   - clang                       # [linux]
@@ -40,6 +43,10 @@ c_compiler_version:             # [linux]
   - 22                          # [linux]
   - 22                          # [linux]
 cxx_compiler_version:           # [linux]
+  - 22                          # [linux]
+  - 22                          # [linux]
+  - 22                          # [linux]
+fortran_compiler_version:       # [linux]
   - 22                          # [linux]
   - 22                          # [linux]
   - 22                          # [linux]
@@ -58,9 +65,3 @@ microarch_level:
 - 3   # [linux and x86_64]
 - 4   # [linux and x86_64]
 
-libabseil:
-- '20260107'
-libgrpc:
-- '1.78'
-libprotobuf:
-- 6.33.5

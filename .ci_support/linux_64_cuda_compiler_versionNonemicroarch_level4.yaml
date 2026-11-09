@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 c_compiler:
 - clang
 c_compiler_version:
@@ -25,23 +27,23 @@ docker_image:
 flatbuffers:
 - 25.9.23
 giflib:
-- '5.2'
+- '6'
 github_actions_labels:
 - namespace-profile-16cpu-on-linux-64
 icu:
 - '78'
 libabseil:
-- '20260107'
+- '20260526'
 libcurl:
 - '8'
 libgrpc:
-- '1.78'
+- '1.82'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 6.33.5
+- 7.35.1
 microarch_level:
 - '4'
 nccl:
@@ -59,7 +61,7 @@ python:
 - 3.12.* *_cpython
 - 3.13.* *_cp313
 snappy:
-- '1.2'
+- '1.3'
 sqlite:
 - '3'
 target_platform:

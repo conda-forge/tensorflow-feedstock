@@ -1,5 +1,3 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
 MACOSX_SDK_VERSION:
 - '11.0'
 c_compiler:
@@ -23,23 +21,23 @@ cxx_compiler_version:
 flatbuffers:
 - 25.9.23
 giflib:
-- '5.2'
+- '6'
 github_actions_labels:
 - namespace-profile-12cpu-on-osx-arm64
 icu:
 - '78'
 libabseil:
-- '20260107'
+- '20260526'
 libcurl:
 - '8'
 libgrpc:
-- '1.78'
+- '1.82'
 libjpeg_turbo:
 - '3'
 libpng:
 - '1.6'
 libprotobuf:
-- 6.33.5
+- 7.35.1
 macos_machine:
 - arm64-apple-darwin20.0.0
 microarch_level:
@@ -55,7 +53,7 @@ python:
 - 3.12.* *_cpython
 - 3.13.* *_cp313
 snappy:
-- '1.2'
+- '1.3'
 sqlite:
 - '3'
 target_platform:

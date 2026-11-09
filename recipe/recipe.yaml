@@ -138,6 +138,8 @@ source:
       # GitHub regenerated the llvm-project archive tarball (and the TF mirror
       # 404s), so the pinned sha256 no longer matches.
       - patches/0080-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
+      # snappy 1.3 made CompressionOptions(int) explicit; fix riegeli callers.
+      - patches/0081-riegeli-fix-build-with-snappy-1.3.patch
 
 build:
   number: ${{ build + (200 if cuda_compiler_version != "None" else 0) + 25 * ((microarch_level | default("1") | int) - 1) }}

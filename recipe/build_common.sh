@@ -317,6 +317,10 @@ sed -i -e "/PREFIX/c\ " .bazelrc
 # come from a separate non-pywrap pass below.
 # TF's .bazelrc hardcodes -fuse-ld=lld but conda's clang ships no lld; drop it.
 sed -i -e "/fuse-ld=lld/d" .bazelrc
+# protobuf 7 marks ParseFromString & co. [[nodiscard]] unconditionally
+# (PROTOBUF_FUTURE_ADD_EARLY_NODISCARD) and TF/XLA ignore the result in many
+# places; keep -Wunused-result as a warning but drop TF's -Werror for it.
+sed -i -e "/-Werror=unused-result/d" .bazelrc
 # Ensure .bazelrc ends in a newline
 echo "" >> .bazelrc
 
