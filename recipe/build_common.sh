@@ -161,7 +161,7 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     # clang-22-era headers (absl nullability-on-classes and
     # __builtin_is_cpp_trivially_relocatable, protobuf __is_bitwise_cloneable,
     # clang 22's own xmmintrin.h __builtin_elementwise_sqrt), and unlike the
-    # clang 18 this recipe used before, clang 22 fully supports CUDA 12.9/13.0
+    # clang 18 this recipe used before, clang 22 fully supports CUDA 12.9/13.4
     # device compilation (max PTX 9.0), so single-compiler clang is now viable
     # -- and is upstream's primary supported CUDA build path.
     # configure.py on the TF_CUDA_CLANG=1 path reads CLANG_CUDA_COMPILER_PATH
@@ -177,10 +177,10 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     # raw clang driver actually exists.
     CLANG_BIN="${BUILD_PREFIX}/bin/clang"
     if [[ ! -x "${CLANG_BIN}" ]]; then
-        CLANG_BIN="${BUILD_PREFIX}/bin/clang-${c_compiler_version%%.*}"
+        CLANG_BIN="${BUILD_PREFIX}/bin/clang-${clang_compiler_version%%.*}"
     fi
     if [[ ! -x "${CLANG_BIN}" ]]; then
-        echo "ERROR: no clang driver found in ${BUILD_PREFIX}/bin (tried clang, clang-${c_compiler_version%%.*})" >&2
+        echo "ERROR: no clang driver found in ${BUILD_PREFIX}/bin (tried clang, clang-${clang_compiler_version%%.*})" >&2
         exit 1
     fi
     export CLANG_CUDA_COMPILER_PATH="${CLANG_BIN}"
@@ -465,8 +465,8 @@ fi
 
 # conda's linux libabseil/libprotobuf use the pre-clang-18 Itanium mangling;
 # clang 18 changed it, so pin clang to the GCC-compatible ABI to match the
-# exported symbols. Only when building with clang (Apple clang / gcc reject it).
-if [[ "${target_platform}" == linux-* && "${c_compiler}" == clang* ]]; then
+# exported symbols. Linux always builds with conda clang (Apple clang rejects it).
+if [[ "${target_platform}" == linux-* ]]; then
   cat >> .bazelrc <<EOF
 build --cxxopt=-fclang-abi-compat=17
 build --host_cxxopt=-fclang-abi-compat=17

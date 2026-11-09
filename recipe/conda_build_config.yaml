@@ -9,7 +9,7 @@
 # roughly four LLVM major versions and ~22 months past llvmorg-18.1.0
 # (2024-03-06). clang 22 keeps the compiler in the same LLVM era as the
 # MLIR/XLA sources it builds and is what enables clang-as-CUDA-compiler for
-# CUDA 12.9/13.0 (see build_common.sh: nvcc's EDG host frontend cannot parse
+# CUDA 12.9/13.4 (see build_common.sh: nvcc's EDG host frontend cannot parse
 # clang-22-era absl/protobuf/clang-resource headers, and clang 18 could not
 # compile CUDA 13 device code).
 # Historical note: this bump was first motivated by a runtime crash in every
@@ -20,40 +20,16 @@
 # the clang 22 pin is kept as correct upstream alignment, not as that
 # crash's fix.
 #
-# c_compiler_version / cxx_compiler_version / fortran_compiler_version /
-# c_stdlib_version / cuda_compiler_version are in the conda-forge `unix`
-# zip_keys group. The CUDA variants are defined here directly (instead of via
-# local cuda migrators): entry 0 is the CPU build, the rest are CUDA 12.9
-# and 13.0 under CF_CUDA_ENABLED. All variants build with clang 22;
-# CUDA 13 needs glibc 2.28.
-cuda_compiler_version:
-  - None
-  - 12.9                        # [linux]
-  - 13.0                        # [linux]
-c_compiler:                     # [linux]
-  - clang                       # [linux]
-  - clang                       # [linux]
-  - clang                       # [linux]
-cxx_compiler:                   # [linux]
-  - clangxx                     # [linux]
-  - clangxx                     # [linux]
-  - clangxx                     # [linux]
-c_compiler_version:             # [linux]
+# The recipe uses compiler("clang") / compiler("clangxx") on unix, so the
+# clang version comes from clang_compiler_version / clangxx_compiler_version
+# (global pinning: 21) rather than the gcc-oriented c_compiler_version zip.
+# Linux is pinned to 22 here; osx keeps the global value.
+# cuda_compiler_version and c_stdlib_version come from the global pinning
+# (None / 12.9 / 13.4 with glibc 2.17 / 2.17 / 2.28 under CF_CUDA_ENABLED).
+clang_compiler_version:         # [linux]
   - 22                          # [linux]
+clangxx_compiler_version:       # [linux]
   - 22                          # [linux]
-  - 22                          # [linux]
-cxx_compiler_version:           # [linux]
-  - 22                          # [linux]
-  - 22                          # [linux]
-  - 22                          # [linux]
-fortran_compiler_version:       # [linux]
-  - 22                          # [linux]
-  - 22                          # [linux]
-  - 22                          # [linux]
-c_stdlib_version:               # [linux]
-  - 2.17                        # [linux]
-  - 2.17                        # [linux]
-  - 2.28                        # [linux]
 
 github_actions_labels:          # [unix]
 - namespace-profile-16cpu-on-linux-64       # [linux64]
