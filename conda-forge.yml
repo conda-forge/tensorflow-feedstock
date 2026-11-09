@@ -1,9 +1,4 @@
-azure:
-  free_disk_space: true
-  settings_linux:
-    swapfile_size: 10GiB
 build_platform:
-  linux_aarch64: linux_64
   osx_64: osx_arm64
 conda_build:
   pkg_format: '2'
@@ -14,14 +9,19 @@ github:
   branch_name: main
   tooling_branch_name: main
 github_actions:
+  artifact_retention_days: 14
   timeout_minutes: 1080
   triggers:
   - push
   - pull_request
-  store_build_artifacts: true
-  artifact_retention_days: 14
 provider:
   linux_64: github_actions
-  linux_aarch64: github_actions
+  linux_aarch64: default
   osx_arm64: github_actions
 test: native_and_emulated
+workflow_settings:
+  free_disk_space: quick
+  pagefile_size:
+  - os: linux
+    value: 10
+  store_build_artifacts: true

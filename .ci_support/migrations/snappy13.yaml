@@ -1,0 +1,8 @@
+__migrator:
+  build_number: 1
+  commit_message: Rebuild for snappy 1.3
+  kind: version
+  migration_number: 1
+migrator_ts: 1794007775.0547163
+snappy:
+- '1.3'
