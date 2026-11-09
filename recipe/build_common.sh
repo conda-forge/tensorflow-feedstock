@@ -503,7 +503,6 @@ popd
 rm -f tensorflow/lite/schema/conversion_metadata_generated.h
 rm -f tensorflow/lite/experimental/acceleration/configuration/configuration_generated.h
 rm -f tensorflow/lite/acceleration/configuration/configuration_generated.h
-sed -ie "s;BUILD_PREFIX;${BUILD_PREFIX};g" tensorflow/tools/pip_package/build_pip_package.py
 
 # build using bazel
 bazel build ${BUILD_TARGET} ${BAZEL_OPTS}
