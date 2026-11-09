@@ -18,8 +18,8 @@ __migrator:
       - 12.8
       - None
       - 12.9
-      - 13.0
       - 13.4
+      - 13.0
       # to allow manual opt-in for CUDA 11.8, see
       # https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/7472
       # must be last due to how cuda_compiler ordering in that migrator works
