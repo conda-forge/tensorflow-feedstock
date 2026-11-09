@@ -1,9 +1,5 @@
 DOCKER_PLATFORM:
 - linux/amd64
-c_compiler:
-- clang
-c_compiler_version:
-- '22'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -12,16 +8,20 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+clang_compiler:
+- clang
+clang_compiler_version:
+- '22'
+clangxx_compiler:
+- clangxx
+clangxx_compiler_version:
+- '22'
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '13.0'
+- '13.4'
 cudnn:
 - '9'
-cxx_compiler:
-- clangxx
-cxx_compiler_version:
-- '22'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma10
 flatbuffers:
@@ -45,7 +45,7 @@ libpng:
 libprotobuf:
 - 7.35.1
 microarch_level:
-- '3'
+- '4'
 nccl:
 - '2'
 openssl:
@@ -67,9 +67,7 @@ sqlite:
 target_platform:
 - linux-64
 zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
-  - c_stdlib_version
+- - c_stdlib_version
   - cuda_compiler_version
 zlib:
 - '1'
