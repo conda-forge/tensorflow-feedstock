@@ -1,0 +1,63 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <ifernando@openteams.com>
+Date: Mon, 9 Nov 2026 00:00:00 +0000
+Subject: [PATCH] riegeli: fix build with snappy 1.3
+
+snappy 1.3 made CompressionOptions(int) explicit, so riegeli's
+`{/*level=*/...}` copy-list-initialization no longer compiles. Use
+direct initialization, which works with snappy 1.2 and 1.3.
+---
+diff --git a/tensorflow/workspace2.bzl b/tensorflow/workspace2.bzl
+index 9415199..bbf3d3a 100644
+--- a/tensorflow/workspace2.bzl
++++ b/tensorflow/workspace2.bzl
+@@ -896,6 +896,7 @@ def _tf_repositories():
+         sha256 = "590ec559107fc7082e1a7d70e9c9bfb8624c79dabca0a05fe1bcba1d7a591ec8",
+         strip_prefix = "riegeli-a37c3dbdd5d2a15113d363c7a7c41c30453e482f",
+         urls = tf_mirror_urls("https://github.com/google/riegeli/archive/a37c3dbdd5d2a15113d363c7a7c41c30453e482f.zip"),
++        patch_file = ["//third_party:riegeli_snappy.patch"],
+     )
+ 
+     # Required by riegeli.
+diff --git a/third_party/riegeli_snappy.patch b/third_party/riegeli_snappy.patch
+new file mode 100644
+index 0000000..c4a235f
+--- /dev/null
++++ b/third_party/riegeli_snappy.patch
+@@ -0,0 +1,36 @@
++diff --git a/riegeli/snappy/framed/framed_snappy_writer.cc b/riegeli/snappy/framed/framed_snappy_writer.cc
++--- a/riegeli/snappy/framed/framed_snappy_writer.cc
+++++ b/riegeli/snappy/framed/framed_snappy_writer.cc
++@@ -134,7 +134,7 @@
++   size_t compressed_length;
++   snappy::RawCompress(uncompressed_data, uncompressed_length,
++                       compressed_chunk + 2 * sizeof(uint32_t),
++-                      &compressed_length, {/*level=*/compression_level_});
+++                      &compressed_length, snappy::CompressionOptions(compression_level_));
++   if (compressed_length < uncompressed_length) {
++     WriteLittleEndian32(
++         IntCast<uint32_t>(0x00 /* Compressed data */ |
++diff --git a/riegeli/snappy/hadoop/hadoop_snappy_writer.cc b/riegeli/snappy/hadoop/hadoop_snappy_writer.cc
++--- a/riegeli/snappy/hadoop/hadoop_snappy_writer.cc
+++++ b/riegeli/snappy/hadoop/hadoop_snappy_writer.cc
++@@ -121,7 +121,7 @@
++   size_t compressed_length;
++   snappy::RawCompress(uncompressed_data, uncompressed_length,
++                       compressed_chunk + 2 * sizeof(uint32_t),
++-                      &compressed_length, {/*level=*/compression_level_});
+++                      &compressed_length, snappy::CompressionOptions(compression_level_));
++   WriteBigEndian32(IntCast<uint32_t>(compressed_length),
++                    compressed_chunk + sizeof(uint32_t));
++   dest.move_cursor(2 * sizeof(uint32_t) + compressed_length);
++diff --git a/riegeli/snappy/snappy_writer.cc b/riegeli/snappy/snappy_writer.cc
++--- a/riegeli/snappy/snappy_writer.cc
+++++ b/riegeli/snappy/snappy_writer.cc
++@@ -271,7 +271,7 @@
++   }
++   ReaderSnappySource source(&src, *size);
++   WriterSnappySink sink(&dest);
++-  snappy::Compress(&source, &sink, {/*level=*/options.compression_level()});
+++  snappy::Compress(&source, &sink, snappy::CompressionOptions(options.compression_level()));
++   if (ABSL_PREDICT_FALSE(!dest.ok())) return dest.status();
++   if (ABSL_PREDICT_FALSE(!src.ok())) return src.status();
++   return absl::OkStatus();
