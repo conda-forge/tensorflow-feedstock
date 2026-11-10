@@ -161,7 +161,7 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     # clang-22-era headers (absl nullability-on-classes and
     # __builtin_is_cpp_trivially_relocatable, protobuf __is_bitwise_cloneable,
     # clang 22's own xmmintrin.h __builtin_elementwise_sqrt), and unlike the
-    # clang 18 this recipe used before, clang 22 fully supports CUDA 12.9/13.4
+    # clang 18 this recipe used before, clang 22 fully supports CUDA 12.9/13.0
     # device compilation (max PTX 9.0), so single-compiler clang is now viable
     # -- and is upstream's primary supported CUDA build path.
     # configure.py on the TF_CUDA_CLANG=1 path reads CLANG_CUDA_COMPILER_PATH

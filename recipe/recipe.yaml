@@ -88,9 +88,8 @@ source:
       # clang >= 22 (google/highway#1864, fixed upstream in 1.4.0).
       - patches/0078-Bump-vendored-Highway-to-1.4.0-for-clang-22-evex512-.patch
       # @rules_ml_toolchain's PTX_VERSION_DICT (source of local_config_cuda)
-      # only maps clang majors 14-21 and CUDA up to 13.0 at TF 2.21.0's pin;
-      # add clang 22 -> 9.0 and CUDA 13.1-13.4 -> 9.1-9.4 (upstream HEAD's
-      # values) via a patch_file on its tf_http_archive.
+      # only maps clang majors 14-21 at TF 2.21.0's pin; add 22 -> 9.0
+      # (upstream HEAD's value) via a patch_file on its tf_http_archive.
       - patches/0079-rules_ml_toolchain-add-clang-22-max-PTX-version.patch
       # TFRT headers need an explicit <cstdint> include under clang
       - patches/0059-Add-cstdint-to-TFRT-headers-for-clang.patch

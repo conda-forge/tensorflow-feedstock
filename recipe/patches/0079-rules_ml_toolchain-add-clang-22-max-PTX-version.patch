@@ -1,8 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: pb01ka <gaganpb08singh@gmail.com>
 Date: Tue, 14 Jul 2026 00:00:00 +0000
-Subject: [PATCH] rules_ml_toolchain: add clang 22 and CUDA 13.1-13.4 max PTX
- versions
+Subject: [PATCH] rules_ml_toolchain: add clang 22 max PTX version
 
 local_config_cuda comes from the external @rules_ml_toolchain repo (see
 WORKSPACE), whose gpu/cuda/cuda_redist_versions.bzl PTX_VERSION_DICT at
@@ -14,14 +13,11 @@ the feedstock's clang 22 pin, repository setup fails at option loading:
   major version=22.
 
 Add "22": "9.0" -- the exact value rules_ml_toolchain upstream added at
-HEAD (verified, not guessed). Likewise the "cuda" map stops at 13.0, so
-CUDA 13.4 fails with "The supported CUDA versions are [..., "13.0"].
-Please add max PTX version supported by CUDA version=13.4."; add
-13.1-13.4 -> 9.1-9.4, again the values from rules_ml_toolchain HEAD.
-Delivered as a patch_file on the rules_ml_toolchain tf_http_archive in
-WORKSPACE (same mechanism as third_party/llvm's patches; tf_http_archive
-applies patch_file entries with ctx.patch(strip=1)), with the inner diff
-added as third_party/rules_ml_toolchain.patch.
+HEAD (verified, not guessed). Delivered as a patch_file on the
+rules_ml_toolchain tf_http_archive in WORKSPACE (same mechanism as
+third_party/llvm's patches; tf_http_archive applies patch_file entries
+with ctx.patch(strip=1)), with the inner diff added as
+third_party/rules_ml_toolchain.patch.
 ---
 --- a/WORKSPACE
 +++ b/WORKSPACE
@@ -35,11 +31,12 @@ added as third_party/rules_ml_toolchain.patch.
      urls = tf_mirror_urls(
 --- /dev/null
 +++ b/third_party/rules_ml_toolchain.patch
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,12 @@
 +diff --git a/gpu/cuda/cuda_redist_versions.bzl b/gpu/cuda/cuda_redist_versions.bzl
 +--- a/gpu/cuda/cuda_redist_versions.bzl
 ++++ b/gpu/cuda/cuda_redist_versions.bzl
-+@@ -517,6 +517,7 @@ PTX_VERSION_DICT = {
++@@ -516,6 +516,7 @@ PTX_VERSION_DICT = {
++         "18": "8.3",
 +         "19": "8.5",
 +         "20": "8.7",
 +         "21": "8.8",
@@ -47,14 +44,3 @@ added as third_party/rules_ml_toolchain.patch.
 +     },
 +     # To find, look at https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#release-notes
 +     "cuda": {
-+@@ -530,6 +531,10 @@ PTX_VERSION_DICT = {
-+         "12.8": "8.7",
-+         "12.9": "8.8",
-+         "13.0": "9.0",
-++        "13.1": "9.1",
-++        "13.2": "9.2",
-++        "13.3": "9.3",
-++        "13.4": "9.4",
-+     },
-+ }
-+ 
