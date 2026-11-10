@@ -1,7 +1,7 @@
 About libtensorflow-feedstock
 =============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tensorflow-feedstock2-feedstock/blob/main/LICENSE.txt)
 
 Home: http://tensorflow.org/
 
@@ -25,8 +25,8 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/conda-forge/tensorflow-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/tensorflow-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/conda-forge/tensorflow-feedstock2-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/tensorflow-feedstock2-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
     </td>
   </tr>
