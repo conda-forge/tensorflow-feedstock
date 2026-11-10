@@ -140,9 +140,6 @@ source:
       - patches/0080-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
       # snappy 1.3 made CompressionOptions(int) explicit; fix riegeli callers.
       - patches/0081-riegeli-fix-build-with-snappy-1.3.patch
-      # newer CUDA/CCCL headers only forward-declare __nv_bfloat16; include
-      # cuda_bf16.h in XLA's buffer float check (openxla/xla#51491)
-      - patches/0082-Include-CUDA-bfloat16-header-in-XLA-buffer-float-check.patch
 
 build:
   number: ${{ build + (200 if cuda_compiler_version != "None" else 0) + 25 * ((microarch_level | default("1") | int) - 1) }}
