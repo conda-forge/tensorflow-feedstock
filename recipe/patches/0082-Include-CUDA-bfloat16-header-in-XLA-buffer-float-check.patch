@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Albert Yau <albert@mwyau.com>
+Date: Wed, 28 Oct 2026 00:00:00 +0000
+Subject: [PATCH] Include CUDA bfloat16 header in XLA buffer float check
+
+buffer_debug_float_check_kernel_cuda.cu.cc uses __nv_bfloat16 but relies on
+cuda/atomic to pull in its definition. With newer CUDA/CCCL headers that only
+forward-declares the type, so clang CUDA fails with "variable has incomplete
+type '__nv_bfloat16'". Include cuda_bf16.h explicitly.
+
+Backport of the include added in openxla/xla PR #51491 (also carried by
+jaxlib-feedstock as 0006-Include-CUDA-bfloat16-header.patch).
+---
+diff --git a/third_party/xla/xla/stream_executor/cuda/buffer_debug_float_check_kernel_cuda.cu.cc b/third_party/xla/xla/stream_executor/cuda/buffer_debug_float_check_kernel_cuda.cu.cc
+--- a/third_party/xla/xla/stream_executor/cuda/buffer_debug_float_check_kernel_cuda.cu.cc
++++ b/third_party/xla/xla/stream_executor/cuda/buffer_debug_float_check_kernel_cuda.cu.cc
+@@ -24,6 +24,7 @@
+ 
+ #include "absl/base/casts.h"
+ #include "third_party/gpus/cuda/include/cuda/atomic"
++#include "third_party/gpus/cuda/include/cuda_bf16.h"
+ #include "xla/backends/gpu/runtime/buffer_debug_log_structs.h"
+ #include "xla/stream_executor/cuda/cuda_platform_id.h"
+ #include "xla/stream_executor/gpu/buffer_debug_float_check_kernel.h"
