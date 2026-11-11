@@ -31,7 +31,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -44,7 +44,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -57,7 +57,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -70,7 +70,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -83,7 +83,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -96,7 +96,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -109,7 +109,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -122,7 +122,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -135,7 +135,7 @@ jobs:
             docker_run_args: 
             free_disk_space: skip
             os: ubuntu
-            pagefile_size: 0
+            pagefile_size: 10
             resize_partitions: False
             runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
@@ -155,6 +155,15 @@ jobs:
 
     - name: Checkout code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+    - name: Configure page file on Linux
+      if: matrix.os == 'ubuntu' && matrix.pagefile_size > 0
+      shell: bash
+      env:
+        PAGEFILE_SIZE: ${{ matrix.pagefile_size }}
+        GHA_RUNS_ON: ${{ join(matrix.runs_on, ' ') }}
+      run: |
+        .scripts/create_pagefile.sh "${PAGEFILE_SIZE}"
     - name: Configure binfmt_misc
       if: matrix.os == 'ubuntu'
       shell: bash
