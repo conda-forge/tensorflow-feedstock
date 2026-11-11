@@ -1,5 +1,4 @@
 azure:
-  free_disk_space: true
   settings_linux:
     swapfile_size: 10GiB
 build_platform:
@@ -18,10 +17,11 @@ github_actions:
   triggers:
   - push
   - pull_request
-  store_build_artifacts: true
   artifact_retention_days: 14
 provider:
   linux_64: github_actions
   linux_aarch64: github_actions
   osx_arm64: github_actions
 test: native_and_emulated
+workflow_settings:
+  store_build_artifacts: true

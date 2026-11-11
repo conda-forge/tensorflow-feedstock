@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.21.0"
-  build: 1
+  build: 2
   # Quite often libml_dtypes-headers and ml_dtypes diverge.
   # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
   libml_dtypes_version: "0.5.1"
@@ -182,9 +182,13 @@ outputs:
             - numpy
             - zlib
             - libcurl
-        - ${{ compiler("c") }}
+        - if: unix
+          then: ${{ compiler("clang") }}
+          else: ${{ compiler("c") }}
         - ${{ stdlib("c") }}
-        - ${{ compiler("cxx") }}
+        - if: unix
+          then: ${{ compiler("clangxx") }}
+          else: ${{ compiler("cxx") }}
         # Keep the cuda compiler here since it helps package solvers
         # decide on the cuda variant
         # https://github.com/conda-forge/tensorflow-feedstock/issues/162
@@ -193,7 +197,7 @@ outputs:
         # --config=cuda_clang links with -fuse-ld=lld; the conda clang
         # compiler stack does not pull lld in by itself
         - if: cuda_compiler_version != "None"
-          then: lld ${{ c_compiler_version }}.*
+          then: lld ${{ clang_compiler_version }}.*
         - if: linux and x86_64
           then: x86_64-microarch-level ==${{ microarch_level | default("1") }}
         - bazel 7.*
@@ -329,7 +333,9 @@ outputs:
               - test_c.c
           requirements:
             build:
-              - ${{ compiler("c") }}
+              - if: unix
+                then: ${{ compiler("clang") }}
+                else: ${{ compiler("c") }}
           script:
             - test -f $PREFIX/lib/libtensorflow${SHLIB_EXT}
             - if: build_platform != target_platform
@@ -374,7 +380,9 @@ outputs:
               - test_cc.cc
           requirements:
             build:
-              - ${{ compiler("cxx") }}
+              - if: unix
+                then: ${{ compiler("clangxx") }}
+                else: ${{ compiler("cxx") }}
           script:
             - test -f $PREFIX/lib/libtensorflow_cc${SHLIB_EXT}
             - if: build_platform != target_platform
@@ -409,9 +417,13 @@ outputs:
     requirements:
       # build requirements need to pick up the compiler run_exports (libgcc-ng etc.)
       build:
-        - ${{ compiler("c") }}
+        - if: unix
+          then: ${{ compiler("clang") }}
+          else: ${{ compiler("c") }}
         - ${{ stdlib("c") }}
-        - ${{ compiler("cxx") }}
+        - if: unix
+          then: ${{ compiler("clangxx") }}
+          else: ${{ compiler("cxx") }}
         - if: cuda_compiler_version != "None"
           then: ${{ compiler("cuda") }}
         - if: linux and x86_64

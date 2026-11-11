@@ -177,10 +177,10 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     # raw clang driver actually exists.
     CLANG_BIN="${BUILD_PREFIX}/bin/clang"
     if [[ ! -x "${CLANG_BIN}" ]]; then
-        CLANG_BIN="${BUILD_PREFIX}/bin/clang-${c_compiler_version%%.*}"
+        CLANG_BIN="${BUILD_PREFIX}/bin/clang-${clang_compiler_version%%.*}"
     fi
     if [[ ! -x "${CLANG_BIN}" ]]; then
-        echo "ERROR: no clang driver found in ${BUILD_PREFIX}/bin (tried clang, clang-${c_compiler_version%%.*})" >&2
+        echo "ERROR: no clang driver found in ${BUILD_PREFIX}/bin (tried clang, clang-${clang_compiler_version%%.*})" >&2
         exit 1
     fi
     export CLANG_CUDA_COMPILER_PATH="${CLANG_BIN}"
@@ -463,10 +463,14 @@ EOF
   done
 fi
 
-# conda's linux libabseil/libprotobuf use the pre-clang-18 Itanium mangling;
-# clang 18 changed it, so pin clang to the GCC-compatible ABI to match the
-# exported symbols. Only when building with clang (Apple clang / gcc reject it).
-if [[ "${target_platform}" == linux-* && "${c_compiler}" == clang* ]]; then
+# conda's linux libabseil/libprotobuf are built with GCC, which still uses the
+# pre-clang-18 Itanium mangling for constrained templates, templates with
+# `auto` non-type parameters, etc. clang 18 adopted the new manglings
+# (https://github.com/llvm/llvm-project/commit/4b163e343cfa54c8d55c9da73c70d58f55ea9df2),
+# GCC has not yet (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100825), so pin
+# clang to the GCC-compatible ABI to match the exported symbols. Linux always
+# builds with conda clang (Apple clang rejects it).
+if [[ "${target_platform}" == linux-* ]]; then
   cat >> .bazelrc <<EOF
 build --cxxopt=-fclang-abi-compat=17
 build --host_cxxopt=-fclang-abi-compat=17
