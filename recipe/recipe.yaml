@@ -30,78 +30,67 @@ source:
       - patches/0006-Different-file-ending-for-flatbuffers-LICENSE.patch
       - patches/0007-Add-protobuf-toolchain.patch
       - patches/0008-work-around-for-warning-that-clang-falsely-treats-as.patch
-      # https://github.com/tensorflow/tensorflow/pull/86413
-      - patches/0009-Avoid-linking-with-internal-nvrtc.patch
-      - patches/0010-remove-dependencies-to-libcuda.patch
-      - patches/0011-Fixup-pybind11_protobuf.patch
+      - patches/0009-Fixup-pybind11_protobuf.patch
       # for the megabuild
-      - patches/0012-Fix-building-different-python-wheels-from-one-python.patch
+      - patches/0010-Fix-building-different-python-wheels-from-one-python.patch
       - if: aarch64 and target_platform != build_platform
-        then: patches/0013-cross-arch-config.patch
+        then: patches/0011-cross-arch-config.patch
       - if: aarch64 and target_platform != build_platform
-        then: patches/0014-Force-python-wheel-architecture-to-aarch64.patch
+        then: patches/0012-Force-python-wheel-architecture-to-aarch64.patch
       # missing <string> include with newer libabseil (20260107+)
-      - patches/0015-Add-missing-string-include-in-custom_call_status_int.patch
+      - patches/0013-Add-missing-string-include-in-custom_call_status_int.patch
       # missing <cstring> in vendored re2 with newer absl/GCC 14;
       # adds patch_cmds support to tf_http_archive
-      - patches/0016-Add-patch_cmds-to-tf_http_archive-and-fix-re2-cstrin.patch
+      - patches/0014-Add-patch_cmds-to-tf_http_archive-and-fix-re2-cstrin.patch
       # TF 2.21.0 removed the combined libtensorflow.tar.gz lib_package target
-      - patches/0017-Restore-combined-libtensorflow-lib_package-target.patch
+      - patches/0015-Restore-combined-libtensorflow-lib_package-target.patch
       # well-known-type _cc_proto targets (wrappers_cc_proto, ...) for systemlib
-      - patches/0018-Add-wkt-cc_proto-targets-to-protobuf-systemlib.patch
+      - patches/0016-Add-wkt-cc_proto-targets-to-protobuf-systemlib.patch
       # Highway 1.3.0's x86_512-inl.h doesn't handle clang's AVX10 evex512
       # target-feature split; any TU that includes it fails to build under
       # clang >= 22 (google/highway#1864, fixed upstream in 1.4.0).
-      - patches/0019-Bump-vendored-Highway-to-1.4.0-for-clang-22-evex512-.patch
+      - patches/0017-Bump-vendored-Highway-to-1.4.0-for-clang-22-evex512-.patch
       # @rules_ml_toolchain's PTX_VERSION_DICT (source of local_config_cuda)
       # only maps clang majors 14-21 at TF 2.21.0's pin; add 22 -> 9.0
       # (upstream HEAD's value) via a patch_file on its tf_http_archive.
-      - patches/0020-rules_ml_toolchain-add-clang-22-max-PTX-version.patch
+      - patches/0018-rules_ml_toolchain-add-clang-22-max-PTX-version.patch
       # TFRT headers need an explicit <cstdint> include under clang
-      - patches/0021-Add-cstdint-to-TFRT-headers-for-clang.patch
+      - patches/0019-Add-cstdint-to-TFRT-headers-for-clang.patch
       # core lib/framework hub targets must declare xla/tsl/concurrency/executor.h
-      - patches/0022-Declare-tsl-executor-on-core-lib-framework.patch
+      - patches/0020-Declare-tsl-executor-on-core-lib-framework.patch
       # tf_proto_library must call the systemlib py_proto_library with the old
       # srcs-based convention (TF 2.21.0 uses the modern deps=[proto_library])
-      - patches/0023-Make-tf_proto_library-use-system-protobuf-convention.patch
-      - patches/0024-Handle-empty-output-proto_gen-in-protobuf-systemlib.patch
-      - patches/0025-Add-protobuf-util-targets-to-systemlib.patch
+      - patches/0021-Make-tf_proto_library-use-system-protobuf-convention.patch
+      - patches/0022-Handle-empty-output-proto_gen-in-protobuf-systemlib.patch
+      - patches/0023-Add-protobuf-util-targets-to-systemlib.patch
       # tsl/platform:protobuf must use the systemlib flat protobuf target
       # (no upstream src/google/protobuf/io sub-package in systemlib)
-      - patches/0026-_protobuf_deps-use-the-systemlib-flat-protobuf-targe.patch
-      # OpRegistry: accept identical-OpDef duplicate registrations from the two
-      # TF .so's that both embed the op-registration TUs (systemlib build)
-      - patches/0027-OpRegistry-tolerate-duplicate-registrations-with-ide.patch
+      - patches/0024-_protobuf_deps-use-the-systemlib-flat-protobuf-targe.patch
       # TF 2.21.0 pins h5py < 3.15.0; conda-forge ships 3.16.0+. Drop upper.
-      - patches/0028-Loosen-h5py-requirement-upper-bound.patch
+      - patches/0025-Loosen-h5py-requirement-upper-bound.patch
       # XLA cuda_executor: add the TSL nvml lazy-dlopen stub dep (as
       # cuda_platform has) so cuda_wheel DSOs don't hard-NEED libnvidia-ml
-      - patches/0029-xla-cuda_executor-depend-on-tsl-cuda-nvml-stub.patch
+      - patches/0026-xla-cuda_executor-depend-on-tsl-cuda-nvml-stub.patch
       # PlatformObjectRegistry: tolerate identical-key duplicate registrations
       # from the per-.so stream_executor registrars (keep the first)
-      - patches/0030-PlatformObjectRegistry-tolerate-duplicate-registrati.patch
-      # OpKernel registry: skip exact-duplicate kernel registrations from the
-      # two TF .so's (e.g. _Send/_Recv) that otherwise abort GPU host<->device
-      # copies with "Multiple OpKernel registrations match ... same priority"
-      - patches/0031-OpKernel-registry-tolerate-duplicate-kernel-registra.patch
-      # NB: the analogous abseil-flag duplicate-registration abort is handled
-      # not by a patch but by the force-included tf_absl_flag_guard.h (see
-      # build_common.sh), because systemized absl cannot be patched.
-      # CUDA 13: the hermetic @nvidia_nvshmem redist has no cuda13 archive
-      - patches/0032-Use-the-bundled-nvshmem-stub-instead-of-the-hermetic.patch
+      - patches/0027-PlatformObjectRegistry-tolerate-duplicate-registrati.patch
+      # NB: the analogous abseil-flag duplicate-registration abort (cf. the
+      # PlatformObjectRegistry patch above) is handled not by a patch but by
+      # the force-included tf_absl_flag_guard.h (see build_common.sh),
+      # because systemized absl cannot be patched.
       # CUDA 13 ships CCCL/CUB 3.x which removed APIs gpu_prim.h relies on;
       # backport of upstream ff3bc75 (guarded by CCCL_VERSION < 3000000).
-      - patches/0033-Make-tensorflow-buildable-with-CCCL-v3.x.patch
+      - patches/0028-Make-tensorflow-buildable-with-CCCL-v3.x.patch
       # NCCL 2.30 grew ncclDevComm to 240B; XLA's PackedKernelArg was 200B.
-      - patches/0034-XLA-grow-PackedKernelArg-to-fit-NCCL-2.30-ncclDevComm.patch
+      - patches/0029-XLA-grow-PackedKernelArg-to-fit-NCCL-2.30-ncclDevComm.patch
       # nvcc 12.9's cicc segfaults on RAFT select_k; use the (default-path-
       # equivalent) select_k stub instead.
-      - patches/0035-XLA-use-select_k-stub-to-avoid-nvcc-12.9-cicc-crash.patch
+      - patches/0030-XLA-use-select_k-stub-to-avoid-nvcc-12.9-cicc-crash.patch
       # GitHub regenerated the llvm-project archive tarball (and the TF mirror
       # 404s), so the pinned sha256 no longer matches.
-      - patches/0036-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
+      - patches/0031-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
       # snappy 1.3 made CompressionOptions(int) explicit; fix riegeli callers.
-      - patches/0037-riegeli-fix-build-with-snappy-1.3.patch
+      - patches/0032-riegeli-fix-build-with-snappy-1.3.patch
 
 build:
   number: ${{ build + (200 if cuda_compiler_version != "None" else 0) + 25 * ((microarch_level | default("1") | int) - 1) }}
