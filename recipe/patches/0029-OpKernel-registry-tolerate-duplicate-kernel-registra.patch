@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Sun, 24 May 2026 12:00:00 -0400
+Subject: [PATCH] OpKernel registry: tolerate duplicate kernel registrations
+
+In the systemlib build the same kernel-registration TU is embedded in both
+libtensorflow_framework.so and libtensorflow_cc.so (both loaded at import),
+so identical kernels such as _Send/_Recv register twice in the process-global
+registry. On a GPU host the first host<->device copy then aborts with
+"Multiple OpKernel registrations match NodeDef at the same priority"
+(GPU-less CI never exercises this). Skip an exact-duplicate registration
+(same key, kernel_class_name and serialized KernelDef) in
+OpKernelRegistrar::InitInternal; genuinely distinct kernels are still added.
+Mirrors the OpRegistry/PlatformObjectRegistry duplicate-tolerance patches.
+---
+--- a/tensorflow/core/framework/op_kernel.cc
++++ b/tensorflow/core/framework/op_kernel.cc
+@@ -1359,6 +1359,21 @@
+   auto global_registry =
+       reinterpret_cast<KernelRegistry*>(GlobalKernelRegistry());
+   mutex_lock l(global_registry->mu);
++  // conda-forge: in the systemlib build the same kernel-registration TU is
++  // embedded in more than one loaded TF .so (libtensorflow_framework.so and
++  // libtensorflow_cc.so), so identical kernels (e.g. _Send/_Recv) register
++  // twice in this process-global registry and FindKernelRegistration then
++  // aborts on a GPU host with "Multiple OpKernel registrations match ... at
++  // the same priority". Skip an exact duplicate (same key, class name and
++  // KernelDef); genuinely distinct kernels for the op are still added.
++  auto existing = global_registry->registry.equal_range(key);
++  for (auto it = existing.first; it != existing.second; ++it) {
++    if (it->second.kernel_class_name == kernel_class_name &&
++        it->second.def.SerializeAsString() == kernel_def->SerializeAsString()) {
++      delete kernel_def;
++      return;
++    }
++  }
+   global_registry->registry.emplace(
+       key,
+       KernelRegistration(*kernel_def, kernel_class_name, std::move(factory)));

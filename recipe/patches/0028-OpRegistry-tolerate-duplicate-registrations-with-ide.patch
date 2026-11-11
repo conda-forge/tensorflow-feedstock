@@ -1,0 +1,72 @@
+From d764c83d71abba9a462c020fad8e15a079a614fd Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Wed, 20 May 2026 01:09:25 +0000
+Subject: [PATCH] OpRegistry: tolerate duplicate registrations with identical
+ OpDef
+
+In the systemlib build, both libtensorflow_framework.so and
+libtensorflow_cc.so embed the same op-registration TUs (e.g.
+function_ops.cc's _Arg), so OpRegistry's deferred queue gets two identical
+entries and the first ProcessRegistrations() aborts with AlreadyExistsError
+at `import tensorflow`. Make RegisterAlreadyLocked silently accept (and skip
+the watcher callback for) a duplicate whose OpDef matches via OpDefEqual; a
+divergent OpDef for the same name still errors.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ tensorflow/core/framework/op.cc | 39 +++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
+
+diff --git a/tensorflow/core/framework/op.cc b/tensorflow/core/framework/op.cc
+index 7688578d..6afe25ad 100644
+--- a/tensorflow/core/framework/op.cc
++++ b/tensorflow/core/framework/op.cc
+@@ -239,10 +239,41 @@ absl::Status OpRegistry::RegisterAlreadyLocked(
+   if (s.ok()) {
+     s = ValidateOpDef(op_reg_data->op_def);
+   }
+-  if (s.ok() &&
+-      !registry_.try_emplace(op_reg_data->op_def.name(), std::move(op_reg_data))
+-           .second) {
+-    s = errors::AlreadyExists("Op with name ", op_reg_data->op_def.name());
++  // conda-forge tensorflow-feedstock: tolerate duplicate op registrations
++  // when the OpDef being re-registered is identical to the one already in
++  // the registry. With conda's systemlib build a process can load multiple
++  // TF shared objects (libtensorflow_framework.so.2, libtensorflow_cc.so.2,
++  // the _pywrap_*.so python extensions, and load_op_library() custom-op
++  // .so's) which each statically embed the same built-in op-registration
++  // translation units (e.g. function_ops.cc's REGISTER_SYSTEM_OP("_Arg")).
++  // Without this guard the second .so to register a built-in op causes
++  // ProcessRegistrations() to return AlreadyExistsError, surfaced from
++  // TF_LoadLibrary(_audio_microfrontend_op.so) during `import tensorflow`.
++  // Identical duplicates are silently accepted AND silently swallowed --
++  // the watcher (used by LoadDynamicLibrary to harvest the OpDefs registered
++  // by a newly-loaded custom-op .so) is not invoked for an accepted
++  // duplicate, so the duplicate built-in op is NOT mis-attributed to the
++  // custom library. A divergent OpDef for the same name still errors as
++  // before and is reported through the watcher.
++  bool silently_accepted_duplicate = false;
++  if (s.ok()) {
++    auto it = registry_.find(op_reg_data->op_def.name());
++    if (it != registry_.end()) {
++      if (OpDefEqual(op_reg_data->op_def, it->second->op_def)) {
++        silently_accepted_duplicate = true;
++      } else {
++        s = errors::AlreadyExists("Op with name ", op_reg_data->op_def.name());
++      }
++    } else {
++      registry_.try_emplace(op_reg_data->op_def.name(),
++                            std::move(op_reg_data));
++    }
++  }
++  if (silently_accepted_duplicate) {
++    // Skip the watcher: the duplicate's OpDef is identical to the one
++    // already registered and is NOT a definition contributed by the
++    // currently-loading custom op .so.
++    return absl::OkStatus();
+   }
+   absl::Status watcher_status = s;
+   if (watcher_) {
+-- 
+2.54.0
+
