@@ -79,26 +79,24 @@ source:
       # in the OpRegistry ("AlreadyExistsError: Op with name _Arg") and the
       # OpKernel registry. Not needed on linux.
       - if: osx
-        then: patches/0028-OpRegistry-tolerate-duplicate-registrations-with-ide.patch
-      - if: osx
-        then: patches/0029-OpKernel-registry-tolerate-duplicate-kernel-registra.patch
+        then: patches/0028-Tolerate-identical-duplicate-op-and-kernel-registrations.patch
       # NB: the analogous abseil-flag duplicate-registration abort (cf. the
       # duplicate-registration patches above) is handled not by a patch but by
       # the force-included tf_absl_flag_guard.h (see build_common.sh),
       # because systemized absl cannot be patched.
       # CUDA 13 ships CCCL/CUB 3.x which removed APIs gpu_prim.h relies on;
       # backport of upstream ff3bc75 (guarded by CCCL_VERSION < 3000000).
-      - patches/0030-Make-tensorflow-buildable-with-CCCL-v3.x.patch
+      - patches/0029-Make-tensorflow-buildable-with-CCCL-v3.x.patch
       # NCCL 2.30 grew ncclDevComm to 240B; XLA's PackedKernelArg was 200B.
-      - patches/0031-XLA-grow-PackedKernelArg-to-fit-NCCL-2.30-ncclDevComm.patch
+      - patches/0030-XLA-grow-PackedKernelArg-to-fit-NCCL-2.30-ncclDevComm.patch
       # nvcc 12.9's cicc segfaults on RAFT select_k; use the (default-path-
       # equivalent) select_k stub instead.
-      - patches/0032-XLA-use-select_k-stub-to-avoid-nvcc-12.9-cicc-crash.patch
+      - patches/0031-XLA-use-select_k-stub-to-avoid-nvcc-12.9-cicc-crash.patch
       # GitHub regenerated the llvm-project archive tarball (and the TF mirror
       # 404s), so the pinned sha256 no longer matches.
-      - patches/0033-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
+      - patches/0032-Update-LLVM-archive-sha256-for-regenerated-GitHub-ta.patch
       # snappy 1.3 made CompressionOptions(int) explicit; fix riegeli callers.
-      - patches/0034-riegeli-fix-build-with-snappy-1.3.patch
+      - patches/0033-riegeli-fix-build-with-snappy-1.3.patch
 
 build:
   number: ${{ build + (200 if cuda_compiler_version != "None" else 0) + 25 * ((microarch_level | default("1") | int) - 1) }}
