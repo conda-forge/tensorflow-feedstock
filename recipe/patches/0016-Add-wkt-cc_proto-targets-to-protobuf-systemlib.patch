@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Thu, 15 May 2026 00:00:00 -0400
+Subject: [PATCH] Add well-known-type cc_proto targets to protobuf systemlib
+
+TF 2.21.0 / XLA reference @com_google_protobuf//:<wkt>_cc_proto targets
+(e.g. wrappers_cc_proto) which the systemlib protobuf.BUILD did not
+declare. Alias each well-known-type _cc_proto to the bundled
+cc_wkt_protos library.
+---
+diff --git a/third_party/systemlibs/protobuf.BUILD b/third_party/systemlibs/protobuf.BUILD
+index 203f91b..d8505db 100644
+--- a/third_party/systemlibs/protobuf.BUILD
++++ b/third_party/systemlibs/protobuf.BUILD
+@@ -125,3 +125,12 @@ py_library(
+     visibility = ["//visibility:public"],
+     deps = [dep + "_proto" for dep in proto[1][1]],
+ ) for proto in WELL_KNOWN_PROTO_MAP.items()]
++
++# The well-known-type C++ proto targets (e.g. wrappers_cc_proto). Their
++# generated code already ships inside the system libprotobuf, so alias each
++# one to the bundled cc_wkt_protos library.
++[alias(
++    name = proto[0] + "_cc_proto",
++    actual = ":cc_wkt_protos",
++    visibility = ["//visibility:public"],
++) for proto in WELL_KNOWN_PROTO_MAP.items()]
