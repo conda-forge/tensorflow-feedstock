@@ -31,7 +31,7 @@ giflib:
 github_actions_labels:
 - namespace-profile-16cpu-on-linux-64
 icu:
-- '78'
+- '79'
 libabseil:
 - '20260526'
 libcurl:
@@ -60,7 +60,6 @@ python:
 - 3.11.* *_cpython
 - 3.12.* *_cpython
 - 3.13.* *_cp313
-- 3.14.* *_cp314
 snappy:
 - '1.3'
 sqlite:
