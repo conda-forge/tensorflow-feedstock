@@ -1,9 +1,9 @@
 MACOSX_SDK_VERSION:
-- '11.0'
+- '12.0'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '11.0'
+- '12.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -27,11 +27,11 @@ github_actions_labels:
 icu:
 - '78'
 libabseil:
-- '20260526'
+- '20260817'
 libcurl:
 - '8'
 libgrpc:
-- '1.82'
+- '1.85'
 libjpeg_turbo:
 - '3'
 libpng:
@@ -52,7 +52,6 @@ python:
 - 3.11.* *_cpython
 - 3.12.* *_cpython
 - 3.13.* *_cp313
-- 3.14.* *_cp314
 snappy:
 - '1.3'
 sqlite:
