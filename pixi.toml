@@ -4,10 +4,10 @@
 "$schema" = "https://pixi.sh/v0.59.0/schema/manifest/schema.json"
 
 [workspace]
-name = "tensorflow-feedstock2-feedstock"
+name = "tensorflow-feedstock"
 version = "2026.11.6"  # conda-smithy version used to generate this file
-description = "Pixi configuration for conda-forge/tensorflow-feedstock2-feedstock"
-authors = ["@conda-forge/tensorflow-feedstock2"]
+description = "Pixi configuration for conda-forge/tensorflow-feedstock"
+authors = ["@conda-forge/tensorflow"]
 channels = ["conda-forge"]
 platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"]
 requires-pixi = ">=0.59.0"
@@ -37,97 +37,97 @@ cmd = "inspect_artifacts --all-packages"
 description = "List contents of all packages found in rattler-build build directory."
 [feature.build.tasks.build]
 cmd = "rattler-build build --recipe recipe"
-description = "Build tensorflow-feedstock2-feedstock directly (without setup scripts), no particular variant specified"
+description = "Build tensorflow-feedstock directly (without setup scripts), no particular variant specified"
 [feature.build.tasks."build-linux_64_cuda_compiler_version12.9microarch_level1"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level1.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level1 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level1 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version12.9microarch_level1"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level1.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level1 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level1 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version12.9microarch_level1"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level1.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level1"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level1"
 [feature.build.tasks."build-linux_64_cuda_compiler_version12.9microarch_level3"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level3.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level3 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level3 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version12.9microarch_level3"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level3.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level3 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level3 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version12.9microarch_level3"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level3.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level3"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level3"
 [feature.build.tasks."build-linux_64_cuda_compiler_version12.9microarch_level4"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level4.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level4 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level4 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version12.9microarch_level4"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level4.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level4 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version12.9microarch_level4 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version12.9microarch_level4"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version12.9microarch_level4.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level4"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version12.9microarch_level4"
 [feature.build.tasks."build-linux_64_cuda_compiler_version13.0microarch_level1"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level1.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level1 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level1 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version13.0microarch_level1"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level1.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level1 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level1 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version13.0microarch_level1"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level1.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level1"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level1"
 [feature.build.tasks."build-linux_64_cuda_compiler_version13.0microarch_level3"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level3.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level3 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level3 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version13.0microarch_level3"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level3.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level3 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level3 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version13.0microarch_level3"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level3.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level3"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level3"
 [feature.build.tasks."build-linux_64_cuda_compiler_version13.0microarch_level4"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level4.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level4 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level4 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_version13.0microarch_level4"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level4.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level4 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_version13.0microarch_level4 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_version13.0microarch_level4"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_version13.0microarch_level4.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level4"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_version13.0microarch_level4"
 [feature.build.tasks."build-linux_64_cuda_compiler_versionNonemicroarch_level1"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level1.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level1 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level1 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_versionNonemicroarch_level1"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level1.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level1 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level1 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_versionNonemicroarch_level1"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level1.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level1"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level1"
 [feature.build.tasks."build-linux_64_cuda_compiler_versionNonemicroarch_level3"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level3.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level3 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level3 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_versionNonemicroarch_level3"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level3.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level3 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level3 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_versionNonemicroarch_level3"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level3.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level3"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level3"
 [feature.build.tasks."build-linux_64_cuda_compiler_versionNonemicroarch_level4"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level4.yaml --target-platform linux-64"
-description = "Build tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level4 directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level4 directly (without setup scripts)"
 [feature.build.tasks."debug-linux_64_cuda_compiler_versionNonemicroarch_level4"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level4.yaml --target-platform linux-64"
-description = "Debug tensorflow-feedstock2-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level4 directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant linux_64_cuda_compiler_versionNonemicroarch_level4 directly (without setup scripts)"
 [feature.build.tasks."inspect-linux_64_cuda_compiler_versionNonemicroarch_level4"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_cuda_compiler_versionNonemicroarch_level4.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level4"
+description = "List contents of tensorflow-feedstock packages built for variant linux_64_cuda_compiler_versionNonemicroarch_level4"
 [feature.build.tasks."build-osx_arm64_"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_.yaml --target-platform osx-arm64"
-description = "Build tensorflow-feedstock2-feedstock with variant osx_arm64_ directly (without setup scripts)"
+description = "Build tensorflow-feedstock with variant osx_arm64_ directly (without setup scripts)"
 [feature.build.tasks."debug-osx_arm64_"]
 cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_.yaml --target-platform osx-arm64"
-description = "Debug tensorflow-feedstock2-feedstock with variant osx_arm64_ directly (without setup scripts)"
+description = "Debug tensorflow-feedstock with variant osx_arm64_ directly (without setup scripts)"
 [feature.build.tasks."inspect-osx_arm64_"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_.yaml"
-description = "List contents of tensorflow-feedstock2-feedstock packages built for variant osx_arm64_"
+description = "List contents of tensorflow-feedstock packages built for variant osx_arm64_"
 
 [environments]
 build = ["build"]
