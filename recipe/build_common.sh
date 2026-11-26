@@ -227,17 +227,15 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         export NCCL_INSTALL_PATH=$PREFIX
         export CUDA_HOME="${BUILD_PREFIX}/targets/${NVARCH}-linux"
         export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/${NVARCH}-linux,${PREFIX}/targets/${NVARCH}-linux"
-        # CUDA 13's cuda-cccl ships CUB/Thrust/libcudacxx under
-        # include/cccl/, but gpu_prim.h and @cuda_cccl//:headers expect the
-        # flat include/ layout; promote the cccl/ contents up before merging.
-        for _t in "${PREFIX}" "${BUILD_PREFIX}"; do
-            _cccl="${_t}/targets/${NVARCH}-linux/include/cccl"
-            if [ -d "${_cccl}" ]; then
-                cp -rn "${_cccl}"/. "${_t}/targets/${NVARCH}-linux/include/" 2>/dev/null || true
-            fi
-        done
         # XLA can only cope with a single cuda header include directory, merge both
         rsync -a ${PREFIX}/targets/${NVARCH}-linux/include/ ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/
+        # CUDA 13's cuda-cccl ships CUB/Thrust/libcudacxx under include/cccl/,
+        # but gpu_prim.h and @cuda_cccl//:headers expect the flat include/
+        # layout; promote inside BUILD_PREFIX only so staging $PREFIX stays clean.
+        _cccl="${BUILD_PREFIX}/targets/${NVARCH}-linux/include/cccl"
+        if [ -d "${_cccl}" ]; then
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/" 2>/dev/null || true
+        fi
 
         # Although XLA supports a non-hermetic build, it still tries to find headers in the hermetic locations.
         # We do this in the BUILD_PREFIX to not have any impact on the resulting jaxlib package.
@@ -246,6 +244,10 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI
         cp -r ${PREFIX}/targets/${NVARCH}-linux/include ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/
         cp -r ${PREFIX}/targets/${NVARCH}-linux/include ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI/
+        if [ -d "${_cccl}" ]; then
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/include/" 2>/dev/null || true
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI/include/" 2>/dev/null || true
+        fi
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cudnn
         cp ${PREFIX}/include/cudnn*.h ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cudnn/
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/nccl
@@ -526,9 +528,11 @@ if [[ ! -f "${SRC_DIR}/libtensorflow_built" ]]; then
   mkdir -p ${PREFIX}/lib
   mkdir -p ${PREFIX}/include
   tar -C ${PREFIX} -xzf $SRC_DIR/bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz
+  rm -f ${PREFIX}/LICENSE ${PREFIX}/THIRD_PARTY_TF_C_LICENSES
   ls -alh ${PREFIX}/lib
   ls -alh ${PREFIX}/include
   cp -RP bazel-bin/tensorflow/libtensorflow_cc.* ${PREFIX}/lib/
+  rm -f ${PREFIX}/lib/*.params
   if [[ "${target_platform}" == osx-* ]]; then
     ln -sf ${PREFIX}/lib/libtensorflow_framework.2.dylib ${PREFIX}/lib/libtensorflow_framework.dylib
   fi
