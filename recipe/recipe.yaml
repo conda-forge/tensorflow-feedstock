@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.21.0"
-  build: 3
+  build: 4
   # Quite often libml_dtypes-headers and ml_dtypes diverge.
   # https://github.com/tensorflow/tensorflow/blob/v2.18.0/third_party/py/ml_dtypes/workspace.bzl
   libml_dtypes_version: "0.5.1"
@@ -357,6 +357,12 @@ outputs:
       run_exports: false
     build:
       script: build_pkg.sh
+      # Inheriting from tensorflow-build restores its staged $PREFIX (C/C++ libs
+      # and headers); package only the wheel install and entry points so
+      # tensorflow-base does not duplicate/clobber libtensorflow*.
+      files:
+        - bin/**
+        - lib/python*/**
       # tensorflow doesn't support py314 until 2.22, see
       # https://github.com/tensorflow/tensorflow/issues/102890
       skip:

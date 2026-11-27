@@ -227,17 +227,15 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         export NCCL_INSTALL_PATH=$PREFIX
         export CUDA_HOME="${BUILD_PREFIX}/targets/${NVARCH}-linux"
         export TF_CUDA_PATHS="${BUILD_PREFIX}/targets/${NVARCH}-linux,${PREFIX}/targets/${NVARCH}-linux"
-        # CUDA 13's cuda-cccl ships CUB/Thrust/libcudacxx under
-        # include/cccl/, but gpu_prim.h and @cuda_cccl//:headers expect the
-        # flat include/ layout; promote the cccl/ contents up before merging.
-        for _t in "${PREFIX}" "${BUILD_PREFIX}"; do
-            _cccl="${_t}/targets/${NVARCH}-linux/include/cccl"
-            if [ -d "${_cccl}" ]; then
-                cp -rn "${_cccl}"/. "${_t}/targets/${NVARCH}-linux/include/" 2>/dev/null || true
-            fi
-        done
         # XLA can only cope with a single cuda header include directory, merge both
         rsync -a ${PREFIX}/targets/${NVARCH}-linux/include/ ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/
+        # CUDA 13's cuda-cccl ships CUB/Thrust/libcudacxx under include/cccl/,
+        # but gpu_prim.h and @cuda_cccl//:headers expect the flat include/
+        # layout; promote inside BUILD_PREFIX only so staging $PREFIX stays clean.
+        _cccl="${BUILD_PREFIX}/targets/${NVARCH}-linux/include/cccl"
+        if [ -d "${_cccl}" ]; then
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/" 2>/dev/null || true
+        fi
 
         # Although XLA supports a non-hermetic build, it still tries to find headers in the hermetic locations.
         # We do this in the BUILD_PREFIX to not have any impact on the resulting jaxlib package.
@@ -246,6 +244,10 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI
         cp -r ${PREFIX}/targets/${NVARCH}-linux/include ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/
         cp -r ${PREFIX}/targets/${NVARCH}-linux/include ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI/
+        if [ -d "${_cccl}" ]; then
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/include/" 2>/dev/null || true
+            cp -rn "${_cccl}"/. "${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cuda/extras/CUPTI/include/" 2>/dev/null || true
+        fi
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cudnn
         cp ${PREFIX}/include/cudnn*.h ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/gpus/cudnn/
         mkdir -p ${BUILD_PREFIX}/targets/${NVARCH}-linux/include/third_party/nccl
@@ -526,9 +528,11 @@ if [[ ! -f "${SRC_DIR}/libtensorflow_built" ]]; then
   mkdir -p ${PREFIX}/lib
   mkdir -p ${PREFIX}/include
   tar -C ${PREFIX} -xzf $SRC_DIR/bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz
+  rm -f ${PREFIX}/LICENSE ${PREFIX}/THIRD_PARTY_TF_C_LICENSES
   ls -alh ${PREFIX}/lib
   ls -alh ${PREFIX}/include
   cp -RP bazel-bin/tensorflow/libtensorflow_cc.* ${PREFIX}/lib/
+  rm -f ${PREFIX}/lib/*.params
   if [[ "${target_platform}" == osx-* ]]; then
     ln -sf ${PREFIX}/lib/libtensorflow_framework.2.dylib ${PREFIX}/lib/libtensorflow_framework.dylib
   fi
@@ -536,16 +540,25 @@ if [[ ! -f "${SRC_DIR}/libtensorflow_built" ]]; then
   chmod u+w ${PREFIX}/lib/libtensorflow*
 
   mkdir -p ${PREFIX}/include/tensorflow
-  rsync -r --chmod=D777,F666 --exclude '_solib*' --exclude '_virtual_includes/' --exclude 'pip_package/' --exclude 'lib_package/' --include '*/' --include '*.h' --include '*.inc' --exclude '*' bazel-bin/ ${PREFIX}/include
-  rsync -r --chmod=D777,F666 --include '*/' --include '*.h' --include '*.inc' --exclude '*' tensorflow/cc ${PREFIX}/include/tensorflow/
-  rsync -r --chmod=D777,F666 --include '*/' --include '*.h' --include '*.inc' --exclude '*' tensorflow/core ${PREFIX}/include/tensorflow/
-  rsync -r --chmod=D777,F666 --include '*/' --include '*.h' --include '*.inc' --exclude '*' third_party/xla/third_party/tsl/ ${PREFIX}/include/
-  rsync -r --chmod=D777,F666 --include '*/' --include '*' --exclude '*.cc' third_party/ ${PREFIX}/include/tensorflow/third_party/
-  rsync -r --chmod=D777,F666 --include '*/' --include '*' --exclude '*.txt' bazel-work/external/eigen_archive/Eigen/ ${PREFIX}/include/tensorflow/third_party/Eigen/
-  rsync -r --chmod=D777,F666 --include '*/' --include '*' --exclude '*.txt' bazel-work/external/eigen_archive/unsupported/ ${PREFIX}/include/tensorflow/third_party/unsupported/
-  # Flatten XLA headers from nested external path to top-level include/xla/.
+  _hdr_rsync=(rsync -rpm --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r)
+  _hdr_filter=(--exclude '_virtual_includes/' --exclude '*.cc.inc' --include '*/' --include '*.h' --include '*.inc' --exclude '*')
+  "${_hdr_rsync[@]}" \
+    --exclude '_solib*' --exclude 'pip_package/' --exclude 'lib_package/' --exclude '/external/' \
+    "${_hdr_filter[@]}" bazel-bin/ ${PREFIX}/include/
+  "${_hdr_rsync[@]}" "${_hdr_filter[@]}" tensorflow/cc ${PREFIX}/include/tensorflow/
+  "${_hdr_rsync[@]}" "${_hdr_filter[@]}" tensorflow/core ${PREFIX}/include/tensorflow/
+  "${_hdr_rsync[@]}" "${_hdr_filter[@]}" third_party/xla/third_party/tsl/ ${PREFIX}/include/
+  "${_hdr_rsync[@]}" "${_hdr_filter[@]}" third_party/ ${PREFIX}/include/tensorflow/third_party/
+  "${_hdr_rsync[@]}" --exclude '*.txt' --exclude 'CMakeLists*' bazel-work/external/eigen_archive/Eigen/ ${PREFIX}/include/tensorflow/third_party/Eigen/
+  "${_hdr_rsync[@]}" --exclude '*.txt' --exclude 'CMakeLists*' bazel-work/external/eigen_archive/unsupported/ ${PREFIX}/include/tensorflow/third_party/unsupported/
+  # Flatten generated XLA and TSL headers from external/ to top-level include/{xla,tsl}/.
   # TF 2.21.0 renamed the XLA bazel repo @local_xla -> @xla.
-  rsync -av "${PREFIX}/include/external/xla/xla/" "${PREFIX}/include/xla/"
+  if [[ -d bazel-bin/external/xla/xla ]]; then
+    "${_hdr_rsync[@]}" "${_hdr_filter[@]}" bazel-bin/external/xla/xla/ ${PREFIX}/include/xla/
+  fi
+  if [[ -d bazel-bin/external/tsl/tsl ]]; then
+    "${_hdr_rsync[@]}" "${_hdr_filter[@]}" bazel-bin/external/tsl/tsl/ ${PREFIX}/include/tsl/
+  fi
   touch "${SRC_DIR}/libtensorflow_built"
 fi
 

@@ -45,15 +45,11 @@ sed -i.bak "s/cp312/cp${PY_VER/./}/g" ${SP_DIR}/tensorflow-${PKG_VERSION}.dist-i
 # pass-2 framework (which hides mlir) aborts import with
 # "Symbol not found: __ZN4mlir14RewritePattern6anchorEv".
 if [[ "$target_platform" == "osx-"* ]]; then
-  rm -rf ${SP_DIR}/tensorflow/libtensorflow.2.dylib
   rm -rf ${SP_DIR}/tensorflow/libtensorflow_cc.2.dylib
-  ln -sf ${PREFIX}/lib/libtensorflow.2.dylib ${SP_DIR}/tensorflow/libtensorflow.2.dylib
   ln -sf ${PREFIX}/lib/libtensorflow_cc.2.dylib ${SP_DIR}/tensorflow/libtensorflow_cc.2.dylib
 else
-  rm -rf ${SP_DIR}/tensorflow/libtensorflow.so.2
   rm -rf ${SP_DIR}/tensorflow/libtensorflow_cc.so.2
   rm -rf ${SP_DIR}/tensorflow/libtensorflow_framework.so.2
-  ln -sf ${PREFIX}/lib/libtensorflow.so.2 ${SP_DIR}/tensorflow/libtensorflow.so.2
   ln -sf ${PREFIX}/lib/libtensorflow_cc.so.2 ${SP_DIR}/tensorflow/libtensorflow_cc.so.2
   ln -sf ${PREFIX}/lib/libtensorflow_framework.so.2 ${SP_DIR}/tensorflow/libtensorflow_framework.so.2
 fi
